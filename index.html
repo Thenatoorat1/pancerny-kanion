@@ -270,11 +270,14 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--hazard);outline
 #cv.pan{cursor:grab}
 .picker{max-height:min(420px,62vh);overflow:auto}
 @media (max-width:900px),(max-height:560px){
-  .game.playing{position:fixed;inset:0;z-index:30;max-width:none;margin:0;border:0;border-radius:0;box-shadow:none;display:flex;flex-direction:column;
-    height:100vh;height:100dvh;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
+  .game.playing{position:fixed;top:0;right:0;bottom:0;left:0;z-index:30;box-sizing:border-box;width:auto;height:auto;max-width:none;margin:0;border:0;border-radius:0;box-shadow:none;display:flex;flex-direction:column;padding:0;overflow:hidden}
+  .game.playing .hudTop{padding-top:max(6px,env(safe-area-inset-top,0px));padding-left:max(6px,env(safe-area-inset-left,0px));padding-right:max(6px,env(safe-area-inset-right,0px))}
+  .game.playing .controls{padding-left:max(10px,env(safe-area-inset-left,0px));padding-right:max(10px,env(safe-area-inset-right,0px));padding-bottom:max(8px,env(safe-area-inset-bottom,0px))}
+  .game.playing .topbtns{left:max(8px,env(safe-area-inset-left,0px))}
+  .game.playing .camctl{right:max(8px,env(safe-area-inset-right,0px))}
   .game.playing .stage{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;overflow:auto}
   .game.playing #cv{flex:1 1 auto;min-height:0;height:auto;aspect-ratio:auto}
-  .game.playing .controls{flex:none;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;grid-template-areas:"w w f" "a p f";gap:6px 10px;padding:12px 10px 8px}
+  .game.playing .controls{flex:none;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;grid-template-areas:"w w f" "a p f";gap:6px 10px;padding-top:12px}
   .game.playing .controls .wcard{grid-area:w;padding:4px 8px}.game.playing .controls .ang{grid-area:a}.game.playing .controls .pow{grid-area:p}
   .game.playing .controls .firewrap{grid-area:f;display:flex;align-items:center;justify-content:center}
   .game.playing .wpick canvas{width:50px;height:30px}.game.playing .wname{font-size:15px}.game.playing .ammo{font-size:11px;margin-top:1px}
@@ -282,15 +285,16 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--hazard);outline
   .game.playing .arr{width:32px;height:32px}.game.playing .arr svg{width:26px;height:26px}.game.playing .row{gap:3px}
   .game.playing .sbar{min-width:40px}.game.playing .pval{width:28px;font-size:16px}
   .game.playing .fire{width:70px;height:70px;margin:2px 4px 6px}.game.playing .fire span{font-size:14px}
-  .game.playing .topbtns{left:8px;right:auto;bottom:8px}.game.playing .sbtn{font-size:10px;padding:4px 6px 2px}
-  .game.playing .camctl{right:8px}.game.playing .cbtn{width:38px;height:38px}
+  .game.playing .topbtns{right:auto;bottom:8px;flex-direction:column;align-items:flex-start;gap:4px}
+  .game.playing .camctl{top:auto;bottom:8px;transform:none;flex-direction:row;gap:5px}.game.playing .sbtn{font-size:10px;padding:4px 6px 2px}
+  .game.playing .cbtn{width:38px;height:38px}
   .stage.ov-open .camctl{display:none}
 }
 @media (max-height:560px) and (orientation:landscape){
-  .game.playing .controls{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1.25fr) auto;grid-template-areas:"w a p f";gap:8px;padding:10px 10px 6px}
+  .game.playing .controls{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1.25fr) auto;grid-template-areas:"w a p f";gap:8px;padding-top:10px}
   .game.playing .fire{width:58px;height:58px;margin:0 4px 4px}.game.playing .fire span{font-size:12px}
   .game.playing .pc canvas{display:none}.game.playing .pc{padding:2px 6px}.game.playing .pc .pn{font-size:13px;max-width:80px}
-  .game.playing .hudTop{padding:4px 6px}.game.playing .timer{font-size:20px;min-width:44px}
+  .game.playing .hudTop{padding-top:max(4px,env(safe-area-inset-top,0px))}.game.playing .timer{font-size:20px;min-width:44px}
   .game.playing .camctl{gap:4px;top:auto;bottom:6px;transform:none;flex-direction:row}.game.playing .cbtn{width:34px;height:34px}.game.playing .cbtn svg{width:18px;height:18px}
 }
 @media (prefers-reduced-motion:reduce){.toast.show{animation-duration:.01s}.pc{transition:none}}
@@ -1609,12 +1613,12 @@ const cam={x:720,y:405,z:1,tx:null,ty:null,tz:null,tt:0,fast:0,manual:false,cw:1
 const Z_MAX=4;let intro=null;
 function fitCanvas(){const cw=cv.clientWidth||1,ch=cv.clientHeight||1,dpr=Math.min(2,window.devicePixelRatio||1);
   if(cw!==cam.cw||ch!==cam.ch||dpr!==cam.dpr){cam.cw=cw;cam.ch=ch;cam.dpr=dpr;cv.width=Math.max(1,Math.round(cw*dpr));cv.height=Math.max(1,Math.round(ch*dpr))}}
-const sFit=()=>Math.min(cam.cw/W,cam.ch/H);
+const sFit=()=>Math.max(cam.cw/W,cam.ch/H);
 function camClamp(){cam.z=clamp(cam.z,1,Z_MAX);const s=sFit()*cam.z,vw=cam.cw/s,vh=cam.ch/s;
   cam.x=vw>=W?W/2:clamp(cam.x,vw/2,W-vw/2);cam.y=vh>=H?H-vh/2:clamp(cam.y,-H*.6+vh/2,H-vh/2);
   cam.s=s;cam.vw=vw;cam.vh=vh;cam.vx=cam.x-vw/2;cam.vy=cam.y-vh/2}
 const zFor=vw=>clamp(cam.cw/(vw*sFit()),1,Z_MAX);
-const zEnd=()=>clamp(Math.max(zFor(1000*U),(cam.ch/H)/sFit()),1,Z_MAX);
+const zEnd=()=>clamp(zFor(1000*U),1,Z_MAX);
 function camTo(x,y,z){cam.tx=x;cam.ty=y;cam.tz=z==null?null:clamp(z,1,Z_MAX);cam.tt=0}
 function startIntro(msg){toast(msg);fitCanvas();cam.z=1;cam.x=W/2;cam.y=H/2;cam.tx=null;cam.manual=false;camClamp();
   const hum=tanks.find(t=>t.human);const seq=tanks.filter(t=>t!==hum);if(hum)seq.push(hum);intro={seq,i:-1,t:.35}}
@@ -1633,7 +1637,7 @@ function render(){
   const sx=shake?rand(-shake,shake):0,sy=shake?rand(-shake,shake):0,cs=cam.s*cam.dpr;
   ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle='#14110e';ctx.fillRect(0,0,cv.width,cv.height);
   ctx.setTransform(cs,0,0,cs,(-cam.vx+sx)*cs,(-cam.vy+sy)*cs);
-  if(cam.vy<0){ctx.fillStyle=MAP.sky[0];ctx.fillRect(0,cam.vy-20,W,-cam.vy+22)}
+  if(cam.vy<0){const sg=ctx.createLinearGradient(0,-H*.6,0,0);sg.addColorStop(0,'#120d0a');sg.addColorStop(1,MAP.sky[0]);ctx.fillStyle=sg;ctx.fillRect(cam.vx-20,cam.vy-20,cam.vw+40,-cam.vy+22)}
   ctx.drawImage(bg,0,0,W,H);
   for(const fx of fireSpots){const y=groundAtX(fx);const g=ctx.createRadialGradient(fx,y-10,4,fx,y-10,90);g.addColorStop(0,'rgba(255,140,40,.45)');g.addColorStop(1,'rgba(255,140,40,0)');ctx.fillStyle=g;ctx.fillRect(fx-90,y-100,180,180)}
   if(trail.length>2&&!evOn('fog')){ctx.save();ctx.setLineDash([2,9]);ctx.lineCap='round';ctx.lineWidth=3;ctx.strokeStyle='rgba(233,223,198,.6)';ctx.beginPath();ctx.moveTo(trail[0],trail[1]);for(let i=2;i<trail.length;i+=2)ctx.lineTo(trail[i],trail[i+1]);ctx.stroke();ctx.restore()}
@@ -1711,6 +1715,13 @@ function render(){
   ctx.globalAlpha=1;
   if(flashL>0){ctx.fillStyle=`rgba(230,240,255,${flashL*.55})`;ctx.fillRect(cam.vx-20,cam.vy-20,cam.vw+40,cam.vh+40)}
   if(flash>0){ctx.fillStyle=`rgba(255,245,215,${flash*.9})`;ctx.fillRect(cam.vx-20,cam.vy-20,cam.vw+40,cam.vh+40)}
+  if(cam.vw<W-2&&phase!=='menu'){ctx.setTransform(cam.dpr,0,0,cam.dpr,0,0);ctx.textBaseline='middle';ctx.lineJoin='round';
+    for(let i=0;i<tanks.length;i++){const t=tanks[i];if(!t.alive)continue;const px=(t.x-cam.vx)*cam.s;if(px>=-4&&px<=cam.cw+4)continue;
+      const lf=px<0,ex=lf?6:cam.cw-6,ey=clamp((t.y-25*U-cam.vy)*cam.s,110,cam.ch-70),col=i===cur?'#f0b92b':'#e9dfc6',d=Math.round(Math.abs(t.x-tanks[cur].x)/U);
+      ctx.beginPath();ctx.moveTo(ex,ey);ctx.lineTo(ex+(lf?16:-16),ey-11);ctx.lineTo(ex+(lf?16:-16),ey+11);ctx.closePath();ctx.fillStyle=col;ctx.fill();ctx.lineWidth=3;ctx.strokeStyle=INK;ctx.stroke();
+      ctx.textAlign=lf?'left':'right';ctx.font=`13px ${MARK}`;const tx=ex+(lf?22:-22);ctx.lineWidth=4;ctx.strokeText(t.name,tx,ey-7);ctx.fillStyle=col;ctx.fillText(t.name,tx,ey-7);
+      ctx.font=`11px ${FONT}`;ctx.strokeText(d+' m',tx,ey+9);ctx.fillStyle='#e9dfc6';ctx.fillText(d+' m',tx,ey+9)}
+    ctx.textBaseline='alphabetic'}
 }
 
 /* ---------- HUD ---------- */
