@@ -263,6 +263,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--hazard);outline
   .timer{font-size:21px;min-width:48px}.hudTop{padding:6px;gap:4px}.side{gap:4px}
 }
 @media (max-width:460px){.pc .bars{width:64px}.pc .fxr{max-width:70px}.pc .stars{display:none}.side{flex-direction:column}.side.r{align-items:flex-end}.slots,.maps{grid-template-columns:minmax(0,1fr)}}
+.ver{align-self:flex-end;font-family:var(--f-disp);font-size:12px;letter-spacing:.08em;color:#8a9192;margin-bottom:-6px;padding-top:env(safe-area-inset-top,0px)}
 .camctl{position:absolute;right:10px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:6px;z-index:2}
 .cbtn{width:40px;height:40px;padding:0;display:grid;place-items:center;background:linear-gradient(#4a5254,#2b3132);border:3px solid var(--ink);border-radius:6px;box-shadow:0 3px 0 rgba(0,0,0,.45);opacity:.88}
 .cbtn svg{width:22px;height:22px}.cbtn:active{transform:translateY(2px)}
@@ -330,6 +331,7 @@ body{padding-top:max(14px, env(safe-area-inset-top, 0px));padding-bottom:max(14p
     </div>
 
     <div class="ov" id="title">
+      <div class="ver" id="verTag" data-nt>v0.21 · 11.11.2026</div>
       <canvas id="titleArt" width="960" height="300" aria-hidden="true"></canvas>
       <div class="sign ol big">PANCERNY KANION</div>
       <p class="tagline">Artyleria na pustkowiach. Przetrwaj ostrzał, pogodę, hordy i atom.</p>
