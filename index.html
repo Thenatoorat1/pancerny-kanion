@@ -331,7 +331,7 @@ body{padding-top:max(14px, env(safe-area-inset-top, 0px));padding-bottom:max(14p
     </div>
 
     <div class="ov" id="title">
-      <div class="ver" id="verTag" data-nt>v0.23 · 11.11.2026</div>
+      <div class="ver" id="verTag" data-nt>v0.24 · 11.11.2026</div>
       <canvas id="titleArt" width="960" height="300" aria-hidden="true"></canvas>
       <div class="sign ol big">PANCERNY KANION</div>
       <p class="tagline">Artyleria na pustkowiach. Przetrwaj ostrzał, pogodę, hordy i atom.</p>
@@ -346,7 +346,7 @@ body{padding-top:max(14px, env(safe-area-inset-top, 0px));padding-bottom:max(14p
       <div class="sec"><h3>MAPA</h3><div class="maps" id="maps"></div></div>
       <div class="sec"><h3>ZASADY</h3><div class="optgrid plate">
         <div class="seg" id="diff"></div><div class="seg" id="rounds"></div><div class="seg" id="rtime"></div><div class="seg" id="events"></div>
-        <p class="note">Czas rundy: gdy minie, na pole bitwy spada bomba atomowa i niszczy wszystko. Rundę wygrywa czołg, który miał wtedy najwięcej życia. Wydarzenia losowe są zapowiadane 2 tury wcześniej.</p>
+        <p class="note">Czas gry: gdy minie, na pole bitwy spada bomba atomowa i niszczy wszystko. Rundę wygrywa czołg, który miał wtedy najwięcej życia. Zegar liczy się od nowa w każdej rundzie. Wydarzenia losowe są zapowiadane 2 tury wcześniej.</p>
       </div></div>
     </div>
 
@@ -413,7 +413,7 @@ body{padding-top:max(14px, env(safe-area-inset-top, 0px));padding-bottom:max(14p
         <b>Mapy:</b> <b>Pustkowie</b> ma silny, zmienny wiatr · <b>Zimowa Pustka</b> spowalnia jazdę i skoki, a wieża może zamarznąć na turę · <b>Zalane Miasto</b> zalewa leje wodą, a kto w nią wjedzie, utknie na turę. Czołg całkiem zanurzony w wodzie albo kwasie traci tlen (niebieski pasek O2) tylko w swojej turze: 30 na początku tury i trochę z każdą sekundą celowania. Gdy tlen się skończy, traci 10 HP na początku każdej swojej tury i dalej życie w czasie tury. Poza wodą tlen szybko się odnawia. Pływaki chronią przed tonięciem · <b>Toksyczne Bagna</b> mają kwaśny deszcz (−3 HP co turę) i kałuże kwasu (−6 HP) · <b>Martwe Miasto</b> co 3 kolejki wszystkich graczy wypuszcza falę zombie, które podgryzają najbliższe czołgi (1 HP co 2 s, najwyżej 3 razy) i po około 30 sekundach same się rozpadają. Zabijesz je wybuchem, ogniem, laserem albo przejeżdżając po nich.<br>
         <b>Broń:</b> Pocisk · Ciężki pocisk · Minigun · Szalone ósemki · Spadochroniarze · Skoczek · Napalm · Laser · <b>Wiertło</b> (wwierca się w ziemię i po chwili wybucha pod powierzchnią) · Kula ziemi · Atomówka · <b>Tarcza</b> (ruch: włącza osłonę, która pochłania 50 obrażeń) · <b>Nalot</b> (wskazujesz cel strzałkami albo kliknięciem, samolot zrzuca 3 bomby) · <b>Skok</b> raz na 3 tury · <b>Jazda</b> zamiast strzału.<br>
         <b>Handlarz:</b> przed każdą rundą każdy gracz robi zakupy za kapsle. Za darmo co rundę: Pocisk, 2 Miniguny i 2 Skoczki. Kapsle: 1 za punkt obrażeń, 75 za zniszczony czołg, 5 za zombie, 200 za wygraną rundę, 100 przydziału po rundzie. Niezużyte zakupy zostają na kolejne rundy.<br>
-        <b>Czas rundy:</b> gdy minie, spada atom i niszczy całą mapę. Wygrywa czołg z największą ilością życia.<br>
+        <b>Czas gry:</b> gdy minie, spada atom i niszczy całą mapę. Wygrywa czołg z największą ilością życia.<br>
         <b>Wydarzenia losowe</b> (zapowiadane 2 tury wcześniej): zamieć śnieżna, ulewa, wichura, gęsta mgła, kwaśny deszcz, burza magnetyczna (laser, radar i nalot nie działają), horda zombie, ostrzał artyleryjski, duży zrzut, trzęsienie ziemi.<br>
         <b>Zrzuty:</b> skrzynie spadają na spadochronach i znikają po 3 kolejkach. Zawsze: Apteczka, Tarcza, Podwójna moc, Skrzynia broni, Paliwo. Do tego zależnie od mapy: Stabilizator (bez wiatru na 2 strzały), Grzałka (bez mrozu na 4 tury), Pływaki (nie utkniesz w wodzie), Kopuła antykwasowa, Antidotum, Mór na zombie (zabija wszystkie i odwołuje następną falę), Piły na pancerzu (zombie giną przy dotyku).
       
@@ -507,7 +507,7 @@ const EN={
 'GRACZ':'PLAYER','KOMPUTER':'CPU','WOLNE MIEJSCE':'EMPTY SLOT','LOSUJ PONOWNIE':'REROLL','LOSOWY CZOŁG KOMPUTERA':'RANDOM CPU TANK',
 'KADŁUB':'HULL','KOLOR':'COLOR','KOŁA / GĄSIENICE':'WHEELS / TRACKS','WIEŻA':'TURRET','LUFA':'BARREL',
 'ŻYCIE':'HEALTH','PANCERZ':'ARMOR','TRUDNO TRAFIĆ':'HARD TO HIT','WSPINACZKA':'CLIMBING','stroma':'steep','średnia':'medium','słaba':'weak',
-'KOMPUTER:':'CPU:','RUNDY:':'ROUNDS:','CZAS RUNDY:':'ROUND TIME:','WYDARZENIA:':'EVENTS:','ŁATWY':'EASY','TRUDNY':'HARD','BRAK':'NONE',
+'KOMPUTER:':'CPU:','RUNDY:':'ROUNDS:','CZAS GRY:':'GAME TIME:','WYDARZENIA:':'EVENTS:','ŁATWY':'EASY','TRUDNY':'HARD','BRAK':'NONE',
 'WŁĄCZONE':'ON','WYŁĄCZONE':'OFF','WŁĄCZONY':'ON','WYŁĄCZONY':'OFF','WŁĄCZONA':'ON','WYŁĄCZONA':'OFF',
 'DŹWIĘK:':'SOUND:','MUZYKA:':'MUSIC:','DŹWIĘK: TAK':'SOUND: ON','DŹWIĘK: NIE':'SOUND: OFF','PAUZA':'PAUSED','MENU':'MENU','NACIŚNIJ KLAWISZ…':'PRESS A KEY…',
 'Lufa w lewo':'Barrel left','Lufa w prawo':'Barrel right','Więcej siły':'More power','Mniej siły':'Less power','Ogień':'Fire','Poprzednia broń':'Previous weapon',
@@ -518,7 +518,7 @@ const EN={
 'Artyleria na pustkowiach. Przetrwaj ostrzał, pogodę, hordy i atom.':'Artillery in the wasteland. Survive the shelling, the weather, the hordes and the nuke.',
 'GRAJ':'PLAY','MENU I USTAWIENIA':'MENU & SETTINGS','JAK GRAĆ':'HOW TO PLAY','AUTORZY':'CREDITS','REKORDY':'HIGH SCORES','◀ WSTECZ':'◀ BACK','PRZYGOTOWANIE':'BRIEFING',
 'WYBIERZ CZOŁG ▶':'CHOOSE TANK ▶','MAPA':'MAP','ZASADY':'RULES',
-'Czas rundy: gdy minie, na pole bitwy spada bomba atomowa i niszczy wszystko. Rundę wygrywa czołg, który miał wtedy najwięcej życia. Wydarzenia losowe są zapowiadane 2 tury wcześniej.':'Round time: when it runs out, a nuclear bomb drops on the battlefield and destroys everything. The tank with the most health at that moment wins the round. Random events are announced 2 turns ahead.',
+'Czas gry: gdy minie, na pole bitwy spada bomba atomowa i niszczy wszystko. Rundę wygrywa czołg, który miał wtedy najwięcej życia. Zegar liczy się od nowa w każdej rundzie. Wydarzenia losowe są zapowiadane 2 tury wcześniej.':'Game time: when it runs out, a nuclear bomb drops on the battlefield and destroys everything. The tank with the most health at that moment wins the round. The clock restarts every round. Random events are announced 2 turns ahead.',
 'WARSZTAT':'WORKSHOP','ZATANKUJ, ZAŁADUJ I RUSZAJ DO BOJU!':'FUEL UP, LOCK & LOAD, ROLL OUT!','Ruszaj do boju':'Roll out','ZAŁOGI I CZOŁGI':'CREWS & TANKS',
 'Wpisz nazwę gracza na taśmie. Pod tą nazwą zapisują się rekordy.':'Type the player name on the tape. High scores are saved under that name.',
 'PODSUMOWANIE':'DEBRIEF','OCALAŁ':'SURVIVOR','STATYSTYKI':'STATS',
@@ -547,7 +547,7 @@ help:`Players take turns, each has 30 seconds per move. Set the angle and power,
 <b>Maps:</b> <b>Wasteland</b> has strong, shifting wind · <b>Frozen Waste</b> slows driving and jumping, and your turret can freeze for a turn · <b>Flooded City</b> fills craters with water, and anyone who drives in gets stuck for a turn. A tank fully submerged in water or acid loses oxygen (blue O2 bar) only during its own turn: 30 at the start of the turn and a little more every second of aiming. When the oxygen runs out, it loses 10 HP at the start of each of its turns and keeps losing health during the turn. Out of the water, oxygen refills quickly. Floats protect you from drowning · <b>Toxic Swamp</b> has acid rain (−3 HP per turn) and acid pools (−6 HP) · <b>Dead City</b> releases a zombie wave every 3 rounds of turns; zombies gnaw the nearest tanks (1 HP every 2 s, at most 3 times) and fall apart on their own after about 30 seconds. Kill them with blasts, fire, the laser or by running them over.<br>
 <b>Weapons:</b> Shell · Heavy shell · Minigun · Crazy eights · Paratroopers · Bouncer · Napalm · Laser · <b>Drill</b> (burrows into the ground and explodes below the surface a moment later) · Dirt ball · Nuke · <b>Shield</b> (a move: turns on a guard that absorbs 50 damage) · <b>Airstrike</b> (mark the target with the arrows or a click, a plane drops 3 bombs) · <b>Jump</b> once every 3 turns · <b>Drive</b> instead of shooting.<br>
 <b>Trader:</b> before every round each player goes shopping with caps. Free every round: Shell, 2 Miniguns and 2 Bouncers. Caps: 1 per point of damage, 75 per tank destroyed, 5 per zombie, 200 per round won, 100 ration after every round. Unused purchases carry over to the next rounds.<br>
-<b>Round time:</b> when it runs out, a nuke falls and wipes the whole map. The tank with the most health wins.<br>
+<b>Game time:</b> when it runs out, a nuke falls and wipes the whole map. The tank with the most health wins.<br>
 <b>Random events</b> (announced 2 turns ahead): blizzard, downpour, gale, thick fog, acid rain, magnetic storm (laser, radar and airstrike don't work), zombie horde, artillery barrage, big airdrop, earthquake.<br>
 <b>Airdrops:</b> crates float down on parachutes and vanish after 3 rounds of turns. Always: Medkit, Shield, Double power, Weapon crate, Fuel. Plus, depending on the map: Stabilizer (no wind for 2 shots), Heater (no frost for 4 turns), Floats (you won't get stuck in water), Acid dome, Antidote, Zombie plague (kills them all and cancels the next wave), Armor saws (zombies die on contact).
 <br><b>Maps</b> are randomly generated every time: terrain shape (plateaus, canyons, crater fields), rock overhangs and rock arches in the mountains, jutting building floors, vegetation, platforms (girders, overpasses, rock ledges, footbridges) and ponds. You can jump onto platforms, and shells destroy them. Hard objects are buried in the ground: boulders, car wrecks, concrete blocks, sewer pipes and barrels. They take 2–3 hits (cracking with each one), while the laser cuts straight through them.`};
@@ -1944,7 +1944,7 @@ $('maps').addEventListener('click',e=>{const b=e.target.closest('.mapc');if(!b)r
 function seg(id,label,opts,get,set){const el=$(id);const draw=()=>{el.innerHTML=`<span class="t">${label}</span>`;opts.forEach(([v,l])=>{const b=document.createElement('button');b.className='pill '+(get()===v?'on':'ghost');b.textContent=l;b.onclick=()=>{set(v);draw()};el.appendChild(b)})};draw()}
 seg('diff','KOMPUTER:',[[0,'ŁATWY'],[1,'ŚREDNI'],[2,'TRUDNY']],()=>difficulty,v=>difficulty=v);
 seg('rounds','RUNDY:',[[3,'3'],[5,'5'],[10,'10']],()=>rounds,v=>rounds=v);
-seg('rtime','CZAS RUNDY:',[[0,'BRAK'],[120,'2 MIN'],[240,'4 MIN'],[360,'6 MIN']],()=>roundSec,v=>roundSec=v);
+seg('rtime','CZAS GRY:',[[0,'BRAK'],[300,'5 MIN'],[600,'10 MIN'],[900,'15 MIN'],[1200,'20 MIN']],()=>roundSec,v=>roundSec=v);
 seg('events','WYDARZENIA:',[[true,'WŁĄCZONE'],[false,'WYŁĄCZONE']],()=>eventsOn,v=>eventsOn=v);
 function drawTitleArt(){const cn=$('titleArt'),x=cn.getContext('2d'),w=cn.width,hh=cn.height;wasteScene(x,w,hh);
   x.fillStyle='rgba(70,50,40,.55)';[[.14,.42,40],[.14,.3,55],[.14,.18,70]].forEach(([a,b,r])=>{x.beginPath();x.arc(w*a,hh*b,r,0,7);x.fill()});x.fillRect(w*.14-14,hh*.4,28,hh*.25);
