@@ -333,7 +333,7 @@ body{padding-top:max(14px, env(safe-area-inset-top, 0px));padding-bottom:max(14p
     </div>
 
     <div class="ov" id="title">
-      <div class="ver" id="verTag" data-nt>v0.25 · 12.11.2026</div>
+      <div class="ver" id="verTag" data-nt>v0.26 · 12.11.2026</div>
       <div class="hero"><div class="sign ol big">PANCERNY KANION</div><canvas id="titleArt" width="1440" height="630" aria-hidden="true"></canvas></div>
       <p class="tagline">Artyleria na pustkowiach. Przetrwaj ostrzał, pogodę, hordy i atom.</p>
       <div class="navrow"><button class="bigbtn" id="playBtn"><span class="ol s">GRAJ</span></button></div>
@@ -1098,10 +1098,10 @@ function drawZombie(c,z){
   c.save();c.globalAlpha=clamp((z.life??9)/2,0,1);
   if(z.rise<1){c.beginPath();c.rect(x-40,y-80,80,80);c.clip();c.translate(0,(1-z.rise)*38)}
   c.translate(x,y);c.scale(dir,1);c.lineCap='round';c.lineJoin='round';
-  c.lineWidth=4.5;c.strokeStyle='#2e2a24';c.beginPath();c.moveTo(-1,-16);c.lineTo(-1+Math.sin(z.ph)*6,0);c.moveTo(1,-16);c.lineTo(1-Math.sin(z.ph)*6,0);c.stroke();
+  c.lineWidth=4.5;c.strokeStyle='#2e2a24';c.beginPath();const lg=z.wave!=null?.45:Math.sin(z.ph);c.moveTo(-1,-16);c.lineTo(-1+lg*6,0);c.moveTo(1,-16);c.lineTo(1-lg*6,0);c.stroke();
   c.save();c.translate(0,-16);c.rotate(z.lean);c.fillStyle=z.shirt;c.strokeStyle=INK;c.lineWidth=2.5;rr(c,-6,-18,12,19,3);c.fill();c.stroke();
   c.fillStyle='rgba(90,20,15,.6)';c.beginPath();c.arc(2,-9,2.5,0,7);c.fill();
-  c.strokeStyle='#7d8a5a';c.lineWidth=3.5;c.beginPath();c.moveTo(2,-15);c.lineTo(16,-14+sw*3);c.moveTo(0,-12);c.lineTo(14,-9-sw*3);c.stroke();
+  c.strokeStyle='#7d8a5a';c.lineWidth=3.5;c.beginPath();if(z.wave!=null){const a1=Math.sin(z.wave)*10,a2=Math.sin(z.wave+2.2)*10;c.moveTo(2,-15);c.quadraticCurveTo(10,-17+a1*.4,15,-20+a1);c.moveTo(0,-12);c.quadraticCurveTo(8,-12+a2*.4,14,-14+a2)}else{c.moveTo(2,-15);c.lineTo(16,-14+sw*3);c.moveTo(0,-12);c.lineTo(14,-9-sw*3)}c.stroke();
   c.fillStyle='#8c9a6a';c.strokeStyle=INK;c.lineWidth=2.5;c.beginPath();c.arc(3,-24,6.5,0,7);c.fill();c.stroke();
   c.fillStyle=INK;c.beginPath();c.arc(5.5,-25,2.2,0,7);c.fill();c.fillStyle='#ffd23a';c.beginPath();c.arc(5.8,-25,1.1,0,7);c.fill();
   c.strokeStyle=INK;c.lineWidth=1.5;c.beginPath();c.moveTo(4,-20.5);c.lineTo(8,-21);c.stroke();
@@ -1951,37 +1951,38 @@ function drawTitleArt(){const cn=$('titleArt');if(!cn)return;const x=cn.getConte
   const sk=x.createLinearGradient(0,0,0,gy);sk.addColorStop(0,'#16201a');sk.addColorStop(.38,'#3f4a24');sk.addColorStop(.75,'#9c6a34');sk.addColorStop(1,'#c47a3c');x.fillStyle=sk;x.fillRect(0,0,w,hh);
   const sg=x.createRadialGradient(560,150,10,560,150,170);sg.addColorStop(0,'rgba(220,255,150,.55)');sg.addColorStop(1,'rgba(200,255,120,0)');x.fillStyle=sg;x.fillRect(380,0,360,330);
   x.fillStyle='#e6f2b0';x.beginPath();x.arc(560,150,34,0,7);x.fill();
-  for(const[cx,cy,s2]of[[60,60,1.3],[250,30,1.6],[420,80,1.1],[690,40,1.4],[880,95,1.1],[130,140,.9]])cloudBlob(x,cx,cy,s2,'rgba(52,66,34,.75)');
-  x.fillStyle='rgba(60,50,40,.55)';[[110,250,26],[118,215,36],[126,170,48],[140,115,62]].forEach(([a,b,r])=>{x.beginPath();x.arc(a,b,r,0,7);x.fill()});x.fillRect(100,250,20,60);
+  for(const[cx,cy,s2]of[[60,60,1.3],[250,30,1.6],[420,80,1.1],[690,40,1.4],[880,95,1.1],[130,140,.9]])cloudBlob(x,cx+Math.sin(tm*.15+cx)*8,cy,s2,'rgba(52,66,34,.75)');
+  x.fillStyle='rgba(60,50,40,.55)';[[110,250,26],[118,215,36],[126,170,48],[140,115,62]].forEach(([a,b,r],i)=>{x.beginPath();x.arc(a+Math.sin(tm*.8+i)*3,b,r,0,7);x.fill()});x.fillRect(100,250,20,60);
   x.fillStyle='#4a3424';let bx=150;while(bx<w){const bw=34+((bx*13)%23),bh=40+((bx*7)%29)/29*90;x.fillRect(bx,gy-30-bh,bw,bh+30);
     x.fillStyle='rgba(190,230,110,.35)';for(let wy=gy-bh-18;wy<gy-36;wy+=16)for(let wx=bx+6;wx<bx+bw-6;wx+=11)if(((wx*3+wy*7)|0)%5===0)x.fillRect(wx,wy,5,7);x.fillStyle='#4a3424';bx+=bw+6}
   x.strokeStyle='#3a291c';x.lineWidth=3;x.beginPath();x.moveTo(70,gy-10);x.lineTo(84,gy-150);x.lineTo(98,gy-10);x.moveTo(76,gy-80);x.lineTo(92,gy-80);x.moveTo(79,gy-115);x.lineTo(89,gy-115);x.stroke();
-  const hy=X=>gy+Math.sin(X*.011)*8+Math.sin(X*.027+1)*5;
-  x.fillStyle='#6e4c30';x.strokeStyle=INK;x.lineWidth=4;x.beginPath();x.moveTo(-10,hh+10);for(let X=-10;X<=w+10;X+=10)x.lineTo(X,hy(X));x.lineTo(w+10,hh+10);x.closePath();x.fill();x.stroke();
+  /* bomber passing right -> left every ~11 s */
+  {const per=11,ph=(tm%per)/per;if(ph<.55){const px=w+160-(ph/.55)*(w+320);x.save();x.translate(px,112+Math.sin(tm*1.3)*4);x.scale(1.25/U,1.25/U);drawPlane(x,{x:0,y:0,vx:-1,t:tm});x.restore()}}
+  /* ground with flat spots for the tank and the pool */
+  const flat=[[300,110,gy+6],[600,105,gy+4]];
+  const hy=X=>{let v=gy+Math.sin(X*.011)*8+Math.sin(X*.027+1)*5;for(const[cx,r,fy]of flat){const d=Math.abs(X-cx);if(d<r+40){const t=d<r?1:1-(d-r)/40,e=t*t*(3-2*t);v=v*(1-e)+fy*e}}return v};
+  const groundPath=()=>{x.beginPath();x.moveTo(-10,hh+10);for(let X=-10;X<=w+10;X+=5)x.lineTo(X,hy(X));x.lineTo(w+10,hh+10);x.closePath()};
+  x.fillStyle='#6e4c30';x.strokeStyle=INK;x.lineWidth=4;groundPath();x.fill();x.stroke();
   x.fillStyle='#5a3d26';x.beginPath();x.moveTo(-10,hh+10);for(let X=-10;X<=w+10;X+=10)x.lineTo(X,hy(X)+30+Math.sin(X*.02)*6);x.lineTo(w+10,hh+10);x.closePath();x.fill();
   x.fillStyle='rgba(30,20,12,.35)';[[60,372,9],[210,395,6],[420,380,8],[760,392,7],[900,370,6]].forEach(([a,b,r])=>{x.beginPath();x.ellipse(a,b,r*1.4,r,0,0,7);x.fill()});
-  /* acid puddle */
-  const px=600,py=hy(600)+4,pg=x.createRadialGradient(px,py,4,px,py,110);pg.addColorStop(0,'rgba(150,255,60,.45)');pg.addColorStop(1,'rgba(150,255,60,0)');x.fillStyle=pg;x.fillRect(px-120,py-70,240,110);
-  x.fillStyle='#7bd630';x.strokeStyle=INK;x.lineWidth=3;x.beginPath();x.ellipse(px,py,78,11,0,0,7);x.fill();x.stroke();x.fillStyle='rgba(220,255,160,.6)';x.beginPath();x.ellipse(px-18,py-3,34,3,0,0,7);x.fill();
+  /* acid pool sunk into the ground */
+  const px=600,py=gy+4,pg=x.createRadialGradient(px,py-6,4,px,py-6,120);pg.addColorStop(0,'rgba(150,255,60,.42)');pg.addColorStop(1,'rgba(150,255,60,0)');x.fillStyle=pg;x.fillRect(px-130,py-90,260,120);
+  x.save();groundPath();x.clip();
+  x.fillStyle='#3d2a1a';x.beginPath();x.ellipse(px,py,84,15,0,0,Math.PI);x.fill();
+  const ag=x.createLinearGradient(0,py,0,py+12);ag.addColorStop(0,'#b6ff4a');ag.addColorStop(1,'#4fa61c');x.fillStyle=ag;x.beginPath();x.ellipse(px,py,78,12,0,0,Math.PI);x.fill();
+  x.strokeStyle=INK;x.lineWidth=3;x.beginPath();x.ellipse(px,py,78,12,0,0,Math.PI);x.stroke();x.restore();
+  x.strokeStyle='#d8ff8a';x.lineWidth=3;x.beginPath();x.moveTo(px-78,py);x.lineTo(px+78,py);x.stroke();
   for(let i=0;i<5;i++){const ph=(tm*.7+i*.37)%1,bxp=px-55+i*27;x.globalAlpha=1-ph;x.strokeStyle='#d8ff9a';x.lineWidth=2;x.beginPath();x.arc(bxp,py-2-ph*16,2+ph*4,0,7);x.stroke()}x.globalAlpha=1;
-  x.fillStyle='rgba(150,255,60,.35)';x.beginPath();x.moveTo(px-30,py-6);x.quadraticCurveTo(px-20+Math.sin(tm)*6,py-40,px-36,py-70);x.quadraticCurveTo(px-10,py-40,px-14,py-6);x.fill();
-  /* glowing mushrooms */
-  const mush=(mx,ms,hue)=>{const my=hy(mx)+2,pulse=.75+.25*Math.sin(tm*2.2+mx);const gl=x.createRadialGradient(mx,my-26*ms,2,mx,my-26*ms,60*ms);gl.addColorStop(0,`hsla(${hue},100%,65%,${.55*pulse})`);gl.addColorStop(1,`hsla(${hue},100%,60%,0)`);x.fillStyle=gl;x.fillRect(mx-62*ms,my-90*ms,124*ms,110*ms);
-    x.save();x.translate(mx,my);x.scale(ms,ms);x.strokeStyle=INK;x.lineWidth=3;x.fillStyle='#d9d2b8';x.beginPath();x.moveTo(-5,0);x.quadraticCurveTo(-7,-14,-4,-24);x.lineTo(4,-24);x.quadraticCurveTo(7,-14,5,0);x.closePath();x.fill();x.stroke();
-    x.fillStyle=`hsl(${hue},85%,${48+12*pulse}%)`;x.beginPath();x.moveTo(-24,-22);x.quadraticCurveTo(-22,-48,0,-50);x.quadraticCurveTo(22,-48,24,-22);x.quadraticCurveTo(0,-16,-24,-22);x.closePath();x.fill();x.stroke();
-    x.fillStyle=`hsla(${hue},100%,88%,${.7+.3*pulse})`;[[-10,-36,4],[6,-40,3],[13,-29,3],[-2,-28,2.5]].forEach(([a,b,r])=>{x.beginPath();x.arc(a,b,r,0,7);x.fill()});x.restore()};
-  mush(42,1.25,158);mush(70,.8,140);mush(505,.9,170);mush(708,1.05,150);mush(930,1.3,165);mush(905,.75,140);
-  /* tank with saws */
-  x.fillStyle='rgba(0,0,0,.35)';x.beginPath();x.ellipse(300,hy(300)+2,120,9,0,0,7);x.fill();
-  drawTank(x,300,hy(300)+1,0,30,{hull:2,color:'#a5582f',wheels:2,turret:1,barrel:3},2.1,{saw:true});
-  /* zombies */
-  [[770,.2,'#4f4a3a'],[830,.9,'#3d4650'],[880,.5,'#5a3a32'],[455,.1,'#45503a']].forEach(([zx,ph,sh],i)=>{x.save();x.translate(zx,hy(zx));x.scale(1.9,1.9);drawZombie(x,{x:0,y:0,dir:-1,ph:ph*6+tm*3,rise:1,shirt:sh,lean:.25});x.restore()});
-  /* bomber + bombs */
-  x.save();x.translate(830+Math.sin(tm*.6)*10,122+Math.sin(tm*1.3)*4);x.scale(1.25/U,1.25/U);drawPlane(x,{x:0,y:0,vx:-1,t:tm});x.restore();
-  for(let i=0;i<2;i++){const ph=(tm*.45+i*.5)%1,bxp=800-i*26-ph*30,byp=150+ph*190;x.globalAlpha=Math.min(1,(1-ph)*4);drawProjectile(x,bxp,byp,-30,220,'bomb',1.5);x.globalAlpha=1}
-  /* acid rain */
-  x.strokeStyle='rgba(170,255,90,.55)';x.lineWidth=2;x.beginPath();for(let i=0;i<150;i++){const rx=(i*97+tm*120)%(w+60)-30,ry=((i*53+tm*560)%(hh+40))-20;x.moveTo(rx,ry);x.lineTo(rx-5,ry+15)}x.stroke();
-  x.fillStyle='rgba(190,255,120,.5)';for(let i=0;i<24;i++){const ph=(tm*1.6+i*.19)%1,sx2=(i*137)%w;x.globalAlpha=1-ph;x.beginPath();x.ellipse(sx2,hy(sx2)-1,2+ph*7,1+ph*2,0,0,7);x.fill()}x.globalAlpha=1;
+  x.fillStyle='rgba(150,255,60,.3)';x.beginPath();x.moveTo(px-30,py-2);x.quadraticCurveTo(px-20+Math.sin(tm)*6,py-40,px-36,py-70);x.quadraticCurveTo(px-10,py-40,px-14,py-2);x.fill();
+  /* neon acid mushrooms (like on the Toxic Swamp map) */
+  const mush=(mx,ms)=>{const my=hy(mx),pulse=.7+.3*Math.sin(tm*2.4+mx*.1);const gl=x.createRadialGradient(mx,my-16*ms,2,mx,my-16*ms,46*ms);gl.addColorStop(0,`rgba(181,255,74,${.5*pulse})`);gl.addColorStop(1,'rgba(181,255,74,0)');x.fillStyle=gl;x.fillRect(mx-50*ms,my-66*ms,100*ms,80*ms);
+    drawFlora(x,{k:'shroom',x:mx,s:ms,f:1},my-2)};
+  mush(40,2.2);mush(66,1.4);mush(170,1.6);mush(505,1.7);mush(700,2);mush(726,1.2);mush(930,2.3);mush(904,1.4);
+  /* tank with saws, resting on the flat */
+  x.fillStyle='rgba(0,0,0,.35)';x.beginPath();x.ellipse(300,gy+7,118,7,0,0,7);x.fill();
+  drawTank(x,300,gy+7,0,30,{hull:2,color:'#a5582f',wheels:2,turret:1,barrel:3},2.1,{saw:true});
+  /* zombies only wave their arms */
+  [[455,'#45503a'],[790,'#4f4a3a'],[840,'#3d4650'],[884,'#5a3a32']].forEach(([zx,sh],i)=>{x.save();x.translate(zx,hy(zx)+1);x.scale(1.9,1.9);drawZombie(x,{x:0,y:0,dir:-1,ph:0,wave:tm*4.2+i*1.7,rise:1,shirt:sh,lean:.18+Math.sin(tm*1.5+i)*.05});x.restore()});
   const vg=x.createRadialGradient(w/2,hh/2,hh*.35,w/2,hh/2,w*.62);vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(0,0,0,.45)');x.fillStyle=vg;x.fillRect(0,0,w,hh);
   x.setTransform(1,0,0,1,0,0)}
 function toTitle(){paused=false;waitKey=null;phase='menu';projectiles=[];pending=[];barrageQ=[];renderHS($('hsTitle'));showOverlay('title')}
