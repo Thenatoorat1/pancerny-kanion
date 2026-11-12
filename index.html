@@ -164,7 +164,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--hazard);outline
 .hs{padding:10px 12px}
 .hstabs{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}.hsbar{display:flex;align-items:flex-end;justify-content:space-between;gap:8px 16px;margin-bottom:-11px;position:relative;z-index:2}
 .hsbar>.hstabs:not(.cats){margin:0 0 16px}
-.hshead{flex:1 1 auto;min-width:0;margin-bottom:14px}.hshead h3{margin-bottom:2px}.hshead .hsnote{margin:0;max-width:34ch}
+.hshead{flex:1 1 auto;min-width:0;margin-bottom:16px}.hshead .hsnote{margin:0;max-width:40ch}
 .hstabs.cats{gap:4px;margin:0;padding-right:8px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;position:relative;z-index:2}
 .hstabs.cats .tab{flex:none;font-family:var(--f-disp);font-size:13px;letter-spacing:.05em;color:#b9b2a0;background:linear-gradient(#353b3d,#24292a);border:3px solid var(--ink);border-bottom:0;border-radius:8px 8px 0 0;padding:7px 14px 6px;margin:4px 0 0;cursor:pointer;box-shadow:inset 0 2px 0 rgba(255,255,255,.06)}
 .hstabs.cats .tab:hover{color:var(--bone)}
@@ -441,12 +441,12 @@ body{padding-top:max(14px, env(safe-area-inset-top, 0px));padding-bottom:max(14p
     </div>
 
     <div class="ov" id="title">
-      <div class="ver" id="verTag" data-nt>v0.47 · 12.11.2026</div>
+      <div class="ver" id="verTag" data-nt>v0.48 · 12.11.2026</div>
       <div class="hero"><div class="sign ol big">PANCERNY KANION</div><canvas id="titleArt" width="1440" height="630" aria-hidden="true"></canvas></div>
       <p class="tagline">Artyleria na pustkowiach. Przetrwaj ostrzał, pogodę, hordy i atom.</p>
       <div class="titlenav"><div class="tn-opts"><button class="pill ghost" id="optBtn">MENU I USTAWIENIA</button><button class="pill ghost" id="helpBtn2">JAK GRAĆ</button></div><div class="navrow tn-play"><button class="bigbtn" id="playBtn"><span class="ol s">GRAJ</span></button><button class="bigbtn alt" id="onlineBtn"><span class="ol s">GRAJ ONLINE</span></button></div></div>
       <div class="navrow"><button class="pill on" id="onRejoin" hidden><span data-nt>WRÓĆ DO GRY ONLINE</span></button></div>
-      <div class="sec narrow"><div class="hsbar"><div class="hshead"><h3>REKORDY</h3><p class="note hsnote">Wynik to średnia punktów na rundę. Osobne listy dla poziomów komputera i dla gry bez komputera.</p></div><div class="hstabs cats" data-for="hsTitle" role="tablist"><button class="tab" data-cat="latwy" role="tab">ŁATWY</button><button class="tab on" data-cat="sredni" role="tab">ŚREDNI</button><button class="tab" data-cat="trudny" role="tab">TRUDNY</button><button class="tab" data-cat="gracze" role="tab">GRACZE</button></div></div><div class="hs plate" id="hsTitle"></div></div>
+      <div class="sec narrow"><h3>REKORDY</h3><div class="hsbar"><div class="hshead"><p class="note hsnote">Wynik to średnia punktów na rundę. Osobne listy dla poziomów komputera i dla gry bez komputera.</p></div><div class="hstabs cats" data-for="hsTitle" role="tablist"><button class="tab" data-cat="latwy" role="tab">ŁATWY</button><button class="tab on" data-cat="sredni" role="tab">ŚREDNI</button><button class="tab" data-cat="trudny" role="tab">TRUDNY</button><button class="tab" data-cat="gracze" role="tab">GRACZE</button></div></div><div class="hs plate" id="hsTitle"></div></div>
     </div>
 
     <div class="ov" id="setup" hidden>
@@ -502,7 +502,7 @@ body{padding-top:max(14px, env(safe-area-inset-top, 0px));padding-bottom:max(14p
       <div class="ol" id="finTitle" data-nt style="font-size:clamp(20px,3.6vw,36px);text-align:center">OCALAŁ</div>
       <div class="sec"><h3>STATYSTYKI</h3><div class="tblwrap plate"><table class="sumtbl" id="finTable"></table></div>
         <p class="note">Punkty: 500 za wygraną rundę, 1 za każdy punkt zadanych obrażeń, 100 za zniszczony czołg i 25 za zombie.</p></div>
-      <div class="sec narrow"><div class="hsbar"><div class="hshead"><h3>REKORDY</h3><p class="note hsnote">Wynik to średnia punktów na rundę. Osobne listy dla poziomów komputera i dla gry bez komputera.</p></div><div class="hstabs cats" data-for="hsFinal" role="tablist"><button class="tab" data-cat="latwy" role="tab">ŁATWY</button><button class="tab on" data-cat="sredni" role="tab">ŚREDNI</button><button class="tab" data-cat="trudny" role="tab">TRUDNY</button><button class="tab" data-cat="gracze" role="tab">GRACZE</button></div></div><div class="hs plate" id="hsFinal"></div></div>
+      <div class="sec narrow"><h3>REKORDY</h3><div class="hsbar"><div class="hshead"><p class="note hsnote">Wynik to średnia punktów na rundę. Osobne listy dla poziomów komputera i dla gry bez komputera.</p></div><div class="hstabs cats" data-for="hsFinal" role="tablist"><button class="tab" data-cat="latwy" role="tab">ŁATWY</button><button class="tab on" data-cat="sredni" role="tab">ŚREDNI</button><button class="tab" data-cat="trudny" role="tab">TRUDNY</button><button class="tab" data-cat="gracze" role="tab">GRACZE</button></div></div><div class="hs plate" id="hsFinal"></div></div>
       <div class="navrow"><button class="pill ghost" id="toTitle">MENU GŁÓWNE</button><button class="bigbtn" id="again"><span class="ol s">ZAGRAJ PONOWNIE</span></button></div>
     </div>
 
@@ -1424,7 +1424,7 @@ const oldConv=r=>({...r,cat:'sredni',score:Math.round((r.score||0)/OLD_ROUNDS),r
 function loadHS(){try{let v=JSON.parse(localStorage.getItem(HS_KEY)||'[]');if(!Array.isArray(v))return[];return v.map(r=>r&&r.cat?r:oldConv(r))}catch(e){return[]}}
 function saveHS(l){const out=[];for(const c of HS_CATS)out.push(...l.filter(r=>r.cat===c).sort((a,b)=>b.score-a.score).slice(0,10));try{localStorage.setItem(HS_KEY,JSON.stringify(out))}catch(e){}}
 /* ---------- hi-scores: local + world (Firebase Firestore REST) ---------- */
-const FB={key:'AIzaSyD94iINKYZLF7OuuYs9yM8-s3vGHaLTjHw',base:'https://firestore.googleapis.com/v1/projects/pancerny-kanion/databases/(default)/documents'},HS_PEND='pancerny-kanion-wyslij',GAME_VER='0.47';
+const FB={key:'AIzaSyD94iINKYZLF7OuuYs9yM8-s3vGHaLTjHw',base:'https://firestore.googleapis.com/v1/projects/pancerny-kanion/databases/(default)/documents'},HS_PEND='pancerny-kanion-wyslij',GAME_VER='0.48';
 const worldHS={},worldErr={},worldBusy={},worldAt={};const hsMode={hsTitle:'world',hsFinal:'world'},hsNew={},hsCat={hsTitle:'sredni',hsFinal:'sredni'};
 const fbVal=v=>typeof v==='number'?{integerValue:String(Math.round(v))}:{stringValue:String(v??'')};
 function fbDoc(r){const f={};for(const k of['name','score','wins','dealt','kills','zombies','best','map','date','cid','v','rounds','mode'])f[k]=fbVal(r[k]);return{fields:f}}
@@ -1885,7 +1885,7 @@ function drawMushroom(c,m){const k=m.k,t=m.t,g=Math.min(1,t/2.2),e=1-Math.pow(1-
   const ry=y-st*.45;c.fillStyle='#b4643a';c.beginPath();c.ellipse(x,ry,sw0*2.3,sw0*.75,0,0,7);c.fill();c.stroke();c.fillStyle='rgba(255,207,90,.55)';c.beginPath();c.ellipse(x,ry-sw0*.15,sw0*1.4,sw0*.35,0,0,7);c.fill();
   c.fillStyle='#e2622b';c.beginPath();c.ellipse(x+wob,cy,capW,capH,0,0,7);c.fill();c.stroke();
   c.fillStyle='#b8482a';c.beginPath();c.ellipse(x+wob,cy+capH*.45,capW*.92,capH*.45,0,0,Math.PI);c.fill();
-  for(let i=0;i<5;i++){const a=-Math.PI*.95+i*Math.PI*.95/4+Math.sin(t*2+i)*.05,bx=x+wob+Math.cos(a)*capW*.78,by=cy+Math.sin(a)*capH*.72;c.fillStyle=i%2?'#ec7a3a':'#d9592a';c.beginPath();c.arc(bx,by,capH*.42,0,7);c.fill();c.stroke()}
+  if(!m.plain)for(let i=0;i<5;i++){const a=-Math.PI*.95+i*Math.PI*.95/4+Math.sin(t*2+i)*.05,bx=x+wob+Math.cos(a)*capW*.78,by=cy+Math.sin(a)*capH*.72;c.fillStyle=i%2?'#ec7a3a':'#d9592a';c.beginPath();c.arc(bx,by,capH*.42,0,7);c.fill();c.stroke()}
   c.fillStyle='#ffcf5a';c.beginPath();c.ellipse(x+wob,cy+capH*.12,capW*.62,capH*.5,0,0,7);c.fill();
   c.fillStyle=`rgba(255,250,225,${.85*(1-g)})`;c.beginPath();c.ellipse(x+wob,cy+capH*.1,capW*.32,capH*.26,0,0,7);c.fill();
   c.restore()}
@@ -2286,8 +2286,8 @@ function drawTitleArt(){const cn=$('titleArt');if(!cn)return;const x=cn.getConte
   x.fillStyle='#e6f2b0';x.beginPath();x.arc(560,150,34,0,7);x.fill();
   for(const[cx,cy,s2]of[[60,60,1.3],[250,30,1.6],[420,80,1.1],[690,40,1.4],[880,95,1.1],[130,140,.9]])cloudBlob(x,cx+Math.sin(tm*.15+cx)*8,cy,s2,'rgba(52,66,34,.75)');
   x.fillStyle='rgba(60,50,40,.55)';[[110,250,26],[118,215,36],[126,170,48],[140,115,62]].forEach(([a,b,r],i)=>{x.beginPath();x.arc(a+Math.sin(tm*.8+i)*3,b,r,0,7);x.fill()});x.fillRect(100,250,20,60);
-  x.save();x.globalAlpha=.92;drawMushroom(x,{x:790,y:gy-24,k:1.3,t:2.6,dur:99});x.restore();
-  x.fillStyle='#4a3424';let bx=150;while(bx<w){const bw=34+((bx*13)%23),bh=40+((bx*7)%29)/29*90;x.fillRect(bx,gy-30-bh,bw,bh+30);
+  x.save();x.globalAlpha=.92;drawMushroom(x,{x:735,y:gy-24,k:1.3,t:2.6,dur:99,plain:1});x.restore();
+  x.fillStyle='#4a3424';let bx=150;while(bx<w){const bw=34+((bx*13)%23),bh=40+((bx*7)%29)/29*90;if(bx>700&&bx<715){bx+=bw+6;continue}x.fillRect(bx,gy-30-bh,bw,bh+30);
     x.fillStyle='rgba(190,230,110,.35)';for(let wy=gy-bh-18;wy<gy-36;wy+=16)for(let wx=bx+6;wx<bx+bw-6;wx+=11)if(((wx*3+wy*7)|0)%5===0)x.fillRect(wx,wy,5,7);x.fillStyle='#4a3424';bx+=bw+6}
   x.strokeStyle='#3a291c';x.lineWidth=3;x.beginPath();x.moveTo(70,gy-10);x.lineTo(84,gy-150);x.lineTo(98,gy-10);x.moveTo(76,gy-80);x.lineTo(92,gy-80);x.moveTo(79,gy-115);x.lineTo(89,gy-115);x.stroke();
   /* bomber passing right -> left every ~11 s */
