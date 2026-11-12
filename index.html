@@ -136,6 +136,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--hazard);outline
 @media (max-width:460px){.optgrid{grid-template-columns:minmax(0,1fr)}}
 .note{margin:0;font-size:14px;font-weight:600;color:#cfc4aa;line-height:1.35;max-width:72ch}
 .hs{padding:10px 12px}
+.hstabs{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}.hstabs .pill{padding:5px 12px 4px;font-size:13px}
 .hs ol{margin:0;padding:0;list-style:none;display:grid;gap:5px}
 .hs li{display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:2px 8px;align-items:baseline;padding:5px 8px;border-radius:3px;background:rgba(0,0,0,.28)}
 .hs li.new{background:rgba(240,185,43,.22);outline:2px solid var(--hazard)}
@@ -333,13 +334,13 @@ body{padding-top:max(14px, env(safe-area-inset-top, 0px));padding-bottom:max(14p
     </div>
 
     <div class="ov" id="title">
-      <div class="ver" id="verTag" data-nt>v0.26 · 12.11.2026</div>
+      <div class="ver" id="verTag" data-nt>v0.27 · 12.11.2026</div>
       <div class="hero"><div class="sign ol big">PANCERNY KANION</div><canvas id="titleArt" width="1440" height="630" aria-hidden="true"></canvas></div>
       <p class="tagline">Artyleria na pustkowiach. Przetrwaj ostrzał, pogodę, hordy i atom.</p>
       <div class="navrow"><button class="bigbtn" id="playBtn"><span class="ol s">GRAJ</span></button></div>
       <div class="navrow"><button class="pill ghost" id="optBtn">MENU I USTAWIENIA</button><button class="pill ghost" id="helpBtn2">JAK GRAĆ</button><button class="pill ghost" id="credBtn">AUTORZY</button></div>
       <div class="navrow langsel" data-nt><button class="pill ghost" data-lang="pl">POLSKI</button><button class="pill ghost" data-lang="en">ENGLISH</button></div>
-      <div class="sec narrow"><h3>REKORDY</h3><div class="hs plate" id="hsTitle"></div></div>
+      <div class="sec narrow"><h3>REKORDY</h3><div class="hstabs" data-for="hsTitle"><button class="pill on" data-hs="world">ŚWIAT</button><button class="pill ghost" data-hs="local">TO URZĄDZENIE</button></div><div class="hs plate" id="hsTitle"></div></div>
     </div>
 
     <div class="ov" id="setup" hidden>
@@ -368,7 +369,7 @@ body{padding-top:max(14px, env(safe-area-inset-top, 0px));padding-bottom:max(14p
       <div class="ol" id="finTitle" data-nt style="font-size:clamp(20px,3.6vw,36px);text-align:center">OCALAŁ</div>
       <div class="sec"><h3>STATYSTYKI</h3><div class="tblwrap plate"><table class="sumtbl" id="finTable"></table></div>
         <p class="note">Punkty: 500 za wygraną rundę, 1 za każdy punkt zadanych obrażeń, 100 za zniszczony czołg i 25 za zombie.</p></div>
-      <div class="sec narrow"><h3>REKORDY</h3><div class="hs plate" id="hsFinal"></div></div>
+      <div class="sec narrow"><h3>REKORDY</h3><div class="hstabs" data-for="hsFinal"><button class="pill on" data-hs="world">ŚWIAT</button><button class="pill ghost" data-hs="local">TO URZĄDZENIE</button></div><div class="hs plate" id="hsFinal"></div></div>
       <div class="navrow"><button class="pill ghost" id="toTitle">MENU GŁÓWNE</button><button class="bigbtn" id="again"><span class="ol s">ZAGRAJ PONOWNIE</span></button></div>
     </div>
 
@@ -533,7 +534,7 @@ const EN={
 'SPRAWDŹ DŹWIĘK':'TEST SOUND','Pomysł, projekt gry, kierunek artystyczny i testy':'Idea, game design, art direction and testing',
 'Kod, grafika i dźwięki (Claude, AI od Anthropic)':'Code, graphics and sound (Claude, an AI by Anthropic)',
 'Inspiracje: Scorched Tanks z Amigi, Hills of Steel, Into the Dead: Our Darkest Days, Fallout i ARC Raiders.':'Inspired by: Scorched Tanks on the Amiga, Hills of Steel, Into the Dead: Our Darkest Days, Fallout and ARC Raiders.',
-'ZAMKNIJ':'CLOSE','Przybliż':'Zoom in','Oddal':'Zoom out','Pokaż aktywny czołg':'Show active tank','Pełny ekran':'Fullscreen','Nalot':'Airstrike','CEL NALOTU':'STRIKE TARGET','WEZWIJ':'CALL IN','WŁĄCZ':'ACTIVATE','TARCZA WŁĄCZONA':'SHIELD ON','HANDLARZ':'TRADER','TOWAR':'GOODS','KAPSLE':'CAPS',
+'ZAMKNIJ':'CLOSE','ŚWIAT':'WORLD','TO URZĄDZENIE':'THIS DEVICE','Przybliż':'Zoom in','Oddal':'Zoom out','Pokaż aktywny czołg':'Show active tank','Pełny ekran':'Fullscreen','Nalot':'Airstrike','CEL NALOTU':'STRIKE TARGET','WEZWIJ':'CALL IN','WŁĄCZ':'ACTIVATE','TARCZA WŁĄCZONA':'SHIELD ON','HANDLARZ':'TRADER','TOWAR':'GOODS','KAPSLE':'CAPS',
 'Na każdą rundę dostajesz za darmo Pocisk (bez limitu), 2 Miniguny i 2 Skoczki. Resztę kupujesz, a niezużyte zakupy przechodzą na kolejne rundy. Kapsle zarabiasz: 1 za punkt zadanych obrażeń, 75 za zniszczony czołg, 5 za zombie, 200 za wygraną rundę i 100 przydziału po każdej rundzie.':'Every round you get a Shell (unlimited), 2 Miniguns and 2 Bouncers for free. Everything else you buy, and unused purchases carry over to the next rounds. You earn caps: 1 per point of damage dealt, 75 per tank destroyed, 5 per zombie, 200 per round won and a 100 ration after every round.','Mniej':'Less','Więcej':'More','JĘZYK':'LANGUAGE'};
 const ENU={};for(const k in EN){const u=k.toUpperCase();if(!(u in EN))ENU[u]=EN[k].toUpperCase()}
 const T=(pl,en)=>lang==='pl'?pl:en;
@@ -1201,10 +1202,36 @@ const fmtT=s=>s==null?'—':Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
 const HS_KEY='pancerny-kanion-rekordy';
 function loadHS(){try{const v=JSON.parse(localStorage.getItem(HS_KEY)||'[]');return Array.isArray(v)?v:[]}catch(e){return[]}}
 function saveHS(l){try{localStorage.setItem(HS_KEY,JSON.stringify(l))}catch(e){}}
-function renderHS(el,newIds){const l=loadHS();
+/* ---------- hi-scores: local + world (Firebase Firestore REST) ---------- */
+const FB={key:'AIzaSyD94iINKYZLF7OuuYs9yM8-s3vGHaLTjHw',base:'https://firestore.googleapis.com/v1/projects/pancerny-kanion/databases/(default)/documents'},HS_PEND='pancerny-kanion-wyslij',GAME_VER='0.27';
+let worldHS=null,worldErr=false,worldBusy=null,worldAt=0;const hsMode={hsTitle:'world',hsFinal:'world'},hsNew={};
+const fbVal=v=>typeof v==='number'?{integerValue:String(Math.round(v))}:{stringValue:String(v??'')};
+function fbDoc(r){const f={};for(const k of['name','score','wins','dealt','kills','zombies','best','map','date','cid','v'])f[k]=fbVal(r[k]);return{fields:f}}
+function fbParse(d){const o={};for(const k in d.fields||{}){const v=d.fields[k];o[k]=v.integerValue!=null?+v.integerValue:v.stringValue}if(!o.best)o.best=null;o.id=o.cid;return o}
+function fetchWorld(){if(worldBusy)return worldBusy;worldBusy=(async()=>{try{
+    const r=await fetch(`${FB.base}:runQuery?key=${FB.key}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({structuredQuery:{from:[{collectionId:'scores'}],orderBy:[{field:{fieldPath:'score'},direction:'DESCENDING'}],limit:10}})});
+    if(!r.ok)throw new Error(r.status);const j=await r.json();worldHS=(Array.isArray(j)?j:[]).filter(x=>x.document).map(x=>fbParse(x.document));worldErr=false;worldAt=Date.now()}
+  catch(e){worldErr=true;worldAt=Date.now()}worldBusy=null;refreshHS()})();return worldBusy}
+function readPend(){try{const v=JSON.parse(localStorage.getItem(HS_PEND)||'[]');return Array.isArray(v)?v:[]}catch(e){return[]}}
+function writePend(l){try{localStorage.setItem(HS_PEND,JSON.stringify(l.slice(-20)))}catch(e){}}
+let pendMem=[];
+async function flushWorld(){const p=[...readPend(),...pendMem];pendMem=[];if(!p.length)return;const left=[];
+  for(const r of p){try{const res=await fetch(`${FB.base}/scores?key=${FB.key}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(fbDoc(r))});if(!res.ok&&(res.status>=500||res.status===429))left.push(r)}catch(e){left.push(r)}}
+  writePend(left);if(!readPend().length&&left.length)pendMem=left}
+function refreshHS(){for(const id of['hsTitle','hsFinal']){const el=$(id);if(el)renderHS(el)}}
+function hsRow(r,i,newIds){return`<li class="${newIds&&newIds.has(r.id)?'new':''}"><span class="rk">${i+1}.</span><span class="hn" data-nt>${esc(r.name)}</span><span class="hp">${r.score} ${T('PKT','PTS')}</span>
+    <span class="hd" data-nt>${r.wins} ${T(r.wins===1?'runda':r.wins>=2&&r.wins<=4?'rundy':'rund',r.wins===1?'round':'rounds')} · ${r.dealt} ${T('obrażeń','damage')} · ${r.kills} ${T('czołgów','tanks')} · ${r.zombies} zombie · ${T('najszybciej','fastest')} ${fmtT(r.best)} · ${esc(L(r.map))} · ${esc(r.date)}</span></li>`}
+function renderHS(el,newIds){if(!el)return;if(newIds)hsNew[el.id]=newIds;newIds=hsNew[el.id];const mode=hsMode[el.id]||'world';
+  document.querySelectorAll(`.hstabs[data-for="${el.id}"] [data-hs]`).forEach(b=>b.className='pill '+(b.dataset.hs===mode?'on':'ghost'));
+  if(mode==='world'){
+    if(!worldBusy&&Date.now()-worldAt>60000)fetchWorld();
+    if(!worldHS){el.innerHTML=`<p class="empty" data-nt>${worldErr?T('Nie udało się wczytać rankingu świata. Sprawdź połączenie z internetem.','Could not load the world ranking. Check your internet connection.'):T('Wczytywanie rankingu świata…','Loading the world ranking…')}</p>`;return}
+    if(!worldHS.length){el.innerHTML=`<p class="empty" data-nt>${T('Ranking świata jest jeszcze pusty. Zagraj i bądź pierwszy!','The world ranking is still empty. Play and be the first!')}</p>`;return}
+    el.innerHTML='<ol>'+worldHS.slice(0,10).map((r,i)=>hsRow(r,i,newIds)).join('')+'</ol>';return}
+  const l=loadHS();
   if(!l.length){el.innerHTML='<p class="empty">Brak rekordów. Zagraj, a najlepsze wyniki graczy trafią na tę listę.</p>';return}
-  el.innerHTML='<ol>'+l.slice(0,10).map((r,i)=>`<li class="${newIds&&newIds.has(r.id)?'new':''}"><span class="rk">${i+1}.</span><span class="hn" data-nt>${esc(r.name)}</span><span class="hp">${r.score} ${T('PKT','PTS')}</span>
-    <span class="hd" data-nt>${r.wins} ${T(r.wins===1?'runda':r.wins>=2&&r.wins<=4?'rundy':'rund',r.wins===1?'round':'rounds')} · ${r.dealt} ${T('obrażeń','damage')} · ${r.kills} ${T('czołgów','tanks')} · ${r.zombies} zombie · ${T('najszybciej','fastest')} ${fmtT(r.best)} · ${esc(L(r.map))} · ${r.date}</span></li>`).join('')+'</ol>'}
+  el.innerHTML='<ol>'+l.slice(0,10).map((r,i)=>hsRow(r,i,newIds)).join('')+'</ol>'}
+document.addEventListener('click',e=>{const b=e.target.closest('.hstabs [data-hs]');if(!b)return;const id=b.parentElement.dataset.for;hsMode[id]=b.dataset.hs;sfxClick();if(b.dataset.hs==='world'&&!worldBusy)fetchWorld();renderHS($(id))});
 function showFinal(){
   const sorted=[...tanks].sort((a,b)=>score(b)-score(a)||b.wins-a.wins);
   const topW=Math.max(...tanks.map(t=>t.wins)),win=tanks.filter(t=>t.wins===topW);
@@ -1216,6 +1243,8 @@ function showFinal(){
   for(const t of tanks)if(t.human){const id=Date.now()+'-'+Math.random().toString(36).slice(2,7);ids.add(id);
     l.push({id,name:t.name,score:score(t),wins:t.sg.wins,dealt:Math.round(t.sg.dealt),kills:t.sg.kills,zombies:t.sg.zombies,best:t.sg.best,map:mapName,date})}
   l.sort((a,b)=>b.score-a.score);const top=l.slice(0,10);saveHS(top);
+  const sendRows=l.filter(r=>ids.has(r.id)&&r.score>0).map(r=>({...r,cid:r.id,best:r.best||0,v:GAME_VER}));
+  if(sendRows.length){writePend([...readPend(),...sendRows]);if(!readPend().length)pendMem.push(...sendRows);flushWorld().then(()=>fetchWorld())}
   renderHS($('hsFinal'),ids);phase='menu';showOverlay('final');
 }
 function dropCrates(n){const xs=[];for(let k=0;k<n;k++){let x,tries=0;do{x=rand(80,W-80);tries++}while(tries<20&&(xs.some(o=>Math.abs(o-x)<200)||tanks.some(t=>t.alive&&Math.abs(t.x-x)<60)));xs.push(x)}
@@ -2011,7 +2040,7 @@ function renameDefaults(){config.forEach((c,i)=>{if(/^(Gracz|Player) \d$/.test(c
 function setLang(l){if(l===lang)return;lang=l;try{localStorage.setItem('pancerny-kanion-jezyk',l)}catch(e){}
   renameDefaults();renderMaps();renderSlots();renderHS($('hsTitle'));renderKeys();renderShop();for(const k in cache)delete cache[k];applyLang()}
 document.addEventListener('click',e=>{const b=e.target.closest('.langsel [data-lang]');if(b){sfxClick();setLang(b.dataset.lang)}});
-renameDefaults();renderMaps();renderSlots();toTitle();drawTitleArt();renderHint();applyLang();
+renameDefaults();renderMaps();renderSlots();flushWorld();toTitle();drawTitleArt();renderHint();applyLang();
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{renderMaps();renderSlots();drawTitleArt()});
 $('playBtn').onclick=()=>{audio();sfxClick();showOverlay('setup')};
 $('backTitle').onclick=()=>toTitle();
