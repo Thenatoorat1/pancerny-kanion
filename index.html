@@ -157,6 +157,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--hazard);outline
 .optgrid .seg{align-content:flex-start}
 .optgrid .seg .t{flex-basis:100%;margin:0 0 2px}
 .optgrid .note{grid-column:1/-1}
+@media (min-width:901px){#setup .optgrid{grid-template-columns:minmax(0,1.3fr) minmax(0,1.2fr) minmax(0,.8fr) minmax(0,1.45fr) minmax(0,1fr);gap:14px 16px}#setup .optgrid .note{max-width:none}}
 @media (max-width:900px){.optgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:460px){.optgrid{grid-template-columns:minmax(0,1fr)}}
 .note{margin:0;font-size:14px;font-weight:600;color:#cfc4aa;line-height:1.35;max-width:72ch}
@@ -197,6 +198,24 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--hazard);outline
 .mapc .md{font-size:13.5px;font-weight:600;line-height:1.25;color:#d6ccb2}
 .mapc.sel{outline:4px solid var(--hazard);outline-offset:-1px;background:linear-gradient(#5a5030,#3a3420)}
 .slots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.shead{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 16px}.shead .note{max-width:none}
+.slottabs{display:none}
+@media (max-width:600px){
+  .shead{display:block}.shead .note{margin-top:4px}
+  .slottabs{display:flex;gap:3px;padding-left:4px;margin:0 0 -11px;position:relative;z-index:3}
+  .slottabs .tab{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;gap:0;font-family:var(--f-disp);color:#b9b2a0;background:linear-gradient(#353b3d,#24292a);border:3px solid var(--ink);border-bottom:0;border-radius:8px 8px 0 0;padding:5px 4px 5px;margin-top:5px;cursor:pointer;box-shadow:inset 0 3px 0 var(--tc,transparent)}
+  .slottabs .tab em b{font-weight:400;color:var(--tc,inherit)}
+  .slottabs .tab span{max-width:100%;font-family:var(--f-mark);font-size:12px;letter-spacing:-.02em;line-height:1.25;color:inherit;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .slottabs .tab em{font-style:normal;font-size:9.5px;letter-spacing:.05em;line-height:1.1;opacity:.8}
+  .slottabs .tab.on{background:#434a4c;color:var(--bone);margin-top:0;padding:8px 4px 8px}
+  .slottabs .tab.on em{color:var(--hazard);opacity:1}
+  .slottabs .tab.off{opacity:.55}
+  #garage .slots{grid-template-columns:minmax(0,1fr)}
+  #garage .slots .slot:not(.act){display:none}
+  #garage .slots .slot.act{z-index:1;border-top-left-radius:0;box-shadow:inset 0 2px 0 rgba(255,255,255,.12),0 4px 0 rgba(0,0,0,.4)}
+  #garage .slot .tmtag{top:6px;left:auto;right:8px;transform:none;font-size:11px;padding:1px 6px}
+  #garage.solo .slottabs{display:none}#garage.solo .slots .slot:first-child{display:flex}
+}
 .slot{padding:8px;display:flex;flex-direction:column;gap:5px;min-width:0}
 .slot.off .dimmable{filter:grayscale(.9) brightness(.6)}
 .slot input{width:100%;min-width:0;font-family:var(--f-mark);font-size:18px;color:var(--ink);text-align:center;background:var(--bone);border:0;border-radius:2px;padding:4px 6px 2px;transform:rotate(-1.5deg);box-shadow:0 2px 0 rgba(0,0,0,.4)}
@@ -415,7 +434,7 @@ body{padding-top:max(14px, env(safe-area-inset-top, 0px));padding-bottom:max(14p
     </div>
 
     <div class="ov" id="title">
-      <div class="ver" id="verTag" data-nt>v0.42 · 12.11.2026</div>
+      <div class="ver" id="verTag" data-nt>v0.44 · 12.11.2026</div>
       <div class="hero"><div class="sign ol big">PANCERNY KANION</div><canvas id="titleArt" width="1440" height="630" aria-hidden="true"></canvas></div>
       <p class="tagline">Artyleria na pustkowiach. Przetrwaj ostrzał, pogodę, hordy i atom.</p>
       <div class="titlenav"><div class="tn-opts"><button class="pill ghost" id="optBtn">MENU I USTAWIENIA</button><button class="pill ghost" id="helpBtn2">JAK GRAĆ</button></div><div class="navrow tn-play"><button class="bigbtn" id="playBtn"><span class="ol s">GRAJ</span></button><button class="bigbtn alt" id="onlineBtn"><span class="ol s">GRAJ ONLINE</span></button></div></div>
@@ -436,7 +455,7 @@ body{padding-top:max(14px, env(safe-area-inset-top, 0px));padding-bottom:max(14p
     <div class="ov" id="garage" hidden>
       <div class="scrhead"><button class="pill ghost" id="backSetup">◀ WSTECZ</button><div class="sign ol">WARSZTAT</div><div class="go"><button class="gobtn" id="startBtn" aria-label="Ruszaj do boju"><span class="gb-plate"><span class="gb-in"><span class="gb-sm">ZATANKUJ, ZAŁADUJ</span><span class="gb-big ol s">RUSZAJ DO BOJU!</span></span></span><span class="play"><svg viewBox="0 0 24 24"><path d="M6 3 L21 12 L6 21 Z" fill="#e9dfc6" stroke="#0f1112" stroke-width="2.5" stroke-linejoin="round"/></svg></span></button></div></div>
       <div class="hint top" id="keyHint"></div>
-      <div class="sec"><h3>ZAŁOGI I CZOŁGI</h3><p class="note">Wpisz nazwę gracza na taśmie. Pod tą nazwą zapisują się rekordy.</p><div class="slots" id="slots"></div></div>
+      <div class="sec"><div class="shead"><h3>ZAŁOGI I CZOŁGI</h3><p class="note">Wpisz nazwę gracza na taśmie. Pod tą nazwą zapisują się rekordy.</p></div><div class="slottabs" id="slotTabs" role="tablist"></div><div class="slots" id="slots"></div></div>
     </div>
 
     <div class="ov" id="shop" hidden>
@@ -643,7 +662,7 @@ const EN={
 'SPRAWDŹ DŹWIĘK':'TEST SOUND','Pomysł, projekt gry, kierunek artystyczny i testy':'Idea, game design, art direction and testing',
 'Kod, grafika i dźwięki (Claude, AI od Anthropic)':'Code, graphics and sound (Claude, an AI by Anthropic)',
 'Inspiracje: Scorched Tanks z Amigi, Hills of Steel, Into the Dead: Our Darkest Days, Fallout i ARC Raiders.':'Inspired by: Scorched Tanks on the Amiga, Hills of Steel, Into the Dead: Our Darkest Days, Fallout and ARC Raiders.',
-'ZAMKNIJ':'CLOSE','PROMIENIOWANIE':'RADIATION','Dźwięk':'Sound','Tryby: 1 na 1 to pojedynek dwóch czołgów. W trybach 2 na 2 i 1 na 3 drużyny stają po przeciwnych stronach mapy, rundę wygrywa drużyna, która przetrwa, a za trafienie kolegi z drużyny nie ma kapsli ani punktów. Przy ataku atomowym liczy się suma życia drużyny.':'Modes: 1 vs 1 is a duel of two tanks. In 2 vs 2 and 1 vs 3 the teams start on opposite sides of the map, the team that survives wins the round, and hitting a teammate earns no caps or points. In a nuke strike the team’s total health counts.','ŁATWY':'EASY','ŚREDNI':'NORMAL','TRUDNY':'HARD','GRACZE':'PLAYERS','Wynik to średnia punktów na rundę. Osobne listy dla poziomów komputera i dla gry bez komputera.':'Score is the average points per round. Separate lists for each CPU level and for games without the CPU.','TRYB:':'MODE:','KAŻDY NA KAŻDEGO':'FREE FOR ALL','1 NA 1':'1 VS 1','2 NA 2':'2 VS 2','1 NA 3':'1 VS 3','Sęp':'Vulture','Kriobomba':'Cryo bomb','Zarażony pocisk':'Infected shell','Teleporter':'Teleporter','Lustro':'Mirror','LUSTRO WŁĄCZONE':'MIRROR ON','ODBICIE':'REFLECTED','ZAMROŻONY':'FROZEN','TELEPORT':'TELEPORT','GRAJ ONLINE':'PLAY ONLINE','GRA ONLINE':'ONLINE GAME','TWOJA NAZWA':'YOUR NAME','NOWY POJEDYNEK':'NEW DUEL','ZAŁÓŻ POKÓJ':'CREATE ROOM','DOŁĄCZ DO POKOJU':'JOIN A ROOM','DOŁĄCZ':'JOIN','KOD':'CODE','Kod pokoju':'Room code',
+'ZAMKNIJ':'CLOSE','WOLNE':'EMPTY','PROMIENIOWANIE':'RADIATION','Dźwięk':'Sound','Tryby: 1 na 1 to pojedynek dwóch czołgów. W trybach 2 na 2 i 1 na 3 drużyny stają po przeciwnych stronach mapy, rundę wygrywa drużyna, która przetrwa, a za trafienie kolegi z drużyny nie ma kapsli ani punktów. Przy ataku atomowym liczy się suma życia drużyny.':'Modes: 1 vs 1 is a duel of two tanks. In 2 vs 2 and 1 vs 3 the teams start on opposite sides of the map, the team that survives wins the round, and hitting a teammate earns no caps or points. In a nuke strike the team’s total health counts.','ŁATWY':'EASY','ŚREDNI':'NORMAL','TRUDNY':'HARD','GRACZE':'PLAYERS','Wynik to średnia punktów na rundę. Osobne listy dla poziomów komputera i dla gry bez komputera.':'Score is the average points per round. Separate lists for each CPU level and for games without the CPU.','TRYB:':'MODE:','KAŻDY NA KAŻDEGO':'FREE FOR ALL','1 NA 1':'1 VS 1','2 NA 2':'2 VS 2','1 NA 3':'1 VS 3','Sęp':'Vulture','Kriobomba':'Cryo bomb','Zarażony pocisk':'Infected shell','Teleporter':'Teleporter','Lustro':'Mirror','LUSTRO WŁĄCZONE':'MIRROR ON','ODBICIE':'REFLECTED','ZAMROŻONY':'FROZEN','TELEPORT':'TELEPORT','GRAJ ONLINE':'PLAY ONLINE','GRA ONLINE':'ONLINE GAME','TWOJA NAZWA':'YOUR NAME','NOWY POJEDYNEK':'NEW DUEL','ZAŁÓŻ POKÓJ':'CREATE ROOM','DOŁĄCZ DO POKOJU':'JOIN A ROOM','DOŁĄCZ':'JOIN','KOD':'CODE','Kod pokoju':'Room code',
 'KOD POKOJU':'ROOM CODE','KOPIUJ':'COPY','MÓJ CZOŁG':'MY TANK','OPUŚĆ GRĘ':'LEAVE GAME','Start':'Start',
 'Załóż pokój i podaj kod drugiemu graczowi. Gra 1 na 1, każdy na swoim telefonie lub komputerze.':'Create a room and give the code to the other player. A 1-on-1 duel, each on their own phone or computer.',
 'Drugi gracz wybiera „GRAJ ONLINE” → „DOŁĄCZ” i wpisuje ten kod. Gospodarz ustala zasady, a każdy wybiera swój czołg.':'The other player picks “PLAY ONLINE” → “JOIN” and types this code. The host sets the rules and everyone picks their own tank.',
@@ -1398,7 +1417,7 @@ const oldConv=r=>({...r,cat:'sredni',score:Math.round((r.score||0)/OLD_ROUNDS),r
 function loadHS(){try{let v=JSON.parse(localStorage.getItem(HS_KEY)||'[]');if(!Array.isArray(v))return[];return v.map(r=>r&&r.cat?r:oldConv(r))}catch(e){return[]}}
 function saveHS(l){const out=[];for(const c of HS_CATS)out.push(...l.filter(r=>r.cat===c).sort((a,b)=>b.score-a.score).slice(0,10));try{localStorage.setItem(HS_KEY,JSON.stringify(out))}catch(e){}}
 /* ---------- hi-scores: local + world (Firebase Firestore REST) ---------- */
-const FB={key:'AIzaSyD94iINKYZLF7OuuYs9yM8-s3vGHaLTjHw',base:'https://firestore.googleapis.com/v1/projects/pancerny-kanion/databases/(default)/documents'},HS_PEND='pancerny-kanion-wyslij',GAME_VER='0.42';
+const FB={key:'AIzaSyD94iINKYZLF7OuuYs9yM8-s3vGHaLTjHw',base:'https://firestore.googleapis.com/v1/projects/pancerny-kanion/databases/(default)/documents'},HS_PEND='pancerny-kanion-wyslij',GAME_VER='0.44';
 const worldHS={},worldErr={},worldBusy={},worldAt={};const hsMode={hsTitle:'world',hsFinal:'world'},hsNew={},hsCat={hsTitle:'sredni',hsFinal:'sredni'};
 const fbVal=v=>typeof v==='number'?{integerValue:String(Math.round(v))}:{stringValue:String(v??'')};
 function fbDoc(r){const f={};for(const k of['name','score','wins','dealt','kills','zombies','best','map','date','cid','v','rounds','mode'])f[k]=fbVal(r[k]);return{fields:f}}
@@ -2201,15 +2220,22 @@ function drawPreview(cn,c){const x=cn.getContext('2d'),w=cn.width,hh=cn.height;w
 function statBars(c){const st=statsOf(c.look),row=(l,v,txt)=>`<div class="sr"><span>${l}</span><i><b style="width:${Math.round(clamp(v,.06,1)*100)}%"></b></i><em>${txt}</em></div>`;
   return`<div class="stats dimmable">${row('ŻYCIE',(st.maxHp-50)/100,st.maxHp+' HP')}${row('PANCERZ',st.armor<1?.85:.5,st.armor<1?'−15%':'—')}${row('TRUDNO TRAFIĆ',1-(st.hw*st.hh-20*25)/(40*52-20*25),Math.round(st.hw*2)+'×'+Math.round(st.hh))}
   ${row('JAZDA',st.moveMul/1.8,'×'+st.moveMul.toFixed(2))}${row('WSPINACZKA',st.climb/4.5,st.climb>=4?'stroma':st.climb>=1.5?'średnia':'słaba')}${row('SKOK',st.jumpH*st.jumpX/1.7,'×'+(st.jumpH*st.jumpX).toFixed(2))}</div>`}
+let slotSel=0;
+function renderSlotTabs(){const el=$('slotTabs');if(!el)return;const TM=TEAMS[teamMode];
+  el.innerHTML=config.map((c,i)=>{const off=c.type==='off',raw=c.name.trim()||T('Gracz','Player'),nm=off?T('WOLNE','EMPTY'):(raw.replace(new RegExp('\\s+'+(i+1)+'$'),'')||raw);
+    return`<button class="tab${i===slotSel?' on':''}${off?' off':''}" role="tab" aria-selected="${i===slotSel}" data-si="${i}"${TM&&!off?` style="--tc:${TEAM_COL[TM[i]]}"`:''}><span data-nt>${esc(nm)}</span><em><b>${i+1}</b>${off?'':' · '+(c.type==='cpu'?'CPU':T('GRACZ','PLAYER'))}</em></button>`}).join('')}
+document.addEventListener('click',e=>{const b=e.target.closest('#slotTabs [data-si]');if(!b)return;slotSel=+b.dataset.si;sfxClick();
+  document.querySelectorAll('#slots .slot').forEach((s2,i)=>s2.classList.toggle('act',i===slotSel));renderSlotTabs()});
 function renderSlots(){
   const TM=TEAMS[teamMode];
-  $('slots').innerHTML=config.map((c,i)=>{const ty=TYPES.find(t=>t[0]===c.type);return`<div class="slot plate${c.type==='off'?' off':''}${TM&&c.type!=='off'?' tm'+TEAM_N[TM[i]]:''}">${TM?`<div class="tmtag" style="--tc:${TEAM_COL[TM[i]]}">${teamName(TM[i])}</div>`:''}
+  $('slots').innerHTML=config.map((c,i)=>{const ty=TYPES.find(t=>t[0]===c.type);return`<div class="slot plate${i===slotSel?' act':''}${c.type==='off'?' off':''}${TM&&c.type!=='off'?' tm'+TEAM_N[TM[i]]:''}">${TM?`<div class="tmtag" style="--tc:${TEAM_COL[TM[i]]}">${teamName(TM[i])}</div>`:''}
     <input id="nm${i}" class="dimmable" maxlength="12" value="${esc(c.name)}" aria-label="${T('Nazwa czołgu ','Tank name ')}${i+1}">
     <canvas id="pv${i}" class="dimmable" width="270" height="162"></canvas>
     ${c.type==='cpu'?`<div class="opt dimmable"><span class="nm"><small>LOSOWY CZOŁG KOMPUTERA</small><span>${HULLS[c.look.hull]} · ${SKINS[c.look.color][0]}</span><em data-nt>${L(WHEELS[c.look.wheels])} · ${T('wieża','turret')} ${L(TURRETS[c.look.turret]).toLowerCase()} · ${T('lufa','barrel')} ${L(BARRELS[c.look.barrel]).toLowerCase()}. ${T('Komputer dostaje losowo złożony czołg w każdej grze.','The CPU gets a randomly built tank every game.')}</em></span></div><button class="pill ghost" data-reroll="${i}">LOSUJ PONOWNIE</button>`:OPTS.map(([k,l,list])=>`<div class="opt dimmable"><button class="arr" data-i="${i}" data-k="${k}" data-d="-1" aria-label="${L(l)} ${T('poprzedni','previous')}">${ARR_L}</button><span class="nm"><small>${l}</small><span>${list()[c.look[k]]}</span><em>${DESC[k][k==='color'?0:c.look[k]]}</em></span><button class="arr" data-i="${i}" data-k="${k}" data-d="1" aria-label="${L(l)} ${T('następny','next')}">${ARR_R}</button></div>`).join('')}
     ${statBars(c)}
     <button class="pill ${ty[2]}" id="ty${i}"${slotLocked(i)?' disabled':''}>${ty[1]}</button></div>`}).join('');
-  config.forEach((c,i)=>{$('nm'+i).oninput=e=>c.name=e.target.value;drawPreview($('pv'+i),c);
+  renderSlotTabs();
+  config.forEach((c,i)=>{$('nm'+i).oninput=e=>{c.name=e.target.value;renderSlotTabs()};drawPreview($('pv'+i),c);
     $('ty'+i).onclick=()=>{if(slotLocked(i))return;const k=TYPES.findIndex(t=>t[0]===c.type);c.type=TYPES[(k+1)%3][0];if(c.type==='off'&&slotReq(i))c.type=TYPES[0][0];if(c.type==='cpu'){c.look=randomLook();if(/^(Gracz|Player)/.test(c.name))c.name=T('Komputer ','CPU ')+(i+1)}if(c.type==='human'&&/^(Komputer|CPU)/.test(c.name))c.name=T('Gracz ','Player ')+(i+1);renderSlots();$('ty'+i).focus()}});
   $('startBtn').disabled=config.filter(c=>c.type!=='off').length<2;
 }
