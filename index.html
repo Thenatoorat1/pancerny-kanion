@@ -376,7 +376,7 @@ body{padding-top:max(14px, env(safe-area-inset-top, 0px));padding-bottom:max(14p
     </div>
 
     <div class="ov" id="title">
-      <div class="ver" id="verTag" data-nt>v0.30 · 12.11.2026</div>
+      <div class="ver" id="verTag" data-nt>v0.31 · 12.11.2026</div>
       <div class="hero"><div class="sign ol big">PANCERNY KANION</div><canvas id="titleArt" width="1440" height="630" aria-hidden="true"></canvas></div>
       <p class="tagline">Artyleria na pustkowiach. Przetrwaj ostrzał, pogodę, hordy i atom.</p>
       <div class="navrow"><button class="bigbtn" id="playBtn"><span class="ol s">GRAJ</span></button><button class="bigbtn alt" id="onlineBtn"><span class="ol s">GRAJ ONLINE</span></button></div>
@@ -1338,7 +1338,7 @@ const HS_KEY='pancerny-kanion-rekordy';
 function loadHS(){try{const v=JSON.parse(localStorage.getItem(HS_KEY)||'[]');return Array.isArray(v)?v:[]}catch(e){return[]}}
 function saveHS(l){try{localStorage.setItem(HS_KEY,JSON.stringify(l))}catch(e){}}
 /* ---------- hi-scores: local + world (Firebase Firestore REST) ---------- */
-const FB={key:'AIzaSyD94iINKYZLF7OuuYs9yM8-s3vGHaLTjHw',base:'https://firestore.googleapis.com/v1/projects/pancerny-kanion/databases/(default)/documents'},HS_PEND='pancerny-kanion-wyslij',GAME_VER='0.30';
+const FB={key:'AIzaSyD94iINKYZLF7OuuYs9yM8-s3vGHaLTjHw',base:'https://firestore.googleapis.com/v1/projects/pancerny-kanion/databases/(default)/documents'},HS_PEND='pancerny-kanion-wyslij',GAME_VER='0.31';
 let worldHS=null,worldErr=false,worldBusy=null,worldAt=0;const hsMode={hsTitle:'world',hsFinal:'world'},hsNew={};
 const fbVal=v=>typeof v==='number'?{integerValue:String(Math.round(v))}:{stringValue:String(v??'')};
 function fbDoc(r){const f={};for(const k of['name','score','wins','dealt','kills','zombies','best','map','date','cid','v'])f[k]=fbVal(r[k]);return{fields:f}}
@@ -2172,6 +2172,9 @@ const amAuth=()=>!!NET&&(NET.slot===0||!oppOnline());
 const gref=p=>NET.room.child('g'+NET.gen+(p?'/'+p:''));
 const netLook=()=>({...config[0].look});
 const netName=()=>((config[0].name||'').trim()||T('Gracz','Player')).slice(0,12);
+const sameName=(a,b)=>!!a&&!!b&&a.trim().toLowerCase()===b.trim().toLowerCase();
+function uniqueName(name,other,slot){if(!sameName(name,other))return name;if(/^(Gracz|Player) \d+$/i.test(name.trim()))return T('Gracz ','Player ')+(slot+1);const n2=name.trim().slice(0,10)+' 2';return sameName(n2,other)?name.trim().slice(0,9)+' II':n2}
+function netFixName(){if(!NET||NET.slot!==1)return;const other=NET.p[0]&&NET.p[0].name,mine=netName();if(!sameName(mine,other))return;const nn=uniqueName(mine,other,1);config[0].name=nn;$('onName').value=nn;netPushMe()}
 const netSettings=()=>({map:mapChoice,rounds,roundSec,events:eventsOn});
 function netSaveLocal(){try{if(NET)localStorage.setItem(ON_KEY,JSON.stringify({code:NET.code,slot:NET.slot}));else localStorage.removeItem(ON_KEY)}catch(e){}}
 function netStored(){try{return JSON.parse(localStorage.getItem(ON_KEY)||'null')}catch(e){return null}}
@@ -2185,7 +2188,7 @@ async function netJoin(code,rejoin){code=(code||'').toUpperCase().replace(/[^A-Z
     if(!s||!s.meta){onMsg(T('Nie ma pokoju o takim kodzie.','There is no room with that code.'),true);if(rejoin){NET=null;netSaveLocal();renderRejoin()}return}
     let slot=-1;if(s.p0&&s.p0.uid===uid)slot=0;else if(s.p1&&s.p1.uid===uid)slot=1;else if(!s.p1&&s.meta.state==='lobby')slot=1;
     if(slot<0){onMsg(T('Ten pokój jest już pełny albo gra trwa.','This room is full or the game has already started.'),true);return}
-    if(slot===1&&!(s.p1&&s.p1.uid===uid))await r.child('p1').set({uid,name:netName(),look:netLook(),online:true,ready:false});
+    if(slot===1&&!(s.p1&&s.p1.uid===uid)){const nn=uniqueName(netName(),s.p0&&s.p0.name,1);config[0].name=nn;$('onName').value=nn;await r.child('p1').set({uid,name:nn,look:netLook(),online:true,ready:false})}
     netAttach(db,uid,code,slot);onMsg('')}catch(e){onMsg(T('Nie udało się połączyć z serwerem gry. Sprawdź internet.','Could not reach the game server. Check your internet connection.'),true)}}
 function netAttach(db,uid,code,slot){if(NET)netDetach();const room=db.ref('rooms/'+code);
   NET={db,uid,code,slot,room,gen:0,meta:null,p:[null,null],moves:{},snaps:{},shop:{},rs:{},aim:null,rematch:{},left:{},connected:true,sent:-1,mode:'lobby',subs:[],gsubs:[],waitShop:0,rsSent:{},aimSent:'',aimT:0,offT:0,seed:0,rejoin:false,ended:false};
@@ -2195,7 +2198,7 @@ function netAttach(db,uid,code,slot){if(NET)netDetach();const room=db.ref('rooms
   on(room.child('meta'),'value',s=>{if(!NET)return;NET.meta=s.val();if(!NET.meta){netGone();return}const m=NET.meta;
     if(m.settings&&NET.slot===1)netApplySettings(m.settings);
     if(m.state==='play'&&m.gen>NET.gen)netStartGen(m.gen);renderLobby()});
-  for(const i of[0,1])on(room.child('p'+i),'value',s=>{if(!NET)return;NET.p[i]=s.val();renderLobby()});
+  for(const i of[0,1])on(room.child('p'+i),'value',s=>{if(!NET)return;NET.p[i]=s.val();if(NET.mode==='lobby')netFixName();renderLobby()});
   on(room.child('left'),'value',s=>{if(NET)NET.left=s.val()||{}});
   showOverlay('online');$('onStart').hidden=true;$('onLobby').hidden=false;renderLobby()}
 function netDetach(){if(!NET)return;for(const[r,ev,fn]of[...NET.subs,...NET.gsubs])r.off(ev,fn);try{NET.room.child('p'+NET.slot+'/online').onDisconnect().cancel()}catch(e){}}
@@ -2216,7 +2219,8 @@ function netPushMe(){if(!NET)return;NET.room.child('p'+NET.slot).update({name:ne
 function netGo(){if(!NET)return;sfxClick();audio();if(NET.slot===0){const p1=NET.p[1];if(!(p1&&p1.ready))return;NET.room.child('meta').update({state:'play',gen:(NET.meta&&NET.meta.gen||0)+1,settings:netSettings()})}
   else{const me=NET.p[1];NET.room.child('p1/ready').set(!(me&&me.ready))}}
 function netBuildTanks(){tanks=[0,1].map(i=>{const p=NET.p[i]||{name:'?',look:{hull:0,color:0,wheels:0,turret:0,barrel:0}};const mine=i===NET.slot;
-  return{name:(p.name||'?').slice(0,12),human:mine,remote:!mine,look:lookOf({look:p.look}),wins:0,cash:START_CASH,inv:{},earn:null,sg:{dealt:0,taken:0,kills:0,zombies:0,wins:0,best:null}}})}
+  let nm=(p.name||'?').slice(0,12);if(i===1&&NET.p[0]&&sameName(nm,NET.p[0].name))nm=uniqueName(nm,NET.p[0].name,1);
+  return{name:nm,human:mine,remote:!mine,look:lookOf({look:p.look}),wins:0,cash:START_CASH,inv:{},earn:null,sg:{dealt:0,taken:0,kills:0,zombies:0,wins:0,best:null}}})}
 function netStartGen(gen){if(!NET)return;for(const[r,ev,fn]of NET.gsubs)r.off(ev,fn);NET.gsubs=[];NET.gen=gen;NET.mode='game';NET.ended=false;
   Object.assign(NET,{moves:{},snaps:{},shop:{},rs:{},rematch:{},aim:null,sent:-1,waitShop:0,rsSent:{},genBump:0,loaded:false});
   netApplySettings(NET.meta&&NET.meta.settings);netBuildTanks();round=1;starter=0;toastQ=[];NET_EDIT=null;
