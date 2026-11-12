@@ -147,7 +147,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--hazard);outline
 .toplang{position:absolute;z-index:40;top:14px;left:calc(max(10px,env(safe-area-inset-left,0px)) + 52px);display:flex;gap:6px}
 .toplang .pill{font-size:13px;padding:6px 10px 5px;min-width:40px}
 .game.playing .toplang{display:none}
-@media (max-width:760px){.sec .hstabs.cats{padding-left:4px;gap:3px}.sec .hstabs.cats .tab{font-size:11px;padding:6px 8px 5px;letter-spacing:.02em}.sec .hstabs.cats .tab.on{padding:8px 10px 8px}#title .ver{position:absolute;top:10px;right:max(14px,env(safe-area-inset-right,0px));margin:0;padding:0;line-height:40px;font-size:11px}.stage.menu-open #title:not([hidden]){padding-top:60px}.titlenav{flex-direction:column;gap:14px}.tn-opts{order:2;flex-direction:row;flex-wrap:wrap;justify-content:center;gap:10px}.tn-opts .pill{min-width:0;font-size:13px;padding:7px 12px 5px}}
+@media (max-width:760px){.sec .hshead{display:block;margin-bottom:8px}.sec .hshead .hsnote{margin-top:6px;max-width:none}.sec .hsbar{flex-direction:column;align-items:stretch}.sec .hsbar>.hstabs:not(.cats){margin:0 0 8px;justify-content:flex-start}.sec .hsbar>.hstabs.cats{justify-content:flex-end}.sec .hstabs.cats{padding-left:4px;padding-right:0;gap:3px}.sec .hstabs.cats .tab{font-size:11px;padding:6px 8px 5px;letter-spacing:.02em}.sec .hstabs.cats .tab.on{padding:8px 10px 8px}#title .ver{position:absolute;top:10px;right:max(14px,env(safe-area-inset-right,0px));margin:0;padding:0;line-height:40px;font-size:11px}.stage.menu-open #title:not([hidden]){padding-top:60px}.titlenav{flex-direction:column;gap:14px}.tn-opts{order:2;flex-direction:row;flex-wrap:wrap;justify-content:center;gap:10px}.tn-opts .pill{min-width:0;font-size:13px;padding:7px 12px 5px}}
 .tagline{margin:0;font-size:19px;color:#d6ccb2;text-align:center;text-wrap:balance}
 .bigbtn{min-width:220px;padding:14px 30px 10px;font-size:clamp(20px,3.2vw,32px);border:4px solid var(--ink);border-radius:6px;background:linear-gradient(#e0784a,var(--rust) 50%,var(--rust-d));box-shadow:0 0 0 4px var(--hazard),0 7px 0 4px var(--ink)}
 .bigbtn:active{transform:translateY(4px);box-shadow:0 0 0 4px var(--hazard),0 3px 0 4px var(--ink)}
@@ -162,14 +162,19 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--hazard);outline
 @media (max-width:460px){.optgrid{grid-template-columns:minmax(0,1fr)}}
 .note{margin:0;font-size:14px;font-weight:600;color:#cfc4aa;line-height:1.35;max-width:72ch}
 .hs{padding:10px 12px}
-.hstabs{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}.hstabs.cats{gap:4px;margin:0 0 -11px;padding-left:8px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;position:relative;z-index:2}
+.hstabs{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}.hsbar{display:flex;align-items:flex-end;justify-content:space-between;gap:8px 16px;margin-bottom:-11px;position:relative;z-index:2}
+.hsbar>.hstabs:not(.cats){margin:0 0 16px}
+.hshead{flex:1 1 auto;min-width:0;margin-bottom:14px}.hshead h3{margin-bottom:2px}.hshead .hsnote{margin:0;max-width:34ch}
+.hstabs.cats{gap:4px;margin:0;padding-right:8px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;position:relative;z-index:2}
 .hstabs.cats .tab{flex:none;font-family:var(--f-disp);font-size:13px;letter-spacing:.05em;color:#b9b2a0;background:linear-gradient(#353b3d,#24292a);border:3px solid var(--ink);border-bottom:0;border-radius:8px 8px 0 0;padding:7px 14px 6px;margin:4px 0 0;cursor:pointer;box-shadow:inset 0 2px 0 rgba(255,255,255,.06)}
 .hstabs.cats .tab:hover{color:var(--bone)}
 .hstabs.cats .tab.on{background:#434a4c;color:var(--hazard);margin-top:0;padding:10px 16px 9px;box-shadow:inset 0 2px 0 rgba(255,255,255,.12)}
-.hstabs.cats+.hs{position:relative;z-index:1;border-top-left-radius:0}.hsnote{margin:2px 0 8px;font-size:12px}.hp small{font-size:.62em;opacity:.8}.hstabs .pill{padding:5px 12px 4px;font-size:13px}
+.hsbar+.hs{position:relative;z-index:1;border-top-right-radius:0}.hsnote{margin:2px 0 8px;font-size:12px}.hp small{font-size:.62em;opacity:.8}.hstabs .pill{padding:5px 12px 4px;font-size:13px}
 .hs ol{margin:0;padding:0;list-style:none;display:grid;gap:5px}
 .hs li{display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:2px 8px;align-items:baseline;padding:5px 8px;border-radius:3px;background:rgba(0,0,0,.28)}
 .hs li.new{background:rgba(240,185,43,.22);outline:2px solid var(--hazard)}
+.hsmine{margin:8px 2px 0;font-size:13px;font-weight:600;color:#cfc4aa}.hsmine b{color:var(--hazard);font-size:15px}
+.hsoff{margin:0 2px 8px;font-size:12px;font-weight:700;color:#e0a07a}
 .hs .rk{font-family:var(--f-disp);color:var(--hazard)}
 .hs .hn{font-family:var(--f-mark);font-size:18px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .hs .hp{font-family:var(--f-disp);font-size:18px;font-variant-numeric:tabular-nums}
@@ -198,7 +203,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--hazard);outline
 .mapc .md{font-size:13.5px;font-weight:600;line-height:1.25;color:#d6ccb2}
 .mapc.sel{outline:4px solid var(--hazard);outline-offset:-1px;background:linear-gradient(#5a5030,#3a3420)}
 .slots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-.shead{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 16px}.shead .note{max-width:none}
+.shead{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 16px}.shead .note{max-width:none;flex:1 1 300px;min-width:0}
 .slottabs{display:none}
 @media (max-width:600px){
   .shead{display:block}.shead .note{margin-top:4px}
@@ -267,13 +272,15 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--hazard);outline
 .shopwho{display:flex;align-items:center;gap:10px;padding:6px 12px 6px 6px;min-width:0}
 .shopwho canvas{width:72px;height:50px;background:linear-gradient(#5a4a3a,#a07a52);border:2px solid var(--ink);border-radius:4px}
 .shopname{font-family:var(--f-mark);font-size:20px}.shopround{font-family:var(--f-disp);font-size:12px;letter-spacing:.06em;color:var(--hazard)}
-.shopbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;width:min(1100px,100%)}
+.shopbar{display:flex;align-items:center;gap:14px 20px;flex-wrap:wrap;justify-content:space-between;width:min(1100px,100%)}
+.shopbar .go{margin-left:auto;flex:none}
+@media (max-width:600px){.shopbar{justify-content:center}.shopbar .go{margin:0 auto}}
 .capsbox{display:flex;align-items:center;gap:10px;padding:8px 16px}
 .capn{font-family:var(--f-disp);font-size:30px;color:var(--hazard);-webkit-text-stroke:4px var(--ink);paint-order:stroke fill}
 .capl{font-family:var(--f-disp);font-size:14px;letter-spacing:.08em;color:var(--bone)}
 .cap{display:inline-block;width:14px;height:14px;border-radius:50%;background:radial-gradient(circle,#efe6cc 0 30%,#b8322a 32% 64%,#9aa0a2 66%);border:2px solid var(--ink);vertical-align:-2px;box-shadow:0 0 0 1px #c9c2ae inset}
 .cap.big{width:30px;height:30px;border-width:3px}
-#shopEarn{flex:1 1 320px;min-width:0;margin:0}
+#shopEarn{flex:1 1 260px;min-width:0;margin:0;max-width:none}
 .sprev{position:fixed;left:50%;transform:translateX(-50%);bottom:max(10px,env(safe-area-inset-bottom,0px));z-index:60;display:grid;grid-template-columns:minmax(0,360px) minmax(0,1fr);gap:14px;align-items:center;padding:10px;width:min(1000px,calc(100% - 24px));box-shadow:0 -6px 24px rgba(0,0,0,.6)}
 #shop:not([hidden]){padding-bottom:190px}
 .sprev canvas{width:100%;aspect-ratio:44/15;border:3px solid var(--ink);border-radius:4px;background:#1d2021}
@@ -294,7 +301,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--hazard);outline
 .shopgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:8px}
 .sitem{position:relative;display:grid;grid-template-columns:62px minmax(0,1fr);grid-template-rows:auto auto auto;gap:2px 8px;padding:7px;align-items:center}
 .sitem canvas{width:62px;height:38px;background:#1d2021;border:2px solid var(--ink);border-radius:4px;grid-row:1/3}
-.sitem .si-n{font-family:var(--f-disp);font-size:14px;line-height:1.15;color:var(--bone);letter-spacing:.02em;align-self:end;overflow-wrap:anywhere}
+.sitem .si-n{font-family:var(--f-disp);font-size:14px;line-height:1.15;color:var(--bone);letter-spacing:.02em;align-self:end;overflow-wrap:break-word;-webkit-hyphens:auto;hyphens:auto}
 .sitem .si-d{font-size:12px;line-height:1.3;color:#c9c2ae}
 .sitem .si-o{font-size:11px;line-height:1.2;color:var(--hazard);font-weight:700;align-self:start}.sitem .si-o em{color:#9fb87a;font-style:normal;font-weight:600}
 .sitem .si-p{grid-column:1/3;display:flex;align-items:center;gap:6px;justify-content:flex-end;margin-top:4px}
@@ -434,12 +441,12 @@ body{padding-top:max(14px, env(safe-area-inset-top, 0px));padding-bottom:max(14p
     </div>
 
     <div class="ov" id="title">
-      <div class="ver" id="verTag" data-nt>v0.44 · 12.11.2026</div>
+      <div class="ver" id="verTag" data-nt>v0.47 · 12.11.2026</div>
       <div class="hero"><div class="sign ol big">PANCERNY KANION</div><canvas id="titleArt" width="1440" height="630" aria-hidden="true"></canvas></div>
       <p class="tagline">Artyleria na pustkowiach. Przetrwaj ostrzał, pogodę, hordy i atom.</p>
       <div class="titlenav"><div class="tn-opts"><button class="pill ghost" id="optBtn">MENU I USTAWIENIA</button><button class="pill ghost" id="helpBtn2">JAK GRAĆ</button></div><div class="navrow tn-play"><button class="bigbtn" id="playBtn"><span class="ol s">GRAJ</span></button><button class="bigbtn alt" id="onlineBtn"><span class="ol s">GRAJ ONLINE</span></button></div></div>
       <div class="navrow"><button class="pill on" id="onRejoin" hidden><span data-nt>WRÓĆ DO GRY ONLINE</span></button></div>
-      <div class="sec narrow"><h3>REKORDY</h3><div class="hstabs" data-for="hsTitle"><button class="pill on" data-hs="world">ŚWIAT</button><button class="pill ghost" data-hs="local">TO URZĄDZENIE</button></div><p class="note hsnote">Wynik to średnia punktów na rundę. Osobne listy dla poziomów komputera i dla gry bez komputera.</p><div class="hstabs cats" data-for="hsTitle" role="tablist"><button class="tab" data-cat="latwy" role="tab">ŁATWY</button><button class="tab on" data-cat="sredni" role="tab">ŚREDNI</button><button class="tab" data-cat="trudny" role="tab">TRUDNY</button><button class="tab" data-cat="gracze" role="tab">GRACZE</button></div><div class="hs plate" id="hsTitle"></div></div>
+      <div class="sec narrow"><div class="hsbar"><div class="hshead"><h3>REKORDY</h3><p class="note hsnote">Wynik to średnia punktów na rundę. Osobne listy dla poziomów komputera i dla gry bez komputera.</p></div><div class="hstabs cats" data-for="hsTitle" role="tablist"><button class="tab" data-cat="latwy" role="tab">ŁATWY</button><button class="tab on" data-cat="sredni" role="tab">ŚREDNI</button><button class="tab" data-cat="trudny" role="tab">TRUDNY</button><button class="tab" data-cat="gracze" role="tab">GRACZE</button></div></div><div class="hs plate" id="hsTitle"></div></div>
     </div>
 
     <div class="ov" id="setup" hidden>
@@ -459,10 +466,10 @@ body{padding-top:max(14px, env(safe-area-inset-top, 0px));padding-bottom:max(14p
     </div>
 
     <div class="ov" id="shop" hidden>
-      <div class="scrhead"><button class="pill ghost" id="shopBack">◀ WSTECZ</button><div class="shopwho plate"><canvas id="shopAv" width="120" height="84"></canvas><div><div class="ol s shopname" id="shopName" data-nt>Gracz</div><div class="shopround" id="shopRound" data-nt></div></div></div><div class="sign ol">HANDLARZ</div><div class="go"><button class="gobtn" id="shopGo" aria-label="Dalej"><span class="gb-plate"><span class="gb-in"><span class="gb-big ol s" id="shopGoLbl" data-nt>DO BOJU!</span></span></span><span class="play"><svg viewBox="0 0 24 24"><path d="M6 3 L21 12 L6 21 Z" fill="#e9dfc6" stroke="#0f1112" stroke-width="2.5" stroke-linejoin="round"/></svg></span></button></div></div>
-      <div class="shopbar"><div class="capsbox plate"><i class="cap big"></i><span class="capn" id="shopCash">0</span><span class="capl">KAPSLE</span></div><p class="note" id="shopEarn" data-nt></p></div>
+      <div class="scrhead"><button class="pill ghost" id="shopBack">◀ WSTECZ</button><div class="shopwho plate"><canvas id="shopAv" width="120" height="84"></canvas><div><div class="ol s shopname" id="shopName" data-nt>Gracz</div><div class="shopround" id="shopRound" data-nt></div></div></div><div class="sign ol">HANDLARZ</div></div>
+      <div class="shopbar"><div class="capsbox plate"><i class="cap big"></i><span class="capn" id="shopCash">0</span><span class="capl">KAPSLE</span></div><p class="note" id="shopEarn" data-nt></p><div class="go"><button class="gobtn" id="shopGo" aria-label="Dalej"><span class="gb-plate"><span class="gb-in"><span class="gb-big ol s" id="shopGoLbl" data-nt>DO BOJU!</span></span></span><span class="play"><svg viewBox="0 0 24 24"><path d="M6 3 L21 12 L6 21 Z" fill="#e9dfc6" stroke="#0f1112" stroke-width="2.5" stroke-linejoin="round"/></svg></span></button></div></div>
       <div class="sprev plate" id="shopPrev"><canvas id="shopDemo" width="880" height="300" aria-hidden="true"></canvas><div class="sprev-t" data-nt><div class="si-n" id="shopDemoName"></div><div class="si-d" id="shopDemoDesc"></div><div class="sprev-h" id="shopDemoHint"></div></div><button class="pill on sprev-x" id="shopPrevX" aria-label="Zamknij podgląd">✕</button></div>
-      <div class="sec"><h3>TOWAR</h3><p class="note">Na każdą rundę dostajesz za darmo Pocisk (bez limitu), 2 Miniguny i 2 Skoczki. Resztę kupujesz, a niezużyte zakupy przechodzą na kolejne rundy. Kapsle zarabiasz: 1 za punkt zadanych obrażeń, 75 za zniszczony czołg, 5 za zombie, 200 za wygraną rundę i 100 przydziału po każdej rundzie.</p><div class="shopgrid" id="shopGrid" data-nt></div></div>
+      <div class="sec"><div class="shead"><h3>TOWAR</h3><p class="note">Na każdą rundę dostajesz za darmo Pocisk (bez limitu), 2 Miniguny i 2 Skoczki. Resztę kupujesz, a niezużyte zakupy przechodzą na kolejne rundy. Kapsle zarabiasz: 1 za punkt zadanych obrażeń, 75 za zniszczony czołg, 5 za zombie, 200 za wygraną rundę i 100 przydziału po każdej rundzie.</p></div><div class="shopgrid" id="shopGrid" data-nt></div></div>
     </div>
 
     <div class="ov" id="online" hidden>
@@ -495,7 +502,7 @@ body{padding-top:max(14px, env(safe-area-inset-top, 0px));padding-bottom:max(14p
       <div class="ol" id="finTitle" data-nt style="font-size:clamp(20px,3.6vw,36px);text-align:center">OCALAŁ</div>
       <div class="sec"><h3>STATYSTYKI</h3><div class="tblwrap plate"><table class="sumtbl" id="finTable"></table></div>
         <p class="note">Punkty: 500 za wygraną rundę, 1 za każdy punkt zadanych obrażeń, 100 za zniszczony czołg i 25 za zombie.</p></div>
-      <div class="sec narrow"><h3>REKORDY</h3><div class="hstabs" data-for="hsFinal"><button class="pill on" data-hs="world">ŚWIAT</button><button class="pill ghost" data-hs="local">TO URZĄDZENIE</button></div><p class="note hsnote">Wynik to średnia punktów na rundę. Osobne listy dla poziomów komputera i dla gry bez komputera.</p><div class="hstabs cats" data-for="hsFinal" role="tablist"><button class="tab" data-cat="latwy" role="tab">ŁATWY</button><button class="tab on" data-cat="sredni" role="tab">ŚREDNI</button><button class="tab" data-cat="trudny" role="tab">TRUDNY</button><button class="tab" data-cat="gracze" role="tab">GRACZE</button></div><div class="hs plate" id="hsFinal"></div></div>
+      <div class="sec narrow"><div class="hsbar"><div class="hshead"><h3>REKORDY</h3><p class="note hsnote">Wynik to średnia punktów na rundę. Osobne listy dla poziomów komputera i dla gry bez komputera.</p></div><div class="hstabs cats" data-for="hsFinal" role="tablist"><button class="tab" data-cat="latwy" role="tab">ŁATWY</button><button class="tab on" data-cat="sredni" role="tab">ŚREDNI</button><button class="tab" data-cat="trudny" role="tab">TRUDNY</button><button class="tab" data-cat="gracze" role="tab">GRACZE</button></div></div><div class="hs plate" id="hsFinal"></div></div>
       <div class="navrow"><button class="pill ghost" id="toTitle">MENU GŁÓWNE</button><button class="bigbtn" id="again"><span class="ol s">ZAGRAJ PONOWNIE</span></button></div>
     </div>
 
@@ -696,7 +703,7 @@ function unAttr(e){if(!e.__tr)return;for(const a in e.__tr){const[o,r]=e.__tr[a]
 function walkTr(root,fwd){if(root.nodeType===3){fwd?trNode(root):unNode(root);return}if(root.nodeType!==1)return;
   const w=document.createTreeWalker(root,5);let n=root;do{if(n.nodeType===3)fwd?trNode(n):unNode(n);else if(fwd)I18A.forEach(a=>trAttr(n,a));else unAttr(n)}while(n=w.nextNode())}
 let i18nObs=null;const RICH=[];
-function applyLang(){document.documentElement.lang=lang;document.title=T('Pancerny Kanion','Armored Canyon');
+function applyLang(){try{document.documentElement.lang=lang}catch(e){}document.documentElement.lang=lang;document.title=T('Pancerny Kanion','Armored Canyon');
   if(!RICH.length)document.querySelectorAll('[data-rich]').forEach(e=>{e._pl=e.innerHTML;RICH.push(e)});
   RICH.forEach(e=>e.innerHTML=lang==='pl'?e._pl:EN_RICH[e.dataset.rich]);
   walkTr(document.body,lang==='en');
@@ -1417,7 +1424,7 @@ const oldConv=r=>({...r,cat:'sredni',score:Math.round((r.score||0)/OLD_ROUNDS),r
 function loadHS(){try{let v=JSON.parse(localStorage.getItem(HS_KEY)||'[]');if(!Array.isArray(v))return[];return v.map(r=>r&&r.cat?r:oldConv(r))}catch(e){return[]}}
 function saveHS(l){const out=[];for(const c of HS_CATS)out.push(...l.filter(r=>r.cat===c).sort((a,b)=>b.score-a.score).slice(0,10));try{localStorage.setItem(HS_KEY,JSON.stringify(out))}catch(e){}}
 /* ---------- hi-scores: local + world (Firebase Firestore REST) ---------- */
-const FB={key:'AIzaSyD94iINKYZLF7OuuYs9yM8-s3vGHaLTjHw',base:'https://firestore.googleapis.com/v1/projects/pancerny-kanion/databases/(default)/documents'},HS_PEND='pancerny-kanion-wyslij',GAME_VER='0.44';
+const FB={key:'AIzaSyD94iINKYZLF7OuuYs9yM8-s3vGHaLTjHw',base:'https://firestore.googleapis.com/v1/projects/pancerny-kanion/databases/(default)/documents'},HS_PEND='pancerny-kanion-wyslij',GAME_VER='0.47';
 const worldHS={},worldErr={},worldBusy={},worldAt={};const hsMode={hsTitle:'world',hsFinal:'world'},hsNew={},hsCat={hsTitle:'sredni',hsFinal:'sredni'};
 const fbVal=v=>typeof v==='number'?{integerValue:String(Math.round(v))}:{stringValue:String(v??'')};
 function fbDoc(r){const f={};for(const k of['name','score','wins','dealt','kills','zombies','best','map','date','cid','v','rounds','mode'])f[k]=fbVal(r[k]);return{fields:f}}
@@ -1438,21 +1445,18 @@ async function flushWorld(){const p=[...readPend(),...pendMem];pendMem=[];if(!p.
 function refreshHS(){for(const id of['hsTitle','hsFinal']){const el=$(id);if(el)renderHS(el)}}
 function hsRow(r,i,newIds){return`<li class="${newIds&&newIds.has(r.id)?'new':''}"><span class="rk">${i+1}.</span><span class="hn" data-nt>${esc(r.name)}</span><span class="hp">${r.score} <small>${T('PKT/RUNDĘ','PTS/ROUND')}</small></span>
     <span class="hd" data-nt>${r.old?T('stary wynik · ','old score · '):''}${r.mode&&r.mode!=='ffa'?esc(T(...(MODE_LBL[r.mode]||[r.mode,r.mode])))+' · ':''}${T('wygrane','won')} ${r.wins}${r.rounds&&!r.old?'/'+r.rounds:''} ${T('rund','rounds')} · ${r.dealt} ${T('obrażeń','damage')} · ${r.kills} ${T('czołgów','tanks')} · ${r.zombies} zombie · ${T('najszybciej','fastest')} ${fmtT(r.best)} · ${esc(L(r.map))} · ${esc(r.date)}</span></li>`}
-function renderHS(el,newIds){if(!el)return;if(newIds)hsNew[el.id]=newIds;newIds=hsNew[el.id];const mode=hsMode[el.id]||'world',cat=hsCat[el.id]||'sredni';
-  document.querySelectorAll(`.hstabs[data-for="${el.id}"] [data-hs]`).forEach(b=>b.className='pill '+(b.dataset.hs===mode?'on':'ghost'));
+function renderHS(el,newIds){if(!el)return;if(newIds)hsNew[el.id]=newIds;newIds=hsNew[el.id];const cat=hsCat[el.id]||'sredni';
   document.querySelectorAll(`.hstabs[data-for="${el.id}"] [data-cat]`).forEach(b=>{b.className='tab'+(b.dataset.cat===cat?' on':'');b.setAttribute('aria-selected',b.dataset.cat===cat)});
-  const lbl=T(...HS_CAT_LBL[cat]);
-  if(mode==='world'){
-    if(!worldBusy[cat]&&Date.now()-(worldAt[cat]||0)>60000)fetchWorld(cat);
-    const w=worldHS[cat];
-    if(!w){el.innerHTML=`<p class="empty" data-nt>${worldErr[cat]?T('Nie udało się wczytać rankingu świata. Sprawdź połączenie z internetem.','Could not load the world ranking. Check your internet connection.'):T('Wczytywanie rankingu świata…','Loading the world ranking…')}</p>`;return}
-    if(!w.length){el.innerHTML=`<p class="empty" data-nt>${T('Ranking świata „','The world ranking “')+lbl+T('” jest jeszcze pusty. Zagraj i bądź pierwszy!','” is still empty. Play and be the first!')}</p>`;return}
-    el.innerHTML='<ol>'+w.slice(0,10).map((r,i)=>hsRow(r,i,newIds)).join('')+'</ol>';return}
-  const l=loadHS().filter(r=>r.cat===cat).sort((a,b)=>b.score-a.score);
-  if(!l.length){el.innerHTML=`<p class="empty" data-nt>${T('Brak rekordów na tym urządzeniu w kategorii „','No records on this device in “')+lbl+T('”. Zagraj, a najlepsze wyniki trafią na tę listę.','” yet. Play and the best scores will land here.')}</p>`;return}
-  el.innerHTML='<ol>'+l.slice(0,10).map((r,i)=>hsRow(r,i,newIds)).join('')+'</ol>'}
+  const lbl=T(...HS_CAT_LBL[cat]),loc=loadHS().filter(r=>r.cat===cat).sort((a,b)=>b.score-a.score),mine=new Set(loc.map(r=>r.id)),hi=new Set([...(newIds||[]),...mine]);
+  if(!worldBusy[cat]&&Date.now()-(worldAt[cat]||0)>60000)fetchWorld(cat);
+  const w=worldHS[cat],list=(l,ids)=>'<ol>'+l.slice(0,10).map((r,i)=>hsRow(r,i,ids)).join('')+'</ol>';
+  if(!w){
+    if(!worldErr[cat]){el.innerHTML=`<p class="empty" data-nt>${T('Wczytywanie rankingu świata…','Loading the world ranking…')}</p>`;return}
+    el.innerHTML=`<p class="hsoff" data-nt>${T('Brak połączenia – wyniki z tego urządzenia.','No connection – scores from this device.')}</p>`+(loc.length?list(loc,newIds):`<p class="empty" data-nt>${T('Brak rekordów w kategorii „','No records in “')+lbl+T('”. Zagraj, a najlepsze wyniki trafią na tę listę.','” yet. Play and the best scores will land here.')}</p>`);return}
+  let h=w.length?list(w,hi):`<p class="empty" data-nt>${T('Ranking świata „','The world ranking “')+lbl+T('” jest jeszcze pusty. Zagraj i bądź pierwszy!','” is still empty. Play and be the first!')}</p>`;
+  if(loc.length){const b=loc[0],pos=w.findIndex(r=>r.id===b.id);h+=`<p class="hsmine" data-nt>${T('Twój najlepszy wynik na tym urządzeniu: ','Your best on this device: ')}<b>${b.score}</b> ${T('pkt/rundę','pts/round')} · ${esc(b.name)}${pos>=0?T(' · miejsce ',' · rank ')+(pos+1)+T(' na świecie',' in the world'):''}</p>`}
+  el.innerHTML=h}
 document.addEventListener('click',e=>{const b=e.target.closest('.hstabs [data-cat]');if(!b)return;const id=b.parentElement.dataset.for;hsCat[id]=b.dataset.cat;sfxClick();renderHS($(id))});
-document.addEventListener('click',e=>{const b=e.target.closest('.hstabs [data-hs]');if(!b)return;const id=b.parentElement.dataset.for;hsMode[id]=b.dataset.hs;sfxClick();renderHS($(id))});
 function showFinal(){
   const sorted=[...tanks].sort((a,b)=>score(b)-score(a)||b.wins-a.wins);
   const topW=Math.max(...tanks.map(t=>t.wins)),win=tanks.filter(t=>t.wins===topW);
@@ -2529,7 +2533,7 @@ function renderShop(){const t=shopT;if(!t)return;$('shopName').textContent=t.nam
     :T('Kapsle na start. Wydaj je z głową: więcej amunicji czy tarcza albo nalot?','Starting caps. Spend wisely: more ammo, or a shield or an airstrike?');
   $('shopGoLbl').textContent=shopQ.length?T('NASTĘPNY GRACZ','NEXT PLAYER'):T('DO BOJU!','TO BATTLE!');
   const g=$('shopGrid');g.innerHTML=SHOP.map(([id,price,qty,max])=>{const w=WEAPONS[WI(id)],own=t.inv[id]||0,lk=(UNLOCK[id]||0)>round,silo=id==='nuke'&&t.nukeUsed!=null&&round<t.nukeUsed+2,can=!lk&&!silo&&t.cash>=price&&own+qty<=max,b=BASIC[id],sd=SHOP_DESC[id]||SHOP_DESC_NEW[id];
-    return`<div class="sitem plate${lk||silo?' locked':''}${t.cash<price?' poor':''}${own+qty>max?' maxed':''}" data-id="${id}" title="${esc(T(sd[0],sd[1]))}"><canvas width="112" height="68" data-w="${id}"></canvas><div class="si-n">${esc(L(w.name))}${qty>1?' ×'+qty:''}</div>${silo?`<div class="si-tag si-lock">🔒 ${T('SILOS · OD RUNDY ','SILO · ROUND ')+(t.nukeUsed+2)}</div>`:lk?`<div class="si-tag si-lock">🔒 ${T('OD RUNDY ','ROUND ')+UNLOCK[id]}</div>`:(UNLOCK[id]?`<div class="si-tag si-new">${T('NOWOŚĆ','NEW')}</div>`:'')}<div class="si-o">${T('MASZ','OWNED')} ${own}${b?` <em>+${b} ${T('co rundę','each round')}</em>`:''}${own+qty>max?' · MAX':''}</div>
+    return`<div class="sitem plate${lk||silo?' locked':''}${t.cash<price?' poor':''}${own+qty>max?' maxed':''}" data-id="${id}" title="${esc(T(sd[0],sd[1]))}"><canvas width="112" height="68" data-w="${id}"></canvas><div class="si-n">${esc(L(w.name)).replace(/[^\s]{13,}/g,m=>m.slice(0,9)+'&shy;'+m.slice(9))}${qty>1?' ×'+qty:''}</div>${silo?`<div class="si-tag si-lock">🔒 ${T('SILOS · OD RUNDY ','SILO · ROUND ')+(t.nukeUsed+2)}</div>`:lk?`<div class="si-tag si-lock">🔒 ${T('OD RUNDY ','ROUND ')+UNLOCK[id]}</div>`:(UNLOCK[id]?`<div class="si-tag si-new">${T('NOWOŚĆ','NEW')}</div>`:'')}<div class="si-o">${T('MASZ','OWNED')} ${own}${b?` <em>+${b} ${T('co rundę','each round')}</em>`:''}${own+qty>max?' · MAX':''}</div>
       <div class="si-p"><span class="price"><i class="cap"></i>${price}</span><button class="pill ghost" data-sell="${id}"${shopBuys[id]?'':' disabled'} aria-label="${T('Oddaj','Return')}">−</button><button class="pill on" data-buy="${id}"${can?'':' disabled'}>${T('KUP','BUY')}</button></div></div>`}).join('');
   g.querySelectorAll('canvas').forEach(cn=>weaponIcon(cn,cn.dataset.w));
   g.querySelectorAll('.sitem').forEach(e=>e.addEventListener('pointerenter',ev=>{if(ev.pointerType==='mouse')peekShop(e.dataset.id)}));peekShop(shopPeek)}
