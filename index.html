@@ -70,7 +70,14 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--hazard);outline
 .pc .fx{font-family:var(--f-disp);font-size:10px;line-height:1;color:var(--ink);padding:2px 3px 1px;border:2px solid var(--ink);border-radius:3px;white-space:nowrap}
 .pc .fx small{font-size:8px;margin-left:1px}
 .pc .stars{font-family:var(--f-disp);font-size:13px;color:var(--hazard);-webkit-text-stroke:3px var(--ink);paint-order:stroke fill}
-.mid{flex:none;display:flex;flex-direction:column;align-items:center;gap:4px}
+.mid{flex:none;display:flex;flex-direction:column;align-items:center;gap:4px;position:relative}
+.sndico{pointer-events:auto;display:grid;place-items:center;width:40px;height:40px;padding:0;border:3px solid var(--ink);border-radius:50%;background:radial-gradient(circle at 38% 32%,#5a6366,#2b3132 70%);box-shadow:0 3px 0 var(--ink);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.sndico svg{width:22px;height:22px}
+.sndico:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.sndico.off{background:radial-gradient(circle at 38% 32%,#8a4a3a,#5a2a20 70%)}
+.sndico.hud{position:absolute;left:100%;top:2px;margin-left:10px;width:36px;height:36px}
+.sndico.top{position:absolute;z-index:40;top:max(10px,env(safe-area-inset-top,0px));left:max(10px,env(safe-area-inset-left,0px))}
+.game.playing .sndico.top{display:none}
 .timer{min-width:64px;text-align:center;background:var(--bone);color:var(--ink);font-family:var(--f-disp);font-size:28px;line-height:1;padding:6px 10px 4px;border:4px solid var(--ink);border-radius:5px;box-shadow:inset 0 -4px 0 #b9ad90;font-variant-numeric:tabular-nums}
 .timer.warn{background:var(--blood);color:var(--bone);box-shadow:inset 0 -4px 0 #5e140e}
 .wind,.mstat{font-family:var(--f-disp);font-size:14px;white-space:nowrap}
@@ -374,12 +381,12 @@ body{padding-top:max(14px, env(safe-area-inset-top, 0px));padding-bottom:max(14p
 <body>
 
 
-<div class="game">
+<div class="game"><button class="sndico top" id="sndTop" aria-label="Dźwięk"></button>
   <div class="stage ov-open menu-open" id="stage">
     <canvas id="cv" aria-label="Pole bitwy"></canvas>
     <div class="hudTop" id="hudTop" hidden>
       <div class="side" id="sideL"></div>
-      <div class="mid"><div class="timer" id="timer">30</div><div class="wind ol s" id="wind">WIATR 0</div><div class="mstat ol s" id="mstat"></div><div class="nclock" id="nclock" hidden>ATOM</div><div class="evstat ol s" id="evstat"></div></div>
+      <div class="mid"><div class="timer" id="timer">30</div><button class="sndico hud" id="sndHud" aria-label="Dźwięk"></button><div class="wind ol s" id="wind">WIATR 0</div><div class="mstat ol s" id="mstat"></div><div class="nclock" id="nclock" hidden>ATOM</div><div class="evstat ol s" id="evstat"></div></div>
       <div class="side r" id="sideR"></div>
     </div>
     <div data-nt class="toast ol" id="toast"></div>
@@ -397,7 +404,7 @@ body{padding-top:max(14px, env(safe-area-inset-top, 0px));padding-bottom:max(14p
     </div>
 
     <div class="ov" id="title">
-      <div class="ver" id="verTag" data-nt>v0.36 · 12.11.2026</div>
+      <div class="ver" id="verTag" data-nt>v0.37 · 12.11.2026</div>
       <div class="hero"><div class="sign ol big">PANCERNY KANION</div><canvas id="titleArt" width="1440" height="630" aria-hidden="true"></canvas></div>
       <p class="tagline">Artyleria na pustkowiach. Przetrwaj ostrzał, pogodę, hordy i atom.</p>
       <div class="navrow"><button class="bigbtn" id="playBtn"><span class="ol s">GRAJ</span></button><button class="bigbtn alt" id="onlineBtn"><span class="ol s">GRAJ ONLINE</span></button></div>
@@ -627,7 +634,7 @@ const EN={
 'SPRAWDŹ DŹWIĘK':'TEST SOUND','Pomysł, projekt gry, kierunek artystyczny i testy':'Idea, game design, art direction and testing',
 'Kod, grafika i dźwięki (Claude, AI od Anthropic)':'Code, graphics and sound (Claude, an AI by Anthropic)',
 'Inspiracje: Scorched Tanks z Amigi, Hills of Steel, Into the Dead: Our Darkest Days, Fallout i ARC Raiders.':'Inspired by: Scorched Tanks on the Amiga, Hills of Steel, Into the Dead: Our Darkest Days, Fallout and ARC Raiders.',
-'ZAMKNIJ':'CLOSE','Tryby: 1 na 1 to pojedynek dwóch czołgów. W trybach 2 na 2 i 1 na 3 drużyny stają po przeciwnych stronach mapy, rundę wygrywa drużyna, która przetrwa, a za trafienie kolegi z drużyny nie ma kapsli ani punktów. Przy ataku atomowym liczy się suma życia drużyny.':'Modes: 1 vs 1 is a duel of two tanks. In 2 vs 2 and 1 vs 3 the teams start on opposite sides of the map, the team that survives wins the round, and hitting a teammate earns no caps or points. In a nuke strike the team’s total health counts.','ŁATWY':'EASY','ŚREDNI':'NORMAL','TRUDNY':'HARD','GRACZE':'PLAYERS','Wynik to średnia punktów na rundę. Osobne listy dla poziomów komputera i dla gry bez komputera.':'Score is the average points per round. Separate lists for each CPU level and for games without the CPU.','TRYB:':'MODE:','KAŻDY NA KAŻDEGO':'FREE FOR ALL','1 NA 1':'1 VS 1','2 NA 2':'2 VS 2','1 NA 3':'1 VS 3','Sęp':'Vulture','Kriobomba':'Cryo bomb','Zarażony pocisk':'Infected shell','Teleporter':'Teleporter','Lustro':'Mirror','LUSTRO WŁĄCZONE':'MIRROR ON','ODBICIE':'REFLECTED','ZAMROŻONY':'FROZEN','TELEPORT':'TELEPORT','GRAJ ONLINE':'PLAY ONLINE','GRA ONLINE':'ONLINE GAME','TWOJA NAZWA':'YOUR NAME','NOWY POJEDYNEK':'NEW DUEL','ZAŁÓŻ POKÓJ':'CREATE ROOM','DOŁĄCZ DO POKOJU':'JOIN A ROOM','DOŁĄCZ':'JOIN','KOD':'CODE','Kod pokoju':'Room code',
+'ZAMKNIJ':'CLOSE','Dźwięk':'Sound','Tryby: 1 na 1 to pojedynek dwóch czołgów. W trybach 2 na 2 i 1 na 3 drużyny stają po przeciwnych stronach mapy, rundę wygrywa drużyna, która przetrwa, a za trafienie kolegi z drużyny nie ma kapsli ani punktów. Przy ataku atomowym liczy się suma życia drużyny.':'Modes: 1 vs 1 is a duel of two tanks. In 2 vs 2 and 1 vs 3 the teams start on opposite sides of the map, the team that survives wins the round, and hitting a teammate earns no caps or points. In a nuke strike the team’s total health counts.','ŁATWY':'EASY','ŚREDNI':'NORMAL','TRUDNY':'HARD','GRACZE':'PLAYERS','Wynik to średnia punktów na rundę. Osobne listy dla poziomów komputera i dla gry bez komputera.':'Score is the average points per round. Separate lists for each CPU level and for games without the CPU.','TRYB:':'MODE:','KAŻDY NA KAŻDEGO':'FREE FOR ALL','1 NA 1':'1 VS 1','2 NA 2':'2 VS 2','1 NA 3':'1 VS 3','Sęp':'Vulture','Kriobomba':'Cryo bomb','Zarażony pocisk':'Infected shell','Teleporter':'Teleporter','Lustro':'Mirror','LUSTRO WŁĄCZONE':'MIRROR ON','ODBICIE':'REFLECTED','ZAMROŻONY':'FROZEN','TELEPORT':'TELEPORT','GRAJ ONLINE':'PLAY ONLINE','GRA ONLINE':'ONLINE GAME','TWOJA NAZWA':'YOUR NAME','NOWY POJEDYNEK':'NEW DUEL','ZAŁÓŻ POKÓJ':'CREATE ROOM','DOŁĄCZ DO POKOJU':'JOIN A ROOM','DOŁĄCZ':'JOIN','KOD':'CODE','Kod pokoju':'Room code',
 'KOD POKOJU':'ROOM CODE','KOPIUJ':'COPY','MÓJ CZOŁG':'MY TANK','OPUŚĆ GRĘ':'LEAVE GAME','Start':'Start',
 'Załóż pokój i podaj kod drugiemu graczowi. Gra 1 na 1, każdy na swoim telefonie lub komputerze.':'Create a room and give the code to the other player. A 1-on-1 duel, each on their own phone or computer.',
 'Drugi gracz wybiera „GRAJ ONLINE” → „DOŁĄCZ” i wpisuje ten kod. Gospodarz ustala zasady, a każdy wybiera swój czołg.':'The other player picks “PLAY ONLINE” → “JOIN” and types this code. The host sets the rules and everyone picks their own tank.',
@@ -1368,7 +1375,7 @@ function updateNuke(dt){nukeT+=dt;
     if(Math.random()<.6)parts.push({k:'smoke',x:nukeMissile.x+rand(-4,4),y:nukeMissile.y-30,vx:rand(-10,10),vy:rand(-20,0),r:rand(6,10),gr:14,life:1.2,max:1.2,col:'#cfc6b0'});
     if(nukeT>=2){nukeMissile.boom=true;flash=1.6;shake=26;sfxBoom(200,false);tone(60,25,2.5,'sine',.6);
       for(let i=0;i<7;i++){const x=W*(i+.5)/7;carve(x,groundAtX(x),Math.round(130*U),true)}
-      explosions.push({x:W/2,y:gy,r:Math.round(420*U),t:0,dur:1.8,rot:0});
+      explosions.push({x:W/2,y:gy,r:Math.round(420*U),t:0,dur:1.8,rot:0});mush.push({x:W/2,y:gy,k:Math.round(420*U)/60*.75,t:0,dur:5});
       for(const t of tanks)if(t.alive){t.alive=false;t.hp=0;explosions.push({x:t.x,y:t.y-15,r:50,t:0,dur:.9,rot:rand(0,6)})}
       for(const z of zombies)killZombie(z,null,null);for(const b of [...bodies])shatter(b);
       for(let i=0;i<60;i++)parts.push({k:'smoke',x:W/2+rand(-60,60)*U,y:gy-rand(0,300)*U,vx:rand(-30,30),vy:rand(-90,-20),r:rand(30,70)*U,gr:30,life:rand(2.5,4),max:4,col:i%3?'#4a3a30':'#c9762f'})}}
@@ -1382,7 +1389,7 @@ const oldConv=r=>({...r,cat:'sredni',score:Math.round((r.score||0)/OLD_ROUNDS),r
 function loadHS(){try{let v=JSON.parse(localStorage.getItem(HS_KEY)||'[]');if(!Array.isArray(v))return[];return v.map(r=>r&&r.cat?r:oldConv(r))}catch(e){return[]}}
 function saveHS(l){const out=[];for(const c of HS_CATS)out.push(...l.filter(r=>r.cat===c).sort((a,b)=>b.score-a.score).slice(0,10));try{localStorage.setItem(HS_KEY,JSON.stringify(out))}catch(e){}}
 /* ---------- hi-scores: local + world (Firebase Firestore REST) ---------- */
-const FB={key:'AIzaSyD94iINKYZLF7OuuYs9yM8-s3vGHaLTjHw',base:'https://firestore.googleapis.com/v1/projects/pancerny-kanion/databases/(default)/documents'},HS_PEND='pancerny-kanion-wyslij',GAME_VER='0.36';
+const FB={key:'AIzaSyD94iINKYZLF7OuuYs9yM8-s3vGHaLTjHw',base:'https://firestore.googleapis.com/v1/projects/pancerny-kanion/databases/(default)/documents'},HS_PEND='pancerny-kanion-wyslij',GAME_VER='0.37';
 const worldHS={},worldErr={},worldBusy={},worldAt={};const hsMode={hsTitle:'world',hsFinal:'world'},hsNew={},hsCat={hsTitle:'sredni',hsFinal:'sredni'};
 const fbVal=v=>typeof v==='number'?{integerValue:String(Math.round(v))}:{stringValue:String(v??'')};
 function fbDoc(r){const f={};for(const k of['name','score','wins','dealt','kills','zombies','best','map','date','cid','v','rounds','mode'])f[k]=fbVal(r[k]);return{fields:f}}
@@ -1450,7 +1457,7 @@ const MODE_LBL={ffa:['KAŻDY NA KAŻDEGO','FREE FOR ALL'],'1v1':['1 NA 1','1 VS 
 function slotReq(i){return teamMode==='1v1'?i<2:teamMode!=='ffa'}
 function slotLocked(i){return teamMode==='1v1'&&i>=2}
 function applyMode(){config.forEach((c,i)=>{if(slotLocked(i))c.type='off';else if(slotReq(i)&&c.type==='off'){c.type='cpu';c.look=randomLook();if(/^(Gracz|Player)/.test(c.name))c.name=T('Komputer ','CPU ')+(i+1)}});renderSlots()}
-let planes=[],projectiles=[],pending=[],explosions=[],parts=[],texts=[],trail=[],fires=[],beams=[],crates=[];
+let mush=[],planes=[],projectiles=[],pending=[],explosions=[],parts=[],texts=[],trail=[],fires=[],beams=[],crates=[];
 let shake=0,flash=0,time=0,resolveT=0,aimDrag=false,turnsSinceDrop=0,firstTurn=true;
 let roundSec=0,clock=0,eventsOn=true,evPend=null,evAct=null,evNext=5,poolKind=null,nukeT=-1,nukeWinner=null,nukeMissile=null,roundElapsed=0,warned={},barrageQ=[],quakeT=0;
 let toastQ=[],toastBusy=0;
@@ -1476,7 +1483,7 @@ function startRound(){
   tanks.forEach(t=>{t.st=statsOf(t.look);Object.assign(t,{hp:t.st.maxHp,alive:true,vy:0,vx:0,falling:false,jumping:false,jumpCd:0,fallFrom:0,power:55,wi:0,ai:null,shield:0,dbl:false,moving:null,burnAcc:0,recoil:0,hurt:0,lastHit:null,o2:100,o2warn:0,drownAcc:0,
       fx:{stab:0,heater:0,floats:0,dome:0,saw:0},frozen:false,stuck:false,wasWet:false});
     t.y=groundUnder(t.x,t.st.scale);t.tilt=tiltAt(t.x);t.angle=t.x<W/2?50:130;t.inv=t.inv||{};t.ammo={};WEAPONS.forEach(w=>t.ammo[w.id]=w.ammo===Infinity?Infinity:w.move?w.ammo:(BASIC[w.id]||0)+(t.inv[w.id]||0));t.rb={...BASIC};t.airX=clamp(t.x+(t.x<W/2?1:-1)*260,20,W-20);t.earn={dmg:0,kill:0,zomb:0,win:0,base:0}});
-  projectiles=[];pending=[];explosions=[];parts=[];texts=[];trail=[];fires=[];beams=[];crates=[];planes=[];zombies=[];waveNum=0;turnCount=0;skipWaves=0;
+  mush=[];projectiles=[];pending=[];explosions=[];parts=[];texts=[];trail=[];fires=[];beams=[];crates=[];planes=[];zombies=[];waveNum=0;turnCount=0;skipWaves=0;
   turnsSinceDrop=0;firstTurn=true;wind=Math.round(rand(-.5,.5)*MAP.windMax);cur=starter%n;starter++;flashL=0;lightT=rand(6,12);
   phase='starting';buildCards();startIntro(L(MAP.name).toUpperCase()+(feats.length?' · '+L(feats[0]):''));
 }
@@ -1543,7 +1550,7 @@ function roundOver(winner,reason){
     $('standings').querySelectorAll('canvas').forEach(cn=>avatar(cn,tanks[+cn.dataset.i].look));
     $('nextLbl').textContent='NASTĘPNA RUNDA';
     showOverlay('result');$('nextBtn').focus();
-  },reason==='nuke'?500:1300);
+  },Math.max(reason==='nuke'?500:1300,...mush.map(m=>(m.dur-m.t-.6)*1000)));
 }
 
 /* ---------- terrain ops ---------- */
@@ -1640,7 +1647,7 @@ function explode(x,y,w,mult=1,rMul=1,owner=null){
   const r=Math.round(w.r*rMul);
   if(w.dirt)addDirt(x,y,r);else{carve(x,y,r);if(bodies.length)hitBodies(x,y,r)}
   explosions.push({x,y,r,t:0,dur:.42+r*.0025,dirt:!!w.dirt,rot:rand(0,6)});
-  shake=Math.max(shake,Math.min(18,r*.16));if(w.nuke)flash=1;
+  shake=Math.max(shake,Math.min(18,r*.16));if(w.nuke){flash=1;mush.push({x,y:Math.min(H-4,groundAtX(x)),k:r/60,t:0,dur:4.2})}
   const nC=Math.min(26,6+r*.3);
   for(let i=0;i<nC;i++){const a=rand(Math.PI*1.05,Math.PI*1.95),sp=rand(120,260+r*2);parts.push({k:'chunk',x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,r:rand(2.5,5.5),col:Math.random()<.5?MAP.dirt:MAP.band,life:rand(1,1.8)})}
   const nS=w.nuke?28:Math.min(14,4+r/8);
@@ -1800,7 +1807,7 @@ function update(dt){
     for(const t of tanks)if(t.alive&&Math.abs(t.x-c.x)<t.st.hw+4&&Math.abs(t.y-c.y)<t.st.hh){collect(c,t);break}}
   if(bodies.length)updateBodies(dt);
   for(const b of beams)b.t+=dt;beams=beams.filter(b=>b.t<b.dur);
-  for(const e of explosions)e.t+=dt;explosions=explosions.filter(e=>e.t<e.dur);
+  for(const e of explosions)e.t+=dt;explosions=explosions.filter(e=>e.t<e.dur);for(const m of mush)m.t+=dt;mush=mush.filter(m=>m.t<m.dur);
   for(const p of parts){p.life-=dt;
     if(p.k==='smoke'){p.x+=p.vx*dt+wind*4*dt;p.y+=p.vy*dt;p.vx*=.98;p.vy*=.98;p.r+=p.gr*dt*.6}
     else{p.vy+=G*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;if(p.k==='chunk'&&groundHit(p.x,p.y)&&p.vy>0){p.vy*=-.3;p.vx*=.6;p.y=h[clamp(Math.round(p.x),0,W-1)]-1;if(Math.abs(p.vy)<20)p.life=Math.min(p.life,.25)}}}
@@ -1833,6 +1840,20 @@ function updateWeather(dt){
 /* ---------- render ---------- */
 function powCol(f){const A=[158,42,31],B=[240,185,43],C=[158,226,47];const[a,b,t]=f<.5?[A,B,f/.5]:[B,C,(f-.5)/.5];return`rgb(${a.map((v,i)=>Math.round(v+(b[i]-v)*t)).join(',')})`}
 function starburst(c,x,y,R,n,rot,inner){c.beginPath();for(let i=0;i<n*2;i++){const r=i%2?R*inner:R,a=rot+i*Math.PI/n;c.lineTo(x+Math.cos(a)*r,y+Math.sin(a)*r)}c.closePath()}
+function drawMushroom(c,m){const k=m.k,t=m.t,g=Math.min(1,t/2.2),e=1-Math.pow(1-g,3),fade=t<m.dur-1.4?1:Math.max(0,(m.dur-t)/1.4),x=m.x,y=m.y;
+  const st=(30+120*e)*k,capW=(34+36*e)*k,capH=(20+12*e)*k,cy=y-st,wob=Math.sin(t*3)*1.5*k;
+  c.save();c.globalAlpha=fade;c.lineJoin='round';
+  const gl=c.createRadialGradient(x,cy,capH*.3,x,cy,capW*2.2);gl.addColorStop(0,`rgba(255,190,90,${.55*(1-g*.6)})`);gl.addColorStop(1,'rgba(255,120,40,0)');c.fillStyle=gl;c.beginPath();c.arc(x,cy,capW*2.2,0,7);c.fill();
+  c.fillStyle='rgba(120,100,86,.6)';c.strokeStyle='rgba(15,17,18,.35)';c.lineWidth=3;c.beginPath();c.ellipse(x,y-3*k,(60+70*e)*k,(9+5*e)*k,0,0,7);c.fill();c.stroke();
+  const sw0=(10+4*e)*k,sw1=(16+8*e)*k,sg=c.createLinearGradient(0,cy,0,y);sg.addColorStop(0,'#c9572a');sg.addColorStop(.5,'#9a5a3a');sg.addColorStop(1,'#6e4a36');c.fillStyle=sg;c.strokeStyle=INK;c.lineWidth=3;
+  c.beginPath();c.moveTo(x-sw0+wob,cy+capH*.4);c.quadraticCurveTo(x-sw0*.8,y-st*.45,x-sw1,y-2*k);c.lineTo(x+sw1,y-2*k);c.quadraticCurveTo(x+sw0*.8,y-st*.45,x+sw0+wob,cy+capH*.4);c.closePath();c.fill();c.stroke();
+  const ry=y-st*.45;c.fillStyle='#b4643a';c.beginPath();c.ellipse(x,ry,sw0*2.3,sw0*.75,0,0,7);c.fill();c.stroke();c.fillStyle='rgba(255,207,90,.55)';c.beginPath();c.ellipse(x,ry-sw0*.15,sw0*1.4,sw0*.35,0,0,7);c.fill();
+  c.fillStyle='#e2622b';c.beginPath();c.ellipse(x+wob,cy,capW,capH,0,0,7);c.fill();c.stroke();
+  c.fillStyle='#b8482a';c.beginPath();c.ellipse(x+wob,cy+capH*.45,capW*.92,capH*.45,0,0,Math.PI);c.fill();
+  for(let i=0;i<5;i++){const a=-Math.PI*.95+i*Math.PI*.95/4+Math.sin(t*2+i)*.05,bx=x+wob+Math.cos(a)*capW*.78,by=cy+Math.sin(a)*capH*.72;c.fillStyle=i%2?'#ec7a3a':'#d9592a';c.beginPath();c.arc(bx,by,capH*.42,0,7);c.fill();c.stroke()}
+  c.fillStyle='#ffcf5a';c.beginPath();c.ellipse(x+wob,cy+capH*.12,capW*.62,capH*.5,0,0,7);c.fill();
+  c.fillStyle=`rgba(255,250,225,${.85*(1-g)})`;c.beginPath();c.ellipse(x+wob,cy+capH*.1,capW*.32,capH*.26,0,0,7);c.fill();
+  c.restore()}
 function drawExplosion(c,e){
   const p=e.t/e.dur,R=e.r*(p<.2?.3+.7*p/.2:1-(p-.2)*.55),al=p<.55?1:1-(p-.55)/.45;
   c.save();c.globalAlpha=Math.max(0,al);c.lineJoin='round';
@@ -1977,6 +1998,7 @@ function render(){
     ctx.strokeStyle='#ff4a3a';ctx.lineWidth=8*a+2;ctx.stroke();ctx.strokeStyle='#fff3c0';ctx.lineWidth=3*a+1;ctx.stroke();ctx.restore()}
   ctx.lineWidth=2;ctx.strokeStyle=INK;
   for(const p of parts){if(p.k==='chunk'){ctx.fillStyle=p.col;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,7);ctx.fill();ctx.stroke()}else if(p.k==='spark'){ctx.fillStyle=Math.random()<.5?'#fff3c0':'#ff4a3a';ctx.fillRect(p.x-2,p.y-2,4,4)}}
+  for(const m of mush)drawMushroom(ctx,m);
   for(const e of explosions)drawExplosion(ctx,e);
   ctx.textAlign='center';ctx.lineJoin='round';
   for(const t of texts){const s=(1+Math.max(0,.25-t.t)*2)*U*(t.sm?.7:1);ctx.globalAlpha=t.t>1?1-(t.t-1)/.3:1;ctx.font=`${Math.round(28*s)}px ${FONT}`;ctx.lineWidth=6;ctx.strokeStyle=INK;ctx.strokeText(L(t.s),t.x,t.y);ctx.fillStyle=t.col;ctx.fillText(L(t.s),t.x,t.y)}
@@ -2499,10 +2521,13 @@ $('optBtn').onclick=()=>openPause('klawisze','title');
 $('helpBtn2').onclick=()=>openPause('opis','title');
 $('credBtn').onclick=()=>openPause('autorzy','title');
 renderHint();
-function syncSnd(){$('muteBtn').textContent=muted?'DŹWIĘK: NIE':'DŹWIĘK: TAK';$('vol').value=Math.round(vol*100);$('volVal').textContent=Math.round(vol*100)+'%';if(master)master.gain.value=muted?0:vol;$('mvol').value=Math.round(mvol*100);$('mvolVal').textContent=Math.round(mvol*100)+'%';if(musicGain)musicGain.gain.value=musOn?mvol*.6:0;drawSndSeg()}
+const SND_ON='<svg viewBox="0 0 24 24"><path d="M3 9h4l5-4v14l-5-4H3z" fill="#e9dfc6" stroke="#0f1112" stroke-width="1.6" stroke-linejoin="round"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#f0b92b" stroke-width="2.2" stroke-linecap="round"/></svg>',SND_OFF='<svg viewBox="0 0 24 24"><path d="M3 9h4l5-4v14l-5-4H3z" fill="#e9dfc6" stroke="#0f1112" stroke-width="1.6" stroke-linejoin="round"/><path d="M15 9l6 6M21 9l-6 6" stroke="#ff8a6a" stroke-width="2.4" stroke-linecap="round"/></svg>';
+function syncSndIco(){for(const id of['sndHud','sndTop']){const b=$(id);if(!b)continue;b.innerHTML=muted?SND_OFF:SND_ON;b.classList.toggle('off',muted);b.title=muted?T('Włącz dźwięk','Sound on'):T('Wycisz','Mute');b.setAttribute('aria-label',b.title)}}
+function syncSnd(){syncSndIco();$('muteBtn').textContent=muted?'DŹWIĘK: NIE':'DŹWIĘK: TAK';$('vol').value=Math.round(vol*100);$('volVal').textContent=Math.round(vol*100)+'%';if(master)master.gain.value=muted?0:vol;$('mvol').value=Math.round(mvol*100);$('mvolVal').textContent=Math.round(mvol*100)+'%';if(musicGain)musicGain.gain.value=musOn?mvol*.6:0;drawSndSeg()}
 function drawMusSeg(){const el=$('musSeg');el.innerHTML='<span class="t">MUZYKA:</span>';[[true,'WŁĄCZONA'],[false,'WYŁĄCZONA']].forEach(([v,l])=>{const b=document.createElement('button');b.className='pill '+(musOn===v?'on':'ghost');b.textContent=l;b.onclick=()=>{musOn=v;saveSnd();syncSnd()};el.appendChild(b)})}
 function drawSndSeg(){drawMusSeg();const el=$('sndSeg');el.innerHTML='<span class="t">DŹWIĘK:</span>';[[false,'WŁĄCZONY'],[true,'WYŁĄCZONY']].forEach(([v,l])=>{const b=document.createElement('button');b.className='pill '+(muted===v?'on':'ghost');b.textContent=l;b.onclick=()=>{muted=v;saveSnd();syncSnd()};el.appendChild(b)})}
 $('muteBtn').onclick=()=>{muted=!muted;saveSnd();syncSnd()};
+for(const id of['sndHud','sndTop'])$(id).onclick=e=>{e.stopPropagation();muted=!muted;saveSnd();audio();syncSnd();if(!muted)sfxClick()};
 $('vol').addEventListener('input',e=>{vol=clamp(+e.target.value/100,0,1);saveSnd();syncSnd()});
 $('sndTest').onclick=()=>{audio();sfxBoom(40,false)};
 $('mvol').addEventListener('input',e=>{mvol=clamp(+e.target.value/100,0,1);saveSnd();syncSnd()});
