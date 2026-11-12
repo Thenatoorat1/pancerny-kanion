@@ -228,7 +228,9 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--hazard);outline
 .sprev canvas{width:100%;aspect-ratio:44/15;border:3px solid var(--ink);border-radius:4px;background:#1d2021}
 .sprev-t{display:flex;flex-direction:column;gap:4px;min-width:0}.sprev .si-n{font-family:var(--f-disp);font-size:20px;color:var(--hazard)}.sprev .si-d{font-size:14px;line-height:1.35;color:#e0d7c0}
 .sprev-h{font-size:12px;color:#9a9282}
-.sitem{cursor:pointer}.sitem.peek{outline:3px solid var(--hazard);outline-offset:-3px}
+.sitem{cursor:pointer}.sitem.locked{filter:saturate(.35);opacity:.8}.sitem.locked .price{opacity:.5}
+.si-lock{display:inline-block;margin-top:3px;font-family:var(--f-disp);font-size:11px;letter-spacing:.04em;color:#e9dfc6;background:#5a3a32;border:2px solid var(--ink);border-radius:3px;padding:1px 6px}
+.si-new{display:inline-block;margin-top:3px;font-family:var(--f-disp);font-size:11px;color:var(--ink);background:#9ee22f;border:2px solid var(--ink);border-radius:3px;padding:1px 6px}.sitem.peek{outline:3px solid var(--hazard);outline-offset:-3px}
 .sprev-x{display:none}
 @media (max-width:760px){.sprev{position:fixed;top:auto;left:8px;right:8px;bottom:max(8px,env(safe-area-inset-bottom,0px));width:auto;z-index:60;grid-template-columns:minmax(0,1fr);gap:6px;padding:8px;display:none;box-shadow:0 -6px 24px rgba(0,0,0,.6)}.sprev.show{display:grid}
   .sprev .si-n{font-size:16px;padding-right:44px}.sprev .si-d{font-size:12.5px}.sprev-h{display:none}.sprev-x{display:grid;place-items:center;position:absolute;right:10px;bottom:10px;width:38px;height:38px;padding:0;font-size:20px}}
@@ -376,7 +378,7 @@ body{padding-top:max(14px, env(safe-area-inset-top, 0px));padding-bottom:max(14p
     </div>
 
     <div class="ov" id="title">
-      <div class="ver" id="verTag" data-nt>v0.31 · 12.11.2026</div>
+      <div class="ver" id="verTag" data-nt>v0.32 · 12.11.2026</div>
       <div class="hero"><div class="sign ol big">PANCERNY KANION</div><canvas id="titleArt" width="1440" height="630" aria-hidden="true"></canvas></div>
       <p class="tagline">Artyleria na pustkowiach. Przetrwaj ostrzał, pogodę, hordy i atom.</p>
       <div class="navrow"><button class="bigbtn" id="playBtn"><span class="ol s">GRAJ</span></button><button class="bigbtn alt" id="onlineBtn"><span class="ol s">GRAJ ONLINE</span></button></div>
@@ -484,6 +486,7 @@ body{padding-top:max(14px, env(safe-area-inset-top, 0px));padding-bottom:max(14p
         <b>Mapy:</b> <b>Pustkowie</b> ma silny, zmienny wiatr · <b>Zimowa Pustka</b> spowalnia jazdę i skoki, a wieża może zamarznąć na turę · <b>Zalane Miasto</b> zalewa leje wodą, a kto w nią wjedzie, utknie na turę. Czołg całkiem zanurzony w wodzie albo kwasie traci tlen (niebieski pasek O2) tylko w swojej turze: 30 na początku tury i trochę z każdą sekundą celowania. Gdy tlen się skończy, traci 10 HP na początku każdej swojej tury i dalej życie w czasie tury. Poza wodą tlen szybko się odnawia. Pływaki chronią przed tonięciem · <b>Toksyczne Bagna</b> mają kwaśny deszcz (−3 HP co turę) i kałuże kwasu (−6 HP) · <b>Martwe Miasto</b> co 3 kolejki wszystkich graczy wypuszcza falę zombie, które podgryzają najbliższe czołgi (1 HP co 2 s, najwyżej 3 razy) i po około 30 sekundach same się rozpadają. Zabijesz je wybuchem, ogniem, laserem albo przejeżdżając po nich.<br>
         <b>Broń:</b> Pocisk · Ciężki pocisk · Minigun · Szalone ósemki · Spadochroniarze · Skoczek · Napalm · Laser · <b>Wiertło</b> (wwierca się w ziemię i po chwili wybucha pod powierzchnią) · Kula ziemi · Atomówka · <b>Tarcza</b> (ruch: włącza osłonę, która pochłania 50 obrażeń) · <b>Nalot</b> (wskazujesz cel strzałkami albo kliknięciem, samolot zrzuca 3 bomby) · <b>Skok</b> raz na 3 tury · <b>Jazda</b> zamiast strzału.<br>
         <b>Gra online (1 na 1):</b> „GRAJ ONLINE” → „ZAŁÓŻ POKÓJ” i podaj 4-znakowy kod drugiemu graczowi, który wybiera „DOŁĄCZ”. Każdy gra na swoim urządzeniu. Gdy ktoś straci zasięg, gra czeka, a jego tura przepada po czasie. Po zamknięciu aplikacji wrócisz przyciskiem „WRÓĆ DO GRY ONLINE”. Na koniec można zagrać rewanż.<br>
+        <b>Od 3. rundy w sklepie odblokowują się:</b> Sęp (rakieta samonaprowadzająca), Kriobomba (zamraża wieżę trafionym), Zarażony pocisk (wypuszcza zombie na wrogów), Teleporter (przenosi twój czołg tam, gdzie spadnie) i Lustro (raz odbija pocisk wroga z powrotem).<br>
         <b>Handlarz:</b> przed każdą rundą każdy gracz robi zakupy za kapsle. Za darmo co rundę: Pocisk, 2 Miniguny i 2 Skoczki. Kapsle: 1 za punkt obrażeń, 75 za zniszczony czołg, 5 za zombie, 200 za wygraną rundę, 100 przydziału po rundzie. Niezużyte zakupy zostają na kolejne rundy.<br>
         <b>Czas gry:</b> gdy minie, spada atom i niszczy całą mapę. Wygrywa czołg z największą ilością życia.<br>
         <b>Wydarzenia losowe</b> (zapowiadane 2 tury wcześniej): zamieć śnieżna, ulewa, wichura, gęsta mgła, kwaśny deszcz, burza magnetyczna (laser, radar i nalot nie działają), horda zombie, ostrzał artyleryjski, duży zrzut, trzęsienie ziemi.<br>
@@ -604,7 +607,7 @@ const EN={
 'SPRAWDŹ DŹWIĘK':'TEST SOUND','Pomysł, projekt gry, kierunek artystyczny i testy':'Idea, game design, art direction and testing',
 'Kod, grafika i dźwięki (Claude, AI od Anthropic)':'Code, graphics and sound (Claude, an AI by Anthropic)',
 'Inspiracje: Scorched Tanks z Amigi, Hills of Steel, Into the Dead: Our Darkest Days, Fallout i ARC Raiders.':'Inspired by: Scorched Tanks on the Amiga, Hills of Steel, Into the Dead: Our Darkest Days, Fallout and ARC Raiders.',
-'ZAMKNIJ':'CLOSE','GRAJ ONLINE':'PLAY ONLINE','GRA ONLINE':'ONLINE GAME','TWOJA NAZWA':'YOUR NAME','NOWY POJEDYNEK':'NEW DUEL','ZAŁÓŻ POKÓJ':'CREATE ROOM','DOŁĄCZ DO POKOJU':'JOIN A ROOM','DOŁĄCZ':'JOIN','KOD':'CODE','Kod pokoju':'Room code',
+'ZAMKNIJ':'CLOSE','Sęp':'Vulture','Kriobomba':'Cryo bomb','Zarażony pocisk':'Infected shell','Teleporter':'Teleporter','Lustro':'Mirror','LUSTRO WŁĄCZONE':'MIRROR ON','ODBICIE':'REFLECTED','ZAMROŻONY':'FROZEN','TELEPORT':'TELEPORT','GRAJ ONLINE':'PLAY ONLINE','GRA ONLINE':'ONLINE GAME','TWOJA NAZWA':'YOUR NAME','NOWY POJEDYNEK':'NEW DUEL','ZAŁÓŻ POKÓJ':'CREATE ROOM','DOŁĄCZ DO POKOJU':'JOIN A ROOM','DOŁĄCZ':'JOIN','KOD':'CODE','Kod pokoju':'Room code',
 'KOD POKOJU':'ROOM CODE','KOPIUJ':'COPY','MÓJ CZOŁG':'MY TANK','OPUŚĆ GRĘ':'LEAVE GAME','Start':'Start',
 'Załóż pokój i podaj kod drugiemu graczowi. Gra 1 na 1, każdy na swoim telefonie lub komputerze.':'Create a room and give the code to the other player. A 1-on-1 duel, each on their own phone or computer.',
 'Drugi gracz wybiera „GRAJ ONLINE” → „DOŁĄCZ” i wpisuje ten kod. Gospodarz ustala zasady, a każdy wybiera swój czołg.':'The other player picks “PLAY ONLINE” → “JOIN” and types this code. The host sets the rules and everyone picks their own tank.',
@@ -623,6 +626,7 @@ help:`Players take turns, each has 30 seconds per move. Set the angle and power,
 <b>Maps:</b> <b>Wasteland</b> has strong, shifting wind · <b>Frozen Waste</b> slows driving and jumping, and your turret can freeze for a turn · <b>Flooded City</b> fills craters with water, and anyone who drives in gets stuck for a turn. A tank fully submerged in water or acid loses oxygen (blue O2 bar) only during its own turn: 30 at the start of the turn and a little more every second of aiming. When the oxygen runs out, it loses 10 HP at the start of each of its turns and keeps losing health during the turn. Out of the water, oxygen refills quickly. Floats protect you from drowning · <b>Toxic Swamp</b> has acid rain (−3 HP per turn) and acid pools (−6 HP) · <b>Dead City</b> releases a zombie wave every 3 rounds of turns; zombies gnaw the nearest tanks (1 HP every 2 s, at most 3 times) and fall apart on their own after about 30 seconds. Kill them with blasts, fire, the laser or by running them over.<br>
 <b>Weapons:</b> Shell · Heavy shell · Minigun · Crazy eights · Paratroopers · Bouncer · Napalm · Laser · <b>Drill</b> (burrows into the ground and explodes below the surface a moment later) · Dirt ball · Nuke · <b>Shield</b> (a move: turns on a guard that absorbs 50 damage) · <b>Airstrike</b> (mark the target with the arrows or a click, a plane drops 3 bombs) · <b>Jump</b> once every 3 turns · <b>Drive</b> instead of shooting.<br>
 <b>Online play (1 on 1):</b> “PLAY ONLINE” → “CREATE ROOM” and give the 4-character code to the other player, who picks “JOIN”. Each plays on their own device. If someone loses signal the game waits and their turn is skipped when time runs out. After closing the app, return with “BACK TO ONLINE GAME”. At the end you can play a rematch.<br>
+<b>From round 3 the trader unlocks:</b> Vulture (homing rocket), Cryo bomb (freezes the turret of hit tanks), Infected shell (releases zombies on your enemies), Teleporter (moves your tank to where it lands) and Mirror (bounces an enemy shell back once).<br>
 <b>Trader:</b> before every round each player goes shopping with caps. Free every round: Shell, 2 Miniguns and 2 Bouncers. Caps: 1 per point of damage, 75 per tank destroyed, 5 per zombie, 200 per round won, 100 ration after every round. Unused purchases carry over to the next rounds.<br>
 <b>Game time:</b> when it runs out, a nuke falls and wipes the whole map. The tank with the most health wins.<br>
 <b>Random events</b> (announced 2 turns ahead): blizzard, downpour, gale, thick fog, acid rain, magnetic storm (laser, radar and airstrike don't work), zombie horde, artillery barrage, big airdrop, earthquake.<br>
@@ -1149,6 +1153,11 @@ function drawProjectile(c,x,y,vx,vy,id,s=1){
     case'air':c.rotate(.35);c.scale(.3/U,.3/U);c.translate(-2,4);drawPlane(c,{vx:1,y:0,x:0,t:0});break;
     case'shield':c.rotate(.33);c.fillStyle='rgba(127,196,230,.35)';c.beginPath();c.ellipse(0,0,15,12,0,0,7);c.fill();c.lineWidth=2.5;c.stroke();c.fillStyle='#7fc4e6';c.beginPath();c.moveTo(0,-9);c.lineTo(8,-6);c.quadraticCurveTo(8,4,0,9);c.quadraticCurveTo(-8,4,-8,-6);c.closePath();c.fill();c.stroke();
       c.strokeStyle='#e9dfc6';c.lineWidth=2;c.beginPath();c.moveTo(0,-5);c.lineTo(0,5);c.moveTo(-4,-2);c.lineTo(4,-2);c.stroke();break;
+    case'homing':c.fillStyle='#4a4f52';c.beginPath();c.moveTo(-10,-4);c.lineTo(5,-4);c.quadraticCurveTo(13,0,5,4);c.lineTo(-10,4);c.closePath();c.fill();c.stroke();c.fillStyle='#d33';c.beginPath();c.arc(5,0,2.2,0,7);c.fill();fins('#b8322a');break;
+    case'cryo':c.fillStyle='#9fd8ff';c.beginPath();c.ellipse(0,0,9,6,0,0,7);c.fill();c.stroke();c.strokeStyle='#fff';c.lineWidth=1.6;for(let q=0;q<3;q++){c.save();c.rotate(q*Math.PI/3);c.beginPath();c.moveTo(-4.5,0);c.lineTo(4.5,0);c.stroke();c.restore()}break;
+    case'zbomb':c.fillStyle='#6d9a3a';c.beginPath();c.ellipse(0,0,9,6.5,0,0,7);c.fill();c.stroke();c.fillStyle='#e9e3c9';c.beginPath();c.arc(1,-1,3,0,7);c.fill();c.fillStyle=INK;c.fillRect(-.5,-2,1.2,1.2);c.fillRect(1.6,-2,1.2,1.2);break;
+    case'tele':{const g2=c.createRadialGradient(0,0,1,0,0,9);g2.addColorStop(0,'#fff');g2.addColorStop(.5,'#c99cff');g2.addColorStop(1,'#6a3fb8');c.fillStyle=g2;c.beginPath();c.arc(0,0,7.5,0,7);c.fill();c.stroke();c.strokeStyle='rgba(255,255,255,.8)';c.lineWidth=1.2;c.beginPath();c.ellipse(0,0,11,3.5,.5,0,7);c.stroke();break}
+    case'mirror':c.rotate(.33);c.fillStyle='rgba(191,230,239,.7)';c.beginPath();for(let q=0;q<6;q++){const a=q*Math.PI/3;c.lineTo(Math.cos(a)*11,Math.sin(a)*9)}c.closePath();c.fill();c.stroke();c.strokeStyle='#fff';c.lineWidth=2;c.beginPath();c.moveTo(-6,3);c.lineTo(5,-4);c.stroke();break;
     case'sub':c.fillStyle='#262626';c.beginPath();c.arc(0,0,4.5,0,7);c.fill();c.stroke();c.fillStyle='#ffd23a';c.beginPath();c.arc(-5,0,2,0,7);c.fill();break;
     case'dirt':c.fillStyle='#7a5532';c.beginPath();c.arc(0,0,8,0,7);c.fill();c.stroke();c.fillStyle='#a3784c';c.beginPath();c.arc(-2,-3,2.5,0,7);c.arc(3,2,1.8,0,7);c.fill();break;
     case'nuke':c.fillStyle='#f0b92b';rr(c,-13,-7,22,14,7);c.fill();c.stroke();c.fillStyle=INK;c.beginPath();c.arc(-2,0,4,0,7);c.fill();c.fillStyle='#f0b92b';c.beginPath();c.arc(-2,0,1.5,0,7);c.fill();
@@ -1177,7 +1186,7 @@ function updateZombies(dt){
   for(const z of zombies){if(z.dead)continue;
     z.life-=dt;if(z.life<=0){dustZombie(z);continue}
     if(z.rise<1){z.rise=Math.min(1,z.rise+dt*.5);z.y=groundAtX(z.x);continue}
-    let tg=null,best=1e9;for(const t of tanks)if(t.alive){const d=Math.abs(t.x-z.x);if(d<best){best=d;tg=t}}
+    let tg=null,best=1e9;for(const t of tanks)if(t.alive&&t!==z.own){const d=Math.abs(t.x-z.x);if(d<best){best=d;tg=t}}
     z.ph+=dt*4;
     if(!tg){z.y=groundAtX(z.x);continue}
     const reach=tg.st.hw+8;
@@ -1218,7 +1227,12 @@ const WEAPONS=[
  {id:'laser',name:'Laser',ammo:0,dmg:42,laser:true},
  {id:'dirt',name:'Kula ziemi',ammo:0,r:62,dmg:0,dirt:true},
  {id:'nuke',name:'Atomówka',ammo:0,r:120,dmg:92,nuke:true,rocket:true},
+ {id:'homing',name:'Sęp',ammo:0,r:30,dmg:36,homing:true,rocket:true},
+ {id:'cryo',name:'Kriobomba',ammo:0,r:36,dmg:20,cryo:true},
+ {id:'zbomb',name:'Zarażony pocisk',ammo:0,r:22,dmg:14,zombies:3},
+ {id:'tele',name:'Teleporter',ammo:0,r:0,dmg:0,tele:true},
  {id:'shield',name:'Tarcza',ammo:0,guard:true},
+ {id:'mirror',name:'Lustro',ammo:0,mirror:true},
  {id:'air',name:'Nalot',ammo:0,air:true},
  {id:'jump',name:'Skok',ammo:Infinity,jump:true},
  {id:'move',name:'Jazda',ammo:4,move:true},
@@ -1227,8 +1241,14 @@ const WI=id=>WEAPONS.findIndex(w=>w.id===id);
 const SUB={id:'sub',r:22,dmg:18},PSUB={id:'parasub',r:20,dmg:14,chute:true},AIRB={id:'bomb',r:36,dmg:40};
 /* shop: [id, price, qty per purchase, max owned] */
 const START_CASH=600,BASIC={mini:2,bounce:2};
-const SHOP=[['mini',50,2,8],['bounce',40,1,6],['dirt',40,1,4],['heavy',90,1,5],['drill',110,1,4],['crazy',120,1,4],['napalm',130,1,4],['para',140,1,4],['shield',200,1,2],['laser',220,1,2],['air',260,1,2],['nuke',450,1,1]];
+const UNLOCK={tele:3,cryo:3,zbomb:3,mirror:3,homing:3};
+const SHOP=[['mini',50,2,8],['bounce',40,1,6],['dirt',40,1,4],['heavy',90,1,5],['drill',110,1,4],['crazy',120,1,4],['napalm',130,1,4],['para',140,1,4],['shield',200,1,2],['laser',220,1,2],['air',260,1,2],['nuke',450,1,1],['tele',150,1,3],['cryo',170,1,3],['zbomb',190,1,2],['mirror',230,1,2],['homing',250,1,2]];
 const WDESC_EXTRA={shell:['Podstawowy pocisk, 27 obrażeń. Zawsze pod ręką, bez limitu.','The basic shell, 27 damage. Always at hand, unlimited.'],jump:['Ruch: czołg skacze na wybraną odległość. Raz na 3 tury.','A move: your tank jumps the chosen distance. Once every 3 turns.'],move:['Ruch: przejazd czołgiem w lewo lub w prawo zamiast strzału.','A move: drive left or right instead of shooting.']};
+const SHOP_DESC_NEW={homing:['Rakieta „Sęp”: po szczycie lotu sama skręca w stronę najbliższego wroga. 29 obrażeń.','The “Vulture” rocket: after the top of its arc it steers itself toward the nearest enemy. 29 damage.'],
+  cryo:['Lodowy wybuch, 16 obrażeń. Trafionym czołgom zamarza wieża na ich następną turę.','An icy blast, 16 damage. Hit tanks get a frozen turret for their next turn.'],
+  zbomb:['Rozbija się i wypuszcza 3 zombie, które idą na najbliższego wroga. Ciebie omijają.','Bursts open and releases 3 zombies that go after the nearest enemy. They leave you alone.'],
+  tele:['Teleportuje twój czołg w miejsce, gdzie spadnie pocisk.','Teleports your tank to wherever the shell lands.'],
+  mirror:['Ruch: lustrzana osłona odbija najbliższy pocisk wroga z powrotem w jego stronę. Działa raz.','A move: a mirror shield bounces the next enemy shell straight back at them. Works once.']};
 const SHOP_DESC={mini:['Seria 5 małych pocisków.','A burst of 5 small shells.'],bounce:['Odbija się dwa razy i wybucha przy każdym odbiciu.','Bounces twice, exploding on every hit.'],
  dirt:['Zasypuje wroga ziemią. Bez obrażeń.','Buries the enemy in dirt. No damage.'],heavy:['Duży wybuch, 40 obrażeń.','Big blast, 40 damage.'],
  drill:['Wwierca się w ziemię i wybucha pod spodem.','Burrows into the ground and explodes below.'],crazy:['W szczycie lotu rozpada się na 8 rakietek.','Splits into 8 rockets at the top of its arc.'],
@@ -1248,9 +1268,9 @@ const PU_INFO={heal:['Naprawia czołg: +35 HP.','Repairs your tank: +35 HP.'],sh
   stab:['Przez 2 strzały wiatr nie znosi twoich pocisków.','For 2 shots the wind will not push your shells.'],heater:['Przez 4 tury wieża nie zamarznie, a śnieg cię nie spowalnia.','For 4 turns your turret will not freeze and snow will not slow you down.'],
   floats:['Przez 4 tury nie utkniesz w wodzie i nie tracisz tlenu.','For 4 turns you will not get stuck in water or lose oxygen.'],dome:['Przez 4 tury kwaśny deszcz nie zadaje ci obrażeń.','For 4 turns acid rain will not hurt you.'],
   antidote:['Leczy z toksyn: +25 HP.','Cures the toxins: +25 HP.'],plague:['Zabija wszystkie zombie na mapie i odwołuje najbliższą falę.','Kills every zombie on the map and cancels the next wave.'],
-  saw:['Przez 4 tury zombie, które cię dopadną, giną na piłach.','For 4 turns any zombie that reaches you dies on the saws.'],o2:['Tlen pod wodą. Gdy się skończy, w swojej turze tracisz życie.','Oxygen under water. When it runs out you lose health during your turn.']};
-const PU_COL={o2:'#4fb3e8'};
-function puIcon(c,k,x,y,r){c.save();c.translate(x,y);const col=k==='o2'?'#4fb3e8':(POWERUPS[k]||{}).col||'#ccc';c.lineJoin='round';c.lineCap='round';
+  saw:['Przez 4 tury zombie, które cię dopadną, giną na piłach.','For 4 turns any zombie that reaches you dies on the saws.'],mirror:['Lustrzana osłona: najbliższy pocisk wroga zostanie odbity z powrotem. Działa raz.','Mirror shield: the next enemy shell gets bounced straight back. Works once.'],o2:['Tlen pod wodą. Gdy się skończy, w swojej turze tracisz życie.','Oxygen under water. When it runs out you lose health during your turn.']};
+const PU_COL={o2:'#4fb3e8'};const puName=k=>k==='o2'?T('Tlen','Oxygen'):k==='mirror'?L('Lustro'):L(POWERUPS[k].name);
+function puIcon(c,k,x,y,r){c.save();c.translate(x,y);const col=k==='o2'?'#4fb3e8':k==='mirror'?'#bfe6ef':(POWERUPS[k]||{}).col||'#ccc';c.lineJoin='round';c.lineCap='round';
   c.fillStyle=col;c.strokeStyle=INK;c.lineWidth=Math.max(1.5,r*.16);c.beginPath();c.arc(0,0,r,0,7);c.fill();c.stroke();c.scale(r/12,r/12);c.lineWidth=2;c.strokeStyle=INK;
   const P=(pts,f)=>{c.beginPath();pts.forEach(([a,b],i)=>i?c.lineTo(a,b):c.moveTo(a,b));c.closePath();if(f){c.fillStyle=f;c.fill()}c.stroke()};
   switch(k){
@@ -1266,6 +1286,7 @@ function puIcon(c,k,x,y,r){c.save();c.translate(x,y);const col=k==='o2'?'#4fb3e8
     case'antidote':c.save();c.rotate(-.75);c.fillStyle='#e9f6ff';c.fillRect(-2.5,-7,5,11);c.strokeRect(-2.5,-7,5,11);c.fillStyle='#8cd63a';c.fillRect(-1.5,-2,3,5);c.beginPath();c.moveTo(0,4);c.lineTo(0,9);c.stroke();c.beginPath();c.moveTo(-4,-7);c.lineTo(4,-7);c.moveTo(0,-7);c.lineTo(0,-10);c.stroke();c.restore();break;
     case'plague':c.fillStyle='#efe6cc';c.beginPath();c.arc(0,-2,6.5,0,7);c.fill();c.stroke();c.fillRect(-3.5,3,7,4);c.strokeRect(-3.5,3,7,4);c.fillStyle=INK;c.beginPath();c.arc(-2.5,-2.5,1.8,0,7);c.arc(2.5,-2.5,1.8,0,7);c.fill();c.fillRect(-.6,4,1.2,3);break;
     case'saw':{c.save();c.rotate(time*3);c.fillStyle='#d9dde0';c.beginPath();for(let i=0;i<16;i++){const rr=i%2?5.5:8.5,an=i*Math.PI/8;c.lineTo(Math.cos(an)*rr,Math.sin(an)*rr)}c.closePath();c.fill();c.stroke();c.fillStyle=INK;c.beginPath();c.arc(0,0,2,0,7);c.fill();c.restore();break}
+    case'mirror':c.fillStyle='rgba(255,255,255,.55)';c.beginPath();for(let q=0;q<6;q++){const a=q*Math.PI/3;c.lineTo(Math.cos(a)*8,Math.sin(a)*7)}c.closePath();c.fill();c.stroke();c.strokeStyle='#4f8fb8';c.lineWidth=1.8;c.beginPath();c.moveTo(-6,3);c.lineTo(-1,-2);c.lineTo(1,0);c.lineTo(6,-5);c.stroke();break;
     case'o2':c.fillStyle=INK;c.font='bold 9px '+FONT;c.textAlign='center';c.textBaseline='middle';c.fillText('O₂',0,1);c.strokeStyle='#e9f6ff';c.lineWidth=1.5;c.beginPath();c.arc(-6,-6,2,0,7);c.arc(6,-7,1.5,0,7);c.stroke();break;
   }
   c.restore()}
@@ -1274,7 +1295,7 @@ let puQ=[],puTimer=0;
 function showPu(k,who,extra,now){const it={k,who,extra};if(now){puQ=[it];clearTimeout(puTimer);puTimer=0;$('puPop').hidden=true}else puQ.push(it);if(!puTimer)nextPu()}
 function nextPu(){const it=puQ.shift(),el=$('puPop');if(!it){el.hidden=true;puTimer=0;return}
   const cn=el.querySelector('canvas'),c=cn.getContext('2d');c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,cn.width,cn.height);puIcon(c,it.k,cn.width/2,cn.height/2,cn.width/2-6);
-  el.querySelector('.pu-who').textContent=it.who||'';el.querySelector('.pu-n').textContent=it.k==='o2'?T('Tlen','Oxygen'):L(POWERUPS[it.k].name);
+  el.querySelector('.pu-who').textContent=it.who||'';el.querySelector('.pu-n').textContent=puName(it.k);
   const d=PU_INFO[it.k];el.querySelector('.pu-d').textContent=(d?T(d[0],d[1]):'')+(it.extra?' '+it.extra:'');
   el.hidden=false;el.style.animation='none';void el.offsetWidth;el.style.animation='';puTimer=setTimeout(nextPu,it.who&&it.who.length>0&&!it.manual?3400:3000)}
 $('puPop').addEventListener('click',()=>{clearTimeout(puTimer);nextPu()});
@@ -1338,7 +1359,7 @@ const HS_KEY='pancerny-kanion-rekordy';
 function loadHS(){try{const v=JSON.parse(localStorage.getItem(HS_KEY)||'[]');return Array.isArray(v)?v:[]}catch(e){return[]}}
 function saveHS(l){try{localStorage.setItem(HS_KEY,JSON.stringify(l))}catch(e){}}
 /* ---------- hi-scores: local + world (Firebase Firestore REST) ---------- */
-const FB={key:'AIzaSyD94iINKYZLF7OuuYs9yM8-s3vGHaLTjHw',base:'https://firestore.googleapis.com/v1/projects/pancerny-kanion/databases/(default)/documents'},HS_PEND='pancerny-kanion-wyslij',GAME_VER='0.31';
+const FB={key:'AIzaSyD94iINKYZLF7OuuYs9yM8-s3vGHaLTjHw',base:'https://firestore.googleapis.com/v1/projects/pancerny-kanion/databases/(default)/documents'},HS_PEND='pancerny-kanion-wyslij',GAME_VER='0.32';
 let worldHS=null,worldErr=false,worldBusy=null,worldAt=0;const hsMode={hsTitle:'world',hsFinal:'world'},hsNew={};
 const fbVal=v=>typeof v==='number'?{integerValue:String(Math.round(v))}:{stringValue:String(v??'')};
 function fbDoc(r){const f={};for(const k of['name','score','wins','dealt','kills','zombies','best','map','date','cid','v'])f[k]=fbVal(r[k]);return{fields:f}}
@@ -1435,7 +1456,7 @@ function startTurnBody(firstMsg){
   cam.manual=false;cam.fast=0;camTo(t.x,t.y-70*U);
   if(t.jumpCd>0)t.jumpCd--;
   let msg=firstMsg||(t.human?(T('TURA: ','TURN: ')+t.name):(t.name+T(' CELUJE',' IS AIMING')));
-  t.frozen=!(t.fx.heater>0)&&Math.random()<freezeChance()&&turnCount>1;
+  t.frozen=(t.cryo>0&&!(t.fx.heater>0))||(!(t.fx.heater>0)&&Math.random()<freezeChance()&&turnCount>1);t.cryo=0;
   if(t.frozen){msg='WIEŻA ZAMARZŁA!';sfxFreeze()}
   const wet=depthAt(t.x)>8;
   t.stuck=poolKind==='water'&&wet&&!t.wasWet&&!(t.fx.floats>0);t.wasWet=wet;
@@ -1535,6 +1556,7 @@ function doFire(){
   if(w.move){const m=moveTarget(t);t.moving={dir:m.dir,left:Math.abs(m.x-t.x)};sfxEngine();if(t.ammo[w.id]<=0)t.wi=0;return}
   if(w.jump){const v=jumpVel(t);t.jumping=true;t.vx=v.vx;t.vy=v.vy;t.y-=2;t.jumpCd=3;sfxJump();t.wi=0;
     for(let i=0;i<8;i++)parts.push({k:'smoke',x:t.x+rand(-25,25),y:t.y-4,vx:rand(-40,40),vy:rand(-30,-5),r:rand(4,8),gr:14,life:.7,max:.7,col:MAP.snow?'#ffffff':'#b8a68a'});return}
+  if(w.mirror){t.mirror=1;texts.push({x:t.x,y:t.y-100,s:'LUSTRO WŁĄCZONE',t:0,col:'#bfe6ef'});sfxShield();for(let i=0;i<14;i++){const a=rand(0,6.28);parts.push({k:'spark',x:t.x+Math.cos(a)*50,y:t.y-22+Math.sin(a)*40,vx:Math.cos(a)*70,vy:Math.sin(a)*70,life:rand(.3,.6)})}if(t.ammo[w.id]<=0)t.wi=0;return}
   if(w.guard){t.shield=50;texts.push({x:t.x,y:t.y-100,s:'TARCZA WŁĄCZONA',t:0,col:'#7fc4e6'});sfxShield();for(let i=0;i<14;i++){const a=rand(0,6.28);parts.push({k:'spark',x:t.x+Math.cos(a)*45,y:t.y-22+Math.sin(a)*35,vx:Math.cos(a)*60,vy:Math.sin(a)*60,life:rand(.3,.6)})}if(t.ammo[w.id]<=0)t.wi=0;return}
   let mult=(t.dbl?2:1)*t.st.dmgMul;t.dbl=false;
   if(w.air){const tx=t.airX,dir=tx>=t.x?1:-1,offs=[-40,0,40].map(o=>clamp(tx+o+rand(-8,8),5,W-5)).sort((a,b)=>dir*(a-b));let mh=H;for(let x=0;x<W;x+=4)mh=Math.min(mh,disp[x]);
@@ -1599,12 +1621,13 @@ function aiStart(t){
   const lc=!t.stuck&&!t.frozen&&crates.find(c=>c.landed&&Math.abs(c.x-t.x)>25&&Math.abs(c.x-t.x)<170*t.st.moveMul);
   if(lc&&t.ammo.move>0&&Math.random()<.55){t.ai={a:lc.x>t.x?40:140,p:clamp(Math.round(Math.abs(lc.x-t.x)/(1.8*t.st.moveMul*(cold(t)?.65:1))+6),5,100),wi:WI('move'),wait:.5,think:.7};return}
   if(t.ammo.shield>0&&!(t.shield>0)&&t.hp<t.st.maxHp*.55&&Math.random()<.6){t.ai={a:t.angle,p:t.power,wi:WI('shield'),wait:.5,think:.6};return}
+  if(t.ammo.mirror>0&&!t.mirror&&Math.random()<.3){t.ai={a:t.angle,p:t.power,wi:WI('mirror'),wait:.5,think:.6};return}
   const tg=Math.random()<.45?foes.reduce((a,b)=>a.hp<=b.hp?a:b):foes.reduce((a,b)=>Math.abs(a.x-t.x)<=Math.abs(b.x-t.x)?a:b);
   if(t.ammo.air>0&&!evOn('emp')&&Math.abs(tg.x-t.x)>140&&Math.random()<.4){t.ai={a:t.angle,p:t.power,wi:WI('air'),ax:clamp(tg.x+gauss()*nz[0]*5,20,W-20),wait:rand(.4,.8),think:.7};return}
   if(t.ammo.laser>0&&!t.frozen&&Math.random()<.35){const m=muzzle(t);const a=Math.atan2(m.py-(tg.y-18),tg.x-m.px)*180/Math.PI;
     const rel=a+t.tilt*180/Math.PI;if(rel>=0&&rel<=180){t.ai={a:clamp(Math.round(rel+gauss()*nz[2]),0,180),p:t.power,wi:WI('laser'),wait:rand(.4,.8),think:.7};return}}
   const dist=Math.abs(tg.x-t.x);let wid='shell';
-  for(const[id,p]of[['nuke',.45],['heavy',.35],['napalm',.3],['para',.3],['bounce',.25],['drill',.25],['crazy',.3],['mini',.2]]){const w=WEAPONS[WI(id)];if(t.ammo[id]>0&&dist>(w.r||30)+80&&Math.random()<p){wid=id;break}}
+  for(const[id,p]of[['nuke',.45],['heavy',.35],['napalm',.3],['para',.3],['bounce',.25],['drill',.25],['crazy',.3],['homing',.35],['cryo',.3],['zbomb',.3],['mini',.2]]){const w=WEAPONS[WI(id)];if(t.ammo[id]>0&&dist>(w.r||30)+80&&Math.random()<p){wid=id;break}}
   const w=WEAPONS[WI(wid)];
   const score=r=>{if(!r)return 1e9;let s=Math.hypot(r.x-tg.x,r.y-(tg.y-15));if(Math.hypot(r.x-t.x,r.y-t.y)<w.r*t.st.rMul+40)s+=900;return s};
   let best={s:1e9,a:t.frozen?t.angle:(t.x<tg.x?50:130),p:60};
@@ -1637,6 +1660,10 @@ function physicsStep(){
       continue}
     if(p.w.chute&&p.age>.35){p.open=true;p.vy+=(48-p.vy)*Math.min(1,DT*3.5);p.vx+=(wind*5-p.vx)*DT*1.6}
     else{p.vx+=wind*WINDK*(p.windMul??1)*DT;p.vy+=G*DT}
+    if(p.w.homing&&p.vy>0){let tg=null,bd=1e9;for(const o of tanks)if(o.alive&&o!==p.owner){const d=Math.hypot(o.x-p.x,o.y-20-p.y);if(d<bd){bd=d;tg=o}}
+      if(tg){const sp=Math.max(230,Math.hypot(p.vx,p.vy)),a=Math.atan2(p.vy,p.vx),b=Math.atan2(tg.y-18-p.y,tg.x-p.x);let da=b-a;while(da>Math.PI)da-=2*Math.PI;while(da<-Math.PI)da+=2*Math.PI;const na=a+clamp(da,-2.6*DT,2.6*DT);p.vx=Math.cos(na)*sp;p.vy=Math.sin(na)*sp}}
+    for(const o of tanks)if(o.mirror&&o.alive&&o!==p.owner){const k=o.st.scale,cy=o.y-20*k;if(Math.hypot(p.x-o.x,p.y-cy)<58*k){o.mirror=0;p.vx=-p.vx;p.vy=-p.vy;p.owner=o;p.age=0;p.x+=p.vx*DT*2;p.y+=p.vy*DT*2;
+      texts.push({x:o.x,y:o.y-96,s:'ODBICIE!',t:0,col:'#bfe6ef'});explosions.push({x:p.x,y:p.y,r:22,t:0,dur:.25,rot:0});sfxShield();for(let q=0;q<10;q++)parts.push({k:'spark',x:p.x,y:p.y,vx:rand(-140,140),vy:rand(-140,80),life:rand(.2,.5)});break}}
     p.x+=p.vx*DT;p.y+=p.vy*DT;p.age+=DT;
     const sx=p.open?p.x+Math.sin(p.age*2.6+p.ph)*13:p.x;
     if(p.tr&&((p.age*120)|0)%3===0)trail.push(p.x,p.y);
@@ -1663,6 +1690,15 @@ function physicsStep(){
       p.vx=vx;p.vy=vy;p.gen++;const ix=clamp(Math.round(p.x),0,W-1);p.y=ny<0?Math.min(p.y,h[ix])-8:p.y+8;p.age=.3;
       continue}
     projectiles.splice(i,1);
+    if(p.w.tele){const o=p.owner;if(o&&o.alive){for(let q=0;q<16;q++)parts.push({k:'spark',x:o.x+rand(-20,20),y:o.y-20+rand(-20,20),vx:rand(-80,80),vy:rand(-120,20),life:rand(.3,.7)});
+        let nx=clamp(Math.round(sx),40,W-40);for(const t2 of tanks)if(t2!==o&&t2.alive&&Math.abs(t2.x-nx)<44)nx=clamp(nx+(nx>=t2.x?48:-48),40,W-40);
+        o.x=nx;o.y=groundUnder(nx,o.st.scale)-1;o.vy=0;o.falling=false;o.moving=null;o.tilt=tiltAt(nx);o.stuck=false;
+        for(let q=0;q<22;q++)parts.push({k:'spark',x:nx+rand(-24,24),y:o.y-20+rand(-26,16),vx:rand(-90,90),vy:rand(-160,10),life:rand(.3,.8)});texts.push({x:nx,y:o.y-96,s:'TELEPORT!',t:0,col:'#c99cff'});sfxJump();explosions.push({x:nx,y:o.y-20,r:26,t:0,dur:.3,rot:0})}continue}
+    if(p.w.cryo){explode(sx,p.y,p.w,p.mult,p.rMul,p.owner);const rr=p.w.r*(p.rMul||1)+26;for(const o of tanks)if(o.alive&&Math.hypot(o.x-sx,o.y-18-p.y)<rr&&!(o.fx.heater>0)){o.cryo=1;texts.push({x:o.x,y:o.y-112,s:'ZAMROŻONY',t:0,col:'#9fd8ff'})}
+      for(let q=0;q<26;q++){const a=rand(0,6.28),v=rand(60,220);parts.push({k:'spark',x:sx,y:p.y,vx:Math.cos(a)*v,vy:Math.sin(a)*v-60,life:rand(.4,.9)})}sfxFreeze();continue}
+    if(p.w.zombies){explode(sx,p.y,p.w,p.mult,p.rMul,p.owner);for(let q=0;q<p.w.zombies&&zombies.length<14;q++){const zx=clamp(sx+(q-1)*26+rand(-6,6),20,W-20);
+        zombies.push({x:zx,y:groundAtX(zx),hp:30,life:rand(18,24),bites:0,sp:rand(18,26),ph:rand(0,6),rise:0,bite:rand(0,1),shirt:'#5a7a3a',lean:rand(.15,.35),own:p.owner})}
+      for(let q=0;q<14;q++)parts.push({k:'smoke',x:sx+rand(-20,20),y:p.y-rand(0,16),vx:rand(-20,20),vy:rand(-40,-10),r:rand(5,9),gr:12,life:.9,max:.9,col:'rgba(150,220,90,.6)'});sfxSplit();continue}
     if(p.w.napalm){explode(sx,p.y,p.w,p.mult,p.rMul,p.owner);for(let k=0;k<18;k++)fires.push({x:clamp(sx+rand(-36,36),0,W-1),vx:rand(-110,110),life:rand(3.2,4.8),max:4.8,ph:rand(0,6),mult:p.mult,owner:p.owner});sfxNapalm();continue}
     explode(sx,p.y,p.w,p.mult,p.rMul,p.owner);
   }
@@ -1846,6 +1882,7 @@ function render(){
     const k=t.st.scale,rk=t.recoil*3,ra=t.angle*Math.PI/180,laser=i===cur&&curW(t).laser&&phase==='aim';
     const look=t.hurt>0&&((time*20)|0)%2?{...t.look,color:'#ffffff'}:t.look;
     drawTank(ctx,t.x-Math.cos(ra)*rk,t.y,t.tilt,t.angle,look,k,{laser,frozen:t.frozen&&i===cur&&phase==='aim',saw:t.fx.saw>0,floats:t.fx.floats>0});
+    if(t.mirror){ctx.save();ctx.translate(t.x,t.y-20*k);ctx.rotate(time*.8);ctx.globalAlpha=.55+.2*Math.sin(time*5);ctx.lineWidth=3;ctx.strokeStyle='#e9f6ff';ctx.fillStyle='rgba(191,230,239,.16)';ctx.beginPath();for(let q=0;q<6;q++){const a=q*Math.PI/3;ctx.lineTo(Math.cos(a)*54*k,Math.sin(a)*46*k)}ctx.closePath();ctx.fill();ctx.stroke();ctx.globalAlpha=.9;ctx.strokeStyle='#ffffff';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-30*k,-34*k);ctx.lineTo(-16*k,-38*k);ctx.stroke();ctx.restore()}
     if(t.fx.heater>0){ctx.save();ctx.globalAlpha=.25+.1*Math.sin(time*6);ctx.fillStyle='#ff7a3a';ctx.beginPath();ctx.ellipse(t.x,t.y-14*k,40*k,20*k,0,0,7);ctx.fill();ctx.restore()}
     if(t.fx.dome>0){ctx.save();ctx.globalAlpha=.22;ctx.fillStyle='#9ee22f';ctx.beginPath();ctx.ellipse(t.x,t.y,58*k,62*k,0,Math.PI,0);ctx.fill();ctx.globalAlpha=.85;ctx.lineWidth=3;ctx.strokeStyle='#9ee22f';ctx.stroke();ctx.restore()}
     if(t.shield>0){ctx.save();ctx.globalAlpha=(.15+.08*Math.sin(time*5))*(.4+.6*t.shield/50);ctx.fillStyle='#7fc4e6';ctx.beginPath();ctx.ellipse(t.x,t.y-22*k,50*k,40*k,0,0,7);ctx.fill();ctx.globalAlpha=.4+.5*t.shield/50;ctx.lineWidth=3;ctx.strokeStyle='#7fc4e6';ctx.stroke();ctx.restore()}
@@ -1935,9 +1972,9 @@ function hud(){
   tanks.forEach((o,i)=>{const el=$('pc'+i);if(!el)return;el.classList.toggle('cur',i===cur&&phase!=='over');el.classList.toggle('dead',!o.alive);const sp=el.querySelector('.stars span');if(sp.textContent!=String(o.wins))sp.textContent=o.wins;const ce=el.querySelector('.cashv em'),cv2=String(Math.floor(o.cash||0));if(ce&&ce.textContent!==cv2)ce.textContent=cv2;
     const fr=o.alive?clamp(o.hp/o.st.maxHp,0,1):0,hb=el.querySelector('.hpb i'),w=Math.round(fr*100)+'%';if(hb.style.width!==w){hb.style.width=w;hb.style.background=fr>.5?'#7da832':fr>.25?'#f0b92b':'#c0392b'}
     const sb=el.querySelector('.shb');sb.hidden=!(o.shield>0);if(o.shield>0)sb.firstChild.style.width=Math.round(o.shield/50*100)+'%';
-    const chips=[];if(o.dbl)chips.push(['dbl','']);for(const k in FX_LBL)if(o.fx[k]>0)chips.push([k,o.fx[k]]);if(o.o2<100)chips.push(['o2',Math.round(o.o2)]);
+    const chips=[];if(o.mirror)chips.push(['mirror','']);if(o.dbl)chips.push(['dbl','']);for(const k in FX_LBL)if(o.fx[k]>0)chips.push([k,o.fx[k]]);if(o.o2<100)chips.push(['o2',Math.round(o.o2)]);
     const sig=chips.map(c=>c[0]==='o2'?'o2:'+Math.round(c[1]/5):c.join(':')).join(',');if(el.dataset.fx!==sig){el.dataset.fx=sig;
-      const fr2=el.querySelector('.fxr');fr2.innerHTML=chips.map(([k,n])=>`<button class="fxi" data-k="${k}" data-n="${n}" title="${k==='o2'?T('Tlen','Oxygen'):esc(L(POWERUPS[k].name))}"><canvas width="48" height="48"></canvas>${n!==''?`<b>${k==='o2'?n+'%':n}</b>`:''}</button>`).join('');
+      const fr2=el.querySelector('.fxr');fr2.innerHTML=chips.map(([k,n])=>`<button class="fxi" data-k="${k}" data-n="${n}" title="${esc(puName(k))}"><canvas width="48" height="48"></canvas>${n!==''?`<b>${k==='o2'?n+'%':n}</b>`:''}</button>`).join('');
       fr2.querySelectorAll('.fxi').forEach(b=>{const c2=b.querySelector('canvas').getContext('2d');puIcon(c2,b.dataset.k,24,24,21)})}});
   const tv=t.human&&phase==='aim'?Math.ceil(Math.max(0,turnT)):'–';setT('timer',String(tv));$('timer').classList.toggle('warn',t.human&&phase==='aim'&&turnT<=8);
   setT('wind',evOn('fog')?'WIATR: ???':wind===0?'WIATR: CISZA':(wind<0?'◀ ':'')+T('WIATR ','WIND ')+Math.abs(wind)+(wind>0?' ▶':''));
@@ -2282,7 +2319,7 @@ function netTick(dt){if(!NET||NET.mode!=='game'||!NET.loaded)return;const opp=1-
 function renderRejoin(){const s=netStored(),b=$('onRejoin');b.hidden=!s;if(s)b.querySelector('span').textContent=T('WRÓĆ DO GRY ONLINE ','BACK TO ONLINE GAME ')+s.code}
 /* ---------- weapon demo animations ---------- */
 const DW=440,DH=150,DGY=118,DEMO_A={hull:0,color:'#a5582f',wheels:0,turret:0,barrel:0},DEMO_B={hull:0,color:'#5d6a3c',wheels:2,turret:1,barrel:0};
-const wDesc=id=>{const d=WDESC_EXTRA[id]||SHOP_DESC[id];return d?T(d[0],d[1]):''};
+const wDesc=id=>{const d=WDESC_EXTRA[id]||SHOP_DESC[id]||SHOP_DESC_NEW[id];return d?T(d[0],d[1]):''};
 const dArc=(u,x0,y0,x1,y1,h)=>[x0+(x1-x0)*u,y0+(y1-y0)*u-4*h*u*(1-u)];
 const dVel=(u,x0,y0,x1,y1,h)=>{const a=dArc(u,x0,y0,x1,y1,h),b=dArc(Math.min(1,u+.01),x0,y0,x1,y1,h);return[b[0]-a[0]+1e-4,b[1]-a[1]]};
 function dBoom(c,x,y,r,a){if(a<0||a>1)return;c.save();const g=Math.min(1,a*4),rr=r*(.35+.65*g);
@@ -2293,7 +2330,7 @@ function drawWeaponDemo(cn,id,tm){const c=cn.getContext('2d');c.setTransform(cn.
   const sk=c.createLinearGradient(0,0,0,DGY);sk.addColorStop(0,'#2b2320');sk.addColorStop(1,'#a8643a');c.fillStyle=sk;c.fillRect(0,0,DW,DH);
   c.fillStyle='#4a3424';for(let bx=150,i=0;bx<DW;bx+=40,i++){const bh=18+(i*37)%30;c.fillRect(bx,DGY-bh-6,26,bh+6)}
   c.fillStyle='#6e4c30';c.strokeStyle=INK;c.lineWidth=3;c.beginPath();c.moveTo(-5,DH+5);c.lineTo(-5,DGY);for(let X=0;X<=DW+5;X+=10)c.lineTo(X,DGY+Math.sin(X*.03)*1.5);c.lineTo(DW+5,DH+5);c.closePath();c.fill();c.stroke();
-  const long=['nuke','crazy','para','air','napalm'].includes(id),P=long?3.4:2.8,ph=tm%P,mx=86,my=DGY-36,fx=370;let meX=70,meY=DGY,foeCover=0,shieldA=0,after=[];
+  const long=['nuke','crazy','para','air','napalm','mirror','zbomb'].includes(id),P=long?3.4:2.8,ph=tm%P,mx=86,my=DGY-36,fx=370;let meX=70,meY=DGY,foeCover=0,shieldA=0,after=[];
   const S=(t0,t1)=>Math.max(0,Math.min(1,(ph-t0)/(t1-t0)));
   switch(id){
     case'shell':case'heavy':{const hv=id==='heavy';if(ph<1.2)after.push(()=>dShell(c,ph/1.2,mx,my,fx,DGY-12,62,id,hv?1.15:.9));after.push(()=>dBoom(c,fx,DGY-10,hv?36:24,(ph-1.2)/.9));break}
@@ -2322,12 +2359,23 @@ function drawWeaponDemo(cn,id,tm){const c=cn.getContext('2d');c.setTransform(cn.
         if(ph<1.45){c.fillStyle=`rgba(255,250,230,${1-(ph-1.2)/.25})`;c.fillRect(0,0,DW,DH)}})}break}
     case'shield':{shieldA=S(.05,.45);if(ph>=.55&&ph<1.5)after.push(()=>dShell(c,(ph-.55)/.95,fx-16,DGY-36,meX+40,DGY-40,50,'shell',.9));
       if(ph>=1.5)after.push(()=>{const a=S(1.5,2.1);c.save();c.globalAlpha=1-a;c.strokeStyle='#bfe9ff';c.lineWidth=2;for(let i=0;i<8;i++){const an=-1+i*.28;c.beginPath();c.moveTo(meX+42,DGY-40);c.lineTo(meX+42+Math.cos(an)*24*a+10,DGY-40+Math.sin(an)*24*a);c.stroke()}c.restore()});break}
+    case'homing':{if(ph<1.6){const u=ph/1.6,x=mx+(fx-mx)*u,arc=-95*Math.sin(Math.PI*Math.min(1,u*1.25)),yb=my+(DGY-14-my)*u*u;after.push(()=>drawProjectile(c,x,u<.55?yb+arc:yb+arc*(1-(u-.55)/.45),1,u<.55?-1:1.4,'homing',.95))}
+      after.push(()=>dBoom(c,fx,DGY-12,24,(ph-1.6)/.8));break}
+    case'cryo':{if(ph<1.15)after.push(()=>dShell(c,ph/1.15,mx,my,fx,DGY-14,60,'cryo',1));if(ph>=1.15)after.push(()=>{const a=S(1.15,1.6);c.save();c.globalAlpha=1-S(2.2,2.8);c.fillStyle='rgba(159,216,255,.55)';c.beginPath();c.arc(fx,DGY-14,26*a,0,7);c.fill();
+        c.strokeStyle='#e9f6ff';c.lineWidth=2;for(let q=0;q<6;q++){const an=q*Math.PI/3;c.beginPath();c.moveTo(fx,DGY-14);c.lineTo(fx+Math.cos(an)*30*a,DGY-14+Math.sin(an)*30*a);c.stroke()}c.restore();c.fillStyle='rgba(200,235,255,.75)';c.fillRect(fx-34,DGY-34,30,6);c.font='bold 11px '+FONT;c.fillStyle='#9fd8ff';c.textAlign='center';c.fillText('❄',fx+24,DGY-44)});break}
+    case'zbomb':{if(ph<1)after.push(()=>dShell(c,ph,mx,my,fx-95,DGY-4,58,'zbomb',1));if(ph>=1)after.push(()=>{dBoom(c,fx-95,DGY-6,12,(ph-1)/.5);for(let q=0;q<3;q++){const r2=S(1+q*.15,1.6+q*.15),wx=fx-110+q*16+S(1.6,3)*60;c.save();c.translate(wx,DGY);c.scale(.95,.95);drawZombie(c,{x:0,y:0,dir:1,ph:tm*6+q,rise:r2,shirt:'#5a7a3a',lean:.25});c.restore()}});break}
+    case'tele':{if(ph<1.1)after.push(()=>dShell(c,ph/1.1,mx,my,250,DGY-2,55,'tele',1));const a=S(1.1,1.35);if(ph>=1.1)meX=250;
+      after.push(()=>{if(ph>=1.1&&ph<1.8){c.save();c.globalAlpha=1-S(1.35,1.8);c.fillStyle='#c99cff';for(let q=0;q<10;q++){const an=q*.63+tm*3;c.beginPath();c.arc(250+Math.cos(an)*30*a,DGY-20+Math.sin(an)*22*a,3,0,7);c.fill()}
+        for(let q=0;q<8;q++){const an=q*.8;c.beginPath();c.arc(70+Math.cos(an)*24,DGY-20+Math.sin(an)*18,2.5,0,7);c.fill()}c.restore()}});break}
+    case'mirror':{shieldA=-1;const hit=1.35;if(ph<hit)after.push(()=>dShell(c,ph/hit,fx-16,DGY-36,meX+44,DGY-34,55,'shell',.9));
+      else if(ph<hit+1.25)after.push(()=>dShell(c,(ph-hit)/1.25,meX+44,DGY-34,fx,DGY-14,60,'shell',.9));after.push(()=>{dBoom(c,fx,DGY-12,22,(ph-hit-1.25)/.8);if(ph>=hit&&ph<hit+.4){c.fillStyle=`rgba(255,255,255,${1-(ph-hit)/.4})`;c.beginPath();c.arc(meX+44,DGY-34,16,0,7);c.fill()}});break}
     case'air':{const px=520-ph/2.4*640;after.push(()=>{if(ph<2.4){c.save();c.translate(px,30);c.scale(.62/U,.62/U);drawPlane(c,{x:0,y:0,vx:-1,t:tm});c.restore()}});
       [[410,0],[375,1],[340,2]].forEach(([bx,k])=>{const t0=(520-bx)/640*2.4,t1=t0+.55;after.push(()=>{const u=(ph-t0)/(t1-t0);if(u>=0&&u<1)drawProjectile(c,bx-u*6,40+(DGY-46)*u*u,-.2,1,'bomb',.9);dBoom(c,bx-6,DGY-6,20,(ph-t1)/.7)})});break}
     case'jump':{const u=S(.3,1.15);meX=70+100*u;meY=DGY-46*4*u*(1-u);if(ph>1.15)after.push(()=>{const a=S(1.15,1.7);c.save();c.globalAlpha=1-a;c.fillStyle='#b89a72';for(let i=-2;i<=2;i++){c.beginPath();c.arc(170+i*12*(1+a),DGY-4-a*6,5+a*4,0,7);c.fill()}c.restore()});break}
     case'move':{const u=S(.2,1.9);meX=70+90*(u*u*(3-2*u));after.push(()=>{if(ph>.2&&ph<1.9){c.fillStyle='rgba(184,154,114,.7)';for(let i=0;i<3;i++){const a=((tm*3+i/3)%1);c.beginPath();c.arc(meX-40-a*16,DGY-4-a*8,4+a*5,0,7);c.fill()}}});break}
   }
   drawTank(c,meX,meY,0,id==='laser'?20:45,DEMO_A,.85,{saw:false});
+  if(id==='mirror'&&ph<1.35+.05){c.save();c.translate(meX,DGY-20);c.rotate(tm*.8);c.globalAlpha=.75;c.strokeStyle='#e9f6ff';c.lineWidth=3;c.fillStyle='rgba(191,230,239,.18)';c.beginPath();for(let q=0;q<6;q++){const a=q*Math.PI/3;c.lineTo(Math.cos(a)*46,Math.sin(a)*38)}c.closePath();c.fill();c.stroke();c.restore()}
   if(shieldA>0){c.save();c.globalAlpha=shieldA*(.75+.25*Math.sin(tm*8));c.fillStyle='rgba(127,196,230,.28)';c.strokeStyle='#7fc4e6';c.lineWidth=3;c.beginPath();c.ellipse(meX,DGY-20,42*shieldA,34*shieldA,0,0,7);c.fill();c.stroke();c.restore()}
   drawTank(c,fx,DGY,0,140,DEMO_B,.85);
   if(foeCover>0){c.fillStyle='#7a5434';c.strokeStyle=INK;c.lineWidth=3;c.beginPath();c.ellipse(fx,DGY+2,48*foeCover,34*foeCover,0,Math.PI,0);c.closePath();c.fill();c.stroke();c.fillStyle='#8c6440';c.beginPath();c.arc(fx-12,DGY-14*foeCover,4,0,7);c.arc(fx+14,DGY-8*foeCover,3,0,7);c.fill()}
@@ -2342,7 +2390,7 @@ let shopQ=[],shopT=null,shopBuys={},shopPeek='heavy';
 function peekShop(id,tap){shopPeek=id;if(tap)$('shopPrev').classList.add('show');const w=WEAPONS[WI(id)];$('shopDemoName').textContent=L(w.name);$('shopDemoDesc').textContent=wDesc(id);$('shopDemoHint').textContent=T('Najedź kursorem albo stuknij w towar, żeby zobaczyć, jak działa.','Hover over or tap an item to see what it does.');
   document.querySelectorAll('#shopGrid .sitem').forEach(e=>e.classList.toggle('peek',e.dataset.id===id));setDemo($('shopDemo'),id)}
 function syncInv(){tanks.forEach(t=>{t.inv=t.inv||{};t.cash=Math.floor(t.cash||0);if(t.ammo)SHOP.forEach(([id])=>{t.inv[id]=Math.max(0,(t.ammo[id]||0)-((t.rb&&t.rb[id])||0))})})}
-function cpuShop(t){const wish=SHOP.filter(it=>it[0]!=='dirt').sort(()=>Math.random()-.5);let budget=t.cash-Math.round(rand(0,120)),n=0;
+function cpuShop(t){const wish=SHOP.filter(it=>it[0]!=='dirt'&&it[0]!=='tele'&&!((UNLOCK[it[0]]||0)>round)).sort(()=>Math.random()-.5);let budget=t.cash-Math.round(rand(0,120)),n=0;
   for(let pass=0;pass<3;pass++)for(const[id,price,qty,max]of wish){if(n>=5)break;if(price<=budget&&(t.inv[id]||0)+qty<=max&&Math.random()<.35+difficulty*.2){t.cash-=price;budget-=price;t.inv[id]=(t.inv[id]||0)+qty;n++}}}
 function openShopPhase(){syncInv();if(NET&&NET.mode==='game'){shopQ=tanks.filter(t=>t.human);nextShop();return}tanks.filter(t=>!t.human).forEach(cpuShop);shopQ=tanks.filter(t=>t.human);nextShop()}
 function nextShop(){shopT=shopQ.shift();if(!shopT){if(NET&&NET.mode==='game'){netShopDone();return}showOverlay(null);startRound();return}shopBuys={};renderShop();showOverlay('shop')}
@@ -2351,13 +2399,13 @@ function renderShop(){const t=shopT;if(!t)return;$('shopName').textContent=t.nam
   const e=t.earn;$('shopEarn').innerHTML=e?T('<b>Zarobek w ostatniej rundzie:</b> ','<b>Earned last round:</b> ')+[[T('trafienia','hits'),e.dmg],[T('zniszczenia','kills'),e.kill],['zombie',e.zomb],[T('wygrana','win'),e.win],[T('przydział','ration'),e.base]].filter(a=>a[1]>0).map(([l,v])=>l+' +'+Math.round(v)).join(' · ')
     :T('Kapsle na start. Wydaj je z głową: więcej amunicji czy tarcza albo nalot?','Starting caps. Spend wisely: more ammo, or a shield or an airstrike?');
   $('shopGoLbl').textContent=shopQ.length?T('NASTĘPNY GRACZ','NEXT PLAYER'):T('DO BOJU!','TO BATTLE!');
-  const g=$('shopGrid');g.innerHTML=SHOP.map(([id,price,qty,max])=>{const w=WEAPONS[WI(id)],own=t.inv[id]||0,can=t.cash>=price&&own+qty<=max,b=BASIC[id];
-    return`<div class="sitem plate${t.cash<price?' poor':''}${own+qty>max?' maxed':''}" data-id="${id}"><canvas width="112" height="68" data-w="${id}"></canvas><div class="si-n">${esc(L(w.name))}${qty>1?' ×'+qty:''}</div><div><div class="si-d">${esc(T(SHOP_DESC[id][0],SHOP_DESC[id][1]))}</div><div class="si-o">${T('MASZ','OWNED')} ${own}${b?` <em>+${b} ${T('co rundę','each round')}</em>`:''}${own+qty>max?' · MAX':''}</div></div>
+  const g=$('shopGrid');g.innerHTML=SHOP.map(([id,price,qty,max])=>{const w=WEAPONS[WI(id)],own=t.inv[id]||0,lk=(UNLOCK[id]||0)>round,can=!lk&&t.cash>=price&&own+qty<=max,b=BASIC[id],sd=SHOP_DESC[id]||SHOP_DESC_NEW[id];
+    return`<div class="sitem plate${lk?' locked':''}${t.cash<price?' poor':''}${own+qty>max?' maxed':''}" data-id="${id}"><canvas width="112" height="68" data-w="${id}"></canvas><div class="si-n">${esc(L(w.name))}${qty>1?' ×'+qty:''}</div><div><div class="si-d">${esc(T(sd[0],sd[1]))}</div>${lk?`<div class="si-lock">${T('ZABLOKOWANE · OD RUNDY ','LOCKED · FROM ROUND ')+UNLOCK[id]}</div>`:(UNLOCK[id]?`<div class="si-new">${T('NOWOŚĆ','NEW')}</div>`:'')}<div class="si-o">${T('MASZ','OWNED')} ${own}${b?` <em>+${b} ${T('co rundę','each round')}</em>`:''}${own+qty>max?' · MAX':''}</div></div>
       <div class="si-p"><span class="price"><i class="cap"></i>${price}</span><button class="pill ghost" data-sell="${id}"${shopBuys[id]?'':' disabled'} aria-label="${T('Oddaj','Return')}">−</button><button class="pill on" data-buy="${id}"${can?'':' disabled'}>${T('KUP','BUY')}</button></div></div>`}).join('');
   g.querySelectorAll('canvas').forEach(cn=>weaponIcon(cn,cn.dataset.w));
   g.querySelectorAll('.sitem').forEach(e=>e.addEventListener('pointerenter',ev=>{if(ev.pointerType==='mouse')peekShop(e.dataset.id)}));peekShop(shopPeek)}
 $('shopGrid').addEventListener('click',e=>{const card=e.target.closest('.sitem');if(card&&(card.dataset.id!==shopPeek||!$('shopPrev').classList.contains('show')))peekShop(card.dataset.id,!e.target.closest('button'));const b=e.target.closest('button');if(!b||b.disabled||!shopT)return;const t=shopT,id=b.dataset.buy||b.dataset.sell,it=SHOP.find(s=>s[0]===id);if(!it)return;const[,price,qty,max]=it;
-  if(b.dataset.buy){if(t.cash<price||(t.inv[id]||0)+qty>max)return;t.cash-=price;t.inv[id]=(t.inv[id]||0)+qty;shopBuys[id]=(shopBuys[id]||0)+1;sfxBuy()}
+  if(b.dataset.buy){if((UNLOCK[id]||0)>round||t.cash<price||(t.inv[id]||0)+qty>max)return;t.cash-=price;t.inv[id]=(t.inv[id]||0)+qty;shopBuys[id]=(shopBuys[id]||0)+1;sfxBuy()}
   else{if(!shopBuys[id])return;t.cash+=price;t.inv[id]=Math.max(0,(t.inv[id]||0)-qty);shopBuys[id]--;sfxClick()}
   renderShop()});
 $('shopPrevX').onclick=()=>{sfxClick();$('shopPrev').classList.remove('show')};
