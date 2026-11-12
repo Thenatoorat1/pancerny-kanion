@@ -147,7 +147,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--hazard);outline
 .toplang{position:absolute;z-index:40;top:max(14px,calc(env(safe-area-inset-top,0px) + 4px));left:calc(max(10px,env(safe-area-inset-left,0px)) + 52px);display:flex;gap:6px}
 .toplang .pill{font-size:13px;padding:6px 10px 5px;min-width:40px}
 .game.playing .toplang{display:none}
-@media (max-width:760px){.sec .hstabs.cats{padding-left:4px;gap:3px}.sec .hstabs.cats .tab{font-size:11px;padding:6px 8px 5px;letter-spacing:.02em}.sec .hstabs.cats .tab.on{padding:8px 10px 8px}#title .ver{margin-bottom:12px;padding-top:calc(env(safe-area-inset-top,0px) + 16px)}.titlenav{flex-direction:column;gap:14px}.tn-opts{order:2;flex-direction:row;flex-wrap:wrap;justify-content:center;gap:10px}.tn-opts .pill{min-width:0;font-size:13px;padding:7px 12px 5px}}
+@media (max-width:760px){.sec .hstabs.cats{padding-left:4px;gap:3px}.sec .hstabs.cats .tab{font-size:11px;padding:6px 8px 5px;letter-spacing:.02em}.sec .hstabs.cats .tab.on{padding:8px 10px 8px}#title .ver{position:absolute;top:max(10px,env(safe-area-inset-top,0px));right:max(14px,env(safe-area-inset-right,0px));margin:0;padding:0;line-height:40px;font-size:11px}.stage.menu-open #title:not([hidden]){padding-top:calc(max(10px,env(safe-area-inset-top,0px)) + 50px)}.titlenav{flex-direction:column;gap:14px}.tn-opts{order:2;flex-direction:row;flex-wrap:wrap;justify-content:center;gap:10px}.tn-opts .pill{min-width:0;font-size:13px;padding:7px 12px 5px}}
 .tagline{margin:0;font-size:19px;color:#d6ccb2;text-align:center;text-wrap:balance}
 .bigbtn{min-width:220px;padding:14px 30px 10px;font-size:clamp(20px,3.2vw,32px);border:4px solid var(--ink);border-radius:6px;background:linear-gradient(#e0784a,var(--rust) 50%,var(--rust-d));box-shadow:0 0 0 4px var(--hazard),0 7px 0 4px var(--ink)}
 .bigbtn:active{transform:translateY(4px);box-shadow:0 0 0 4px var(--hazard),0 3px 0 4px var(--ink)}
@@ -415,7 +415,7 @@ body{padding-top:max(14px, env(safe-area-inset-top, 0px));padding-bottom:max(14p
     </div>
 
     <div class="ov" id="title">
-      <div class="ver" id="verTag" data-nt>v0.40 · 12.11.2026</div>
+      <div class="ver" id="verTag" data-nt>v0.41 · 12.11.2026</div>
       <div class="hero"><div class="sign ol big">PANCERNY KANION</div><canvas id="titleArt" width="1440" height="630" aria-hidden="true"></canvas></div>
       <p class="tagline">Artyleria na pustkowiach. Przetrwaj ostrzał, pogodę, hordy i atom.</p>
       <div class="titlenav"><div class="tn-opts"><button class="pill ghost" id="optBtn">MENU I USTAWIENIA</button><button class="pill ghost" id="helpBtn2">JAK GRAĆ</button></div><div class="navrow tn-play"><button class="bigbtn" id="playBtn"><span class="ol s">GRAJ</span></button><button class="bigbtn alt" id="onlineBtn"><span class="ol s">GRAJ ONLINE</span></button></div></div>
@@ -1398,7 +1398,7 @@ const oldConv=r=>({...r,cat:'sredni',score:Math.round((r.score||0)/OLD_ROUNDS),r
 function loadHS(){try{let v=JSON.parse(localStorage.getItem(HS_KEY)||'[]');if(!Array.isArray(v))return[];return v.map(r=>r&&r.cat?r:oldConv(r))}catch(e){return[]}}
 function saveHS(l){const out=[];for(const c of HS_CATS)out.push(...l.filter(r=>r.cat===c).sort((a,b)=>b.score-a.score).slice(0,10));try{localStorage.setItem(HS_KEY,JSON.stringify(out))}catch(e){}}
 /* ---------- hi-scores: local + world (Firebase Firestore REST) ---------- */
-const FB={key:'AIzaSyD94iINKYZLF7OuuYs9yM8-s3vGHaLTjHw',base:'https://firestore.googleapis.com/v1/projects/pancerny-kanion/databases/(default)/documents'},HS_PEND='pancerny-kanion-wyslij',GAME_VER='0.40';
+const FB={key:'AIzaSyD94iINKYZLF7OuuYs9yM8-s3vGHaLTjHw',base:'https://firestore.googleapis.com/v1/projects/pancerny-kanion/databases/(default)/documents'},HS_PEND='pancerny-kanion-wyslij',GAME_VER='0.41';
 const worldHS={},worldErr={},worldBusy={},worldAt={};const hsMode={hsTitle:'world',hsFinal:'world'},hsNew={},hsCat={hsTitle:'sredni',hsFinal:'sredni'};
 const fbVal=v=>typeof v==='number'?{integerValue:String(Math.round(v))}:{stringValue:String(v??'')};
 function fbDoc(r){const f={};for(const k of['name','score','wins','dealt','kills','zombies','best','map','date','cid','v','rounds','mode'])f[k]=fbVal(r[k]);return{fields:f}}
