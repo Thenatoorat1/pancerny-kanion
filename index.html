@@ -224,30 +224,32 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--hazard);outline
 .cap{display:inline-block;width:14px;height:14px;border-radius:50%;background:radial-gradient(circle,#efe6cc 0 30%,#b8322a 32% 64%,#9aa0a2 66%);border:2px solid var(--ink);vertical-align:-2px;box-shadow:0 0 0 1px #c9c2ae inset}
 .cap.big{width:30px;height:30px;border-width:3px}
 #shopEarn{flex:1 1 320px;min-width:0;margin:0}
-.sprev{position:sticky;top:0;z-index:3;display:grid;grid-template-columns:minmax(0,440px) minmax(0,1fr);gap:14px;align-items:center;padding:10px;width:min(1100px,100%);box-shadow:0 8px 14px rgba(0,0,0,.35)}
+.sprev{position:fixed;left:50%;transform:translateX(-50%);bottom:max(10px,env(safe-area-inset-bottom,0px));z-index:60;display:grid;grid-template-columns:minmax(0,360px) minmax(0,1fr);gap:14px;align-items:center;padding:10px;width:min(1000px,calc(100% - 24px));box-shadow:0 -6px 24px rgba(0,0,0,.6)}
+#shop:not([hidden]){padding-bottom:190px}
 .sprev canvas{width:100%;aspect-ratio:44/15;border:3px solid var(--ink);border-radius:4px;background:#1d2021}
 .sprev-t{display:flex;flex-direction:column;gap:4px;min-width:0}.sprev .si-n{font-family:var(--f-disp);font-size:20px;color:var(--hazard)}.sprev .si-d{font-size:14px;line-height:1.35;color:#e0d7c0}
 .sprev-h{font-size:12px;color:#9a9282}
 .sitem{cursor:pointer}.sitem.locked{filter:saturate(.35);opacity:.8}.sitem.locked .price{opacity:.5}
-.si-lock{display:inline-block;margin-top:3px;font-family:var(--f-disp);font-size:11px;letter-spacing:.04em;color:#e9dfc6;background:#5a3a32;border:2px solid var(--ink);border-radius:3px;padding:1px 6px}
-.si-new{display:inline-block;margin-top:3px;font-family:var(--f-disp);font-size:11px;color:var(--ink);background:#9ee22f;border:2px solid var(--ink);border-radius:3px;padding:1px 6px}.sitem.peek{outline:3px solid var(--hazard);outline-offset:-3px}
+.si-tag{position:absolute;top:-6px;right:6px;z-index:1;font-family:var(--f-disp);font-size:10px;letter-spacing:.04em;border:2px solid var(--ink);border-radius:3px;padding:1px 5px;white-space:nowrap}
+.si-lock{color:#e9dfc6;background:#5a3a32}
+.si-new{color:var(--ink);background:#9ee22f}.sitem.peek{outline:3px solid var(--hazard);outline-offset:-3px}
 .sprev-x{display:none}
-@media (max-width:760px){.sprev{position:fixed;top:auto;left:8px;right:8px;bottom:max(8px,env(safe-area-inset-bottom,0px));width:auto;z-index:60;grid-template-columns:minmax(0,1fr);gap:6px;padding:8px;display:none;box-shadow:0 -6px 24px rgba(0,0,0,.6)}.sprev.show{display:grid}
+@media (max-width:760px){#shop:not([hidden]){padding-bottom:270px}#shopGrid.shopgrid{grid-template-columns:repeat(auto-fill,minmax(138px,1fr));gap:6px}#shopGrid .sitem{grid-template-columns:44px minmax(0,1fr);padding:6px;gap:2px 6px}#shopGrid .sitem canvas{width:44px;height:28px}#shopGrid .sitem .si-n{font-size:12.5px}#shopGrid .sitem .si-o{font-size:10px}#shopGrid .sitem .si-p{gap:4px}#shopGrid .sitem .price{font-size:14px;gap:3px}#shopGrid .sitem .price .cap{transform:scale(.8)}#shopGrid .sitem .pill{padding:4px 7px 3px;font-size:12px}#shopGrid .si-tag{font-size:9px;right:4px}.sprev{position:fixed;top:auto;left:8px;right:8px;bottom:max(8px,env(safe-area-inset-bottom,0px));width:auto;transform:none;z-index:60;grid-template-columns:minmax(0,1fr);gap:6px;padding:8px;display:none;box-shadow:0 -6px 24px rgba(0,0,0,.6)}.sprev.show{display:grid}
   .sprev .si-n{font-size:16px;padding-right:44px}.sprev .si-d{font-size:12.5px}.sprev-h{display:none}.sprev-x{display:grid;place-items:center;position:absolute;right:10px;bottom:10px;width:38px;height:38px;padding:0;font-size:20px}}
 .pprev{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:10px;align-items:center;padding-bottom:6px;border-bottom:2px dashed rgba(0,0,0,.35);margin-bottom:2px}
 .picker .pprev canvas{width:100%;height:auto;aspect-ratio:44/15;border:3px solid var(--ink);border-radius:4px;background:#1d2021}
 .pprev .ppn{font-family:var(--f-disp);font-size:16px;color:var(--hazard)}.pprev .ppd{font-size:12.5px;line-height:1.3;color:#e0d7c0}.pprev .pph{font-size:11px;color:#9a9282;margin-top:3px}
 @media (max-width:520px){.pprev{grid-template-columns:minmax(0,1fr)}}
 .pprev,.pprev>*{min-width:0}.pprev canvas,.sprev canvas{display:block;max-width:100%}
-.shopgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
-.sitem{display:grid;grid-template-columns:78px minmax(0,1fr);grid-template-rows:auto auto;gap:4px 10px;padding:8px;align-items:center}
-.sitem canvas{width:78px;height:48px;background:#1d2021;border:2px solid var(--ink);border-radius:4px;grid-row:1/3}
-.sitem .si-n{font-family:var(--f-disp);font-size:15px;color:var(--bone);letter-spacing:.02em}
+.shopgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:8px}
+.sitem{position:relative;display:grid;grid-template-columns:62px minmax(0,1fr);grid-template-rows:auto auto auto;gap:2px 8px;padding:7px;align-items:center}
+.sitem canvas{width:62px;height:38px;background:#1d2021;border:2px solid var(--ink);border-radius:4px;grid-row:1/3}
+.sitem .si-n{font-family:var(--f-disp);font-size:14px;line-height:1.15;color:var(--bone);letter-spacing:.02em;align-self:end;overflow-wrap:anywhere}
 .sitem .si-d{font-size:12px;line-height:1.3;color:#c9c2ae}
-.sitem .si-o{font-size:12px;color:var(--hazard);font-weight:700}.sitem .si-o em{color:#9fb87a;font-style:normal;font-weight:600}
-.sitem .si-p{grid-column:1/3;display:flex;align-items:center;gap:8px;justify-content:flex-end}
-.sitem .price{margin-right:auto;font-family:var(--f-disp);font-size:18px;color:var(--hazard);-webkit-text-stroke:3px var(--ink);paint-order:stroke fill;display:flex;align-items:center;gap:6px}
-.sitem .pill{padding:5px 12px 4px}.sitem.poor .price{color:#a85a4a}.sitem.maxed{opacity:.75}
+.sitem .si-o{font-size:11px;line-height:1.2;color:var(--hazard);font-weight:700;align-self:start}.sitem .si-o em{color:#9fb87a;font-style:normal;font-weight:600}
+.sitem .si-p{grid-column:1/3;display:flex;align-items:center;gap:6px;justify-content:flex-end;margin-top:4px}
+.sitem .price{margin-right:auto;font-family:var(--f-disp);font-size:16px;color:var(--hazard);-webkit-text-stroke:3px var(--ink);paint-order:stroke fill;display:flex;align-items:center;gap:6px}
+.sitem .pill{padding:4px 10px 3px}.sitem.poor .price{color:#a85a4a}.sitem.maxed{opacity:.75}
 .pc .cashv{margin-left:8px;color:#e9dfc6;font-weight:400}.pc .cashv .cap{width:11px;height:11px;margin-right:3px;vertical-align:-1px}
 .stand{display:flex;align-items:center;gap:8px;padding:6px 14px 6px 6px}
 .stand canvas{width:60px;height:42px;background:linear-gradient(#5a4a3a,#a07a52);border:2px solid var(--ink);border-radius:4px}
@@ -378,7 +380,7 @@ body{padding-top:max(14px, env(safe-area-inset-top, 0px));padding-bottom:max(14p
     </div>
 
     <div class="ov" id="title">
-      <div class="ver" id="verTag" data-nt>v0.33 · 12.11.2026</div>
+      <div class="ver" id="verTag" data-nt>v0.34 · 12.11.2026</div>
       <div class="hero"><div class="sign ol big">PANCERNY KANION</div><canvas id="titleArt" width="1440" height="630" aria-hidden="true"></canvas></div>
       <p class="tagline">Artyleria na pustkowiach. Przetrwaj ostrzał, pogodę, hordy i atom.</p>
       <div class="navrow"><button class="bigbtn" id="playBtn"><span class="ol s">GRAJ</span></button><button class="bigbtn alt" id="onlineBtn"><span class="ol s">GRAJ ONLINE</span></button></div>
@@ -1359,7 +1361,7 @@ const HS_KEY='pancerny-kanion-rekordy';
 function loadHS(){try{const v=JSON.parse(localStorage.getItem(HS_KEY)||'[]');return Array.isArray(v)?v:[]}catch(e){return[]}}
 function saveHS(l){try{localStorage.setItem(HS_KEY,JSON.stringify(l))}catch(e){}}
 /* ---------- hi-scores: local + world (Firebase Firestore REST) ---------- */
-const FB={key:'AIzaSyD94iINKYZLF7OuuYs9yM8-s3vGHaLTjHw',base:'https://firestore.googleapis.com/v1/projects/pancerny-kanion/databases/(default)/documents'},HS_PEND='pancerny-kanion-wyslij',GAME_VER='0.33';
+const FB={key:'AIzaSyD94iINKYZLF7OuuYs9yM8-s3vGHaLTjHw',base:'https://firestore.googleapis.com/v1/projects/pancerny-kanion/databases/(default)/documents'},HS_PEND='pancerny-kanion-wyslij',GAME_VER='0.34';
 let worldHS=null,worldErr=false,worldBusy=null,worldAt=0;const hsMode={hsTitle:'world',hsFinal:'world'},hsNew={};
 const fbVal=v=>typeof v==='number'?{integerValue:String(Math.round(v))}:{stringValue:String(v??'')};
 function fbDoc(r){const f={};for(const k of['name','score','wins','dealt','kills','zombies','best','map','date','cid','v'])f[k]=fbVal(r[k]);return{fields:f}}
@@ -2407,7 +2409,7 @@ function renderShop(){const t=shopT;if(!t)return;$('shopName').textContent=t.nam
     :T('Kapsle na start. Wydaj je z głową: więcej amunicji czy tarcza albo nalot?','Starting caps. Spend wisely: more ammo, or a shield or an airstrike?');
   $('shopGoLbl').textContent=shopQ.length?T('NASTĘPNY GRACZ','NEXT PLAYER'):T('DO BOJU!','TO BATTLE!');
   const g=$('shopGrid');g.innerHTML=SHOP.map(([id,price,qty,max])=>{const w=WEAPONS[WI(id)],own=t.inv[id]||0,lk=(UNLOCK[id]||0)>round,can=!lk&&t.cash>=price&&own+qty<=max,b=BASIC[id],sd=SHOP_DESC[id]||SHOP_DESC_NEW[id];
-    return`<div class="sitem plate${lk?' locked':''}${t.cash<price?' poor':''}${own+qty>max?' maxed':''}" data-id="${id}"><canvas width="112" height="68" data-w="${id}"></canvas><div class="si-n">${esc(L(w.name))}${qty>1?' ×'+qty:''}</div><div><div class="si-d">${esc(T(sd[0],sd[1]))}</div>${lk?`<div class="si-lock">${T('ZABLOKOWANE · OD RUNDY ','LOCKED · FROM ROUND ')+UNLOCK[id]}</div>`:(UNLOCK[id]?`<div class="si-new">${T('NOWOŚĆ','NEW')}</div>`:'')}<div class="si-o">${T('MASZ','OWNED')} ${own}${b?` <em>+${b} ${T('co rundę','each round')}</em>`:''}${own+qty>max?' · MAX':''}</div></div>
+    return`<div class="sitem plate${lk?' locked':''}${t.cash<price?' poor':''}${own+qty>max?' maxed':''}" data-id="${id}" title="${esc(T(sd[0],sd[1]))}"><canvas width="112" height="68" data-w="${id}"></canvas><div class="si-n">${esc(L(w.name))}${qty>1?' ×'+qty:''}</div>${lk?`<div class="si-tag si-lock">🔒 ${T('OD RUNDY ','ROUND ')+UNLOCK[id]}</div>`:(UNLOCK[id]?`<div class="si-tag si-new">${T('NOWOŚĆ','NEW')}</div>`:'')}<div class="si-o">${T('MASZ','OWNED')} ${own}${b?` <em>+${b} ${T('co rundę','each round')}</em>`:''}${own+qty>max?' · MAX':''}</div>
       <div class="si-p"><span class="price"><i class="cap"></i>${price}</span><button class="pill ghost" data-sell="${id}"${shopBuys[id]?'':' disabled'} aria-label="${T('Oddaj','Return')}">−</button><button class="pill on" data-buy="${id}"${can?'':' disabled'}>${T('KUP','BUY')}</button></div></div>`}).join('');
   g.querySelectorAll('canvas').forEach(cn=>weaponIcon(cn,cn.dataset.w));
   g.querySelectorAll('.sitem').forEach(e=>e.addEventListener('pointerenter',ev=>{if(ev.pointerType==='mouse')peekShop(e.dataset.id)}));peekShop(shopPeek)}
