@@ -147,7 +147,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--hazard);outline
 @media (max-width:460px){.optgrid{grid-template-columns:minmax(0,1fr)}}
 .note{margin:0;font-size:14px;font-weight:600;color:#cfc4aa;line-height:1.35;max-width:72ch}
 .hs{padding:10px 12px}
-.hstabs{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}.hstabs .pill{padding:5px 12px 4px;font-size:13px}
+.hstabs{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}.hstabs.cats .pill{font-size:12px;padding:4px 10px 3px}.hsnote{margin:0 0 8px;font-size:12px}.hp small{font-size:.62em;opacity:.8}.hstabs .pill{padding:5px 12px 4px;font-size:13px}
 .hs ol{margin:0;padding:0;list-style:none;display:grid;gap:5px}
 .hs li{display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:2px 8px;align-items:baseline;padding:5px 8px;border-radius:3px;background:rgba(0,0,0,.28)}
 .hs li.new{background:rgba(240,185,43,.22);outline:2px solid var(--hazard)}
@@ -322,7 +322,11 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--hazard);outline
 .spinner{width:42px;height:42px;margin:6px auto 12px;border:5px solid rgba(233,223,198,.25);border-top-color:var(--hazard);border-radius:50%;animation:spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
 .netbar{position:absolute;left:50%;top:118px;transform:translateX(-50%);z-index:3;max-width:calc(100% - 24px);padding:6px 14px 5px;background:rgba(15,17,18,.82);border:2px solid var(--hazard);border-radius:4px;font-family:var(--f-disp);font-size:13px;color:#e9dfc6;text-align:center;pointer-events:none}
 #garage.solo .slot:not(:first-child),#garage.solo #ty0{display:none}#garage.solo .slots{grid-template-columns:minmax(0,420px);justify-content:center}
-#setup.solo #diff{display:none}
+#setup.solo #diff,#setup.solo #tmode{display:none}
+.tmt{display:inline-block;font-family:var(--f-disp);font-size:11px;line-height:1;color:var(--ink);background:var(--tc,#ccc);border:2px solid var(--ink);border-radius:3px;padding:2px 4px 1px;margin-right:4px;vertical-align:2px;-webkit-text-stroke:0}
+.pc.tm{border-color:var(--tc)}.pc.tm .tmt{background:var(--tc)}
+.slot{position:relative}.slot .tmtag{position:absolute;top:-10px;left:50%;transform:translateX(-50%);z-index:2;font-family:var(--f-disp);font-size:13px;letter-spacing:.06em;color:var(--ink);background:var(--tc);border:3px solid var(--ink);border-radius:4px;padding:2px 10px 1px;white-space:nowrap}
+.slot.tmA{box-shadow:0 0 0 3px #5ec8ff}.slot.tmB{box-shadow:0 0 0 3px #ff8a5c}
 #online:has(#onStart:not([hidden])) .go{visibility:hidden}
 .camctl{position:absolute;right:10px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:6px;z-index:2}
 .cbtn{width:40px;height:40px;padding:0;display:grid;place-items:center;background:linear-gradient(#4a5254,#2b3132);border:3px solid var(--ink);border-radius:6px;box-shadow:0 3px 0 rgba(0,0,0,.45);opacity:.88}
@@ -393,22 +397,23 @@ body{padding-top:max(14px, env(safe-area-inset-top, 0px));padding-bottom:max(14p
     </div>
 
     <div class="ov" id="title">
-      <div class="ver" id="verTag" data-nt>v0.35 · 12.11.2026</div>
+      <div class="ver" id="verTag" data-nt>v0.36 · 12.11.2026</div>
       <div class="hero"><div class="sign ol big">PANCERNY KANION</div><canvas id="titleArt" width="1440" height="630" aria-hidden="true"></canvas></div>
       <p class="tagline">Artyleria na pustkowiach. Przetrwaj ostrzał, pogodę, hordy i atom.</p>
       <div class="navrow"><button class="bigbtn" id="playBtn"><span class="ol s">GRAJ</span></button><button class="bigbtn alt" id="onlineBtn"><span class="ol s">GRAJ ONLINE</span></button></div>
       <div class="navrow"><button class="pill on" id="onRejoin" hidden><span data-nt>WRÓĆ DO GRY ONLINE</span></button></div>
       <div class="navrow"><button class="pill ghost" id="optBtn">MENU I USTAWIENIA</button><button class="pill ghost" id="helpBtn2">JAK GRAĆ</button><button class="pill ghost" id="credBtn">AUTORZY</button></div>
       <div class="navrow langsel" data-nt><button class="pill ghost" data-lang="pl">POLSKI</button><button class="pill ghost" data-lang="en">ENGLISH</button></div>
-      <div class="sec narrow"><h3>REKORDY</h3><div class="hstabs" data-for="hsTitle"><button class="pill on" data-hs="world">ŚWIAT</button><button class="pill ghost" data-hs="local">TO URZĄDZENIE</button></div><div class="hs plate" id="hsTitle"></div></div>
+      <div class="sec narrow"><h3>REKORDY</h3><div class="hstabs" data-for="hsTitle"><button class="pill on" data-hs="world">ŚWIAT</button><button class="pill ghost" data-hs="local">TO URZĄDZENIE</button></div><div class="hstabs cats" data-for="hsTitle"><button class="pill ghost" data-cat="latwy">ŁATWY</button><button class="pill on" data-cat="sredni">ŚREDNI</button><button class="pill ghost" data-cat="trudny">TRUDNY</button><button class="pill ghost" data-cat="gracze">GRACZE</button></div><p class="note hsnote">Wynik to średnia punktów na rundę. Osobne listy dla poziomów komputera i dla gry bez komputera.</p><div class="hs plate" id="hsTitle"></div></div>
     </div>
 
     <div class="ov" id="setup" hidden>
       <div class="scrhead"><button class="pill ghost" id="backTitle">◀ WSTECZ</button><div class="sign ol">PRZYGOTOWANIE</div><div class="go"><button class="bigbtn" id="toGarage"><span class="ol s">WYBIERZ CZOŁG ▶</span></button></div></div>
       <div class="sec"><h3>MAPA</h3><div class="maps" id="maps"></div></div>
       <div class="sec"><h3>ZASADY</h3><div class="optgrid plate">
-        <div class="seg" id="diff"></div><div class="seg" id="rounds"></div><div class="seg" id="rtime"></div><div class="seg" id="events"></div>
+        <div class="seg" id="tmode"></div><div class="seg" id="diff"></div><div class="seg" id="rounds"></div><div class="seg" id="rtime"></div><div class="seg" id="events"></div>
         <p class="note">Czas gry: gdy minie, na pole bitwy spada bomba atomowa i niszczy wszystko. Rundę wygrywa czołg, który miał wtedy najwięcej życia. Zegar liczy się od nowa w każdej rundzie. Wydarzenia losowe są zapowiadane 2 tury wcześniej.</p>
+        <p class="note">Tryby: 1 na 1 to pojedynek dwóch czołgów. W trybach 2 na 2 i 1 na 3 drużyny stają po przeciwnych stronach mapy, rundę wygrywa drużyna, która przetrwa, a za trafienie kolegi z drużyny nie ma kapsli ani punktów. Przy ataku atomowym liczy się suma życia drużyny.</p>
       </div></div>
     </div>
 
@@ -455,7 +460,7 @@ body{padding-top:max(14px, env(safe-area-inset-top, 0px));padding-bottom:max(14p
       <div class="ol" id="finTitle" data-nt style="font-size:clamp(20px,3.6vw,36px);text-align:center">OCALAŁ</div>
       <div class="sec"><h3>STATYSTYKI</h3><div class="tblwrap plate"><table class="sumtbl" id="finTable"></table></div>
         <p class="note">Punkty: 500 za wygraną rundę, 1 za każdy punkt zadanych obrażeń, 100 za zniszczony czołg i 25 za zombie.</p></div>
-      <div class="sec narrow"><h3>REKORDY</h3><div class="hstabs" data-for="hsFinal"><button class="pill on" data-hs="world">ŚWIAT</button><button class="pill ghost" data-hs="local">TO URZĄDZENIE</button></div><div class="hs plate" id="hsFinal"></div></div>
+      <div class="sec narrow"><h3>REKORDY</h3><div class="hstabs" data-for="hsFinal"><button class="pill on" data-hs="world">ŚWIAT</button><button class="pill ghost" data-hs="local">TO URZĄDZENIE</button></div><div class="hstabs cats" data-for="hsFinal"><button class="pill ghost" data-cat="latwy">ŁATWY</button><button class="pill on" data-cat="sredni">ŚREDNI</button><button class="pill ghost" data-cat="trudny">TRUDNY</button><button class="pill ghost" data-cat="gracze">GRACZE</button></div><p class="note hsnote">Wynik to średnia punktów na rundę. Osobne listy dla poziomów komputera i dla gry bez komputera.</p><div class="hs plate" id="hsFinal"></div></div>
       <div class="navrow"><button class="pill ghost" id="toTitle">MENU GŁÓWNE</button><button class="bigbtn" id="again"><span class="ol s">ZAGRAJ PONOWNIE</span></button></div>
     </div>
 
@@ -622,7 +627,7 @@ const EN={
 'SPRAWDŹ DŹWIĘK':'TEST SOUND','Pomysł, projekt gry, kierunek artystyczny i testy':'Idea, game design, art direction and testing',
 'Kod, grafika i dźwięki (Claude, AI od Anthropic)':'Code, graphics and sound (Claude, an AI by Anthropic)',
 'Inspiracje: Scorched Tanks z Amigi, Hills of Steel, Into the Dead: Our Darkest Days, Fallout i ARC Raiders.':'Inspired by: Scorched Tanks on the Amiga, Hills of Steel, Into the Dead: Our Darkest Days, Fallout and ARC Raiders.',
-'ZAMKNIJ':'CLOSE','Sęp':'Vulture','Kriobomba':'Cryo bomb','Zarażony pocisk':'Infected shell','Teleporter':'Teleporter','Lustro':'Mirror','LUSTRO WŁĄCZONE':'MIRROR ON','ODBICIE':'REFLECTED','ZAMROŻONY':'FROZEN','TELEPORT':'TELEPORT','GRAJ ONLINE':'PLAY ONLINE','GRA ONLINE':'ONLINE GAME','TWOJA NAZWA':'YOUR NAME','NOWY POJEDYNEK':'NEW DUEL','ZAŁÓŻ POKÓJ':'CREATE ROOM','DOŁĄCZ DO POKOJU':'JOIN A ROOM','DOŁĄCZ':'JOIN','KOD':'CODE','Kod pokoju':'Room code',
+'ZAMKNIJ':'CLOSE','Tryby: 1 na 1 to pojedynek dwóch czołgów. W trybach 2 na 2 i 1 na 3 drużyny stają po przeciwnych stronach mapy, rundę wygrywa drużyna, która przetrwa, a za trafienie kolegi z drużyny nie ma kapsli ani punktów. Przy ataku atomowym liczy się suma życia drużyny.':'Modes: 1 vs 1 is a duel of two tanks. In 2 vs 2 and 1 vs 3 the teams start on opposite sides of the map, the team that survives wins the round, and hitting a teammate earns no caps or points. In a nuke strike the team’s total health counts.','ŁATWY':'EASY','ŚREDNI':'NORMAL','TRUDNY':'HARD','GRACZE':'PLAYERS','Wynik to średnia punktów na rundę. Osobne listy dla poziomów komputera i dla gry bez komputera.':'Score is the average points per round. Separate lists for each CPU level and for games without the CPU.','TRYB:':'MODE:','KAŻDY NA KAŻDEGO':'FREE FOR ALL','1 NA 1':'1 VS 1','2 NA 2':'2 VS 2','1 NA 3':'1 VS 3','Sęp':'Vulture','Kriobomba':'Cryo bomb','Zarażony pocisk':'Infected shell','Teleporter':'Teleporter','Lustro':'Mirror','LUSTRO WŁĄCZONE':'MIRROR ON','ODBICIE':'REFLECTED','ZAMROŻONY':'FROZEN','TELEPORT':'TELEPORT','GRAJ ONLINE':'PLAY ONLINE','GRA ONLINE':'ONLINE GAME','TWOJA NAZWA':'YOUR NAME','NOWY POJEDYNEK':'NEW DUEL','ZAŁÓŻ POKÓJ':'CREATE ROOM','DOŁĄCZ DO POKOJU':'JOIN A ROOM','DOŁĄCZ':'JOIN','KOD':'CODE','Kod pokoju':'Room code',
 'KOD POKOJU':'ROOM CODE','KOPIUJ':'COPY','MÓJ CZOŁG':'MY TANK','OPUŚĆ GRĘ':'LEAVE GAME','Start':'Start',
 'Załóż pokój i podaj kod drugiemu graczowi. Gra 1 na 1, każdy na swoim telefonie lub komputerze.':'Create a room and give the code to the other player. A 1-on-1 duel, each on their own phone or computer.',
 'Drugi gracz wybiera „GRAJ ONLINE” → „DOŁĄCZ” i wpisuje ten kod. Gospodarz ustala zasady, a każdy wybiera swój czołg.':'The other player picks “PLAY ONLINE” → “JOIN” and types this code. The host sets the rules and everyone picks their own tank.',
@@ -1201,7 +1206,7 @@ function updateZombies(dt){
   for(const z of zombies){if(z.dead)continue;
     z.life-=dt;if(z.life<=0){dustZombie(z);continue}
     if(z.rise<1){z.rise=Math.min(1,z.rise+dt*.5);z.y=groundAtX(z.x);continue}
-    let tg=null,best=1e9;for(const t of tanks)if(t.alive&&t!==z.own){const d=Math.abs(t.x-z.x);if(d<best){best=d;tg=t}}
+    let tg=null,best=1e9;for(const t of tanks)if(t.alive&&!(z.own&&!foe(t,z.own))){const d=Math.abs(t.x-z.x);if(d<best){best=d;tg=t}}
     z.ph+=dt*4;
     if(!tg){z.y=groundAtX(z.x);continue}
     const reach=tg.st.hw+8;
@@ -1355,7 +1360,8 @@ function triggerEvent(k){const E=EVENTS[k];toast(E.name+'!');sfxAlarm();
     else if(k==='quake'){const p1=rand(0,7),p2=rand(0,7),a=rand(16,26);for(let x=0;x<W;x++)h[x]=clamp(h[x]+Math.sin(x*.011+p1)*a+Math.sin(x*.029+p2)*a*.4,H*.25,H-6);quakeT=1.8;sfxThunder()}}
 }
 function startNuke(){clock=0;phase='nuke';nukeT=0;$('picker').hidden=true;pending=[];
-  let best=null,tie=false;for(const t of tanks)if(t.alive){if(!best||t.hp>best.hp+.5){best=t;tie=false}else if(Math.abs(t.hp-best.hp)<=.5)tie=true}
+  let best=null,tie=false;const hpOf=t=>isTeamGame()?tanks.filter(o=>o.alive&&o.team===t.team).reduce((a,o)=>a+o.hp,0):t.hp;
+  for(const t of tanks)if(t.alive){if(best&&isTeamGame()&&t.team===best.team)continue;if(!best||hpOf(t)>hpOf(best)+.5){best=t;tie=false}else if(Math.abs(hpOf(t)-hpOf(best))<=.5)tie=true}
   nukeWinner=tie?null:best;toast('UDERZENIE ATOMOWE!');sfxSiren();nukeMissile={x:W/2,y:-120,boom:false}}
 function updateNuke(dt){nukeT+=dt;
   if(!nukeMissile.boom){const gy=groundAtX(W/2);nukeMissile.y=-120+(gy+120)*Math.min(1,Math.pow(nukeT/2,2));
@@ -1371,58 +1377,79 @@ function updateNuke(dt){nukeT+=dt;
 function score(t){return t.sg.wins*500+Math.round(t.sg.dealt)+t.sg.kills*100+t.sg.zombies*25}
 const fmtT=s=>s==null?'—':Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
 const HS_KEY='pancerny-kanion-rekordy';
-function loadHS(){try{const v=JSON.parse(localStorage.getItem(HS_KEY)||'[]');return Array.isArray(v)?v:[]}catch(e){return[]}}
-function saveHS(l){try{localStorage.setItem(HS_KEY,JSON.stringify(l))}catch(e){}}
+const HS_CATS=['latwy','sredni','trudny','gracze'],HS_COL={latwy:'scores_latwy',sredni:'scores_sredni',trudny:'scores_trudny',gracze:'scores_gracze'},HS_CAT_LBL={latwy:['ŁATWY','EASY'],sredni:['ŚREDNI','NORMAL'],trudny:['TRUDNY','HARD'],gracze:['GRACZE','PLAYERS']},OLD_ROUNDS=5;
+const oldConv=r=>({...r,cat:'sredni',score:Math.round((r.score||0)/OLD_ROUNDS),rounds:OLD_ROUNDS,old:1});
+function loadHS(){try{let v=JSON.parse(localStorage.getItem(HS_KEY)||'[]');if(!Array.isArray(v))return[];return v.map(r=>r&&r.cat?r:oldConv(r))}catch(e){return[]}}
+function saveHS(l){const out=[];for(const c of HS_CATS)out.push(...l.filter(r=>r.cat===c).sort((a,b)=>b.score-a.score).slice(0,10));try{localStorage.setItem(HS_KEY,JSON.stringify(out))}catch(e){}}
 /* ---------- hi-scores: local + world (Firebase Firestore REST) ---------- */
-const FB={key:'AIzaSyD94iINKYZLF7OuuYs9yM8-s3vGHaLTjHw',base:'https://firestore.googleapis.com/v1/projects/pancerny-kanion/databases/(default)/documents'},HS_PEND='pancerny-kanion-wyslij',GAME_VER='0.35';
-let worldHS=null,worldErr=false,worldBusy=null,worldAt=0;const hsMode={hsTitle:'world',hsFinal:'world'},hsNew={};
+const FB={key:'AIzaSyD94iINKYZLF7OuuYs9yM8-s3vGHaLTjHw',base:'https://firestore.googleapis.com/v1/projects/pancerny-kanion/databases/(default)/documents'},HS_PEND='pancerny-kanion-wyslij',GAME_VER='0.36';
+const worldHS={},worldErr={},worldBusy={},worldAt={};const hsMode={hsTitle:'world',hsFinal:'world'},hsNew={},hsCat={hsTitle:'sredni',hsFinal:'sredni'};
 const fbVal=v=>typeof v==='number'?{integerValue:String(Math.round(v))}:{stringValue:String(v??'')};
-function fbDoc(r){const f={};for(const k of['name','score','wins','dealt','kills','zombies','best','map','date','cid','v'])f[k]=fbVal(r[k]);return{fields:f}}
+function fbDoc(r){const f={};for(const k of['name','score','wins','dealt','kills','zombies','best','map','date','cid','v','rounds','mode'])f[k]=fbVal(r[k]);return{fields:f}}
 function fbParse(d){const o={};for(const k in d.fields||{}){const v=d.fields[k];o[k]=v.integerValue!=null?+v.integerValue:v.stringValue}if(!o.best)o.best=null;o.id=o.cid;return o}
-function fetchWorld(){if(worldBusy)return worldBusy;worldBusy=(async()=>{try{
-    const r=await fetch(`${FB.base}:runQuery?key=${FB.key}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({structuredQuery:{from:[{collectionId:'scores'}],orderBy:[{field:{fieldPath:'score'},direction:'DESCENDING'}],limit:10}})});
-    if(!r.ok)throw new Error(r.status);const j=await r.json();worldHS=(Array.isArray(j)?j:[]).filter(x=>x.document).map(x=>fbParse(x.document));worldErr=false;worldAt=Date.now()}
-  catch(e){worldErr=true;worldAt=Date.now()}worldBusy=null;refreshHS()})();return worldBusy}
+async function fbTop(col,n){const r=await fetch(`${FB.base}:runQuery?key=${FB.key}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({structuredQuery:{from:[{collectionId:col}],orderBy:[{field:{fieldPath:'score'},direction:'DESCENDING'}],limit:n}})});
+  if(!r.ok)throw new Error(r.status);const j=await r.json();return(Array.isArray(j)?j:[]).filter(x=>x.document).map(x=>fbParse(x.document))}
+function fetchWorld(cat){cat=cat||'sredni';if(worldBusy[cat])return worldBusy[cat];worldBusy[cat]=(async()=>{try{
+    let l=await fbTop(HS_COL[cat],10);
+    if(cat==='sredni'){let old=[];try{old=(await fbTop('scores',30)).map(oldConv)}catch(e){}l=[...l,...old].sort((a,b)=>b.score-a.score).slice(0,10)}
+    worldHS[cat]=l;worldErr[cat]=false;worldAt[cat]=Date.now()}
+  catch(e){worldErr[cat]=true;worldAt[cat]=Date.now()}worldBusy[cat]=null;refreshHS()})();return worldBusy[cat]}
 function readPend(){try{const v=JSON.parse(localStorage.getItem(HS_PEND)||'[]');return Array.isArray(v)?v:[]}catch(e){return[]}}
 function writePend(l){try{localStorage.setItem(HS_PEND,JSON.stringify(l.slice(-20)))}catch(e){}}
 let pendMem=[];
 async function flushWorld(){const p=[...readPend(),...pendMem];pendMem=[];if(!p.length)return;const left=[];
-  for(const r of p){try{const res=await fetch(`${FB.base}/scores?key=${FB.key}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(fbDoc(r))});if(!res.ok&&(res.status>=500||res.status===429))left.push(r)}catch(e){left.push(r)}}
+  for(let r of p){if(!r.cat)r=oldConv(r);try{const res=await fetch(`${FB.base}/${HS_COL[r.cat]||HS_COL.sredni}?key=${FB.key}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(fbDoc(r))});if(!res.ok&&(res.status>=500||res.status===429||res.status===403))left.push(r)}catch(e){left.push(r)}}
   writePend(left);if(!readPend().length&&left.length)pendMem=left}
 function refreshHS(){for(const id of['hsTitle','hsFinal']){const el=$(id);if(el)renderHS(el)}}
-function hsRow(r,i,newIds){return`<li class="${newIds&&newIds.has(r.id)?'new':''}"><span class="rk">${i+1}.</span><span class="hn" data-nt>${esc(r.name)}</span><span class="hp">${r.score} ${T('PKT','PTS')}</span>
-    <span class="hd" data-nt>${r.wins} ${T(r.wins===1?'runda':r.wins>=2&&r.wins<=4?'rundy':'rund',r.wins===1?'round':'rounds')} · ${r.dealt} ${T('obrażeń','damage')} · ${r.kills} ${T('czołgów','tanks')} · ${r.zombies} zombie · ${T('najszybciej','fastest')} ${fmtT(r.best)} · ${esc(L(r.map))} · ${esc(r.date)}</span></li>`}
-function renderHS(el,newIds){if(!el)return;if(newIds)hsNew[el.id]=newIds;newIds=hsNew[el.id];const mode=hsMode[el.id]||'world';
+function hsRow(r,i,newIds){return`<li class="${newIds&&newIds.has(r.id)?'new':''}"><span class="rk">${i+1}.</span><span class="hn" data-nt>${esc(r.name)}</span><span class="hp">${r.score} <small>${T('PKT/RUNDĘ','PTS/ROUND')}</small></span>
+    <span class="hd" data-nt>${r.old?T('stary wynik · ','old score · '):''}${r.mode&&r.mode!=='ffa'?esc(T(...(MODE_LBL[r.mode]||[r.mode,r.mode])))+' · ':''}${T('wygrane','won')} ${r.wins}${r.rounds&&!r.old?'/'+r.rounds:''} ${T('rund','rounds')} · ${r.dealt} ${T('obrażeń','damage')} · ${r.kills} ${T('czołgów','tanks')} · ${r.zombies} zombie · ${T('najszybciej','fastest')} ${fmtT(r.best)} · ${esc(L(r.map))} · ${esc(r.date)}</span></li>`}
+function renderHS(el,newIds){if(!el)return;if(newIds)hsNew[el.id]=newIds;newIds=hsNew[el.id];const mode=hsMode[el.id]||'world',cat=hsCat[el.id]||'sredni';
   document.querySelectorAll(`.hstabs[data-for="${el.id}"] [data-hs]`).forEach(b=>b.className='pill '+(b.dataset.hs===mode?'on':'ghost'));
+  document.querySelectorAll(`.hstabs[data-for="${el.id}"] [data-cat]`).forEach(b=>b.className='pill '+(b.dataset.cat===cat?'on':'ghost'));
+  const lbl=T(...HS_CAT_LBL[cat]);
   if(mode==='world'){
-    if(!worldBusy&&Date.now()-worldAt>60000)fetchWorld();
-    if(!worldHS){el.innerHTML=`<p class="empty" data-nt>${worldErr?T('Nie udało się wczytać rankingu świata. Sprawdź połączenie z internetem.','Could not load the world ranking. Check your internet connection.'):T('Wczytywanie rankingu świata…','Loading the world ranking…')}</p>`;return}
-    if(!worldHS.length){el.innerHTML=`<p class="empty" data-nt>${T('Ranking świata jest jeszcze pusty. Zagraj i bądź pierwszy!','The world ranking is still empty. Play and be the first!')}</p>`;return}
-    el.innerHTML='<ol>'+worldHS.slice(0,10).map((r,i)=>hsRow(r,i,newIds)).join('')+'</ol>';return}
-  const l=loadHS();
-  if(!l.length){el.innerHTML='<p class="empty">Brak rekordów. Zagraj, a najlepsze wyniki graczy trafią na tę listę.</p>';return}
+    if(!worldBusy[cat]&&Date.now()-(worldAt[cat]||0)>60000)fetchWorld(cat);
+    const w=worldHS[cat];
+    if(!w){el.innerHTML=`<p class="empty" data-nt>${worldErr[cat]?T('Nie udało się wczytać rankingu świata. Sprawdź połączenie z internetem.','Could not load the world ranking. Check your internet connection.'):T('Wczytywanie rankingu świata…','Loading the world ranking…')}</p>`;return}
+    if(!w.length){el.innerHTML=`<p class="empty" data-nt>${T('Ranking świata „','The world ranking “')+lbl+T('” jest jeszcze pusty. Zagraj i bądź pierwszy!','” is still empty. Play and be the first!')}</p>`;return}
+    el.innerHTML='<ol>'+w.slice(0,10).map((r,i)=>hsRow(r,i,newIds)).join('')+'</ol>';return}
+  const l=loadHS().filter(r=>r.cat===cat).sort((a,b)=>b.score-a.score);
+  if(!l.length){el.innerHTML=`<p class="empty" data-nt>${T('Brak rekordów na tym urządzeniu w kategorii „','No records on this device in “')+lbl+T('”. Zagraj, a najlepsze wyniki trafią na tę listę.','” yet. Play and the best scores will land here.')}</p>`;return}
   el.innerHTML='<ol>'+l.slice(0,10).map((r,i)=>hsRow(r,i,newIds)).join('')+'</ol>'}
-document.addEventListener('click',e=>{const b=e.target.closest('.hstabs [data-hs]');if(!b)return;const id=b.parentElement.dataset.for;hsMode[id]=b.dataset.hs;sfxClick();if(b.dataset.hs==='world'&&!worldBusy)fetchWorld();renderHS($(id))});
+document.addEventListener('click',e=>{const b=e.target.closest('.hstabs [data-cat]');if(!b)return;const id=b.parentElement.dataset.for;hsCat[id]=b.dataset.cat;sfxClick();renderHS($(id))});
+document.addEventListener('click',e=>{const b=e.target.closest('.hstabs [data-hs]');if(!b)return;const id=b.parentElement.dataset.for;hsMode[id]=b.dataset.hs;sfxClick();renderHS($(id))});
 function showFinal(){
   const sorted=[...tanks].sort((a,b)=>score(b)-score(a)||b.wins-a.wins);
   const topW=Math.max(...tanks.map(t=>t.wins)),win=tanks.filter(t=>t.wins===topW);
+  if(isTeamGame()&&topW>0){const wt=win[0].team,same=win.every(t=>t.team===wt);$('finTitle').textContent=same?T('WYGRYWA ','WINNER: ')+teamName(wt)+': '+tanks.filter(t=>t.team===wt).map(t=>t.name.toUpperCase()).join(T(' I ',' & ')):T('REMIS DRUŻYN','TEAMS DRAW')}else
   $('finTitle').textContent=topW===0?T('NIKT NIE PRZETRWAŁ','NO SURVIVORS'):win.length>1?T('REMIS: ','DRAW: ')+win.map(t=>t.name.toUpperCase()).join(T(' I ',' & ')):T('OCALAŁ: ','SURVIVOR: ')+win[0].name.toUpperCase();
-  $('finTable').innerHTML=T('<thead><tr><th>GRACZ</th><th>WYGRANE<br>RUNDY</th><th>ZADANE<br>OBRAŻENIA</th><th>OTRZYMANE<br>OBRAŻENIA</th><th>ZNISZCZONE<br>CZOŁGI</th><th>ZABITE<br>ZOMBIE</th><th>NAJSZYBSZA<br>WYGRANA</th><th>PUNKTY</th></tr></thead><tbody>','<thead><tr><th>PLAYER</th><th>ROUNDS<br>WON</th><th>DAMAGE<br>DEALT</th><th>DAMAGE<br>TAKEN</th><th>TANKS<br>DESTROYED</th><th>ZOMBIES<br>KILLED</th><th>FASTEST<br>WIN</th><th>POINTS</th></tr></thead><tbody>')+
-    sorted.map((t,i)=>`<tr class="${i===0?'top':''}"><td class="nm" data-nt>${esc(t.name)}${t.human?'':' (CPU)'}</td><td>${t.sg.wins}</td><td>${Math.round(t.sg.dealt)}</td><td>${Math.round(t.sg.taken)}</td><td>${t.sg.kills}</td><td>${t.sg.zombies}</td><td>${fmtT(t.sg.best)}</td><td class="pts">${score(t)}</td></tr>`).join('')+'</tbody>';
+  $('finTable').innerHTML=T('<thead><tr><th>GRACZ</th><th>WYGRANE<br>RUNDY</th><th>ZADANE<br>OBRAŻENIA</th><th>OTRZYMANE<br>OBRAŻENIA</th><th>ZNISZCZONE<br>CZOŁGI</th><th>ZABITE<br>ZOMBIE</th><th>NAJSZYBSZA<br>WYGRANA</th><th>PUNKTY</th><th>NA<br>RUNDĘ</th></tr></thead><tbody>','<thead><tr><th>PLAYER</th><th>ROUNDS<br>WON</th><th>DAMAGE<br>DEALT</th><th>DAMAGE<br>TAKEN</th><th>TANKS<br>DESTROYED</th><th>ZOMBIES<br>KILLED</th><th>FASTEST<br>WIN</th><th>POINTS</th><th>PER<br>ROUND</th></tr></thead><tbody>')+
+    sorted.map((t,i)=>`<tr class="${i===0?'top':''}"><td class="nm" data-nt>${t.team!=null?`<b class="tmt" style="--tc:${TEAM_COL[t.team]}">${TEAM_N[t.team]}</b>`:''}${esc(t.name)}${t.human?'':' (CPU)'}</td><td>${t.sg.wins}</td><td>${Math.round(t.sg.dealt)}</td><td>${Math.round(t.sg.taken)}</td><td>${t.sg.kills}</td><td>${t.sg.zombies}</td><td>${fmtT(t.sg.best)}</td><td>${score(t)}</td><td class="pts">${Math.round(score(t)/Math.max(1,rounds))}</td></tr>`).join('')+'</tbody>';
   const l=loadHS(),ids=new Set(),d=new Date(),date=String(d.getDate()).padStart(2,'0')+'.'+String(d.getMonth()+1).padStart(2,'0')+'.'+d.getFullYear();
   const mapName=mapChoice==='random'?'Losowa':MAPS[mapChoice].name;
+  const cat=tanks.some(t=>!t.human&&!t.remote)?['latwy','sredni','trudny'][difficulty]:'gracze',gm=NET?'online':isTeamGame()?teamMode:(tanks.length===2?'1v1':'ffa'),rp=Math.max(1,rounds);hsCat.hsFinal=cat;hsCat.hsTitle=cat;
   for(const t of tanks)if(t.human){const id=Date.now()+'-'+Math.random().toString(36).slice(2,7);ids.add(id);
-    l.push({id,name:t.name,score:score(t),wins:t.sg.wins,dealt:Math.round(t.sg.dealt),kills:t.sg.kills,zombies:t.sg.zombies,best:t.sg.best,map:mapName,date})}
-  l.sort((a,b)=>b.score-a.score);const top=l.slice(0,10);saveHS(top);
+    l.push({id,cat,mode:gm,rounds:rp,name:t.name,score:Math.round(score(t)/rp),wins:t.sg.wins,dealt:Math.round(t.sg.dealt),kills:t.sg.kills,zombies:t.sg.zombies,best:t.sg.best,map:mapName,date})}
+  saveHS(l);
   const sendRows=l.filter(r=>ids.has(r.id)&&r.score>0).map(r=>({...r,cid:r.id,best:r.best||0,v:GAME_VER}));
-  if(sendRows.length){writePend([...readPend(),...sendRows]);if(!readPend().length)pendMem.push(...sendRows);flushWorld().then(()=>fetchWorld())}
+  if(sendRows.length){writePend([...readPend(),...sendRows]);if(!readPend().length)pendMem.push(...sendRows);flushWorld().then(()=>fetchWorld(cat))}
   renderHS($('hsFinal'),ids);phase='menu';$('again').disabled=false;$('again').querySelector('span').textContent=NET?T('REWANŻ','REMATCH'):'ZAGRAJ PONOWNIE';showOverlay('final');
 }
 function dropCrates(n){const xs=[];for(let k=0;k<n;k++){let x,tries=0;do{x=rand(80,W-80);tries++}while(tries<20&&(xs.some(o=>Math.abs(o-x)<200)||tanks.some(t=>t.alive&&Math.abs(t.x-x)<60)));xs.push(x)}
   const mp=puPool();xs.forEach(x=>{const pool=Math.random()<.5&&mp.length?mp:BASE_PU;crates.push({x,y:-40,vy:0,landed:false,type:pool[(Math.random()*pool.length)|0],ttl:3*aliveCount(),ph:rand(0,6)})})}
 
 /* ---------- state ---------- */
-let tanks=[],cur=0,phase='menu',wind=0,round=1,rounds=5,difficulty=1,starter=0,turnT=TURN;
+let tanks=[],cur=0,phase='menu',wind=0,round=1,rounds=5,difficulty=1,starter=0,turnT=TURN,teamMode='ffa';
+const TEAMS={ffa:null,'1v1':null,'2v2':[0,0,1,1],'1v3':[0,1,1,1]},TEAM_COL=['#5ec8ff','#ff8a5c'],TEAM_N=['A','B'];
+const teamOf=t=>t.team!=null?t.team:'s'+tanks.indexOf(t);
+const foe=(a,b)=>!!a&&!!b&&a!==b&&teamOf(a)!==teamOf(b);
+const isTeamGame=()=>tanks.some(t=>t.team!=null);
+const teamsAlive=()=>new Set(tanks.filter(t=>t.alive).map(teamOf)).size;
+const teamName=k=>T('DRUŻYNA ','TEAM ')+TEAM_N[k];
+const MODE_LBL={ffa:['KAŻDY NA KAŻDEGO','FREE FOR ALL'],'1v1':['1 NA 1','1 VS 1'],'2v2':['2 NA 2','2 VS 2'],'1v3':['1 NA 3','1 VS 3'],online:['ONLINE','ONLINE']};
+function slotReq(i){return teamMode==='1v1'?i<2:teamMode!=='ffa'}
+function slotLocked(i){return teamMode==='1v1'&&i>=2}
+function applyMode(){config.forEach((c,i)=>{if(slotLocked(i))c.type='off';else if(slotReq(i)&&c.type==='off'){c.type='cpu';c.look=randomLook();if(/^(Gracz|Player)/.test(c.name))c.name=T('Komputer ','CPU ')+(i+1)}});renderSlots()}
 let planes=[],projectiles=[],pending=[],explosions=[],parts=[],texts=[],trail=[],fires=[],beams=[],crates=[];
 let shake=0,flash=0,time=0,resolveT=0,aimDrag=false,turnsSinceDrop=0,firstTurn=true;
 let roundSec=0,clock=0,eventsOn=true,evPend=null,evAct=null,evNext=5,poolKind=null,nukeT=-1,nukeWinner=null,nukeMissile=null,roundElapsed=0,warned={},barrageQ=[],quakeT=0;
@@ -1440,7 +1467,8 @@ function startRound(){
   evPend=null;evAct=null;evNext=Math.round(rand(3,6));clock=roundSec;nukeT=-1;nukeWinner=null;nukeMissile=null;roundElapsed=0;warned={};barrageQ=[];quakeT=0;
   const map=mapChoice==='random'?MAPS[(Math.random()*MAPS.length)|0]:MAPS[mapChoice];
   genWorld(scaleMap(map,tanks.length));
-  const n=tanks.length,order=tanks.map((_,i)=>i).sort(()=>Math.random()-.5);
+  const n=tanks.length;let order=tanks.map((_,i)=>i).sort(()=>Math.random()-.5);
+  if(isTeamGame()){order.sort((a,b)=>tanks[a].team-tanks[b].team);if(Math.random()<.5)order.reverse()}
   order.forEach((ti,slot)=>{const t=tanks[ti];t.x=Math.round(clamp(W*(slot+.5)/n+rand(-60,60),70,W-70));flatten(t.x)});
   makePonds();makeOverhangs();makePlats();makeBodies();
   disp.set(h);poolKind=MAP.pool||(MAP.pond==='water'&&wv.some(v=>v>1)?'water':null);
@@ -1453,7 +1481,9 @@ function startRound(){
   phase='starting';buildCards();startIntro(L(MAP.name).toUpperCase()+(feats.length?' · '+L(feats[0]):''));
 }
 function startGame(){
-  tanks=config.filter(c=>c.type!=='off').map(c=>({name:(c.name.trim()||T('Gracz','Player')).slice(0,12),human:c.type==='human',look:lookOf(c),wins:0,cash:START_CASH,inv:{},earn:null,sg:{dealt:0,taken:0,kills:0,zombies:0,wins:0,best:null}}));
+  if(teamMode!=='ffa')applyMode();const TM=TEAMS[teamMode];
+  tanks=config.map((c,i)=>[c,i]).filter(([c])=>c.type!=='off').map(([c,i])=>({name:(c.name.trim()||T('Gracz','Player')).slice(0,12),human:c.type==='human',look:lookOf(c),wins:0,cash:START_CASH,inv:{},earn:null,sg:{dealt:0,taken:0,kills:0,zombies:0,wins:0,best:null},...(TM?{team:TM[i]}:{})}));
+  if(TM&&teamMode==='2v2')tanks=[tanks[0],tanks[2],tanks[1],tanks[3]];
   round=1;starter=0;toastQ=[];openShopPhase();
 }
 const aliveCount=()=>tanks.filter(t=>t.alive).length;
@@ -1492,7 +1522,7 @@ function endTurn(){
   for(const c of crates){c.ttl--;if(c.ttl<=0){for(let i=0;i<8;i++)parts.push({k:'smoke',x:c.x+rand(-12,12),y:c.y-10+rand(-8,8),vx:rand(-20,20),vy:rand(-30,-5),r:rand(6,10),gr:16,life:.8,max:.8,col:'#d9cfb0'})}}
   crates=crates.filter(c=>c.ttl>0);
   const alive=tanks.filter(t=>t.alive);
-  if(alive.length<=1){roundOver(alive[0]||null);return}
+  if(teamsAlive()<=1){roundOver(alive[0]||null);return}
   do{cur=(cur+1)%tanks.length}while(!tanks[cur].alive);
   wind=clamp(wind+Math.round(rand(-1,1)*MAP.windStep),-MAP.windMax,MAP.windMax);
   if(eventsOn)tickEvents();
@@ -1501,14 +1531,15 @@ function endTurn(){
 }
 function roundOver(winner,reason){
   phase='over';
-  tanks.forEach(t=>{if(t.earn){t.cash+=100;t.earn.base=100}});if(winner&&winner.earn){winner.cash+=200;winner.earn.win=200}
-  if(winner){winner.wins++;winner.sg.wins++;const tt=Math.round(roundElapsed);if(winner.sg.best==null||tt<winner.sg.best)winner.sg.best=tt}
+  const ws=!winner?[]:winner.team!=null?tanks.filter(t=>t.team===winner.team):[winner];
+  tanks.forEach(t=>{if(t.earn){t.cash+=100;t.earn.base=100}});ws.forEach(w=>{if(w.earn){w.cash+=200;w.earn.win=200}});
+  ws.forEach(w=>{w.wins++;w.sg.wins++;const tt=Math.round(roundElapsed);if(w.sg.best==null||tt<w.sg.best)w.sg.best=tt});const wname=!winner?'':winner.team!=null?teamName(winner.team)+' ('+ws.map(t=>t.name.toUpperCase()).join(T(' I ',' & '))+')':winner.name.toUpperCase();
   setTimeout(()=>{
     if(round>=rounds){showFinal();return}
     const sorted=[...tanks].sort((a,b)=>b.wins-a.wins);
     $('resRibbon').textContent=T('RUNDA ','ROUND ')+round+' / '+rounds;
-    $('resTitle').textContent=reason==='nuke'?(winner?T('ATOM! NAJWIĘCEJ ŻYCIA MIAŁ ','NUKE! MOST HEALTH: ')+winner.name.toUpperCase():T('ATOM! REMIS','NUKE! DRAW')):winner?T('PRZETRWAŁ ','SURVIVOR: ')+winner.name.toUpperCase()+' · '+fmtT(Math.round(roundElapsed)):T('NIKT NIE PRZETRWAŁ','NO SURVIVORS');
-    $('standings').innerHTML=sorted.map(t=>`<div class="stand plate"><canvas width="120" height="84" data-i="${tanks.indexOf(t)}"></canvas><div><div class="ol s" data-nt style="font-family:var(--f-mark);font-size:18px">${esc(t.name)}</div><div class="st" data-nt>★ ${t.wins} · ${Math.round(t.sg.dealt)} ${T('OBR.','DMG')}${t.sg.zombies?' · '+t.sg.zombies+T(' ZOMBIE',' ZOMBIES'):''}</div></div></div>`).join('');
+    $('resTitle').textContent=reason==='nuke'?(winner?T('ATOM! NAJWIĘCEJ ŻYCIA: ','NUKE! MOST HEALTH: ')+wname:T('ATOM! REMIS','NUKE! DRAW')):winner?(winner.team!=null?T('WYGRYWA ','WINNER: '):T('PRZETRWAŁ ','SURVIVOR: '))+wname+' · '+fmtT(Math.round(roundElapsed)):T('NIKT NIE PRZETRWAŁ','NO SURVIVORS');
+    $('standings').innerHTML=sorted.map(t=>`<div class="stand plate"><canvas width="120" height="84" data-i="${tanks.indexOf(t)}"></canvas><div><div class="ol s" data-nt style="font-family:var(--f-mark);font-size:18px">${esc(t.name)}${t.team!=null?` <b class="tmt" style="--tc:${TEAM_COL[t.team]}">${TEAM_N[t.team]}</b>`:''}</div><div class="st" data-nt>★ ${t.wins} · ${Math.round(t.sg.dealt)} ${T('OBR.','DMG')}${t.sg.zombies?' · '+t.sg.zombies+T(' ZOMBIE',' ZOMBIES'):''}</div></div></div>`).join('');
     $('standings').querySelectorAll('canvas').forEach(cn=>avatar(cn,tanks[+cn.dataset.i].look));
     $('nextLbl').textContent='NASTĘPNA RUNDA';
     showOverlay('result');$('nextBtn').focus();
@@ -1533,7 +1564,7 @@ function addDirt(cx,cy,r){
 function hurt(t,dm,col='#e9dfc6',quiet=false,src=null){
   dm*=t.st.armor;
   if(t.shield>0){const a=Math.min(t.shield,dm);t.shield-=a;dm-=a;if(!quiet)texts.push({x:t.x,y:t.y-96,s:'TARCZA',t:0,col:'#7fc4e6'})}
-  if(dm<=0)return 0;dm=Math.min(dm,t.hp);t.hp=Math.max(0,t.hp-dm);t.hurt=1;if(t.sg)t.sg.taken+=dm;if(src&&src!==t){if(src.sg)src.sg.dealt+=dm;if(src.earn){src.cash+=dm;src.earn.dmg+=dm}t.lastHit=src}if(!quiet)texts.push({x:t.x,y:t.y-70,s:'-'+Math.round(dm),t:0,col});return dm;
+  if(dm<=0)return 0;dm=Math.min(dm,t.hp);t.hp=Math.max(0,t.hp-dm);t.hurt=1;if(t.sg)t.sg.taken+=dm;if(src&&src!==t){if(foe(src,t)){if(src.sg)src.sg.dealt+=dm;if(src.earn){src.cash+=dm;src.earn.dmg+=dm}}t.lastHit=src}if(!quiet)texts.push({x:t.x,y:t.y-70,s:'-'+Math.round(dm),t:0,col});return dm;
 }
 function collect(c,t){
   const i=crates.indexOf(c);if(i<0)return;crates.splice(i,1);if(!t)return;
@@ -1631,7 +1662,7 @@ function simulate(t,ang,pow){
 }
 const gauss=()=>{let u=0;while(!u)u=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*Math.random())};
 function aiStart(t){
-  const foes=tanks.filter(o=>o.alive&&o!==t);if(!foes.length)return;
+  const foes=tanks.filter(o=>o.alive&&foe(o,t));if(!foes.length)return;
   const nz=[[7,9,3],[3.2,4.4,1.3],[1.1,1.5,.4]][difficulty];
   const lc=!t.stuck&&!t.frozen&&crates.find(c=>c.landed&&Math.abs(c.x-t.x)>25&&Math.abs(c.x-t.x)<170*t.st.moveMul);
   if(lc&&t.ammo.move>0&&Math.random()<.55){t.ai={a:lc.x>t.x?40:140,p:clamp(Math.round(Math.abs(lc.x-t.x)/(1.8*t.st.moveMul*(cold(t)?.65:1))+6),5,100),wi:WI('move'),wait:.5,think:.7};return}
@@ -1659,7 +1690,7 @@ function aiUpdate(t,dt){const ai=t.ai;if(!ai)return;if(ai.think>0){ai.think-=dt;
 
 /* ---------- update ---------- */
 let acc=0;
-function killTank(t){if(t.lastHit&&t.lastHit!==t&&t.lastHit.sg){t.lastHit.sg.kills++;if(t.lastHit.earn){t.lastHit.cash+=75;t.lastHit.earn.kill+=75}}t.alive=false;t.hp=0;explode(t.x,t.y-15,{r:44,dmg:26});texts.push({x:t.x,y:t.y-90,s:'BUM!',t:0,col:'#f0b92b'})}
+function killTank(t){if(t.lastHit&&foe(t.lastHit,t)&&t.lastHit.sg){t.lastHit.sg.kills++;if(t.lastHit.earn){t.lastHit.cash+=75;t.lastHit.earn.kill+=75}}t.alive=false;t.hp=0;explode(t.x,t.y-15,{r:44,dmg:26});texts.push({x:t.x,y:t.y-90,s:'BUM!',t:0,col:'#f0b92b'})}
 function physicsStep(){
   for(let i=planes.length-1;i>=0;i--){const pl=planes[i];pl.x+=pl.vx*DT;pl.t+=DT;
     while(pl.drops.length&&(pl.vx>0?pl.x>=pl.drops[0]:pl.x<=pl.drops[0])){const dx=pl.drops.shift();projectiles.push({x:dx,y:pl.y+14,vx:pl.vx*.06,vy:40,w:AIRB,owner:pl.owner,age:1,tr:false,sm:0,mult:pl.mult,gen:0,windMul:.3,rMul:1});tone(1500,420,.8,'sine',.035)}
@@ -1675,9 +1706,9 @@ function physicsStep(){
       continue}
     if(p.w.chute&&p.age>.35){p.open=true;p.vy+=(48-p.vy)*Math.min(1,DT*3.5);p.vx+=(wind*5-p.vx)*DT*1.6}
     else{p.vx+=wind*WINDK*(p.windMul??1)*DT;p.vy+=G*DT}
-    if(p.w.homing&&p.vy>0){let tg=null,bd=1e9;for(const o of tanks)if(o.alive&&o!==p.owner){const d=Math.hypot(o.x-p.x,o.y-20-p.y);if(d<bd){bd=d;tg=o}}
+    if(p.w.homing&&p.vy>0){let tg=null,bd=1e9;for(const o of tanks)if(o.alive&&(!p.owner||foe(o,p.owner))){const d=Math.hypot(o.x-p.x,o.y-20-p.y);if(d<bd){bd=d;tg=o}}
       if(tg){const sp=Math.max(230,Math.hypot(p.vx,p.vy)),a=Math.atan2(p.vy,p.vx),b=Math.atan2(tg.y-18-p.y,tg.x-p.x);let da=b-a;while(da>Math.PI)da-=2*Math.PI;while(da<-Math.PI)da+=2*Math.PI;const na=a+clamp(da,-2.6*DT,2.6*DT);p.vx=Math.cos(na)*sp;p.vy=Math.sin(na)*sp}}
-    for(const o of tanks)if(o.mirror&&o.alive&&o!==p.owner){const k=o.st.scale,cy=o.y-20*k;if(Math.hypot(p.x-o.x,p.y-cy)<58*k){o.mirror=0;p.vx=-p.vx;p.vy=-p.vy;p.owner=o;p.age=0;p.x+=p.vx*DT*2;p.y+=p.vy*DT*2;
+    for(const o of tanks)if(o.mirror&&o.alive&&(!p.owner||foe(o,p.owner))){const k=o.st.scale,cy=o.y-20*k;if(Math.hypot(p.x-o.x,p.y-cy)<58*k){o.mirror=0;p.vx=-p.vx;p.vy=-p.vy;p.owner=o;p.age=0;p.x+=p.vx*DT*2;p.y+=p.vy*DT*2;
       texts.push({x:o.x,y:o.y-96,s:'ODBICIE!',t:0,col:'#bfe6ef'});explosions.push({x:p.x,y:p.y,r:22,t:0,dur:.25,rot:0});sfxShield();for(let q=0;q<10;q++)parts.push({k:'spark',x:p.x,y:p.y,vx:rand(-140,140),vy:rand(-140,80),life:rand(.2,.5)});break}}
     p.x+=p.vx*DT;p.y+=p.vy*DT;p.age+=DT;
     const sx=p.open?p.x+Math.sin(p.age*2.6+p.ph)*13:p.x;
@@ -1784,7 +1815,7 @@ function update(dt){
     if(busy)resolveT=0;else{resolveT+=dt;if(resolveT>.55){if(NET&&NET.mode==='game')netResolved();else endTurn()}}
   }else if(phase==='aim'){
     const t=tanks[cur];if(t&&t.alive&&t.hp<=.5){phase='resolve';resolveT=0;$('picker').hidden=true}
-    for(const o of tanks)if(o!==t&&o.alive&&o.hp<=.5){killTank(o);if(aliveCount()<=1){phase='resolve';resolveT=0}}
+    for(const o of tanks)if(o!==t&&o.alive&&o.hp<=.5){killTank(o);if(teamsAlive()<=1){phase='resolve';resolveT=0}}
   }
 }
 function updateWeather(dt){
@@ -1911,7 +1942,7 @@ function render(){
     const badges=Object.keys(FX_LBL).filter(kk=>t.fx[kk]>0);if(t.dbl)badges.unshift('dbl');
     if(badges.length){const ir=7.5*U,gap=4*U;let bx2=t.x-(badges.length*(ir*2+gap)-gap)/2+ir;ctx.font=`${Math.round(8*U)}px ${FONT}`;ctx.textAlign='center';
       badges.forEach(b=>{puIcon(ctx,b,bx2,sy2+ir,ir);if(b!=='dbl'){ctx.fillStyle='#f0b92b';ctx.beginPath();ctx.arc(bx2+ir*.8,sy2+ir*1.7,4.5*U,0,7);ctx.fill();ctx.lineWidth=1.5;ctx.strokeStyle=INK;ctx.stroke();ctx.fillStyle=INK;ctx.fillText(String(t.fx[b]),bx2+ir*.8,sy2+ir*1.7+3*U)}bx2+=ir*2+gap})}
-    ctx.font=`${Math.round(19*U)}px ${MARK}`;ctx.textAlign='center';ctx.lineJoin='round';ctx.lineWidth=4;ctx.strokeStyle=INK;ctx.strokeText(t.name,t.x,by-6);ctx.fillStyle='#e9dfc6';ctx.fillText(t.name,t.x,by-6);
+    ctx.font=`${Math.round(19*U)}px ${MARK}`;ctx.textAlign='center';ctx.lineJoin='round';ctx.lineWidth=4;ctx.strokeStyle=INK;ctx.strokeText(t.name,t.x,by-6);ctx.fillStyle=t.team!=null?TEAM_COL[t.team]:'#e9dfc6';ctx.fillText(t.name,t.x,by-6);
     if(phase==='aim'&&i===cur){const yy=by-40*U+Math.sin(time*6)*4;ctx.beginPath();ctx.moveTo(t.x-11*U,yy);ctx.lineTo(t.x+11*U,yy);ctx.lineTo(t.x,yy+12*U);ctx.closePath();ctx.fillStyle='#f0b92b';ctx.fill();ctx.lineWidth=3;ctx.stroke()}
   }
   if(my&&aw.air){const tx=at.airX,gy=surfaceAt(tx);ctx.save();ctx.setLineDash([8,8]);ctx.lineDashOffset=-time*40;ctx.lineWidth=3;ctx.strokeStyle='rgba(240,185,43,.75)';ctx.beginPath();ctx.moveTo(tx,H*.06);ctx.lineTo(tx,gy);ctx.stroke();ctx.setLineDash([]);
@@ -1964,10 +1995,10 @@ function render(){
 /* ---------- HUD ---------- */
 function avatar(cn,look){const c=cn.getContext('2d'),w=cn.width,hh=cn.height;c.clearRect(0,0,w,hh);c.fillStyle='rgba(30,20,10,.35)';c.beginPath();c.ellipse(w/2,hh*.88,w*.38,hh*.07,0,0,7);c.fill();drawTank(c,w/2+4,hh*.88,0,25,look,w/105*HULL_ST[look.hull||0].scale)}
 function buildCards(){
-  const half=Math.ceil(tanks.length/2);$('sideL').innerHTML='';$('sideR').innerHTML='';
-  tanks.forEach((t,i)=>{const d=document.createElement('div');d.className='pc';d.id='pc'+i;
-    d.innerHTML=`<canvas width="104" height="72"></canvas><div class="meta"><div class="pn" data-nt>${esc(t.name)}</div><div class="bars"><div class="hpb"><i></i></div><div class="shb" hidden><i></i></div></div><div class="fxr"></div><div class="stars">★ <span>${t.wins}</span><b class="cashv"><i class="cap"></i><em>${Math.floor(t.cash||0)}</em></b></div></div>`;
-    (i<half?$('sideL'):$('sideR')).appendChild(d);avatar(d.querySelector('canvas'),t.look)});
+  const half=Math.ceil(tanks.length/2);$('sideL').innerHTML='';$('sideR').innerHTML='';const tg=isTeamGame(),lt=tg?(tanks.filter(t=>t.team===0).reduce((a,t)=>a+t.x,0)/Math.max(1,tanks.filter(t=>t.team===0).length)<W/2?0:1):0;
+  tanks.forEach((t,i)=>{const d=document.createElement('div');d.className='pc'+(t.team!=null?' tm':'');d.id='pc'+i;if(t.team!=null)d.style.setProperty('--tc',TEAM_COL[t.team]);
+    d.innerHTML=`<canvas width="104" height="72"></canvas><div class="meta"><div class="pn" data-nt>${t.team!=null?`<b class="tmt">${TEAM_N[t.team]}</b>`:''}${esc(t.name)}</div><div class="bars"><div class="hpb"><i></i></div><div class="shb" hidden><i></i></div></div><div class="fxr"></div><div class="stars">★ <span>${t.wins}</span><b class="cashv"><i class="cap"></i><em>${Math.floor(t.cash||0)}</em></b></div></div>`;
+    ((tg?t.team===lt:i<half)?$('sideL'):$('sideR')).appendChild(d);avatar(d.querySelector('canvas'),t.look)});
 }
 const cache={};function setT(id,v){if(cache[id]!==v){cache[id]=v;$(id).textContent=v}}
 let lastIcon='';
@@ -2124,14 +2155,15 @@ function statBars(c){const st=statsOf(c.look),row=(l,v,txt)=>`<div class="sr"><s
   return`<div class="stats dimmable">${row('ŻYCIE',(st.maxHp-50)/100,st.maxHp+' HP')}${row('PANCERZ',st.armor<1?.85:.5,st.armor<1?'−15%':'—')}${row('TRUDNO TRAFIĆ',1-(st.hw*st.hh-20*25)/(40*52-20*25),Math.round(st.hw*2)+'×'+Math.round(st.hh))}
   ${row('JAZDA',st.moveMul/1.8,'×'+st.moveMul.toFixed(2))}${row('WSPINACZKA',st.climb/4.5,st.climb>=4?'stroma':st.climb>=1.5?'średnia':'słaba')}${row('SKOK',st.jumpH*st.jumpX/1.7,'×'+(st.jumpH*st.jumpX).toFixed(2))}</div>`}
 function renderSlots(){
-  $('slots').innerHTML=config.map((c,i)=>{const ty=TYPES.find(t=>t[0]===c.type);return`<div class="slot plate${c.type==='off'?' off':''}">
+  const TM=TEAMS[teamMode];
+  $('slots').innerHTML=config.map((c,i)=>{const ty=TYPES.find(t=>t[0]===c.type);return`<div class="slot plate${c.type==='off'?' off':''}${TM&&c.type!=='off'?' tm'+TEAM_N[TM[i]]:''}">${TM?`<div class="tmtag" style="--tc:${TEAM_COL[TM[i]]}">${teamName(TM[i])}</div>`:''}
     <input id="nm${i}" class="dimmable" maxlength="12" value="${esc(c.name)}" aria-label="${T('Nazwa czołgu ','Tank name ')}${i+1}">
     <canvas id="pv${i}" class="dimmable" width="270" height="162"></canvas>
     ${c.type==='cpu'?`<div class="opt dimmable"><span class="nm"><small>LOSOWY CZOŁG KOMPUTERA</small><span>${HULLS[c.look.hull]} · ${SKINS[c.look.color][0]}</span><em data-nt>${L(WHEELS[c.look.wheels])} · ${T('wieża','turret')} ${L(TURRETS[c.look.turret]).toLowerCase()} · ${T('lufa','barrel')} ${L(BARRELS[c.look.barrel]).toLowerCase()}. ${T('Komputer dostaje losowo złożony czołg w każdej grze.','The CPU gets a randomly built tank every game.')}</em></span></div><button class="pill ghost" data-reroll="${i}">LOSUJ PONOWNIE</button>`:OPTS.map(([k,l,list])=>`<div class="opt dimmable"><button class="arr" data-i="${i}" data-k="${k}" data-d="-1" aria-label="${L(l)} ${T('poprzedni','previous')}">${ARR_L}</button><span class="nm"><small>${l}</small><span>${list()[c.look[k]]}</span><em>${DESC[k][k==='color'?0:c.look[k]]}</em></span><button class="arr" data-i="${i}" data-k="${k}" data-d="1" aria-label="${L(l)} ${T('następny','next')}">${ARR_R}</button></div>`).join('')}
     ${statBars(c)}
-    <button class="pill ${ty[2]}" id="ty${i}">${ty[1]}</button></div>`}).join('');
+    <button class="pill ${ty[2]}" id="ty${i}"${slotLocked(i)?' disabled':''}>${ty[1]}</button></div>`}).join('');
   config.forEach((c,i)=>{$('nm'+i).oninput=e=>c.name=e.target.value;drawPreview($('pv'+i),c);
-    $('ty'+i).onclick=()=>{const k=TYPES.findIndex(t=>t[0]===c.type);c.type=TYPES[(k+1)%3][0];if(c.type==='cpu'){c.look=randomLook();if(/^(Gracz|Player)/.test(c.name))c.name=T('Komputer ','CPU ')+(i+1)}if(c.type==='human'&&/^(Komputer|CPU)/.test(c.name))c.name=T('Gracz ','Player ')+(i+1);renderSlots();$('ty'+i).focus()}});
+    $('ty'+i).onclick=()=>{if(slotLocked(i))return;const k=TYPES.findIndex(t=>t[0]===c.type);c.type=TYPES[(k+1)%3][0];if(c.type==='off'&&slotReq(i))c.type=TYPES[0][0];if(c.type==='cpu'){c.look=randomLook();if(/^(Gracz|Player)/.test(c.name))c.name=T('Komputer ','CPU ')+(i+1)}if(c.type==='human'&&/^(Komputer|CPU)/.test(c.name))c.name=T('Gracz ','Player ')+(i+1);renderSlots();$('ty'+i).focus()}});
   $('startBtn').disabled=config.filter(c=>c.type!=='off').length<2;
 }
 $('slots').addEventListener('click',e=>{const rb=e.target.closest('button[data-reroll]');if(rb){const i=+rb.dataset.reroll;config[i].look=randomLook();sfxClick();renderSlots();const nb=$('slots').querySelector(`[data-reroll="${i}"]`);if(nb)nb.focus();return}
@@ -2166,6 +2198,7 @@ function renderMaps(){
 }
 $('maps').addEventListener('click',e=>{const b=e.target.closest('.mapc');if(!b)return;const v=b.dataset.map;mapChoice=v==='random'?'random':+v;sfxClick();renderMaps();const nb=$('maps').querySelector(`[data-map="${v}"]`);if(nb)nb.focus()});
 function seg(id,label,opts,get,set){const el=$(id);const draw=()=>{el.innerHTML=`<span class="t">${label}</span>`;opts.forEach(([v,l])=>{const b=document.createElement('button');b.className='pill '+(get()===v?'on':'ghost');b.textContent=l;b.onclick=()=>{set(v);draw()};el.appendChild(b)})};draw()}
+seg('tmode','TRYB:',[['ffa','KAŻDY NA KAŻDEGO'],['1v1','1 NA 1'],['2v2','2 NA 2'],['1v3','1 NA 3']],()=>teamMode,v=>{teamMode=v;applyMode()});
 seg('diff','KOMPUTER:',[[0,'ŁATWY'],[1,'ŚREDNI'],[2,'TRUDNY']],()=>difficulty,v=>difficulty=v);
 seg('rounds','RUNDY:',[[3,'3'],[5,'5'],[10,'10']],()=>rounds,v=>rounds=v);
 seg('rtime','CZAS GRY:',[[0,'BRAK'],[300,'5 MIN'],[600,'10 MIN'],[900,'15 MIN'],[1200,'20 MIN']],()=>roundSec,v=>roundSec=v);
