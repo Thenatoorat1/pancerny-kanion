@@ -378,7 +378,7 @@ body{padding-top:max(14px, env(safe-area-inset-top, 0px));padding-bottom:max(14p
     </div>
 
     <div class="ov" id="title">
-      <div class="ver" id="verTag" data-nt>v0.32 · 12.11.2026</div>
+      <div class="ver" id="verTag" data-nt>v0.33 · 12.11.2026</div>
       <div class="hero"><div class="sign ol big">PANCERNY KANION</div><canvas id="titleArt" width="1440" height="630" aria-hidden="true"></canvas></div>
       <p class="tagline">Artyleria na pustkowiach. Przetrwaj ostrzał, pogodę, hordy i atom.</p>
       <div class="navrow"><button class="bigbtn" id="playBtn"><span class="ol s">GRAJ</span></button><button class="bigbtn alt" id="onlineBtn"><span class="ol s">GRAJ ONLINE</span></button></div>
@@ -404,7 +404,7 @@ body{padding-top:max(14px, env(safe-area-inset-top, 0px));padding-bottom:max(14p
     </div>
 
     <div class="ov" id="shop" hidden>
-      <div class="scrhead"><div class="shopwho plate"><canvas id="shopAv" width="120" height="84"></canvas><div><div class="ol s shopname" id="shopName" data-nt>Gracz</div><div class="shopround" id="shopRound" data-nt></div></div></div><div class="sign ol">HANDLARZ</div><div class="go"><div class="banner"><span class="ol s" id="shopGoLbl" data-nt>DO BOJU!</span></div><button class="play" id="shopGo" aria-label="Dalej"><svg viewBox="0 0 24 24"><path d="M6 3 L21 12 L6 21 Z" fill="#e9dfc6" stroke="#0f1112" stroke-width="2.5" stroke-linejoin="round"/></svg></button></div></div>
+      <div class="scrhead"><button class="pill ghost" id="shopBack">◀ WSTECZ</button><div class="shopwho plate"><canvas id="shopAv" width="120" height="84"></canvas><div><div class="ol s shopname" id="shopName" data-nt>Gracz</div><div class="shopround" id="shopRound" data-nt></div></div></div><div class="sign ol">HANDLARZ</div><div class="go"><div class="banner"><span class="ol s" id="shopGoLbl" data-nt>DO BOJU!</span></div><button class="play" id="shopGo" aria-label="Dalej"><svg viewBox="0 0 24 24"><path d="M6 3 L21 12 L6 21 Z" fill="#e9dfc6" stroke="#0f1112" stroke-width="2.5" stroke-linejoin="round"/></svg></button></div></div>
       <div class="shopbar"><div class="capsbox plate"><i class="cap big"></i><span class="capn" id="shopCash">0</span><span class="capl">KAPSLE</span></div><p class="note" id="shopEarn" data-nt></p></div>
       <div class="sprev plate" id="shopPrev"><canvas id="shopDemo" width="880" height="300" aria-hidden="true"></canvas><div class="sprev-t" data-nt><div class="si-n" id="shopDemoName"></div><div class="si-d" id="shopDemoDesc"></div><div class="sprev-h" id="shopDemoHint"></div></div><button class="pill on sprev-x" id="shopPrevX" aria-label="Zamknij podgląd">✕</button></div>
       <div class="sec"><h3>TOWAR</h3><p class="note">Na każdą rundę dostajesz za darmo Pocisk (bez limitu), 2 Miniguny i 2 Skoczki. Resztę kupujesz, a niezużyte zakupy przechodzą na kolejne rundy. Kapsle zarabiasz: 1 za punkt zadanych obrażeń, 75 za zniszczony czołg, 5 za zombie, 200 za wygraną rundę i 100 przydziału po każdej rundzie.</p><div class="shopgrid" id="shopGrid" data-nt></div></div>
@@ -1359,7 +1359,7 @@ const HS_KEY='pancerny-kanion-rekordy';
 function loadHS(){try{const v=JSON.parse(localStorage.getItem(HS_KEY)||'[]');return Array.isArray(v)?v:[]}catch(e){return[]}}
 function saveHS(l){try{localStorage.setItem(HS_KEY,JSON.stringify(l))}catch(e){}}
 /* ---------- hi-scores: local + world (Firebase Firestore REST) ---------- */
-const FB={key:'AIzaSyD94iINKYZLF7OuuYs9yM8-s3vGHaLTjHw',base:'https://firestore.googleapis.com/v1/projects/pancerny-kanion/databases/(default)/documents'},HS_PEND='pancerny-kanion-wyslij',GAME_VER='0.32';
+const FB={key:'AIzaSyD94iINKYZLF7OuuYs9yM8-s3vGHaLTjHw',base:'https://firestore.googleapis.com/v1/projects/pancerny-kanion/databases/(default)/documents'},HS_PEND='pancerny-kanion-wyslij',GAME_VER='0.33';
 let worldHS=null,worldErr=false,worldBusy=null,worldAt=0;const hsMode={hsTitle:'world',hsFinal:'world'},hsNew={};
 const fbVal=v=>typeof v==='number'?{integerValue:String(Math.round(v))}:{stringValue:String(v??'')};
 function fbDoc(r){const f={};for(const k of['name','score','wins','dealt','kills','zombies','best','map','date','cid','v'])f[k]=fbVal(r[k]);return{fields:f}}
@@ -2386,14 +2386,21 @@ function setDemo(cn,id){if(!cn)return;demos.set(cn,id);if(!demoRaf){demoT0=perfo
 function demoLoop(now){let any=false;const tm=(now-demoT0)/1000;for(const[cn,id]of demos){if(!cn.isConnected){demos.delete(cn);continue}if(cn.offsetParent===null)continue;any=true;try{drawWeaponDemo(cn,id,tm)}catch(e){}}
   demoRaf=demos.size?requestAnimationFrame(demoLoop):0}
 /* ---------- shop ---------- */
-let shopQ=[],shopT=null,shopBuys={},shopPeek='heavy';
+let shopQ=[],shopT=null,shopBuys={},shopPeek='heavy',shopDone=[],shopResume=false;
 function peekShop(id,tap){shopPeek=id;if(tap)$('shopPrev').classList.add('show');const w=WEAPONS[WI(id)];$('shopDemoName').textContent=L(w.name);$('shopDemoDesc').textContent=wDesc(id);$('shopDemoHint').textContent=T('Najedź kursorem albo stuknij w towar, żeby zobaczyć, jak działa.','Hover over or tap an item to see what it does.');
   document.querySelectorAll('#shopGrid .sitem').forEach(e=>e.classList.toggle('peek',e.dataset.id===id));setDemo($('shopDemo'),id)}
 function syncInv(){tanks.forEach(t=>{t.inv=t.inv||{};t.cash=Math.floor(t.cash||0);if(t.ammo)SHOP.forEach(([id])=>{t.inv[id]=Math.max(0,(t.ammo[id]||0)-((t.rb&&t.rb[id])||0))})})}
 function cpuShop(t){const wish=SHOP.filter(it=>it[0]!=='dirt'&&it[0]!=='tele'&&!((UNLOCK[it[0]]||0)>round)).sort(()=>Math.random()-.5);let budget=t.cash-Math.round(rand(0,120)),n=0;
   for(let pass=0;pass<3;pass++)for(const[id,price,qty,max]of wish){if(n>=5)break;if(price<=budget&&(t.inv[id]||0)+qty<=max&&Math.random()<.35+difficulty*.2){t.cash-=price;budget-=price;t.inv[id]=(t.inv[id]||0)+qty;n++}}}
-function openShopPhase(){syncInv();if(NET&&NET.mode==='game'){shopQ=tanks.filter(t=>t.human);nextShop();return}tanks.filter(t=>!t.human).forEach(cpuShop);shopQ=tanks.filter(t=>t.human);nextShop()}
-function nextShop(){shopT=shopQ.shift();if(!shopT){if(NET&&NET.mode==='game'){netShopDone();return}showOverlay(null);startRound();return}shopBuys={};renderShop();showOverlay('shop')}
+function openShopPhase(){syncInv();shopT=null;shopDone=[];shopResume=false;tanks.forEach(t=>t._sb=null);if(NET&&NET.mode==='game'){shopQ=tanks.filter(t=>t.human);nextShop();return}tanks.filter(t=>!t.human).forEach(cpuShop);shopQ=tanks.filter(t=>t.human);nextShop()}
+function nextShop(){if(shopT){shopT._sb=shopBuys;shopDone.push(shopT)}shopT=shopQ.shift();if(!shopT){if(NET&&NET.mode==='game'){netShopDone();return}showOverlay(null);startRound();return}shopBuys=shopT._sb||{};showShopT()}
+function showShopT(){renderShop();$('shopBack').hidden=!!(NET&&NET.mode==='game'&&!shopDone.length);showOverlay('shop')}
+function shopBack(){$('shopPrev').classList.remove('show');sfxClick();
+  if(shopDone.length){shopT._sb=shopBuys;shopQ.unshift(shopT);shopT=shopDone.pop();shopBuys=shopT._sb||{};showShopT();return}
+  if(NET&&NET.mode==='game')return;
+  shopT._sb=shopBuys;
+  if(round<=1){shopT=null;phase='menu';renderSlots();showOverlay('garage');return}
+  shopResume=true;showOverlay('result');$('nextBtn').focus()}
 function renderShop(){const t=shopT;if(!t)return;$('shopName').textContent=t.name;avatar($('shopAv'),t.look);
   $('shopRound').textContent=T('PRZED RUNDĄ ','BEFORE ROUND ')+round+' / '+rounds;$('shopCash').textContent=t.cash;
   const e=t.earn;$('shopEarn').innerHTML=e?T('<b>Zarobek w ostatniej rundzie:</b> ','<b>Earned last round:</b> ')+[[T('trafienia','hits'),e.dmg],[T('zniszczenia','kills'),e.kill],['zombie',e.zomb],[T('wygrana','win'),e.win],[T('przydział','ration'),e.base]].filter(a=>a[1]>0).map(([l,v])=>l+' +'+Math.round(v)).join(' · ')
@@ -2437,7 +2444,8 @@ $('backSetup').onclick=()=>{if(NET_EDIT){backToLobby();return}showOverlay('setup
 $('toTitle').onclick=()=>{if(NET){netLeave();return}toTitle()};
 $('again').onclick=()=>{if(NET){netRematch();return}phase='menu';showOverlay('setup')};
 $('startBtn').onclick=()=>{if(NET_EDIT){sfxClick();backToLobby();return}if($('startBtn').disabled)return;audio();startGame()};
-$('nextBtn').onclick=()=>{round++;openShopPhase()};
+$('nextBtn').onclick=()=>{if(shopResume){shopResume=false;shopQ=[...shopDone,shopT,...shopQ].filter(Boolean);shopDone=[];shopT=null;const t0=shopQ.shift();shopT=t0;shopBuys=t0._sb||{};showShopT();return}round++;openShopPhase()};
+$('shopBack').onclick=shopBack;
 $('menuBtn').onclick=()=>{if(phase!=='menu'&&$('result').hidden&&$('final').hidden&&$('shop').hidden)openPause('gra','game')};
 $('optBtn').onclick=()=>openPause('klawisze','title');
 $('helpBtn2').onclick=()=>openPause('opis','title');
