@@ -404,7 +404,7 @@ body{padding-top:max(14px, env(safe-area-inset-top, 0px));padding-bottom:max(14p
     </div>
 
     <div class="ov" id="title">
-      <div class="ver" id="verTag" data-nt>v0.37 · 12.11.2026</div>
+      <div class="ver" id="verTag" data-nt>v0.38 · 12.11.2026</div>
       <div class="hero"><div class="sign ol big">PANCERNY KANION</div><canvas id="titleArt" width="1440" height="630" aria-hidden="true"></canvas></div>
       <p class="tagline">Artyleria na pustkowiach. Przetrwaj ostrzał, pogodę, hordy i atom.</p>
       <div class="navrow"><button class="bigbtn" id="playBtn"><span class="ol s">GRAJ</span></button><button class="bigbtn alt" id="onlineBtn"><span class="ol s">GRAJ ONLINE</span></button></div>
@@ -1253,7 +1253,7 @@ const WEAPONS=[
  {id:'napalm',name:'Napalm',ammo:0,r:16,dmg:10,napalm:true},
  {id:'laser',name:'Laser',ammo:0,dmg:42,laser:true},
  {id:'dirt',name:'Kula ziemi',ammo:0,r:62,dmg:0,dirt:true},
- {id:'nuke',name:'Atomówka',ammo:0,r:120,dmg:92,nuke:true,rocket:true},
+ {id:'nuke',name:'Atomówka',ammo:0,r:150,dmg:150,soft:1.7,nuke:true,rocket:true},
  {id:'homing',name:'Sęp',ammo:0,r:30,dmg:36,homing:true,rocket:true},
  {id:'cryo',name:'Kriobomba',ammo:0,r:36,dmg:20,cryo:true},
  {id:'zbomb',name:'Zarażony pocisk',ammo:0,r:22,dmg:14,zombies:3},
@@ -1269,7 +1269,7 @@ const SUB={id:'sub',r:22,dmg:18},PSUB={id:'parasub',r:20,dmg:14,chute:true},AIRB
 /* shop: [id, price, qty per purchase, max owned] */
 const START_CASH=600,BASIC={mini:2,bounce:2};
 const UNLOCK={tele:3,cryo:3,zbomb:3,mirror:3,homing:3};
-const SHOP=[['mini',50,2,8],['bounce',40,1,6],['dirt',40,1,4],['heavy',90,1,5],['drill',110,1,4],['crazy',120,1,4],['napalm',130,1,4],['para',140,1,4],['shield',200,1,2],['laser',220,1,2],['air',260,1,2],['nuke',450,1,1],['tele',150,1,3],['cryo',170,1,3],['zbomb',190,1,2],['mirror',230,1,2],['homing',250,1,2]];
+const SHOP=[['mini',50,2,8],['bounce',40,1,6],['dirt',40,1,4],['heavy',90,1,5],['drill',110,1,4],['crazy',120,1,4],['napalm',130,1,4],['para',140,1,4],['shield',200,1,2],['laser',220,1,2],['air',260,1,2],['nuke',600,1,1],['tele',150,1,3],['cryo',170,1,3],['zbomb',190,1,2],['mirror',230,1,2],['homing',250,1,2]];
 const WDESC_EXTRA={shell:['Podstawowy pocisk, 27 obrażeń. Zawsze pod ręką, bez limitu.','The basic shell, 27 damage. Always at hand, unlimited.'],jump:['Ruch: czołg skacze na wybraną odległość. Raz na 3 tury.','A move: your tank jumps the chosen distance. Once every 3 turns.'],move:['Ruch: przejazd czołgiem w lewo lub w prawo zamiast strzału.','A move: drive left or right instead of shooting.']};
 const SHOP_DESC_NEW={homing:['Rakieta „Sęp”: po szczycie lotu sama skręca w stronę najbliższego wroga. 29 obrażeń.','The “Vulture” rocket: after the top of its arc it steers itself toward the nearest enemy. 29 damage.'],
   cryo:['Lodowy wybuch, 16 obrażeń. Trafionym czołgom zamarza wieża na ich następną turę.','An icy blast, 16 damage. Hit tanks get a frozen turret for their next turn.'],
@@ -1281,7 +1281,7 @@ const SHOP_DESC={mini:['Seria 5 małych pocisków.','A burst of 5 small shells.'
  drill:['Wwierca się w ziemię i wybucha pod spodem.','Burrows into the ground and explodes below.'],crazy:['W szczycie lotu rozpada się na 8 rakietek.','Splits into 8 rockets at the top of its arc.'],
  napalm:['Rozlewa płonącą maź, pali ziemię i czołgi.','Spills burning goo that scorches ground and tanks.'],para:['Zrzuca 6 bomb na spadochronach.','Drops 6 bombs on parachutes.'],
  shield:['Ruch zamiast strzału: osłona pochłania 50 obrażeń.','A move instead of a shot: absorbs 50 damage.'],laser:['Prosty promień, tnie wszystko na drodze.','A straight beam that cuts through everything.'],
- air:['Wskaż cel, samolot zrzuci 3 bomby (po 32 obrażenia).','Mark a target and a plane drops 3 bombs (32 damage each).'],nuke:['Ogromny wybuch. Nie stój za blisko.','A huge blast. Don\'t stand too close.']};
+ air:['Wskaż cel, samolot zrzuci 3 bomby (po 32 obrażenia).','Mark a target and a plane drops 3 bombs (32 damage each).'],nuke:['Potężny wybuch, bezpośrednie trafienie niszczy prawie każdy czołg. Po użyciu silos ładuje się przez rundę.','A massive blast; a direct hit wrecks almost any tank. After use the silo reloads for a round.']};
 const BOUNCE_R=[26,19,13],BOUNCE_D=[26,18,11];
 const POWERUPS={
   heal:{name:'Apteczka',col:'#d9cfb0',mark:'+'},shield:{name:'Tarcza',col:'#7fc4e6',mark:'T'},dbl:{name:'Podwójna moc',col:'#f0b92b',mark:'×2'},
@@ -1389,7 +1389,7 @@ const oldConv=r=>({...r,cat:'sredni',score:Math.round((r.score||0)/OLD_ROUNDS),r
 function loadHS(){try{let v=JSON.parse(localStorage.getItem(HS_KEY)||'[]');if(!Array.isArray(v))return[];return v.map(r=>r&&r.cat?r:oldConv(r))}catch(e){return[]}}
 function saveHS(l){const out=[];for(const c of HS_CATS)out.push(...l.filter(r=>r.cat===c).sort((a,b)=>b.score-a.score).slice(0,10));try{localStorage.setItem(HS_KEY,JSON.stringify(out))}catch(e){}}
 /* ---------- hi-scores: local + world (Firebase Firestore REST) ---------- */
-const FB={key:'AIzaSyD94iINKYZLF7OuuYs9yM8-s3vGHaLTjHw',base:'https://firestore.googleapis.com/v1/projects/pancerny-kanion/databases/(default)/documents'},HS_PEND='pancerny-kanion-wyslij',GAME_VER='0.37';
+const FB={key:'AIzaSyD94iINKYZLF7OuuYs9yM8-s3vGHaLTjHw',base:'https://firestore.googleapis.com/v1/projects/pancerny-kanion/databases/(default)/documents'},HS_PEND='pancerny-kanion-wyslij',GAME_VER='0.38';
 const worldHS={},worldErr={},worldBusy={},worldAt={};const hsMode={hsTitle:'world',hsFinal:'world'},hsNew={},hsCat={hsTitle:'sredni',hsFinal:'sredni'};
 const fbVal=v=>typeof v==='number'?{integerValue:String(Math.round(v))}:{stringValue:String(v??'')};
 function fbDoc(r){const f={};for(const k of['name','score','wins','dealt','kills','zombies','best','map','date','cid','v','rounds','mode'])f[k]=fbVal(r[k]);return{fields:f}}
@@ -1616,6 +1616,7 @@ function doFire(){
     planes.push({x:dir>0?-160:W+160,y:Math.max(26,Math.min(H*.1,mh-70)),vx:dir*430,drops:offs,owner:t,mult,t:0});texts.push({x:tx,y:surfaceAt?surfaceAt(tx)-60:H/2,s:'NALOT!',t:0,col:'#f0b92b'});sfxPlane();if(t.ammo[w.id]<=0)t.wi=0;return}
   if(w.laser){fireLaser(t,w,mult);if(t.ammo[w.id]<=0)t.wi=0;return}
   let windMul=t.st.windMul;if(t.fx.stab>0){windMul=0;t.fx.stab--}
+  if(w.nuke)t.nukeUsed=round;
   trail=[];const twin=t.st.twin&&!w.nuke,base=w.count||1;
   for(let k=0;k<base;k++)for(let j=0;j<(twin?2:1);j++){
     const off=twin?(j?1.3:-1.3):0;
@@ -1654,7 +1655,7 @@ function explode(x,y,w,mult=1,rMul=1,owner=null){
   for(let i=0;i<nS;i++){parts.push({k:'smoke',x:x+rand(-r*.5,r*.5),y:y+rand(-r*.4,r*.2),vx:rand(-20,20)+wind*3,vy:rand(-50,-15)-(w.nuke?60:0),r:rand(r*.18,r*.32),gr:r*.3,life:rand(.9,1.6)+(w.nuke?1.2:0),max:1.6+(w.nuke?1.2:0),col:w.dirt?'#8a6a48':'#3b3936'})}
   sfxBoom(r,w.dirt);
   if(w.dmg>0){for(const t of tanks){if(!t.alive)continue;const d=Math.hypot(t.x-x,(t.y-18*t.st.scale)-y);
-      if(d<r+24){const dm=Math.round(w.dmg*DMG*mult*(1-Math.max(0,d-8)/(r+24)));if(dm>0)hurt(t,dm,undefined,false,owner)}}
+      if(d<r+24){const dm=Math.round(w.dmg*DMG*mult*(1-Math.pow(Math.max(0,d-8)/(r+24),w.soft||1)));if(dm>0)hurt(t,dm,undefined,false,owner)}}
     for(const z of zombies)if(!z.dead&&Math.hypot(z.x-x,z.y-16-y)<r+16)killZombie(z,null,owner)}
 }
 
@@ -2231,6 +2232,7 @@ function drawTitleArt(){const cn=$('titleArt');if(!cn)return;const x=cn.getConte
   x.fillStyle='#e6f2b0';x.beginPath();x.arc(560,150,34,0,7);x.fill();
   for(const[cx,cy,s2]of[[60,60,1.3],[250,30,1.6],[420,80,1.1],[690,40,1.4],[880,95,1.1],[130,140,.9]])cloudBlob(x,cx+Math.sin(tm*.15+cx)*8,cy,s2,'rgba(52,66,34,.75)');
   x.fillStyle='rgba(60,50,40,.55)';[[110,250,26],[118,215,36],[126,170,48],[140,115,62]].forEach(([a,b,r],i)=>{x.beginPath();x.arc(a+Math.sin(tm*.8+i)*3,b,r,0,7);x.fill()});x.fillRect(100,250,20,60);
+  x.save();x.globalAlpha=.92;drawMushroom(x,{x:790,y:gy-24,k:1.3,t:2.6,dur:99});x.restore();
   x.fillStyle='#4a3424';let bx=150;while(bx<w){const bw=34+((bx*13)%23),bh=40+((bx*7)%29)/29*90;x.fillRect(bx,gy-30-bh,bw,bh+30);
     x.fillStyle='rgba(190,230,110,.35)';for(let wy=gy-bh-18;wy<gy-36;wy+=16)for(let wx=bx+6;wx<bx+bw-6;wx+=11)if(((wx*3+wy*7)|0)%5===0)x.fillRect(wx,wy,5,7);x.fillStyle='#4a3424';bx+=bw+6}
   x.strokeStyle='#3a291c';x.lineWidth=3;x.beginPath();x.moveTo(70,gy-10);x.lineTo(84,gy-150);x.lineTo(98,gy-10);x.moveTo(76,gy-80);x.lineTo(92,gy-80);x.moveTo(79,gy-115);x.lineTo(89,gy-115);x.stroke();
@@ -2460,7 +2462,7 @@ let shopQ=[],shopT=null,shopBuys={},shopPeek='heavy',shopDone=[],shopResume=fals
 function peekShop(id,tap){shopPeek=id;if(tap)$('shopPrev').classList.add('show');const w=WEAPONS[WI(id)];$('shopDemoName').textContent=L(w.name);$('shopDemoDesc').textContent=wDesc(id);$('shopDemoHint').textContent=T('Najedź kursorem albo stuknij w towar, żeby zobaczyć, jak działa.','Hover over or tap an item to see what it does.');
   document.querySelectorAll('#shopGrid .sitem').forEach(e=>e.classList.toggle('peek',e.dataset.id===id));setDemo($('shopDemo'),id)}
 function syncInv(){tanks.forEach(t=>{t.inv=t.inv||{};t.cash=Math.floor(t.cash||0);if(t.ammo)SHOP.forEach(([id])=>{t.inv[id]=Math.max(0,(t.ammo[id]||0)-((t.rb&&t.rb[id])||0))})})}
-function cpuShop(t){const wish=SHOP.filter(it=>it[0]!=='dirt'&&it[0]!=='tele'&&!((UNLOCK[it[0]]||0)>round)).sort(()=>Math.random()-.5);let budget=t.cash-Math.round(rand(0,120)),n=0;
+function cpuShop(t){const wish=SHOP.filter(it=>it[0]!=='dirt'&&it[0]!=='tele'&&!((UNLOCK[it[0]]||0)>round)&&!(it[0]==='nuke'&&t.nukeUsed!=null&&round<t.nukeUsed+2)).sort(()=>Math.random()-.5);let budget=t.cash-Math.round(rand(0,120)),n=0;
   for(let pass=0;pass<3;pass++)for(const[id,price,qty,max]of wish){if(n>=5)break;if(price<=budget&&(t.inv[id]||0)+qty<=max&&Math.random()<.35+difficulty*.2){t.cash-=price;budget-=price;t.inv[id]=(t.inv[id]||0)+qty;n++}}}
 function openShopPhase(){syncInv();shopT=null;shopDone=[];shopResume=false;tanks.forEach(t=>t._sb=null);if(NET&&NET.mode==='game'){shopQ=tanks.filter(t=>t.human);nextShop();return}tanks.filter(t=>!t.human).forEach(cpuShop);shopQ=tanks.filter(t=>t.human);nextShop()}
 function nextShop(){if(shopT){shopT._sb=shopBuys;shopDone.push(shopT)}shopT=shopQ.shift();if(!shopT){if(NET&&NET.mode==='game'){netShopDone();return}showOverlay(null);startRound();return}shopBuys=shopT._sb||{};showShopT()}
@@ -2476,13 +2478,13 @@ function renderShop(){const t=shopT;if(!t)return;$('shopName').textContent=t.nam
   const e=t.earn;$('shopEarn').innerHTML=e?T('<b>Zarobek w ostatniej rundzie:</b> ','<b>Earned last round:</b> ')+[[T('trafienia','hits'),e.dmg],[T('zniszczenia','kills'),e.kill],['zombie',e.zomb],[T('wygrana','win'),e.win],[T('przydział','ration'),e.base]].filter(a=>a[1]>0).map(([l,v])=>l+' +'+Math.round(v)).join(' · ')
     :T('Kapsle na start. Wydaj je z głową: więcej amunicji czy tarcza albo nalot?','Starting caps. Spend wisely: more ammo, or a shield or an airstrike?');
   $('shopGoLbl').textContent=shopQ.length?T('NASTĘPNY GRACZ','NEXT PLAYER'):T('DO BOJU!','TO BATTLE!');
-  const g=$('shopGrid');g.innerHTML=SHOP.map(([id,price,qty,max])=>{const w=WEAPONS[WI(id)],own=t.inv[id]||0,lk=(UNLOCK[id]||0)>round,can=!lk&&t.cash>=price&&own+qty<=max,b=BASIC[id],sd=SHOP_DESC[id]||SHOP_DESC_NEW[id];
-    return`<div class="sitem plate${lk?' locked':''}${t.cash<price?' poor':''}${own+qty>max?' maxed':''}" data-id="${id}" title="${esc(T(sd[0],sd[1]))}"><canvas width="112" height="68" data-w="${id}"></canvas><div class="si-n">${esc(L(w.name))}${qty>1?' ×'+qty:''}</div>${lk?`<div class="si-tag si-lock">🔒 ${T('OD RUNDY ','ROUND ')+UNLOCK[id]}</div>`:(UNLOCK[id]?`<div class="si-tag si-new">${T('NOWOŚĆ','NEW')}</div>`:'')}<div class="si-o">${T('MASZ','OWNED')} ${own}${b?` <em>+${b} ${T('co rundę','each round')}</em>`:''}${own+qty>max?' · MAX':''}</div>
+  const g=$('shopGrid');g.innerHTML=SHOP.map(([id,price,qty,max])=>{const w=WEAPONS[WI(id)],own=t.inv[id]||0,lk=(UNLOCK[id]||0)>round,silo=id==='nuke'&&t.nukeUsed!=null&&round<t.nukeUsed+2,can=!lk&&!silo&&t.cash>=price&&own+qty<=max,b=BASIC[id],sd=SHOP_DESC[id]||SHOP_DESC_NEW[id];
+    return`<div class="sitem plate${lk||silo?' locked':''}${t.cash<price?' poor':''}${own+qty>max?' maxed':''}" data-id="${id}" title="${esc(T(sd[0],sd[1]))}"><canvas width="112" height="68" data-w="${id}"></canvas><div class="si-n">${esc(L(w.name))}${qty>1?' ×'+qty:''}</div>${silo?`<div class="si-tag si-lock">🔒 ${T('SILOS · OD RUNDY ','SILO · ROUND ')+(t.nukeUsed+2)}</div>`:lk?`<div class="si-tag si-lock">🔒 ${T('OD RUNDY ','ROUND ')+UNLOCK[id]}</div>`:(UNLOCK[id]?`<div class="si-tag si-new">${T('NOWOŚĆ','NEW')}</div>`:'')}<div class="si-o">${T('MASZ','OWNED')} ${own}${b?` <em>+${b} ${T('co rundę','each round')}</em>`:''}${own+qty>max?' · MAX':''}</div>
       <div class="si-p"><span class="price"><i class="cap"></i>${price}</span><button class="pill ghost" data-sell="${id}"${shopBuys[id]?'':' disabled'} aria-label="${T('Oddaj','Return')}">−</button><button class="pill on" data-buy="${id}"${can?'':' disabled'}>${T('KUP','BUY')}</button></div></div>`}).join('');
   g.querySelectorAll('canvas').forEach(cn=>weaponIcon(cn,cn.dataset.w));
   g.querySelectorAll('.sitem').forEach(e=>e.addEventListener('pointerenter',ev=>{if(ev.pointerType==='mouse')peekShop(e.dataset.id)}));peekShop(shopPeek)}
 $('shopGrid').addEventListener('click',e=>{const card=e.target.closest('.sitem');if(card&&(card.dataset.id!==shopPeek||!$('shopPrev').classList.contains('show')))peekShop(card.dataset.id,!e.target.closest('button'));const b=e.target.closest('button');if(!b||b.disabled||!shopT)return;const t=shopT,id=b.dataset.buy||b.dataset.sell,it=SHOP.find(s=>s[0]===id);if(!it)return;const[,price,qty,max]=it;
-  if(b.dataset.buy){if((UNLOCK[id]||0)>round||t.cash<price||(t.inv[id]||0)+qty>max)return;t.cash-=price;t.inv[id]=(t.inv[id]||0)+qty;shopBuys[id]=(shopBuys[id]||0)+1;sfxBuy()}
+  if(b.dataset.buy){if((UNLOCK[id]||0)>round||(id==='nuke'&&t.nukeUsed!=null&&round<t.nukeUsed+2)||t.cash<price||(t.inv[id]||0)+qty>max)return;t.cash-=price;t.inv[id]=(t.inv[id]||0)+qty;shopBuys[id]=(shopBuys[id]||0)+1;sfxBuy()}
   else{if(!shopBuys[id])return;t.cash+=price;t.inv[id]=Math.max(0,(t.inv[id]||0)-qty);shopBuys[id]--;sfxClick()}
   renderShop()});
 $('shopPrevX').onclick=()=>{sfxClick();$('shopPrev').classList.remove('show')};
