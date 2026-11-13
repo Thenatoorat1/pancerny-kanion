@@ -82,6 +82,8 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--hazard);outline
 .jbox{background:linear-gradient(#fff0f7,#ffd6ea);border:4px solid var(--ink);border-radius:16px;box-shadow:0 6px 0 var(--ink),0 0 0 6px #ff7eb6;padding:16px 22px 18px;text-align:center;max-width:340px;animation:jpop .35s cubic-bezier(.2,1.6,.4,1)}
 @keyframes jpop{from{transform:scale(.4) rotate(-6deg);opacity:0}to{transform:none;opacity:1}}
 .jflow{font-size:26px;line-height:1;margin-bottom:6px}
+.jwait{position:absolute;z-index:80;left:50%;top:38%;transform:translateX(-50%);background:linear-gradient(#fff0f7,#ffd6ea);border:4px solid var(--ink);border-radius:14px;box-shadow:0 5px 0 var(--ink),0 0 0 5px #ff7eb6;padding:10px 18px;font-family:var(--f-mark);font-size:20px;color:#7a2350;white-space:nowrap;animation:jpop .35s cubic-bezier(.2,1.6,.4,1)}
+.jwait b{font-weight:400}.jwait span{display:inline-block;animation:jbob 1s ease-in-out infinite alternate}@keyframes jbob{to{transform:translateY(-4px) rotate(8deg)}}
 .jq{font-family:var(--f-mark);font-size:24px;line-height:1.2;color:#7a2350;margin-bottom:14px}
 .jb{display:flex;gap:12px;justify-content:center}
 .jbtn{font-family:var(--f-disp);font-size:22px;letter-spacing:.05em;padding:10px 22px 8px;border:3px solid var(--ink);border-radius:10px;cursor:pointer;box-shadow:0 4px 0 var(--ink);color:var(--ink)}
@@ -453,7 +455,7 @@ body{padding-top:max(14px, env(safe-area-inset-top, 0px));padding-bottom:max(14p
 <body>
 
 
-<div class="game"><div class="jask" id="julkaAsk" hidden><div class="jbox"><div class="jflow">🌸 🐱 🌸</div><div class="jq">Czy zgadzasz się z tym?</div><div class="jb"><button class="jbtn yes" id="jYes">TAK</button><button class="jbtn no" id="jNo">NIE</button></div></div></div><button class="sndico top" id="sndTop" aria-label="Dźwięk"></button><div class="langsel toplang" id="topLang" data-nt><button class="pill ghost" data-lang="pl" title="Polski">PL</button><button class="pill ghost" data-lang="en" title="English">EN</button></div>
+<div class="game"><div class="jwait" id="julkaWait" hidden><span>🌸</span> <b>Julka się zastanawia…</b> <span>🐱</span></div><div class="jask" id="julkaAsk" hidden><div class="jbox"><div class="jflow">🌸 🐱 🌸</div><div class="jq">Czy zgadzasz się z tym?</div><div class="jb"><button class="jbtn yes" id="jYes">TAK</button><button class="jbtn no" id="jNo">NIE</button></div></div></div><button class="sndico top" id="sndTop" aria-label="Dźwięk"></button><div class="langsel toplang" id="topLang" data-nt><button class="pill ghost" data-lang="pl" title="Polski">PL</button><button class="pill ghost" data-lang="en" title="English">EN</button></div>
   <div class="stage ov-open menu-open" id="stage">
     <canvas id="cv" aria-label="Pole bitwy"></canvas>
     <div class="hudTop" id="hudTop" hidden>
@@ -476,7 +478,7 @@ body{padding-top:max(14px, env(safe-area-inset-top, 0px));padding-bottom:max(14p
     </div>
 
     <div class="ov" id="title">
-      <div class="ver" id="verTag" data-nt>v0.51 · 13.11.2026</div>
+      <div class="ver" id="verTag" data-nt>v0.52 · 13.11.2026</div>
       <div class="hero"><div class="sign ol big">PANCERNY KANION</div><canvas id="titleArt" width="1440" height="630" aria-hidden="true"></canvas></div>
       <p class="tagline">Artyleria na pustkowiach. Przetrwaj ostrzał, pogodę, hordy i atom.</p>
       <div class="titlenav"><div class="tn-opts"><button class="pill ghost" id="optBtn">MENU I USTAWIENIA</button><button class="pill ghost" id="helpBtn2">JAK GRAĆ</button></div><div class="navrow tn-play"><button class="bigbtn" id="playBtn"><span class="ol s">GRAJ</span></button><button class="bigbtn alt" id="onlineBtn"><span class="ol s">GRAJ ONLINE</span></button></div></div>
@@ -704,7 +706,7 @@ const EN={
 'SPRAWDŹ DŹWIĘK':'TEST SOUND','Pomysł, projekt gry, kierunek artystyczny i testy':'Idea, game design, art direction and testing',
 'Kod, grafika i dźwięki (Claude, AI od Anthropic)':'Code, graphics and sound (Claude, an AI by Anthropic)',
 'Inspiracje: Scorched Tanks z Amigi, Hills of Steel, Into the Dead: Our Darkest Days, Fallout i ARC Raiders.':'Inspired by: Scorched Tanks on the Amiga, Hills of Steel, Into the Dead: Our Darkest Days, Fallout and ARC Raiders.',
-'ZAMKNIJ':'CLOSE','PA PA!':'BYE BYE!','Czy zgadzasz się z tym?':'Do you agree with this?','TAK':'YES','NIE':'NO','NIE!':'NO!','MIAU!':'MEOW!','DRAP DRAP!':'SCRATCH!','LEKKIE':'LIGHT','CIĘŻKIE':'HEAVY','SPECJALNE':'SPECIAL','Wstecz':'Back','WOLNE':'EMPTY','PROMIENIOWANIE':'RADIATION','Dźwięk':'Sound','Tryby: 1 na 1 to pojedynek dwóch czołgów. W trybach 2 na 2 i 1 na 3 drużyny stają po przeciwnych stronach mapy, rundę wygrywa drużyna, która przetrwa, a za trafienie kolegi z drużyny nie ma kapsli ani punktów. Przy ataku atomowym liczy się suma życia drużyny.':'Modes: 1 vs 1 is a duel of two tanks. In 2 vs 2 and 1 vs 3 the teams start on opposite sides of the map, the team that survives wins the round, and hitting a teammate earns no caps or points. In a nuke strike the team’s total health counts.','ŁATWY':'EASY','ŚREDNI':'NORMAL','TRUDNY':'HARD','GRACZE':'PLAYERS','Wynik to średnia punktów na rundę. Osobne listy dla poziomów komputera i dla gry bez komputera.':'Score is the average points per round. Separate lists for each CPU level and for games without the CPU.','TRYB:':'MODE:','KAŻDY NA KAŻDEGO':'FREE FOR ALL','1 NA 1':'1 VS 1','2 NA 2':'2 VS 2','1 NA 3':'1 VS 3','Sęp':'Vulture','Kriobomba':'Cryo bomb','Zarażony pocisk':'Infected shell','Teleporter':'Teleporter','Lustro':'Mirror','LUSTRO WŁĄCZONE':'MIRROR ON','ODBICIE':'REFLECTED','ZAMROŻONY':'FROZEN','TELEPORT':'TELEPORT','GRAJ ONLINE':'PLAY ONLINE','GRA ONLINE':'ONLINE GAME','TWOJA NAZWA':'YOUR NAME','NOWY POJEDYNEK':'NEW DUEL','ZAŁÓŻ POKÓJ':'CREATE ROOM','DOŁĄCZ DO POKOJU':'JOIN A ROOM','DOŁĄCZ':'JOIN','KOD':'CODE','Kod pokoju':'Room code',
+'ZAMKNIJ':'CLOSE','Julka się zastanawia…':'Julka is thinking…','PA PA!':'BYE BYE!','Czy zgadzasz się z tym?':'Do you agree with this?','TAK':'YES','NIE':'NO','NIE!':'NO!','MIAU!':'MEOW!','DRAP DRAP!':'SCRATCH!','LEKKIE':'LIGHT','CIĘŻKIE':'HEAVY','SPECJALNE':'SPECIAL','Wstecz':'Back','WOLNE':'EMPTY','PROMIENIOWANIE':'RADIATION','Dźwięk':'Sound','Tryby: 1 na 1 to pojedynek dwóch czołgów. W trybach 2 na 2 i 1 na 3 drużyny stają po przeciwnych stronach mapy, rundę wygrywa drużyna, która przetrwa, a za trafienie kolegi z drużyny nie ma kapsli ani punktów. Przy ataku atomowym liczy się suma życia drużyny.':'Modes: 1 vs 1 is a duel of two tanks. In 2 vs 2 and 1 vs 3 the teams start on opposite sides of the map, the team that survives wins the round, and hitting a teammate earns no caps or points. In a nuke strike the team’s total health counts.','ŁATWY':'EASY','ŚREDNI':'NORMAL','TRUDNY':'HARD','GRACZE':'PLAYERS','Wynik to średnia punktów na rundę. Osobne listy dla poziomów komputera i dla gry bez komputera.':'Score is the average points per round. Separate lists for each CPU level and for games without the CPU.','TRYB:':'MODE:','KAŻDY NA KAŻDEGO':'FREE FOR ALL','1 NA 1':'1 VS 1','2 NA 2':'2 VS 2','1 NA 3':'1 VS 3','Sęp':'Vulture','Kriobomba':'Cryo bomb','Zarażony pocisk':'Infected shell','Teleporter':'Teleporter','Lustro':'Mirror','LUSTRO WŁĄCZONE':'MIRROR ON','ODBICIE':'REFLECTED','ZAMROŻONY':'FROZEN','TELEPORT':'TELEPORT','GRAJ ONLINE':'PLAY ONLINE','GRA ONLINE':'ONLINE GAME','TWOJA NAZWA':'YOUR NAME','NOWY POJEDYNEK':'NEW DUEL','ZAŁÓŻ POKÓJ':'CREATE ROOM','DOŁĄCZ DO POKOJU':'JOIN A ROOM','DOŁĄCZ':'JOIN','KOD':'CODE','Kod pokoju':'Room code',
 'KOD POKOJU':'ROOM CODE','KOPIUJ':'COPY','MÓJ CZOŁG':'MY TANK','OPUŚĆ GRĘ':'LEAVE GAME','Start':'Start',
 'Załóż pokój i podaj kod drugiemu graczowi. Gra 1 na 1, każdy na swoim telefonie lub komputerze.':'Create a room and give the code to the other player. A 1-on-1 duel, each on their own phone or computer.',
 'Drugi gracz wybiera „GRAJ ONLINE” → „DOŁĄCZ” i wpisuje ten kod. Gospodarz ustala zasady, a każdy wybiera swój czołg.':'The other player picks “PLAY ONLINE” → “JOIN” and types this code. The host sets the rules and everyone picks their own tank.',
@@ -763,11 +765,11 @@ function ub64(s){const b=atob(s),u=new Uint8Array(b.length);for(let i=0;i<b.leng
 const SNAP_SKIP=new Set(['look','st','name','human','remote','ai']);
 function netPack(){const tset=new Map(tanks.map((t,i)=>[t,i]));
   const tk=tanks.map(t=>{const o={};for(const k in t)if(!SNAP_SKIP.has(k))o[k]=t[k];o.lastHit=t.lastHit?tset.get(t.lastHit):-1;return o});
-  const data={round,turnCount,cur,wind,turnsSinceDrop,firstTurn,waveNum,waveIn,skipWaves,roundElapsed,clock,warned,evPend,evAct,evNext,quakeT,poolKind,rad,W,h,disp,grass,wv,ice,plats,bodies,flora,crates,fires,zombies,tanks:tk};
+  const data={round,turnCount,cur,wind,turnsSinceDrop,firstTurn,waveNum,waveIn,skipWaves,roundElapsed,clock,warned,evPend,evAct,evNext,quakeT,poolKind,rad,blooms,W,h,disp,grass,wv,ice,plats,bodies,flora,crates,fires,zombies,tanks:tk};
   return JSON.stringify(data,function(k,v){if(v===Infinity)return'∞';if(v&&typeof v==='object'){if(tset.has(v))return{$t:tset.get(v)};if(ArrayBuffer.isView(v))return{$a:v instanceof Uint8Array?'u8':'f32',d:b64(new Uint8Array(v.buffer,v.byteOffset,v.byteLength))}}return v})}
 function netApply(str){const tl=tanks;let d;try{d=JSON.parse(str,function(k,v){if(v==='∞')return Infinity;if(v&&typeof v==='object'){if(v.$t!==undefined&&Object.keys(v).length===1)return tl[v.$t]||null;if(v.$a){const u=ub64(v.d);return v.$a==='u8'?u:new Float32Array(u.buffer)}}return v})}catch(e){return false}
   if(!d||d.W!==W)return false;
-  ({round,turnCount,cur,wind,turnsSinceDrop,firstTurn,waveNum,waveIn,skipWaves,roundElapsed,clock,warned,evPend,evAct,evNext,quakeT,poolKind}=d);rad=d.rad||[];
+  ({round,turnCount,cur,wind,turnsSinceDrop,firstTurn,waveNum,waveIn,skipWaves,roundElapsed,clock,warned,evPend,evAct,evNext,quakeT,poolKind}=d);rad=d.rad||[];blooms=d.blooms||[];
   h.set(d.h);disp.set(d.disp);grass.set(d.grass);wv.set(d.wv);ice.set(d.ice);
   plats=d.plats||[];bodies=d.bodies||[];flora=d.flora||[];crates=d.crates||[];fires=d.fires||[];zombies=d.zombies||[];
   d.tanks.forEach((o,i)=>{const t=tanks[i];if(!t)return;o.lastHit=o.lastHit>=0?tanks[o.lastHit]:null;for(const k of['ammo','fx','inv','rb','earn','sg'])if(o[k]==null)o[k]=k==='earn'?null:{};Object.assign(t,o)});
@@ -1461,7 +1463,7 @@ const oldConv=r=>({...r,cat:'sredni',score:Math.round((r.score||0)/OLD_ROUNDS),r
 function loadHS(){try{let v=JSON.parse(localStorage.getItem(HS_KEY)||'[]');if(!Array.isArray(v))return[];return v.map(r=>r&&r.cat?r:oldConv(r))}catch(e){return[]}}
 function saveHS(l){const out=[];for(const c of HS_CATS)out.push(...l.filter(r=>r.cat===c).sort((a,b)=>b.score-a.score).slice(0,10));try{localStorage.setItem(HS_KEY,JSON.stringify(out))}catch(e){}}
 /* ---------- hi-scores: local + world (Firebase Firestore REST) ---------- */
-const FB={key:'AIzaSyD94iINKYZLF7OuuYs9yM8-s3vGHaLTjHw',base:'https://firestore.googleapis.com/v1/projects/pancerny-kanion/databases/(default)/documents'},HS_PEND='pancerny-kanion-wyslij',GAME_VER='0.51';
+const FB={key:'AIzaSyD94iINKYZLF7OuuYs9yM8-s3vGHaLTjHw',base:'https://firestore.googleapis.com/v1/projects/pancerny-kanion/databases/(default)/documents'},HS_PEND='pancerny-kanion-wyslij',GAME_VER='0.52';
 const worldHS={},worldErr={},worldBusy={},worldAt={};const hsMode={hsTitle:'world',hsFinal:'world'},hsNew={},hsCat={hsTitle:'sredni',hsFinal:'sredni'};
 const fbVal=v=>typeof v==='number'?{integerValue:String(Math.round(v))}:{stringValue:String(v??'')};
 function fbDoc(r){const f={};for(const k of['name','score','wins','dealt','kills','zombies','best','map','date','cid','v','rounds','mode'])f[k]=fbVal(r[k]);return{fields:f}}
@@ -1561,7 +1563,7 @@ function startGame(){
   if(teamMode!=='ffa')applyMode();const TM=TEAMS[teamMode];
   tanks=config.map((c,i)=>[c,i]).filter(([c])=>c.type!=='off').map(([c,i])=>({name:(c.name.trim()||T('Gracz','Player')).slice(0,12),human:c.type==='human',look:lookOf(c),wins:0,cash:START_CASH,inv:{},earn:null,sg:{dealt:0,taken:0,kills:0,zombies:0,wins:0,best:null},...(TM?{team:TM[i]}:{})}));
   if(TM&&teamMode==='2v2')tanks=[tanks[0],tanks[2],tanks[1],tanks[3]];
-  tanks.forEach(t=>t.julka=!(NET&&NET.mode==='game')&&/^julka$/i.test(t.name));
+  tanks.forEach(t=>t.julka=/^julka$/i.test(t.name));
   round=1;starter=0;toastQ=[];openShopPhase();
 }
 const aliveCount=()=>tanks.filter(t=>t.alive).length;
@@ -1584,6 +1586,7 @@ function startTurnBody(firstMsg){
   const wet=depthAt(t.x)>8;
   t.stuck=poolKind==='water'&&wet&&!t.wasWet&&!(t.fx.floats>0);t.wasWet=wet;
   if(t.stuck)msg=t.name+T(' UTKNĄŁ W WODZIE!',' IS STUCK IN WATER!');
+  if(t.kitty>0&&(NET&&NET.mode==='game')){t.kitty--;hurt(t,3,'#ffb3d9',false,t.kittySrc&&t.kittySrc.alive?t.kittySrc:null);texts.push({x:t.x,y:t.y-118,s:'DRAP DRAP!',t:0,col:'#ffb3d9',sm:1});if(t.kitty<=0){t.kRun=1.4;t.kDir=Math.sign(t.x-W/2)||1}}
   if(!(t.fx.dome>0)&&rad.some(z=>Math.abs(t.x-z.x)<z.r)){hurt(t,7,'#d8ff3a');texts.push({x:t.x,y:t.y-118,s:'PROMIENIOWANIE',t:0,col:'#d8ff3a',sm:1});msg=t.name+T(': PROMIENIOWANIE!',': RADIATION!')}
   if(!(t.fx.dome>0)){if(acidTick())hurt(t,3,'#9ee22f');if(poolKind==='acid'&&depthAt(t.x)>6)hurt(t,6,'#9ee22f')}
   if(depthAt(t.x)>t.st.hh*.75&&!(t.fx.floats>0)){t.o2=Math.max(0,t.o2-30);if(t.o2<=0){hurt(t,10,'#7fc4e6');if(!t.o2warn){t.o2warn=1;msg=t.name+T(': BRAK TLENU!',': OUT OF OXYGEN!');sfxAlarm()}}}
@@ -1717,6 +1720,13 @@ function fireLaser(t,w,mult){
 }
 const hitTank=(o,x,y)=>o.alive&&Math.abs(x-o.x)<=o.st.hw&&y>=o.y-o.st.hh&&y<=o.y+3;
 const groundHit=(x,y)=>{const ix=Math.round(x);return ix>=0&&ix<W&&(y>=h[ix]||(plats.length>0&&!!platHit(x,y))||(bodies.length>0&&!!bodyHit(x,y)))};
+let julkaKey=null,julkaWaitT=0,julkaLocal=true;
+function julkaShowAsk(jt){julkaWaitT=0;const on=(NET&&NET.mode==='game');julkaKey=on?netKey():null;julkaLocal=!on||jt===tanks[NET.slot];
+  if(julkaLocal)$('julkaAsk').hidden=false;else $('julkaWait').hidden=false;sfxClick()}
+function julkaAnswer(a){if(!julkaPause)return;julkaAns[turnCount]=a;julkaPause=false;julkaKey=null;$('julkaAsk').hidden=true;$('julkaWait').hidden=true}
+function julkaSend(a){if(julkaKey!=null&&NET&&NET.mode==='game'){const k=julkaKey;gref('ja/'+k).transaction(c=>c===null?a:undefined).then(r=>{const v=r&&r.snapshot&&r.snapshot.val();if(julkaKey===k)julkaAnswer(v||a)}).catch(()=>{if(julkaKey===k)julkaAnswer(a)})}else julkaAnswer(a)}
+function julkaNetTick(dt){if(!julkaPause||julkaKey==null||!NET||NET.mode!=='game')return;const v=NET.ja&&NET.ja[julkaKey];if(v){julkaAnswer(v);return}
+  julkaWaitT+=dt;if(!julkaLocal){const jt=tanks[1-NET.slot],off=!(NET.p[1-NET.slot]&&NET.p[1-NET.slot].online);if(julkaWaitT>30||(off&&julkaWaitT>3)){julkaWaitT=-999;julkaSend('yes')}}}
 function julkaReturn(p,sh,jt){
   for(let i=0;i<60&&(groundHit(p.x,p.y)||Math.hypot(p.x-jt.x,p.y-jt.y+18)<40);i++)p.y-=3;p.y-=6;
   const tx=sh&&sh.alive?sh.x:p.x-(p.vx||1)*.8,ty=sh&&sh.alive?sh.y-18*sh.st.scale:p.y,dx=tx-p.x,up=p.y-ty,ax=Math.max(8,Math.abs(dx));
@@ -1750,7 +1760,7 @@ function explode(x,y,w,mult=1,rMul=1,owner=null){
   for(let i=0;i<nS;i++){parts.push({k:'smoke',x:x+rand(-r*.5,r*.5),y:y+rand(-r*.4,r*.2),vx:rand(-20,20)+wind*3,vy:rand(-50,-15)-(w.nuke?60:0),r:rand(r*.18,r*.32),gr:r*.3,life:rand(.9,1.6)+(w.nuke?1.2:0),max:1.6+(w.nuke?1.2:0),col:w.dirt?'#8a6a48':'#3b3936'})}
   sfxBoom(r,w.dirt);
   if(w.dmg>0){for(const t of tanks){if(!t.alive||(t.julka&&owner===t))continue;const d=Math.hypot(t.x-x,(t.y-18*t.st.scale)-y);
-      if(d<r+24){const dm=Math.round(w.dmg*DMG*mult*(1-Math.pow(Math.max(0,d-8)/(r+24),w.soft||1)));if(dm>0){hurt(t,dm,undefined,false,owner);if(owner&&owner.julka&&foe(owner,t)&&t.alive){t.flowery=1;if(!(t.kitty>0))texts.push({x:t.x,y:t.y-130,s:'MIAU!',t:0,col:'#ffb3d9'});t.kitty=60;t.kScr=4;t.kRun=0;t.kittySrc=owner;julkaBloom(x,r)}}}}
+      if(d<r+24){const dm=Math.round(w.dmg*DMG*mult*(1-Math.pow(Math.max(0,d-8)/(r+24),w.soft||1)));if(dm>0){hurt(t,dm,undefined,false,owner);if(owner&&owner.julka&&foe(owner,t)&&t.alive){t.flowery=1;if(!(t.kitty>0))texts.push({x:t.x,y:t.y-130,s:'MIAU!',t:0,col:'#ffb3d9'});t.kitty=(NET&&NET.mode==='game')?3:60;t.kScr=4;t.kRun=0;t.kittySrc=owner;julkaBloom(x,r)}}}}
     for(const z of zombies)if(!z.dead&&Math.hypot(z.x-x,z.y-16-y)<r+16)killZombie(z,null,owner)}
 }
 
@@ -1794,9 +1804,9 @@ function aiUpdate(t,dt){const ai=t.ai;if(!ai)return;if(ai.think>0){ai.think-=dt;
 /* ---------- update ---------- */
 let acc=0;
 function killTank(t){if(t.lastHit&&foe(t.lastHit,t)&&t.lastHit.sg){t.lastHit.sg.kills++;if(t.lastHit.earn){t.lastHit.cash+=75;t.lastHit.earn.kill+=75}}t.alive=false;t.hp=0;explode(t.x,t.y-15,{r:44,dmg:26});texts.push({x:t.x,y:t.y-90,s:'BUM!',t:0,col:'#f0b92b'})}
-function julkaTick(dt){if(phase==='menu')return;for(const t of tanks){
+function julkaTick(dt){if(phase==='menu')return;const on=(NET&&NET.mode==='game');for(const t of tanks){
   if(t.kRun>0){t.kRun-=dt;continue}
-  if(!(t.kitty>0))continue;if(!t.alive){t.kitty=0;continue}
+  if(!(t.kitty>0)||on)continue;if(!t.alive){t.kitty=0;continue}
   t.kitty-=dt;t.kScr-=dt;if(t.kScr<=0){t.kScr=8;hurt(t,3,'#ffb3d9',false,t.kittySrc&&t.kittySrc.alive?t.kittySrc:null);texts.push({x:t.x,y:t.y-118,s:'DRAP DRAP!',t:0,col:'#ffb3d9',sm:1})}
   if(t.kitty<=0){t.kitty=0;t.kRun=1.4;t.kDir=Math.sign(t.x-W/2)||1;texts.push({x:t.x,y:t.y-118,s:'PA PA!',t:0,col:'#ffb3d9',sm:1})}}}
 function physicsStep(){julkaTick(DT);
@@ -1845,7 +1855,7 @@ function physicsStep(){julkaTick(DT);
      if(jt&&jt.alive&&(p.w.dmg>0||p.w.nuke||p.w.cryo)&&p.owner&&foe(p.owner,jt)&&!p.jOK){const a=julkaAns[turnCount];
        if(a==='no'){const sh=p.owner;p.owner=jt;p.age=0;p.jOK=true;p.drilling=false;p.dt=0;p.shooter=sh;
          if(p.hist&&p.hist.length>8){const r=[];for(let q=p.hist.length-2;q>=0;q-=2)r.push(p.hist[q],p.hist[q+1]);p.rev=r;p.revI=0;p.hist=null}else p.home=sh;texts.push({x:jt.x,y:jt.y-120,s:'NIE!',t:0,col:'#ff7eb6'});for(let q=0;q<12;q++)parts.push({k:'spark',x:p.x,y:p.y,vx:rand(-120,120),vy:rand(-140,60),life:rand(.3,.6)});continue}
-       if(a==='yes')p.jOK=true;else{julkaPause=true;$('julkaAsk').hidden=false;sfxClick();return}}}
+       if(a==='yes')p.jOK=true;else{julkaPause=true;julkaShowAsk(jt);return}}}
     if(p.w.drill&&hitG&&!hitT&&!(plats.length&&platHit(sx,p.y))&&!(bodies.length&&bodyHit(sx,p.y))){
       const l=Math.hypot(p.vx,p.vy)||1;let dx=p.vx/l,dy=Math.max(.45,p.vy/l);const n=Math.hypot(dx,dy);p.dx=dx/n;p.dy=dy/n;p.drilling=true;p.x=sx;p.path=[sx,p.y];
       if(!p.dt){p.dt=0;carve(sx,p.y,7,true);sfxDrill();texts.push({x:sx,y:p.y-30,s:'WIERCI…',t:0,col:'#cfc6b0',sm:1})}continue}
@@ -1882,7 +1892,7 @@ function update(dt){
   if(quakeT>0){quakeT-=dt;shake=Math.max(shake,9)}
   if(phase==='aim'){const t=tanks[cur];if(t.remote)turnT-=dt;else if(!t.human)aiUpdate(t,dt);else{turnT-=dt;if(turnT<=0){if(NET&&NET.mode==='game'){if(NET.sent!==netKey())netSendMove({k:'to'})}else{toast('CZAS MINĄŁ!');phase='resolve';resolveT=0;$('picker').hidden=true}}}}
   for(let i=pending.length-1;i>=0;i--){pending[i].delay-=dt;if(pending[i].delay<=0){launch(pending[i]);pending.splice(i,1)}}
-  if(julkaPause)acc=0;
+  julkaNetTick(dt);if(julkaPause)acc=0;
   acc+=dt;while(acc>=DT&&!julkaPause){if(shotRng){const o=Math.random;Math.random=shotRng;try{physicsStep()}finally{Math.random=o}}else physicsStep();acc-=DT}
   for(let x=0;x<W;x++){const d=h[x]-disp[x];if(d)disp[x]+=d>0?Math.min(d,500*dt):Math.max(d,-260*dt);}
   if(poolKind)waterSim(dt);
@@ -2470,9 +2480,9 @@ function netGo(){if(!NET)return;sfxClick();audio();if(NET.slot===0){const p1=NET
   else{const me=NET.p[1];NET.room.child('p1/ready').set(!(me&&me.ready))}}
 function netBuildTanks(){tanks=[0,1].map(i=>{const p=NET.p[i]||{name:'?',look:{hull:0,color:0,wheels:0,turret:0,barrel:0}};const mine=i===NET.slot;
   let nm=(p.name||'?').slice(0,12);if(i===1&&NET.p[0]&&sameName(nm,NET.p[0].name))nm=uniqueName(nm,NET.p[0].name,1);
-  return{name:nm,human:mine,remote:!mine,look:lookOf({look:p.look}),wins:0,cash:START_CASH,inv:{},earn:null,sg:{dealt:0,taken:0,kills:0,zombies:0,wins:0,best:null}}})}
+  return{name:nm,julka:/^julka$/i.test(nm),human:mine,remote:!mine,look:lookOf({look:p.look}),wins:0,cash:START_CASH,inv:{},earn:null,sg:{dealt:0,taken:0,kills:0,zombies:0,wins:0,best:null}}})}
 function netStartGen(gen){if(!NET)return;for(const[r,ev,fn]of NET.gsubs)r.off(ev,fn);NET.gsubs=[];NET.gen=gen;NET.mode='game';NET.ended=false;
-  Object.assign(NET,{moves:{},snaps:{},shop:{},rs:{},rematch:{},aim:null,sent:-1,waitShop:0,rsSent:{},genBump:0,loaded:false});
+  Object.assign(NET,{ja:{},moves:{},snaps:{},shop:{},rs:{},rematch:{},aim:null,sent:-1,waitShop:0,rsSent:{},genBump:0,loaded:false});
   netApplySettings(NET.meta&&NET.meta.settings);netBuildTanks();round=1;starter=0;toastQ=[];NET_EDIT=null;
   const on=(ref,ev,fn)=>{ref.on(ev,fn);NET.gsubs.push([ref,ev,fn])};
   on(gref('mv'),'child_added',s=>{if(NET)NET.moves[s.key]=s.val()});
@@ -2480,6 +2490,7 @@ function netStartGen(gen){if(!NET)return;for(const[r,ev,fn]of NET.gsubs)r.off(ev
   on(gref('shop'),'value',s=>{if(NET)NET.shop=s.val()||{}});
   on(gref('rs'),'value',s=>{if(NET)NET.rs=s.val()||{}});
   on(gref('rematch'),'value',s=>{if(NET)NET.rematch=s.val()||{}});
+  on(gref('ja'),'value',s=>{if(NET)NET.ja=s.val()||{}});
   on(gref('aim/'+(1-NET.slot)),'value',s=>{if(NET)NET.aim=s.val()});
   gref().once('value').then(s=>{if(!NET)return;const g=s.val()||{};NET.loaded=true;netResume(g)})}
 function netResume(g){const rs=g.rs||{},keys=Object.keys(rs).map(Number).filter(n=>n>0);
@@ -2672,7 +2683,7 @@ function syncSnd(){syncSndIco();$('muteBtn').textContent=muted?'DŹWIĘK: NIE':'
 function drawMusSeg(){const el=$('musSeg');el.innerHTML='<span class="t">MUZYKA:</span>';[[true,'WŁĄCZONA'],[false,'WYŁĄCZONA']].forEach(([v,l])=>{const b=document.createElement('button');b.className='pill '+(musOn===v?'on':'ghost');b.textContent=l;b.onclick=()=>{musOn=v;saveSnd();syncSnd()};el.appendChild(b)})}
 function drawSndSeg(){drawMusSeg();const el=$('sndSeg');el.innerHTML='<span class="t">DŹWIĘK:</span>';[[false,'WŁĄCZONY'],[true,'WYŁĄCZONY']].forEach(([v,l])=>{const b=document.createElement('button');b.className='pill '+(muted===v?'on':'ghost');b.textContent=l;b.onclick=()=>{muted=v;saveSnd();syncSnd()};el.appendChild(b)})}
 $('muteBtn').onclick=()=>{muted=!muted;saveSnd();syncSnd()};
-for(const [id,a] of [['jYes','yes'],['jNo','no']])$(id).onclick=e=>{e.stopPropagation();julkaAns[turnCount]=a;julkaPause=false;$('julkaAsk').hidden=true;sfxClick()};
+for(const [id,a] of [['jYes','yes'],['jNo','no']])$(id).onclick=e=>{e.stopPropagation();sfxClick();julkaSend(a)};
 for(const id of['sndHud','sndTop'])$(id).onclick=e=>{e.stopPropagation();muted=!muted;saveSnd();audio();syncSnd();if(!muted)sfxClick()};
 $('vol').addEventListener('input',e=>{vol=clamp(+e.target.value/100,0,1);saveSnd();syncSnd()});
 $('sndTest').onclick=()=>{audio();sfxBoom(40,false)};
