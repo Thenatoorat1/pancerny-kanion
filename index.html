@@ -78,6 +78,15 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--hazard);outline
 .sndico.hud{position:absolute;left:100%;top:2px;margin-left:10px;width:36px;height:36px}
 .sndico.top{position:absolute;z-index:40;top:10px;left:max(10px,env(safe-area-inset-left,0px))}
 .game.playing .sndico.top{display:none}
+.jask{position:absolute;inset:0;z-index:80;display:grid;place-items:center;background:rgba(40,10,30,.35);padding:16px}
+.jbox{background:linear-gradient(#fff0f7,#ffd6ea);border:4px solid var(--ink);border-radius:16px;box-shadow:0 6px 0 var(--ink),0 0 0 6px #ff7eb6;padding:16px 22px 18px;text-align:center;max-width:340px;animation:jpop .35s cubic-bezier(.2,1.6,.4,1)}
+@keyframes jpop{from{transform:scale(.4) rotate(-6deg);opacity:0}to{transform:none;opacity:1}}
+.jflow{font-size:26px;line-height:1;margin-bottom:6px}
+.jq{font-family:var(--f-mark);font-size:24px;line-height:1.2;color:#7a2350;margin-bottom:14px}
+.jb{display:flex;gap:12px;justify-content:center}
+.jbtn{font-family:var(--f-disp);font-size:22px;letter-spacing:.05em;padding:10px 22px 8px;border:3px solid var(--ink);border-radius:10px;cursor:pointer;box-shadow:0 4px 0 var(--ink);color:var(--ink)}
+.jbtn.yes{background:#bfe7a6}.jbtn.no{background:#ff8fc4}
+.jbtn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
 .timer{min-width:64px;text-align:center;background:var(--bone);color:var(--ink);font-family:var(--f-disp);font-size:28px;line-height:1;padding:6px 10px 4px;border:4px solid var(--ink);border-radius:5px;box-shadow:inset 0 -4px 0 #b9ad90;font-variant-numeric:tabular-nums}
 .timer.warn{background:var(--blood);color:var(--bone);box-shadow:inset 0 -4px 0 #5e140e}
 .wind,.mstat{font-family:var(--f-disp);font-size:14px;white-space:nowrap}
@@ -444,7 +453,7 @@ body{padding-top:max(14px, env(safe-area-inset-top, 0px));padding-bottom:max(14p
 <body>
 
 
-<div class="game"><button class="sndico top" id="sndTop" aria-label="Dźwięk"></button><div class="langsel toplang" id="topLang" data-nt><button class="pill ghost" data-lang="pl" title="Polski">PL</button><button class="pill ghost" data-lang="en" title="English">EN</button></div>
+<div class="game"><div class="jask" id="julkaAsk" hidden><div class="jbox"><div class="jflow">🌸 🐱 🌸</div><div class="jq">Czy zgadzasz się z tym?</div><div class="jb"><button class="jbtn yes" id="jYes">TAK</button><button class="jbtn no" id="jNo">NIE</button></div></div></div><button class="sndico top" id="sndTop" aria-label="Dźwięk"></button><div class="langsel toplang" id="topLang" data-nt><button class="pill ghost" data-lang="pl" title="Polski">PL</button><button class="pill ghost" data-lang="en" title="English">EN</button></div>
   <div class="stage ov-open menu-open" id="stage">
     <canvas id="cv" aria-label="Pole bitwy"></canvas>
     <div class="hudTop" id="hudTop" hidden>
@@ -467,7 +476,7 @@ body{padding-top:max(14px, env(safe-area-inset-top, 0px));padding-bottom:max(14p
     </div>
 
     <div class="ov" id="title">
-      <div class="ver" id="verTag" data-nt>v0.49 · 12.11.2026</div>
+      <div class="ver" id="verTag" data-nt>v0.51 · 13.11.2026</div>
       <div class="hero"><div class="sign ol big">PANCERNY KANION</div><canvas id="titleArt" width="1440" height="630" aria-hidden="true"></canvas></div>
       <p class="tagline">Artyleria na pustkowiach. Przetrwaj ostrzał, pogodę, hordy i atom.</p>
       <div class="titlenav"><div class="tn-opts"><button class="pill ghost" id="optBtn">MENU I USTAWIENIA</button><button class="pill ghost" id="helpBtn2">JAK GRAĆ</button></div><div class="navrow tn-play"><button class="bigbtn" id="playBtn"><span class="ol s">GRAJ</span></button><button class="bigbtn alt" id="onlineBtn"><span class="ol s">GRAJ ONLINE</span></button></div></div>
@@ -695,7 +704,7 @@ const EN={
 'SPRAWDŹ DŹWIĘK':'TEST SOUND','Pomysł, projekt gry, kierunek artystyczny i testy':'Idea, game design, art direction and testing',
 'Kod, grafika i dźwięki (Claude, AI od Anthropic)':'Code, graphics and sound (Claude, an AI by Anthropic)',
 'Inspiracje: Scorched Tanks z Amigi, Hills of Steel, Into the Dead: Our Darkest Days, Fallout i ARC Raiders.':'Inspired by: Scorched Tanks on the Amiga, Hills of Steel, Into the Dead: Our Darkest Days, Fallout and ARC Raiders.',
-'ZAMKNIJ':'CLOSE','LEKKIE':'LIGHT','CIĘŻKIE':'HEAVY','SPECJALNE':'SPECIAL','Wstecz':'Back','WOLNE':'EMPTY','PROMIENIOWANIE':'RADIATION','Dźwięk':'Sound','Tryby: 1 na 1 to pojedynek dwóch czołgów. W trybach 2 na 2 i 1 na 3 drużyny stają po przeciwnych stronach mapy, rundę wygrywa drużyna, która przetrwa, a za trafienie kolegi z drużyny nie ma kapsli ani punktów. Przy ataku atomowym liczy się suma życia drużyny.':'Modes: 1 vs 1 is a duel of two tanks. In 2 vs 2 and 1 vs 3 the teams start on opposite sides of the map, the team that survives wins the round, and hitting a teammate earns no caps or points. In a nuke strike the team’s total health counts.','ŁATWY':'EASY','ŚREDNI':'NORMAL','TRUDNY':'HARD','GRACZE':'PLAYERS','Wynik to średnia punktów na rundę. Osobne listy dla poziomów komputera i dla gry bez komputera.':'Score is the average points per round. Separate lists for each CPU level and for games without the CPU.','TRYB:':'MODE:','KAŻDY NA KAŻDEGO':'FREE FOR ALL','1 NA 1':'1 VS 1','2 NA 2':'2 VS 2','1 NA 3':'1 VS 3','Sęp':'Vulture','Kriobomba':'Cryo bomb','Zarażony pocisk':'Infected shell','Teleporter':'Teleporter','Lustro':'Mirror','LUSTRO WŁĄCZONE':'MIRROR ON','ODBICIE':'REFLECTED','ZAMROŻONY':'FROZEN','TELEPORT':'TELEPORT','GRAJ ONLINE':'PLAY ONLINE','GRA ONLINE':'ONLINE GAME','TWOJA NAZWA':'YOUR NAME','NOWY POJEDYNEK':'NEW DUEL','ZAŁÓŻ POKÓJ':'CREATE ROOM','DOŁĄCZ DO POKOJU':'JOIN A ROOM','DOŁĄCZ':'JOIN','KOD':'CODE','Kod pokoju':'Room code',
+'ZAMKNIJ':'CLOSE','PA PA!':'BYE BYE!','Czy zgadzasz się z tym?':'Do you agree with this?','TAK':'YES','NIE':'NO','NIE!':'NO!','MIAU!':'MEOW!','DRAP DRAP!':'SCRATCH!','LEKKIE':'LIGHT','CIĘŻKIE':'HEAVY','SPECJALNE':'SPECIAL','Wstecz':'Back','WOLNE':'EMPTY','PROMIENIOWANIE':'RADIATION','Dźwięk':'Sound','Tryby: 1 na 1 to pojedynek dwóch czołgów. W trybach 2 na 2 i 1 na 3 drużyny stają po przeciwnych stronach mapy, rundę wygrywa drużyna, która przetrwa, a za trafienie kolegi z drużyny nie ma kapsli ani punktów. Przy ataku atomowym liczy się suma życia drużyny.':'Modes: 1 vs 1 is a duel of two tanks. In 2 vs 2 and 1 vs 3 the teams start on opposite sides of the map, the team that survives wins the round, and hitting a teammate earns no caps or points. In a nuke strike the team’s total health counts.','ŁATWY':'EASY','ŚREDNI':'NORMAL','TRUDNY':'HARD','GRACZE':'PLAYERS','Wynik to średnia punktów na rundę. Osobne listy dla poziomów komputera i dla gry bez komputera.':'Score is the average points per round. Separate lists for each CPU level and for games without the CPU.','TRYB:':'MODE:','KAŻDY NA KAŻDEGO':'FREE FOR ALL','1 NA 1':'1 VS 1','2 NA 2':'2 VS 2','1 NA 3':'1 VS 3','Sęp':'Vulture','Kriobomba':'Cryo bomb','Zarażony pocisk':'Infected shell','Teleporter':'Teleporter','Lustro':'Mirror','LUSTRO WŁĄCZONE':'MIRROR ON','ODBICIE':'REFLECTED','ZAMROŻONY':'FROZEN','TELEPORT':'TELEPORT','GRAJ ONLINE':'PLAY ONLINE','GRA ONLINE':'ONLINE GAME','TWOJA NAZWA':'YOUR NAME','NOWY POJEDYNEK':'NEW DUEL','ZAŁÓŻ POKÓJ':'CREATE ROOM','DOŁĄCZ DO POKOJU':'JOIN A ROOM','DOŁĄCZ':'JOIN','KOD':'CODE','Kod pokoju':'Room code',
 'KOD POKOJU':'ROOM CODE','KOPIUJ':'COPY','MÓJ CZOŁG':'MY TANK','OPUŚĆ GRĘ':'LEAVE GAME','Start':'Start',
 'Załóż pokój i podaj kod drugiemu graczowi. Gra 1 na 1, każdy na swoim telefonie lub komputerze.':'Create a room and give the code to the other player. A 1-on-1 duel, each on their own phone or computer.',
 'Drugi gracz wybiera „GRAJ ONLINE” → „DOŁĄCZ” i wpisuje ten kod. Gospodarz ustala zasady, a każdy wybiera swój czołg.':'The other player picks “PLAY ONLINE” → “JOIN” and types this code. The host sets the rules and everyone picks their own tank.',
@@ -1274,8 +1283,9 @@ function updateZombies(dt){
   for(const z of zombies){if(z.dead)continue;
     z.life-=dt;if(z.life<=0){dustZombie(z);continue}
     if(z.rise<1){z.rise=Math.min(1,z.rise+dt*.5);z.y=groundAtX(z.x);continue}
-    let tg=null,best=1e9;for(const t of tanks)if(t.alive&&!(z.own&&!foe(t,z.own))){const d=Math.abs(t.x-z.x);if(d<best){best=d;tg=t}}
+    let tg=null,best=1e9;for(const t of tanks)if(t.alive&&!t.julka&&!(z.own&&!foe(t,z.own))){const d=Math.abs(t.x-z.x);if(d<best){best=d;tg=t}}
     z.ph+=dt*4;
+    for(const j of tanks)if(j.julka&&j.alive&&Math.abs(z.x-j.x)<70*j.st.scale){z.x+=Math.sign(z.x-j.x||1)*40*dt}
     if(!tg){z.y=groundAtX(z.x);continue}
     const reach=tg.st.hw+8;
     if(best>reach){const dir=Math.sign(tg.x-z.x),slow=depthAt(z.x)>6?.45:1;z.x+=dir*z.sp*slow*dt;z.dir=dir}
@@ -1451,7 +1461,7 @@ const oldConv=r=>({...r,cat:'sredni',score:Math.round((r.score||0)/OLD_ROUNDS),r
 function loadHS(){try{let v=JSON.parse(localStorage.getItem(HS_KEY)||'[]');if(!Array.isArray(v))return[];return v.map(r=>r&&r.cat?r:oldConv(r))}catch(e){return[]}}
 function saveHS(l){const out=[];for(const c of HS_CATS)out.push(...l.filter(r=>r.cat===c).sort((a,b)=>b.score-a.score).slice(0,10));try{localStorage.setItem(HS_KEY,JSON.stringify(out))}catch(e){}}
 /* ---------- hi-scores: local + world (Firebase Firestore REST) ---------- */
-const FB={key:'AIzaSyD94iINKYZLF7OuuYs9yM8-s3vGHaLTjHw',base:'https://firestore.googleapis.com/v1/projects/pancerny-kanion/databases/(default)/documents'},HS_PEND='pancerny-kanion-wyslij',GAME_VER='0.49';
+const FB={key:'AIzaSyD94iINKYZLF7OuuYs9yM8-s3vGHaLTjHw',base:'https://firestore.googleapis.com/v1/projects/pancerny-kanion/databases/(default)/documents'},HS_PEND='pancerny-kanion-wyslij',GAME_VER='0.51';
 const worldHS={},worldErr={},worldBusy={},worldAt={};const hsMode={hsTitle:'world',hsFinal:'world'},hsNew={},hsCat={hsTitle:'sredni',hsFinal:'sredni'};
 const fbVal=v=>typeof v==='number'?{integerValue:String(Math.round(v))}:{stringValue:String(v??'')};
 function fbDoc(r){const f={};for(const k of['name','score','wins','dealt','kills','zombies','best','map','date','cid','v','rounds','mode'])f[k]=fbVal(r[k]);return{fields:f}}
@@ -1516,7 +1526,7 @@ const MODE_LBL={ffa:['KAŻDY NA KAŻDEGO','FREE FOR ALL'],'1v1':['1 NA 1','1 VS 
 function slotReq(i){return teamMode==='1v1'?i<2:teamMode!=='ffa'}
 function slotLocked(i){return teamMode==='1v1'&&i>=2}
 function applyMode(){config.forEach((c,i)=>{if(slotLocked(i))c.type='off';else if(slotReq(i)&&c.type==='off'){c.type='cpu';c.look=randomLook();if(/^(Gracz|Player)/.test(c.name))c.name=T('Komputer ','CPU ')+(i+1)}});renderSlots()}
-let rad=[],mush=[],planes=[],projectiles=[],pending=[],explosions=[],parts=[],texts=[],trail=[],fires=[],beams=[],crates=[];
+let blooms=[],julkaPause=false,julkaAns={},rad=[],mush=[],planes=[],projectiles=[],pending=[],explosions=[],parts=[],texts=[],trail=[],fires=[],beams=[],crates=[];
 let shake=0,flash=0,time=0,resolveT=0,aimDrag=false,turnsSinceDrop=0,firstTurn=true;
 let roundSec=0,clock=0,eventsOn=true,evPend=null,evAct=null,evNext=5,poolKind=null,nukeT=-1,nukeWinner=null,nukeMissile=null,roundElapsed=0,warned={},barrageQ=[],quakeT=0;
 let toastQ=[],toastBusy=0;
@@ -1539,9 +1549,10 @@ function startRound(){
   makePonds();makeOverhangs();makePlats();makeBodies();
   disp.set(h);poolKind=MAP.pool||(MAP.pond==='water'&&wv.some(v=>v>1)?'water':null);
   if(MAP.pool==='acid'){for(let i=0;i<6;i++){const x=rand(60,W-60);if(!tanks.some(t=>Math.abs(t.x-x)<90))fillBasin(x,rand(30,60),70,true)}}
-  tanks.forEach(t=>{t.st=statsOf(t.look);Object.assign(t,{hp:t.st.maxHp,alive:true,vy:0,vx:0,falling:false,jumping:false,jumpCd:0,fallFrom:0,power:55,wi:0,ai:null,shield:0,dbl:false,moving:null,burnAcc:0,recoil:0,hurt:0,lastHit:null,o2:100,o2warn:0,drownAcc:0,
+  tanks.forEach(t=>{t.st=statsOf(t.look);if(t.julka)t.st={...t.st,maxHp:Math.round(t.st.maxHp*1.35)};Object.assign(t,{hp:t.st.maxHp,alive:true,vy:0,vx:0,falling:false,jumping:false,jumpCd:0,fallFrom:0,power:55,wi:0,ai:null,shield:0,dbl:false,moving:null,burnAcc:0,recoil:0,hurt:0,lastHit:null,o2:100,o2warn:0,drownAcc:0,
       fx:{stab:0,heater:0,floats:0,dome:0,saw:0},frozen:false,stuck:false,wasWet:false});
     t.y=groundUnder(t.x,t.st.scale);t.tilt=tiltAt(t.x);t.angle=t.x<W/2?50:130;t.inv=t.inv||{};t.ammo={};WEAPONS.forEach(w=>t.ammo[w.id]=w.ammo===Infinity?Infinity:w.move?w.ammo:(BASIC[w.id]||0)+(t.inv[w.id]||0));t.rb={...BASIC};t.airX=clamp(t.x+(t.x<W/2?1:-1)*260,20,W-20);t.earn={dmg:0,kill:0,zomb:0,win:0,base:0}});
+  blooms=[];julkaAns={};julkaPause=false;tanks.forEach(t=>{t.kitty=0;t.flowery=0});if(round===1&&tanks.some(t=>t.julka))toast('🌸 JULKA MODE! 🌸');
   rad=[];mush=[];projectiles=[];pending=[];explosions=[];parts=[];texts=[];trail=[];fires=[];beams=[];crates=[];planes=[];zombies=[];waveNum=0;turnCount=0;skipWaves=0;
   turnsSinceDrop=0;firstTurn=true;wind=Math.round(rand(-.5,.5)*MAP.windMax);cur=starter%n;starter++;flashL=0;lightT=rand(6,12);
   phase='starting';buildCards();startIntro(L(MAP.name).toUpperCase()+(feats.length?' · '+L(feats[0]):''));
@@ -1550,6 +1561,7 @@ function startGame(){
   if(teamMode!=='ffa')applyMode();const TM=TEAMS[teamMode];
   tanks=config.map((c,i)=>[c,i]).filter(([c])=>c.type!=='off').map(([c,i])=>({name:(c.name.trim()||T('Gracz','Player')).slice(0,12),human:c.type==='human',look:lookOf(c),wins:0,cash:START_CASH,inv:{},earn:null,sg:{dealt:0,taken:0,kills:0,zombies:0,wins:0,best:null},...(TM?{team:TM[i]}:{})}));
   if(TM&&teamMode==='2v2')tanks=[tanks[0],tanks[2],tanks[1],tanks[3]];
+  tanks.forEach(t=>t.julka=!(NET&&NET.mode==='game')&&/^julka$/i.test(t.name));
   round=1;starter=0;toastQ=[];openShopPhase();
 }
 const aliveCount=()=>tanks.filter(t=>t.alive).length;
@@ -1705,8 +1717,30 @@ function fireLaser(t,w,mult){
 }
 const hitTank=(o,x,y)=>o.alive&&Math.abs(x-o.x)<=o.st.hw&&y>=o.y-o.st.hh&&y<=o.y+3;
 const groundHit=(x,y)=>{const ix=Math.round(x);return ix>=0&&ix<W&&(y>=h[ix]||(plats.length>0&&!!platHit(x,y))||(bodies.length>0&&!!bodyHit(x,y)))};
+function julkaReturn(p,sh,jt){
+  for(let i=0;i<60&&(groundHit(p.x,p.y)||Math.hypot(p.x-jt.x,p.y-jt.y+18)<40);i++)p.y-=3;p.y-=6;
+  const tx=sh&&sh.alive?sh.x:p.x-(p.vx||1)*.8,ty=sh&&sh.alive?sh.y-18*sh.st.scale:p.y,dx=tx-p.x,up=p.y-ty,ax=Math.max(8,Math.abs(dx));
+  const vmin=Math.sqrt(G*(up+Math.hypot(ax,up))),v=Math.max(vmin*1.3,120);
+  const disc=v**4-G*(G*ax*ax-2*up*v*v),th=Math.atan((v*v+Math.sqrt(Math.max(0,disc)))/(G*ax));
+  p.vx=Math.cos(th)*v*Math.sign(dx||1);p.vy=-Math.sin(th)*v;p.windMul=0;p.ret=true}
+function julkaBloom(x,r){if(blooms.length>40)blooms.shift();const n=Math.max(5,Math.round(r/7));for(let i=0;i<n;i++)blooms.push({x:clamp(x+(i/(n-1)-.5)*r*1.5+Math.sin(i*7.3)*6,4,W-4),c:i%4,s:.8+((i*37)%5)/10,ph:i*1.7})}
+const FLOWER_COL=['#ff7eb6','#ffd23f','#c58bff','#ffffff'];
+function drawFlower(c,x,y,s,ci,ph){const sw=Math.sin(time*2+ph)*1.5*s;c.save();c.translate(x,y);c.strokeStyle='#4f9a3a';c.lineWidth=2*s;c.beginPath();c.moveTo(0,0);c.quadraticCurveTo(sw*.5,-6*s,sw,-12*s);c.stroke();
+  c.fillStyle='#5fb04a';c.beginPath();c.ellipse(-3*s,-5*s,3*s,1.5*s,-.6,0,7);c.fill();c.translate(sw,-12*s);c.fillStyle=FLOWER_COL[ci%4];c.strokeStyle='rgba(15,17,18,.55)';c.lineWidth=1;
+  for(let i=0;i<5;i++){const a=i*Math.PI*.4+ph;c.beginPath();c.arc(Math.cos(a)*3.2*s,Math.sin(a)*3.2*s,2.6*s,0,7);c.fill();c.stroke()}c.fillStyle=ci===1?'#ff9a3a':'#ffd23f';c.beginPath();c.arc(0,0,2*s,0,7);c.fill();c.restore()}
+function drawKitty(c,t){const k=t.st.scale,run=t.kRun>0?1.4-t.kRun:0,x=t.x+14*k+(run?t.kDir*run*run*160:0),y=t.y-(t.st.hh-10)*k-(run?Math.abs(Math.sin(run*9))*14-run*10:0),sw=run?0:Math.sin(time*9),U2=k*1.3;c.save();c.globalAlpha=run?Math.max(0,1-run/1.4):1;c.translate(x,y);c.scale(U2*(run?(t.kDir>0?-1:1):1),U2);c.lineWidth=2;c.strokeStyle='#0f1112';
+  c.strokeStyle='#e08a3a';c.lineWidth=3;c.beginPath();c.moveTo(9,-2);c.quadraticCurveTo(20,-6+Math.sin(time*3)*3,16,-16);c.stroke();c.lineWidth=2;c.strokeStyle='#0f1112';
+  c.fillStyle='#f0a050';c.beginPath();c.ellipse(0,-6,11,7,0,0,7);c.fill();c.stroke();
+  c.beginPath();c.arc(-8,-15,7,0,7);c.fill();c.stroke();
+  c.beginPath();c.moveTo(-14,-18);c.lineTo(-13,-26);c.lineTo(-8,-21);c.closePath();c.fill();c.stroke();c.beginPath();c.moveTo(-6,-21);c.lineTo(-2,-26);c.lineTo(-1,-17);c.closePath();c.fill();c.stroke();
+  c.fillStyle='#ffb3d9';c.beginPath();c.moveTo(-12.5,-20);c.lineTo(-12.3,-24);c.lineTo(-10,-21.5);c.fill();
+  c.fillStyle='#0f1112';c.beginPath();c.arc(-10.5,-16,1.3,0,7);c.arc(-5.5,-16,1.3,0,7);c.fill();c.fillStyle='#ff7eb6';c.beginPath();c.arc(-8,-13.2,1.1,0,7);c.fill();
+  c.strokeStyle='#0f1112';c.lineWidth=1;c.beginPath();c.moveTo(-14,-13);c.lineTo(-19,-14);c.moveTo(-14,-12);c.lineTo(-19,-11);c.moveTo(-2,-13);c.lineTo(3,-14);c.moveTo(-2,-12);c.lineTo(3,-11);c.stroke();
+  c.save();c.translate(-6,-4);c.rotate(.6+sw*.7);c.fillStyle='#f0a050';c.lineWidth=2;c.beginPath();c.ellipse(0,6,2.6,6,0,0,7);c.fill();c.stroke();c.strokeStyle='#fff';c.lineWidth=1;for(let i=-1;i<=1;i++){c.beginPath();c.moveTo(i*1.4,11);c.lineTo(i*1.8,14);c.stroke()}c.restore();
+  if(sw>.6){c.strokeStyle='rgba(255,240,240,.9)';c.lineWidth=1.6;for(let i=0;i<3;i++){c.beginPath();c.moveTo(-16+i*4,4);c.lineTo(-11+i*4,12);c.stroke()}}
+  c.restore()}
 function explode(x,y,w,mult=1,rMul=1,owner=null){
-  const r=Math.round(w.r*rMul);
+  const r=Math.round(w.r*rMul);if(owner&&owner.julka&&w.dmg>0)mult*=1.15;
   if(w.dirt)addDirt(x,y,r);else{carve(x,y,r);if(bodies.length)hitBodies(x,y,r)}
   explosions.push({x,y,r,t:0,dur:.42+r*.0025,dirt:!!w.dirt,rot:rand(0,6)});
   shake=Math.max(shake,Math.min(18,r*.16));if(w.nuke){flash=1;mush.push({x,y:Math.min(H-4,groundAtX(x)),k:r/60,t:0,dur:4.2});const n=3*Math.max(2,tanks.filter(t=>t.alive).length);rad.push({x,r:Math.round(r*1.15),left:n,max:n});toast(T('SKAŻENIE RADIOAKTYWNE!','RADIOACTIVE FALLOUT!'))}
@@ -1715,8 +1749,8 @@ function explode(x,y,w,mult=1,rMul=1,owner=null){
   const nS=w.nuke?28:Math.min(14,4+r/8);
   for(let i=0;i<nS;i++){parts.push({k:'smoke',x:x+rand(-r*.5,r*.5),y:y+rand(-r*.4,r*.2),vx:rand(-20,20)+wind*3,vy:rand(-50,-15)-(w.nuke?60:0),r:rand(r*.18,r*.32),gr:r*.3,life:rand(.9,1.6)+(w.nuke?1.2:0),max:1.6+(w.nuke?1.2:0),col:w.dirt?'#8a6a48':'#3b3936'})}
   sfxBoom(r,w.dirt);
-  if(w.dmg>0){for(const t of tanks){if(!t.alive)continue;const d=Math.hypot(t.x-x,(t.y-18*t.st.scale)-y);
-      if(d<r+24){const dm=Math.round(w.dmg*DMG*mult*(1-Math.pow(Math.max(0,d-8)/(r+24),w.soft||1)));if(dm>0)hurt(t,dm,undefined,false,owner)}}
+  if(w.dmg>0){for(const t of tanks){if(!t.alive||(t.julka&&owner===t))continue;const d=Math.hypot(t.x-x,(t.y-18*t.st.scale)-y);
+      if(d<r+24){const dm=Math.round(w.dmg*DMG*mult*(1-Math.pow(Math.max(0,d-8)/(r+24),w.soft||1)));if(dm>0){hurt(t,dm,undefined,false,owner);if(owner&&owner.julka&&foe(owner,t)&&t.alive){t.flowery=1;if(!(t.kitty>0))texts.push({x:t.x,y:t.y-130,s:'MIAU!',t:0,col:'#ffb3d9'});t.kitty=60;t.kScr=4;t.kRun=0;t.kittySrc=owner;julkaBloom(x,r)}}}}
     for(const z of zombies)if(!z.dead&&Math.hypot(z.x-x,z.y-16-y)<r+16)killZombie(z,null,owner)}
 }
 
@@ -1760,11 +1794,25 @@ function aiUpdate(t,dt){const ai=t.ai;if(!ai)return;if(ai.think>0){ai.think-=dt;
 /* ---------- update ---------- */
 let acc=0;
 function killTank(t){if(t.lastHit&&foe(t.lastHit,t)&&t.lastHit.sg){t.lastHit.sg.kills++;if(t.lastHit.earn){t.lastHit.cash+=75;t.lastHit.earn.kill+=75}}t.alive=false;t.hp=0;explode(t.x,t.y-15,{r:44,dmg:26});texts.push({x:t.x,y:t.y-90,s:'BUM!',t:0,col:'#f0b92b'})}
-function physicsStep(){
+function julkaTick(dt){if(phase==='menu')return;for(const t of tanks){
+  if(t.kRun>0){t.kRun-=dt;continue}
+  if(!(t.kitty>0))continue;if(!t.alive){t.kitty=0;continue}
+  t.kitty-=dt;t.kScr-=dt;if(t.kScr<=0){t.kScr=8;hurt(t,3,'#ffb3d9',false,t.kittySrc&&t.kittySrc.alive?t.kittySrc:null);texts.push({x:t.x,y:t.y-118,s:'DRAP DRAP!',t:0,col:'#ffb3d9',sm:1})}
+  if(t.kitty<=0){t.kitty=0;t.kRun=1.4;t.kDir=Math.sign(t.x-W/2)||1;texts.push({x:t.x,y:t.y-118,s:'PA PA!',t:0,col:'#ffb3d9',sm:1})}}}
+function physicsStep(){julkaTick(DT);
   for(let i=planes.length-1;i>=0;i--){const pl=planes[i];pl.x+=pl.vx*DT;pl.t+=DT;
     while(pl.drops.length&&(pl.vx>0?pl.x>=pl.drops[0]:pl.x<=pl.drops[0])){const dx=pl.drops.shift();projectiles.push({x:dx,y:pl.y+14,vx:pl.vx*.06,vy:40,w:AIRB,owner:pl.owner,age:1,tr:false,sm:0,mult:pl.mult,gen:0,windMul:.3,rMul:1});tone(1500,420,.8,'sine',.035)}
     if(!pl.drops.length&&(pl.x<-220||pl.x>W+220))planes.splice(i,1)}
   for(let i=projectiles.length-1;i>=0;i--){const p=projectiles[i];
+    if(p.rev){p.age+=DT;p.revI+=2;const n=p.rev.length/2|0;
+      if(p.revI>=n-1){const sh=p.shooter,ex=p.rev[(n-1)*2],ey=p.rev[(n-1)*2+1];
+        if(sh&&sh.alive&&Math.hypot(sh.x-ex,sh.y-18*sh.st.scale-ey)>70){p.rev=null;p.home=sh;continue}
+        projectiles.splice(i,1);explode(sh&&sh.alive?sh.x:ex,sh&&sh.alive?sh.y-14*sh.st.scale:ey,p.w,p.mult,p.rMul,p.owner);continue}
+      const nx=p.rev[p.revI*2],ny=p.rev[p.revI*2+1];p.vx=(nx-p.x)/(DT*2);p.vy=(ny-p.y)/(DT*2);p.x=nx;p.y=ny;continue}
+    if(p.home){const sh=p.home,tx=sh.x,ty=sh.y-16*sh.st.scale,dx=tx-p.x,dy=ty-p.y,d=Math.hypot(dx,dy);p.age+=DT;
+      if(d<14||!sh.alive){projectiles.splice(i,1);explode(sh.alive?tx:p.x,sh.alive?ty:p.y,p.w,p.mult,p.rMul,p.owner);continue}
+      const v=Math.min(d,560*DT);p.vx=dx/d*560;p.vy=dy/d*560;p.x+=dx/d*v;p.y+=dy/d*v;if(Math.random()<.5)parts.push({k:'spark',x:p.x,y:p.y,vx:rand(-30,30),vy:rand(-30,30),life:.35});continue}
+    if(!p.drilling){if(!p.hist)p.hist=[];p.hist.push(p.x,p.y);if(p.hist.length>6000)p.hist.splice(0,2)}
     if(p.drilling){p.age+=DT;p.dt+=DT;p.x+=p.dx*100*DT;p.y+=p.dy*100*DT;p.dy=Math.min(1,p.dy+DT*.4);
       p.path.push(p.x,p.y);if(p.path.length>400)p.path.splice(0,2);
       if(Math.random()<DT*16){const cx=clamp(Math.round(p.x),0,W-1);parts.push({k:'chunk',x:p.x+rand(-4,4),y:disp[cx]-2,vx:rand(-70,70),vy:rand(-170,-60),r:rand(2,3.5),col:MAP.dirt,life:.7})}
@@ -1793,6 +1841,11 @@ function physicsStep(){
     if(!hitG)for(const o of tanks)if((o!==p.owner||p.age>.25)&&hitTank(o,sx,p.y)){hitT=o;break}
     if(!hitG&&!hitT)for(const z of zombies)if(!z.dead&&z.rise>=1&&Math.abs(z.x-sx)<10&&p.y>z.y-36&&p.y<z.y){hitT=z;break}
     if(!hitG&&!hitT)continue;
+    {const jt=hitT&&hitT.julka?hitT:hitG?tanks.find(o=>o.julka&&o.alive&&Math.hypot(o.x-sx,o.y-18*o.st.scale-p.y)<(p.w.r||0)*(p.rMul||1)+12):null;
+     if(jt&&jt.alive&&(p.w.dmg>0||p.w.nuke||p.w.cryo)&&p.owner&&foe(p.owner,jt)&&!p.jOK){const a=julkaAns[turnCount];
+       if(a==='no'){const sh=p.owner;p.owner=jt;p.age=0;p.jOK=true;p.drilling=false;p.dt=0;p.shooter=sh;
+         if(p.hist&&p.hist.length>8){const r=[];for(let q=p.hist.length-2;q>=0;q-=2)r.push(p.hist[q],p.hist[q+1]);p.rev=r;p.revI=0;p.hist=null}else p.home=sh;texts.push({x:jt.x,y:jt.y-120,s:'NIE!',t:0,col:'#ff7eb6'});for(let q=0;q<12;q++)parts.push({k:'spark',x:p.x,y:p.y,vx:rand(-120,120),vy:rand(-140,60),life:rand(.3,.6)});continue}
+       if(a==='yes')p.jOK=true;else{julkaPause=true;$('julkaAsk').hidden=false;sfxClick();return}}}
     if(p.w.drill&&hitG&&!hitT&&!(plats.length&&platHit(sx,p.y))&&!(bodies.length&&bodyHit(sx,p.y))){
       const l=Math.hypot(p.vx,p.vy)||1;let dx=p.vx/l,dy=Math.max(.45,p.vy/l);const n=Math.hypot(dx,dy);p.dx=dx/n;p.dy=dy/n;p.drilling=true;p.x=sx;p.path=[sx,p.y];
       if(!p.dt){p.dt=0;carve(sx,p.y,7,true);sfxDrill();texts.push({x:sx,y:p.y-30,s:'WIERCI…',t:0,col:'#cfc6b0',sm:1})}continue}
@@ -1829,7 +1882,8 @@ function update(dt){
   if(quakeT>0){quakeT-=dt;shake=Math.max(shake,9)}
   if(phase==='aim'){const t=tanks[cur];if(t.remote)turnT-=dt;else if(!t.human)aiUpdate(t,dt);else{turnT-=dt;if(turnT<=0){if(NET&&NET.mode==='game'){if(NET.sent!==netKey())netSendMove({k:'to'})}else{toast('CZAS MINĄŁ!');phase='resolve';resolveT=0;$('picker').hidden=true}}}}
   for(let i=pending.length-1;i>=0;i--){pending[i].delay-=dt;if(pending[i].delay<=0){launch(pending[i]);pending.splice(i,1)}}
-  acc+=dt;while(acc>=DT){if(shotRng){const o=Math.random;Math.random=shotRng;try{physicsStep()}finally{Math.random=o}}else physicsStep();acc-=DT}
+  if(julkaPause)acc=0;
+  acc+=dt;while(acc>=DT&&!julkaPause){if(shotRng){const o=Math.random;Math.random=shotRng;try{physicsStep()}finally{Math.random=o}}else physicsStep();acc-=DT}
   for(let x=0;x<W;x++){const d=h[x]-disp[x];if(d)disp[x]+=d>0?Math.min(d,500*dt):Math.max(d,-260*dt);}
   if(poolKind)waterSim(dt);
   for(const f of fires){const ix=clamp(Math.round(f.x),3,W-4),sl=clamp(h[ix+3]-h[ix-3],-14,14);f.vx+=sl*16*dt;f.vx*=Math.pow(.25,dt);f.x=clamp(f.x+f.vx*dt,0,W-1);f.life-=dt;
@@ -1866,6 +1920,8 @@ function update(dt){
     if(!c.landed){c.vy=c.chuteGone?c.vy+G*dt:Math.min(60,c.vy+G*dt);c.y+=c.vy*dt;c.x+=(c.chuteGone?0:wind*3)*dt;c.x=clamp(c.x,20,W-20);
       if(c.y>=gy){c.y=gy;c.landed=true;c.chuteGone=true;c.vy=0}}
     else{if(c.y<gy-1){c.landed=false;c.chuteGone=true}else c.y=gy}
+    for(const j of tanks)if(j.julka&&j.alive&&Math.abs(c.x-j.x)<300*U){c.x+=Math.sign(j.x-c.x)*Math.min(Math.abs(j.x-c.x),110*dt);if(c.landed)c.y=plats.length?surfaceAt(c.x,c.y):h[clamp(Math.round(c.x),0,W-1)];if(Math.abs(c.x-j.x)<j.st.hw+4&&c.y>j.y-j.st.hh-40){collect(c,j);break}}
+    if(!crates.includes(c))continue;
     for(const t of tanks)if(t.alive&&Math.abs(t.x-c.x)<t.st.hw+4&&Math.abs(t.y-c.y)<t.st.hh){collect(c,t);break}}
   if(bodies.length)updateBodies(dt);
   for(const b of beams)b.t+=dt;beams=beams.filter(b=>b.t<b.dur);
@@ -2023,6 +2079,8 @@ function render(){
     const k=t.st.scale,rk=t.recoil*3,ra=t.angle*Math.PI/180,laser=i===cur&&curW(t).laser&&phase==='aim';
     const look=t.hurt>0&&((time*20)|0)%2?{...t.look,color:'#ffffff'}:t.look;
     drawTank(ctx,t.x-Math.cos(ra)*rk,t.y,t.tilt,t.angle,look,k,{laser,frozen:t.frozen&&i===cur&&phase==='aim',saw:t.fx.saw>0,floats:t.fx.floats>0});
+    if(t.flowery){for(let q=0;q<4;q++)drawFlower(ctx,t.x+(q-1.5)*12*k,t.y-(t.st.hh-14)*k,.7*k,q,q*2)}
+    if(t.kitty>0||t.kRun>0)drawKitty(ctx,t);
     if(t.mirror){ctx.save();ctx.translate(t.x,t.y-20*k);ctx.rotate(time*.8);ctx.globalAlpha=.55+.2*Math.sin(time*5);ctx.lineWidth=3;ctx.strokeStyle='#e9f6ff';ctx.fillStyle='rgba(191,230,239,.16)';ctx.beginPath();for(let q=0;q<6;q++){const a=q*Math.PI/3;ctx.lineTo(Math.cos(a)*54*k,Math.sin(a)*46*k)}ctx.closePath();ctx.fill();ctx.stroke();ctx.globalAlpha=.9;ctx.strokeStyle='#ffffff';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-30*k,-34*k);ctx.lineTo(-16*k,-38*k);ctx.stroke();ctx.restore()}
     if(t.fx.heater>0){ctx.save();ctx.globalAlpha=.25+.1*Math.sin(time*6);ctx.fillStyle='#ff7a3a';ctx.beginPath();ctx.ellipse(t.x,t.y-14*k,40*k,20*k,0,0,7);ctx.fill();ctx.restore()}
     if(t.fx.dome>0){ctx.save();ctx.globalAlpha=.22;ctx.fillStyle='#9ee22f';ctx.beginPath();ctx.ellipse(t.x,t.y,58*k,62*k,0,Math.PI,0);ctx.fill();ctx.globalAlpha=.85;ctx.lineWidth=3;ctx.strokeStyle='#9ee22f';ctx.stroke();ctx.restore()}
@@ -2055,6 +2113,8 @@ function render(){
       ctx.setLineDash([]);ctx.fillStyle=powCol(pf);ctx.strokeStyle=INK;ctx.lineWidth=1.5;
       for(let i=0;i<110;i++){vx+=wa/60;vy+=G/60;x+=vx/60;y+=vy/60;if(groundHit(x,y))break;if(i%5===0&&i>3){ctx.beginPath();ctx.arc(x,y,3.5,0,7);ctx.fill();ctx.stroke()}}}}
   drawPools(ctx);
+  for(const b of blooms){const X=clamp(Math.round(b.x),0,W-1);drawFlower(ctx,b.x,disp[X]+1,b.s*U*1.1,b.c,b.ph)}
+  for(const j of tanks)if(j.julka&&j.alive){for(let i=0;i<14;i++){const fx=j.x+(i-6.5)*9*j.st.scale+Math.sin(i*5.1)*3;if(Math.abs(fx-j.x)<j.st.hw*.6)continue;const X=clamp(Math.round(fx),0,W-1);drawFlower(ctx,fx,disp[X]+1,(.9+((i*13)%4)/10)*U,i%4,i)}}
   for(const z of rad)drawRad(ctx,z);
   for(const f of fires)drawFire(ctx,f);
   for(const p of parts)if(p.k==='smoke'){ctx.globalAlpha=Math.max(0,p.life/p.max)*.8;ctx.fillStyle=p.col;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,7);ctx.fill()}
@@ -2612,6 +2672,7 @@ function syncSnd(){syncSndIco();$('muteBtn').textContent=muted?'DŹWIĘK: NIE':'
 function drawMusSeg(){const el=$('musSeg');el.innerHTML='<span class="t">MUZYKA:</span>';[[true,'WŁĄCZONA'],[false,'WYŁĄCZONA']].forEach(([v,l])=>{const b=document.createElement('button');b.className='pill '+(musOn===v?'on':'ghost');b.textContent=l;b.onclick=()=>{musOn=v;saveSnd();syncSnd()};el.appendChild(b)})}
 function drawSndSeg(){drawMusSeg();const el=$('sndSeg');el.innerHTML='<span class="t">DŹWIĘK:</span>';[[false,'WŁĄCZONY'],[true,'WYŁĄCZONY']].forEach(([v,l])=>{const b=document.createElement('button');b.className='pill '+(muted===v?'on':'ghost');b.textContent=l;b.onclick=()=>{muted=v;saveSnd();syncSnd()};el.appendChild(b)})}
 $('muteBtn').onclick=()=>{muted=!muted;saveSnd();syncSnd()};
+for(const [id,a] of [['jYes','yes'],['jNo','no']])$(id).onclick=e=>{e.stopPropagation();julkaAns[turnCount]=a;julkaPause=false;$('julkaAsk').hidden=true;sfxClick()};
 for(const id of['sndHud','sndTop'])$(id).onclick=e=>{e.stopPropagation();muted=!muted;saveSnd();audio();syncSnd();if(!muted)sfxClick()};
 $('vol').addEventListener('input',e=>{vol=clamp(+e.target.value/100,0,1);saveSnd();syncSnd()});
 $('sndTest').onclick=()=>{audio();sfxBoom(40,false)};
