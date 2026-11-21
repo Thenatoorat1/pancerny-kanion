@@ -623,6 +623,17 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--hazard);outline
   #title .tn-opts .pill{min-width:0}
   .coach{bottom:6px;max-width:min(520px,calc(100% - 320px));padding:6px 8px;gap:8px}.coach-ico{display:none}.coach-t{font-size:12.5px}.coach .pill{font-size:11px;padding:6px 8px 4px}
 }
+.hsmodal{position:fixed;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;background:rgba(4,5,12,.74);padding:max(14px,env(safe-area-inset-top,0px)) max(14px,env(safe-area-inset-right,0px)) max(14px,env(safe-area-inset-bottom,0px)) max(14px,env(safe-area-inset-left,0px));animation:hsmIn .18s ease-out}
+.hsmodal[hidden]{display:none!important}
+.hsm-box{position:relative;width:min(780px,100%);max-height:100%;overflow:auto;padding:16px 18px 18px;box-sizing:border-box;-webkit-overflow-scrolling:touch}
+.hsm-head{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:10px;position:relative;padding:0 54px}
+.hsm-head .sign{font-size:clamp(20px,3vw,30px)}
+.hsm-x{position:absolute;right:0;top:50%;transform:translateY(-50%);min-width:44px;min-height:44px;padding:0;font-size:18px}
+.hsm-sec{margin:0!important;max-width:none!important}
+.hsbtn{display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.cup{width:18px;height:16px;flex:none;background:#f0b92b;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 22'%3E%3Cpath d='M6 1h12v3h4v3a5 5 0 0 1-5 5h-.4A6 6 0 0 1 13 15.7V18h4v3H7v-3h4v-2.3A6 6 0 0 1 7.4 12H7a5 5 0 0 1-5-5V4h4zm-2 5v1a3 3 0 0 0 2 2.8V6zm16 0h-2v3.8A3 3 0 0 0 20 7z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 22'%3E%3Cpath d='M6 1h12v3h4v3a5 5 0 0 1-5 5h-.4A6 6 0 0 1 13 15.7V18h4v3H7v-3h4v-2.3A6 6 0 0 1 7.4 12H7a5 5 0 0 1-5-5V4h4zm-2 5v1a3 3 0 0 0 2 2.8V6zm16 0h-2v3.8A3 3 0 0 0 20 7z'/%3E%3C/svg%3E") center/contain no-repeat}
+@keyframes hsmIn{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.hsmodal{animation:none}}
 /* fill the whole window / CrazyGames iframe: the page itself never scrolls */
 html,body{height:100%}
 body{padding:0!important;overflow:hidden}
@@ -661,8 +672,8 @@ body{padding:0!important;overflow:hidden}
       <div class="hero"><div class="sign ol big">PANCERNY KANION</div><canvas id="titleArt" width="1440" height="630" aria-hidden="true"></canvas><div class="subsign">INWAZJA Z KSIĘŻYCA</div></div>
       <p class="tagline">Obcy zajęli Księżyc i lądują na Ziemi. Poprowadź ostatni oddział pancerny od pustkowi aż do gniazda Królowej Roju.</p>
       <div class="epiban plate" id="epiBan" hidden><span class="epi-i" aria-hidden="true">⚠</span><p>Ostrzeżenie o fotowrażliwości: gra zawiera błyski, wybuchy i drgania ekranu, które u osób z padaczką fotogenną mogą wywołać napad. Efekty możesz ograniczyć w każdej chwili w menu Obraz.</p><div class="epi-b"><button class="pill ghost" id="epiMore">WIĘCEJ</button><button class="pill ghost" id="epiLess">OGRANICZ EFEKTY</button><button class="pill on" id="epiOk">ROZUMIEM</button></div></div>
-      <div class="titlenav"><div class="tn-opts"><button class="pill ghost" id="optBtn">MENU I USTAWIENIA</button><button class="pill ghost" id="helpBtn2">JAK GRAĆ</button></div><div class="tn-main"><button class="bigbtn camp" id="campBtn"><span class="ol s">KAMPANIA</span></button><div class="campbadge" id="campBadge" data-nt></div></div><div class="tn-opts"><button class="bigbtn alt" id="playBtn"><span class="ol s">SZYBKA BITWA</span></button><button class="bigbtn alt" id="customBtn"><span class="ol s">WŁASNA GRA</span></button></div></div>
-      <div class="sec narrow"><h3>REKORDY</h3><div class="hsbar"><div class="hshead"><p class="note hsnote">Twoje rekordy z tego urządzenia. Wynik to średnia punktów na rundę, osobno dla każdego poziomu komputera i dla gry bez komputera.</p></div><div class="hstabs cats" data-for="hsTitle" role="tablist"><button class="tab" data-cat="latwy" role="tab">ŁATWY</button><button class="tab on" data-cat="sredni" role="tab">ŚREDNI</button><button class="tab" data-cat="trudny" role="tab">TRUDNY</button><button class="tab" data-cat="gracze" role="tab">GRACZE</button></div></div><div class="hs plate" id="hsTitle"></div></div>
+      <div class="titlenav"><div class="tn-opts"><button class="pill ghost" id="optBtn">MENU I USTAWIENIA</button><button class="pill ghost" id="helpBtn2">JAK GRAĆ</button><button class="pill ghost hsbtn" id="hsBtn"><span class="cup" aria-hidden="true"></span>NAJLEPSZE WYNIKI</button></div><div class="tn-main"><button class="bigbtn camp" id="campBtn"><span class="ol s">KAMPANIA</span></button><div class="campbadge" id="campBadge" data-nt></div></div><div class="tn-opts"><button class="bigbtn alt" id="playBtn"><span class="ol s">SZYBKA BITWA</span></button><button class="bigbtn alt" id="customBtn"><span class="ol s">WŁASNA GRA</span></button></div></div>
+      <div class="hsmodal" id="hsModal" hidden role="dialog" aria-modal="true" aria-labelledby="hsmT"><div class="hsm-box plate"><div class="hsm-head"><div class="sign ol" id="hsmT">NAJLEPSZE WYNIKI</div><button class="pill on hsm-x" id="hsClose" aria-label="Zamknij">✕</button></div><div class="sec narrow hsm-sec"><div class="hsbar"><div class="hshead"><p class="note hsnote">Twoje rekordy z tego urządzenia. Wynik to średnia punktów na rundę, osobno dla każdego poziomu komputera.</p></div><div class="hstabs cats" data-for="hsTitle" role="tablist"><button class="tab" data-cat="latwy" role="tab">ŁATWY</button><button class="tab on" data-cat="sredni" role="tab">ŚREDNI</button><button class="tab" data-cat="trudny" role="tab">TRUDNY</button></div></div><div class="hs plate" id="hsTitle"></div></div></div></div>
     </div>
 
     <div class="ov" id="setup" hidden>
@@ -698,7 +709,7 @@ body{padding:0!important;overflow:hidden}
       <div class="ol" id="finTitle" data-nt style="font-size:clamp(20px,3.6vw,36px);text-align:center">OCALAŁ</div>
       <div class="sec"><h3>STATYSTYKI</h3><div class="tblwrap plate"><table class="sumtbl" id="finTable"></table></div>
         <p class="note">Punkty: 500 za wygraną rundę, 1 za każdy punkt zadanych obrażeń, 100 za zniszczony czołg i 25 za ufoludka.</p></div>
-      <div class="sec narrow"><h3>REKORDY</h3><div class="hsbar"><div class="hshead"><p class="note hsnote">Twoje rekordy z tego urządzenia. Wynik to średnia punktów na rundę, osobno dla każdego poziomu komputera i dla gry bez komputera.</p></div><div class="hstabs cats" data-for="hsFinal" role="tablist"><button class="tab" data-cat="latwy" role="tab">ŁATWY</button><button class="tab on" data-cat="sredni" role="tab">ŚREDNI</button><button class="tab" data-cat="trudny" role="tab">TRUDNY</button><button class="tab" data-cat="gracze" role="tab">GRACZE</button></div></div><div class="hs plate" id="hsFinal"></div></div>
+      <div class="sec narrow"><h3>REKORDY</h3><div class="hsbar"><div class="hshead"><p class="note hsnote">Twoje rekordy z tego urządzenia. Wynik to średnia punktów na rundę, osobno dla każdego poziomu komputera.</p></div><div class="hstabs cats" data-for="hsFinal" role="tablist"><button class="tab" data-cat="latwy" role="tab">ŁATWY</button><button class="tab on" data-cat="sredni" role="tab">ŚREDNI</button><button class="tab" data-cat="trudny" role="tab">TRUDNY</button></div></div><div class="hs plate" id="hsFinal"></div></div>
       <div class="navrow"><button class="pill ghost" id="toTitle">MENU GŁÓWNE</button><button class="bigbtn" id="again"><span class="ol s">ZAGRAJ PONOWNIE</span></button></div>
     </div>
 
@@ -909,7 +920,7 @@ const EN={
 'SPRAWDŹ DŹWIĘK':'TEST SOUND','Pomysł, projekt gry, kierunek artystyczny i testy':'Idea, game design, art direction and testing',
 'Kod, grafika i dźwięki (Claude, AI od Anthropic)':'Code, graphics and sound (Claude, an AI by Anthropic)',
 'Inspiracje: Scorched Tanks z Amigi, Hills of Steel, Into the Dead: Our Darkest Days, Fallout i ARC Raiders.':'Inspired by: Scorched Tanks on the Amiga, Hills of Steel, Into the Dead: Our Darkest Days, Fallout and ARC Raiders.',
-'ZAMKNIJ':'CLOSE','Julka się zastanawia…':'Julka is thinking…','PA PA!':'BYE BYE!','Czy zgadzasz się z tym?':'Do you agree with this?','TAK':'YES','NIE':'NO','NIE!':'NO!','MIAU!':'MEOW!','DRAP DRAP!':'SCRATCH!','LEKKIE':'LIGHT','CIĘŻKIE':'HEAVY','SPECJALNE':'SPECIAL','Wstecz':'Back','WOLNE':'EMPTY','PROMIENIOWANIE':'RADIATION','Dźwięk':'Sound','Tryby: 1 na 1 to pojedynek dwóch czołgów. W trybach 2 na 2 i 1 na 3 drużyny stają po przeciwnych stronach mapy, rundę wygrywa drużyna, która przetrwa, a za trafienie kolegi z drużyny nie ma kapsli ani punktów. Przy ataku atomowym liczy się suma życia drużyny.':'Modes: 1 vs 1 is a duel of two tanks. In 2 vs 2 and 1 vs 3 the teams start on opposite sides of the map, the team that survives wins the round, and hitting a teammate earns no caps or points. In a nuke strike the team’s total health counts.','ŁATWY':'EASY','ŚREDNI':'NORMAL','TRUDNY':'HARD','GRACZE':'PLAYERS','Twoje rekordy z tego urządzenia. Wynik to średnia punktów na rundę, osobno dla każdego poziomu komputera i dla gry bez komputera.':'Score is the average points per round. Separate lists for each CPU level and for games without the CPU.','TRYB:':'MODE:','KAŻDY NA KAŻDEGO':'FREE FOR ALL','1 NA 1':'1 VS 1','2 NA 2':'2 VS 2','1 NA 3':'1 VS 3','Sęp':'Vulture','Kriobomba':'Cryo bomb','Zarażony pocisk':'Infected shell','Teleporter':'Teleporter','Lustro':'Mirror','LUSTRO WŁĄCZONE':'MIRROR ON','ODBICIE':'REFLECTED','ZAMROŻONY':'FROZEN','TELEPORT':'TELEPORT','GRAJ ONLINE':'PLAY ONLINE','GRA ONLINE':'ONLINE GAME','TWOJA NAZWA':'YOUR NAME','NOWY POJEDYNEK':'NEW DUEL','ZAŁÓŻ POKÓJ':'CREATE ROOM','DOŁĄCZ DO POKOJU':'JOIN A ROOM','DOŁĄCZ':'JOIN','KOD':'CODE','Kod pokoju':'Room code',
+'ZAMKNIJ':'CLOSE','NAJLEPSZE WYNIKI':'BEST SCORES','Julka się zastanawia…':'Julka is thinking…','PA PA!':'BYE BYE!','Czy zgadzasz się z tym?':'Do you agree with this?','TAK':'YES','NIE':'NO','NIE!':'NO!','MIAU!':'MEOW!','DRAP DRAP!':'SCRATCH!','LEKKIE':'LIGHT','CIĘŻKIE':'HEAVY','SPECJALNE':'SPECIAL','Wstecz':'Back','WOLNE':'EMPTY','PROMIENIOWANIE':'RADIATION','Dźwięk':'Sound','Tryby: 1 na 1 to pojedynek dwóch czołgów. W trybach 2 na 2 i 1 na 3 drużyny stają po przeciwnych stronach mapy, rundę wygrywa drużyna, która przetrwa, a za trafienie kolegi z drużyny nie ma kapsli ani punktów. Przy ataku atomowym liczy się suma życia drużyny.':'Modes: 1 vs 1 is a duel of two tanks. In 2 vs 2 and 1 vs 3 the teams start on opposite sides of the map, the team that survives wins the round, and hitting a teammate earns no caps or points. In a nuke strike the team’s total health counts.','ŁATWY':'EASY','ŚREDNI':'NORMAL','TRUDNY':'HARD','GRACZE':'PLAYERS','TRYB:':'MODE:','KAŻDY NA KAŻDEGO':'FREE FOR ALL','1 NA 1':'1 VS 1','2 NA 2':'2 VS 2','1 NA 3':'1 VS 3','Sęp':'Vulture','Kriobomba':'Cryo bomb','Zarażony pocisk':'Infected shell','Teleporter':'Teleporter','Lustro':'Mirror','LUSTRO WŁĄCZONE':'MIRROR ON','ODBICIE':'REFLECTED','ZAMROŻONY':'FROZEN','TELEPORT':'TELEPORT','GRAJ ONLINE':'PLAY ONLINE','GRA ONLINE':'ONLINE GAME','TWOJA NAZWA':'YOUR NAME','NOWY POJEDYNEK':'NEW DUEL','ZAŁÓŻ POKÓJ':'CREATE ROOM','DOŁĄCZ DO POKOJU':'JOIN A ROOM','DOŁĄCZ':'JOIN','KOD':'CODE','Kod pokoju':'Room code',
 'KOD POKOJU':'ROOM CODE','KOPIUJ':'COPY','MÓJ CZOŁG':'MY TANK','OPUŚĆ GRĘ':'LEAVE GAME','Start':'Start',
 'Załóż pokój i podaj kod drugiemu graczowi. Gra 1 na 1, każdy na swoim telefonie lub komputerze.':'Create a room and give the code to the other player. A 1-on-1 duel, each on their own phone or computer.',
 'Drugi gracz wybiera „GRAJ ONLINE” → „DOŁĄCZ” i wpisuje ten kod. Gospodarz ustala zasady, a każdy wybiera swój czołg.':'The other player picks “PLAY ONLINE” → “JOIN” and types this code. The host sets the rules and everyone picks their own tank.',
@@ -921,7 +932,7 @@ const EN={
 'Nocne ruiny we mgle. Co 3 kolejki przylatuje spodek i promieniem spuszcza ufoludki. Spodek można zestrzelić!':'Ruins at night, shrouded in fog. Every 3 rounds of turns a saucer arrives and beams aliens down. You can shoot the saucer down!',
 'WŁASNA GRA':'CUSTOM GAME',
 'Artyleria na pustkowiach i na Księżycu. Przetrwaj ostrzał, pogodę, inwazję UFO i atom.':'Artillery in the wasteland and on the Moon. Survive the shelling, the weather, the UFO invasion and the nuke.',
-'Twoje rekordy z tego urządzenia. Wynik to średnia punktów na rundę, osobno dla każdego poziomu komputera i dla gry bez komputera.':'Your records from this device. Score is the average points per round, kept separately for each CPU level and for games without the CPU.',
+'Twoje rekordy z tego urządzenia. Wynik to średnia punktów na rundę, osobno dla każdego poziomu komputera.':'Your records from this device. Score is the average points per round, kept separately for each CPU level.',
 'Kapsuła obcych':'Alien capsule','Zagłuszacz UFO':'UFO jammer','INWAZJA UFO':'UFO INVASION','DESZCZ METEORYTÓW':'METEOR SHOWER','INWAZJA ODWOŁANA':'INVASION CANCELLED',
 'NISKA GRAWITACJA':'LOW GRAVITY','BRAK WIATRU':'NO WIND','PRÓŻNIA':'VACUUM','UFO ZESTRZELONE':'UFO DOWN',
 'Inspiracja: klasyczne gry artyleryjskie z czasów Amigi.':'Inspired by classic artillery games from the Amiga era.',
@@ -1861,7 +1872,7 @@ function updateNuke(dt){nukeT+=dt;
 function score(t){return t.sg.wins*500+Math.round(t.sg.dealt)+t.sg.kills*100+t.sg.zombies*25}
 const fmtT=s=>s==null?'—':Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
 const HS_KEY='pancerny-kanion-rekordy';
-const HS_CATS=['latwy','sredni','trudny','gracze'],HS_COL={latwy:'scores_latwy',sredni:'scores_sredni',trudny:'scores_trudny',gracze:'scores_gracze'},HS_CAT_LBL={latwy:['ŁATWY','EASY'],sredni:['ŚREDNI','NORMAL'],trudny:['TRUDNY','HARD'],gracze:['GRACZE','PLAYERS']},OLD_ROUNDS=5;
+const HS_CATS=['latwy','sredni','trudny'],HS_COL={latwy:'scores_latwy',sredni:'scores_sredni',trudny:'scores_trudny',gracze:'scores_gracze'},HS_CAT_LBL={latwy:['ŁATWY','EASY'],sredni:['ŚREDNI','NORMAL'],trudny:['TRUDNY','HARD'],gracze:['GRACZE','PLAYERS']},OLD_ROUNDS=5;
 const oldConv=r=>({...r,cat:'sredni',score:Math.round((r.score||0)/OLD_ROUNDS),rounds:OLD_ROUNDS,old:1});
 /* ---------- hi-scores: on this device (CrazyGames Data module when available, so logged-in players keep them across devices) ---------- */
 const store={get(k){try{const D=cgData();if(D){const v=D.getItem(k);if(v!=null)return v}}catch(e){}try{return localStorage.getItem(k)}catch(e){return null}},
@@ -1893,8 +1904,8 @@ function showFinal(){if(CAMP.on){campFinish();return}
     sorted.map((t,i)=>`<tr class="${i===0?'top':''}"><td class="nm" data-nt>${t.team!=null?`<b class="tmt" style="--tc:${TEAM_COL[t.team]}">${TEAM_N[t.team]}</b>`:''}${esc(t.name)}${t.human?'':' (CPU)'}</td><td>${t.sg.wins}</td><td>${Math.round(t.sg.dealt)}</td><td>${Math.round(t.sg.taken)}</td><td>${t.sg.kills}</td><td>${t.sg.zombies}</td><td>${fmtT(t.sg.best)}</td><td>${score(t)}</td><td class="pts">${Math.round(score(t)/Math.max(1,rounds))}</td></tr>`).join('')+'</tbody>';
   const l=loadHS(),ids=new Set(),d=new Date(),date=String(d.getDate()).padStart(2,'0')+'.'+String(d.getMonth()+1).padStart(2,'0')+'.'+d.getFullYear();
   const mapName=mapChoice==='random'?'Losowa':MAPS[mapChoice].name,humans=tanks.filter(t=>t.human);
-  const cat=tanks.some(t=>!t.human)?['latwy','sredni','trudny'][difficulty]:'gracze',gm=isTeamGame()?teamMode:(tanks.length===2?'1v1':'ffa'),rp=Math.max(1,rounds);hsCat.hsFinal=cat;hsCat.hsTitle=cat;
-  for(const t of tanks)if(t.human){const id=Date.now()+'-'+Math.random().toString(36).slice(2,7);ids.add(id);
+  const cat=tanks.some(t=>!t.human)?['latwy','sredni','trudny'][difficulty]:'gracze',gm=isTeamGame()?teamMode:(tanks.length===2?'1v1':'ffa'),rp=Math.max(1,rounds);if(cat!=='gracze'){hsCat.hsFinal=cat;hsCat.hsTitle=cat}
+  if(cat!=='gracze')for(const t of tanks)if(t.human){const id=Date.now()+'-'+Math.random().toString(36).slice(2,7);ids.add(id);
     l.push({id,cat,mode:gm,rounds:rp,name:t.name,score:Math.round(score(t)/rp),wins:t.sg.wins,dealt:Math.round(t.sg.dealt),kills:t.sg.kills,zombies:t.sg.zombies,best:t.sg.best,map:mapName,date})}
   saveHS(l);
   if(cat!=='gracze'&&humans.length===1){cgSubmitScore(Math.round(score(humans[0])/rp));if(humans[0].sg.wins===topW&&win.length===1&&win[0]===humans[0])cgGame('happytime')}
@@ -2850,6 +2861,11 @@ $('menuBtn').onclick=()=>{if(phase!=='menu'&&$('result').hidden&&$('final').hidd
 $('optBtn').onclick=()=>openPause('klawisze','title');
 $('coachOk').onclick=e=>{e.stopPropagation();sfxClick();coachDone()};
 $('helpBtn2').onclick=()=>openPause('opis','title');
+function hsOpen(){const m=$('hsModal');if(!m)return;sfxClick();renderHS($('hsTitle'));m.hidden=false;hsOpen.prev=document.activeElement;try{$('hsClose').focus({preventScroll:true})}catch(e){}}
+function hsClose(){const m=$('hsModal');if(!m||m.hidden)return;m.hidden=true;try{(hsOpen.prev||$('hsBtn')).focus({preventScroll:true})}catch(e){}}
+$('hsBtn').onclick=hsOpen;$('hsClose').onclick=()=>{sfxClick();hsClose()};
+$('hsModal').addEventListener('click',e=>{if(e.target.id==='hsModal')hsClose()});
+document.addEventListener('keydown',e=>{const m=$('hsModal');if(m&&!m.hidden&&(e.key==='Escape'||e.key==='Esc')){e.preventDefault();e.stopImmediatePropagation();hsClose()}},true);
 renderHint();
 const SND_ON='<svg viewBox="0 0 24 24"><path d="M3 9h4l5-4v14l-5-4H3z" fill="#e9dfc6" stroke="#0f1112" stroke-width="1.6" stroke-linejoin="round"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#f0b92b" stroke-width="2.2" stroke-linecap="round"/></svg>',SND_OFF='<svg viewBox="0 0 24 24"><path d="M3 9h4l5-4v14l-5-4H3z" fill="#e9dfc6" stroke="#0f1112" stroke-width="1.6" stroke-linejoin="round"/><path d="M15 9l6 6M21 9l-6 6" stroke="#ff8a6a" stroke-width="2.4" stroke-linecap="round"/></svg>';
 function syncSndIco(){for(const id of['sndHud','sndTop']){const b=$(id);if(!b)continue;b.innerHTML=muted?SND_OFF:SND_ON;b.classList.toggle('off',muted);b.title=muted?T('Włącz dźwięk','Sound on'):T('Wycisz','Mute');b.setAttribute('aria-label',b.title)}}
@@ -3144,17 +3160,15 @@ function drawTitleArt(){const cn=$('titleArt');if(!cn)return;const x=cn.getConte
   x.fillStyle='rgba(255,255,255,.06)';for(let i=0;i<7;i++){const cx=60+i*140,cy=gy-36-(i%3)*12;x.beginPath();x.ellipse(cx,cy,26,6,0,0,7);x.fill()}
   }
   /* mothership */
-  {const ux=640+Math.sin(tm*.5)*22,uy=86+Math.sin(tm*1.2)*5,bm=Math.max(0,Math.sin(tm*.9));
-   if(bm>.05){x.save();x.globalAlpha=bm*.5;const bg2=x.createLinearGradient(0,uy,0,gy);bg2.addColorStop(0,'rgba(170,255,240,.95)');bg2.addColorStop(1,'rgba(170,255,240,.05)');x.fillStyle=bg2;x.beginPath();x.moveTo(ux-26,uy+16);x.lineTo(ux+26,uy+16);x.lineTo(ux+96,gy);x.lineTo(ux-96,gy);x.closePath();x.fill();
-     x.strokeStyle='rgba(225,255,250,.7)';x.lineWidth=2;for(let i=0;i<4;i++){const q=(tm*.8+i/4)%1,yy=uy+16+(gy-uy-16)*q,ww=26+70*q;x.beginPath();x.ellipse(ux,yy,ww,ww*.17,0,0,7);x.stroke()}x.restore();
-     x.save();x.translate(ux+Math.sin(tm*2)*6,uy+30+((tm*.9)%1)*(gy-uy-60));x.scale(1.8,1.8);drawZombie(x,{x:0,y:0,dir:-1,ph:tm*2,drop:true,rise:1,shirt:ALIEN_SUITS[1]});x.restore()}
+  /* 9 s loop – beam drops an alien, it walks to the hero tank firing its blaster, the tank answers */
+  const TL=tm%9,gH=X=>gy+Math.sin(X*.012)*6+Math.sin(X*.031+1)*3,LX=640;
+  {const ux=LX+Math.sin(tm*.7)*4,uy=86+Math.sin(tm*1.2)*5,bm=TL<2.5?Math.min(1,TL/.3)*Math.min(1,(2.5-TL)/.4):0;
+   if(bm>.02){x.save();x.globalAlpha=bm*.55;const bg2=x.createLinearGradient(0,uy,0,gy);bg2.addColorStop(0,'rgba(170,255,240,.95)');bg2.addColorStop(1,'rgba(170,255,240,.05)');x.fillStyle=bg2;x.beginPath();x.moveTo(ux-26,uy+16);x.lineTo(ux+26,uy+16);x.lineTo(LX+80,gH(LX));x.lineTo(LX-80,gH(LX));x.closePath();x.fill();
+     x.strokeStyle='rgba(225,255,250,.7)';x.lineWidth=2;for(let i=0;i<4;i++){const q=(tm*.8+i/4)%1,yy=uy+16+(gH(LX)-uy-16)*q,ww=26+54*q;x.beginPath();x.ellipse(LX+(ux-LX)*(1-q),yy,ww,ww*.17,0,0,7);x.stroke()}
+     const pool=x.createRadialGradient(LX,gH(LX),4,LX,gH(LX),110);pool.addColorStop(0,'rgba(170,255,240,.5)');pool.addColorStop(1,'rgba(170,255,240,0)');x.fillStyle=pool;x.fillRect(LX-120,gH(LX)-40,240,60);x.restore()}
    x.save();x.translate(ux,uy);x.scale(2.6,2.6);drawUfo(x,{x:0,y:0,ph:tm,tilt:Math.sin(tm*.5)*.05,st:'fly',raw:1});x.restore()}
   /* small saucer */
   {const sx=w+120-((tm*60)%(w+300)),sy=150+Math.sin(tm*1.6)*14;x.save();x.translate(sx,sy);x.scale(.9,.9);drawUfo(x,{x:0,y:0,ph:tm*1.3,tilt:-.12,st:'fly',raw:1});x.restore()}
-  /* shell arc from the hero tank */
-  {const ph=(tm*.45)%1,x0=318,y0=gy-70,x1=820,y1=gy-20,cx=(x0+x1)/2,cy=40;x.save();x.setLineDash([3,10]);x.lineWidth=3;x.strokeStyle='rgba(233,223,198,.55)';x.beginPath();x.moveTo(x0,y0);x.quadraticCurveTo(cx,cy,x1,y1);x.stroke();x.restore();
-   const q=ph,bx=(1-q)*(1-q)*x0+2*(1-q)*q*cx+q*q*x1,by=(1-q)*(1-q)*y0+2*(1-q)*q*cy+q*q*y1;x.fillStyle='#f0b92b';x.strokeStyle=INK;x.lineWidth=2;x.beginPath();x.arc(bx,by,5,0,7);x.fill();x.stroke();
-   if(q>.9){const r=(q-.9)*10*46;const eg=x.createRadialGradient(x1,y1,2,x1,y1,r);eg.addColorStop(0,'rgba(255,250,210,.95)');eg.addColorStop(.5,'rgba(255,170,60,.8)');eg.addColorStop(1,'rgba(220,80,20,0)');x.fillStyle=eg;x.beginPath();x.arc(x1,y1,r,0,7);x.fill()}}
   /* lunar ground */
   const hy=X=>gy+Math.sin(X*.012)*6+Math.sin(X*.031+1)*3-(Math.abs(X-300)<120?0:0);
   const groundPath=()=>{x.beginPath();x.moveTo(-10,hh+10);for(let X=-10;X<=w+10;X+=5)x.lineTo(X,hy(X));x.lineTo(w+10,hh+10);x.closePath()};
@@ -3169,7 +3183,28 @@ function drawTitleArt(){const cn=$('titleArt');if(!cn)return;const x=cn.getConte
   drawTank(x,300,hy(300)+6,0,34,{hull:2,color:'#a5582f',wheels:2,turret:1,barrel:3},2.1);
   x.fillStyle='rgba(0,0,0,.35)';x.beginPath();x.ellipse(820,hy(820)+3,80,5,0,0,7);x.fill();
   x.save();x.translate(820,hy(820)+5);x.scale(-1,1);drawTank(x,0,0,0,28,{hull:0,color:'#6a4cc9',wheels:1,turret:3,barrel:2,alien:true},1.5);x.restore();
-  [[520,ALIEN_SUITS[0]],[560,ALIEN_SUITS[3]],[735,ALIEN_SUITS[2]]].forEach(([zx,sh],i)=>{x.save();x.translate(zx,hy(zx)+1);x.scale(1.9,1.9);drawZombie(x,{x:0,y:0,dir:-1,ph:i,wave:tm*4.2+i*1.7,rise:1,shirt:sh});x.restore()});
+  [[735,ALIEN_SUITS[2]],[772,ALIEN_SUITS[0]]].forEach(([zx,sh],i)=>{x.save();x.translate(zx,hy(zx)+1);x.scale(1.7,1.7);drawZombie(x,{x:0,y:0,dir:-1,ph:i,wave:tm*4.2+i*1.7,rise:1,shirt:sh});x.restore()});
+  /* the scripted alien */
+  {const SC=1.9,WALK0=2.2,STOP=7.6,HIT=7.8,ax=TL<WALK0?LX:LX-(Math.min(TL,STOP)-WALK0)*32,TX=346,TY=hy(346)-46;
+   if(TL<HIT){let ay=hy(ax)+1,o;
+     if(TL<WALK0){const q=TL/WALK0,e=1-(1-q)*(1-q);ay=(86+40)+(hy(LX)+1-126)*e;o={x:0,y:0,dir:-1,ph:tm*2,drop:q<.92,rise:1,shirt:ALIEN_SUITS[1]}}
+     else o={x:0,y:0,dir:-1,ph:TL<STOP?tm*7:0,rise:1,shirt:ALIEN_SUITS[1]};
+     if(TL>=WALK0){x.fillStyle='rgba(0,0,0,.3)';x.beginPath();x.ellipse(ax,hy(ax)+2,16,3.5,0,0,7);x.fill()}
+     x.save();x.translate(ax,ay);x.scale(SC,SC);drawZombie(x,o);x.restore();
+     /* blaster shots */
+     if(TL>2.8&&TL<7.2){const st=(TL-2.8)%1,gx=ax-19.5*SC,gyy=hy(ax)+1-19*SC;
+       if(st<.12){x.fillStyle='rgba(255,90,209,.45)';x.beginPath();x.arc(gx,gyy,9*(1-st/.12)+3,0,7);x.fill()}
+       if(st<.3){const p=st/.3,p0=Math.max(0,p-.35),hx=gx+(TX-gx)*p,hyy=gyy+(TY-gyy)*p,tx=gx+(TX-gx)*p0,ty=gyy+(TY-gyy)*p0;
+         x.save();x.lineCap='round';x.strokeStyle='rgba(255,90,209,.55)';x.lineWidth=8;x.beginPath();x.moveTo(tx,ty);x.lineTo(hx,hyy);x.stroke();x.strokeStyle='#fff0fb';x.lineWidth=2.6;x.stroke();x.restore()}
+       else if(st<.48){const q=(st-.3)/.18;x.save();x.globalAlpha=1-q;x.fillStyle='#ffd6f5';x.beginPath();x.arc(TX,TY,6+q*12,0,7);x.fill();x.strokeStyle='#ff5ad1';x.lineWidth=2;for(let k=0;k<6;k++){const an=k*1.05+TL;x.beginPath();x.moveTo(TX+Math.cos(an)*6,TY+Math.sin(an)*6);x.lineTo(TX+Math.cos(an)*(12+q*14),TY+Math.sin(an)*(12+q*14));x.stroke()}x.restore()}}}
+   /* the tank answers: shell lobbed at the alien */
+   const AX=LX-(STOP-WALK0)*32,AY=hy(AX)-28;
+   if(TL>=7&&TL<HIT){const q=(TL-7)/(HIT-7),x0=330,y0=hy(300)-76,cx=(x0+AX)/2,cy=y0-110,bx=(1-q)*(1-q)*x0+2*(1-q)*q*cx+q*q*AX,by=(1-q)*(1-q)*y0+2*(1-q)*q*cy+q*q*AY;
+     if(q<.15){x.fillStyle='rgba(255,220,140,.8)';x.beginPath();x.arc(x0,y0,14*(1-q/.15)+4,0,7);x.fill()}
+     x.fillStyle='#f0b92b';x.strokeStyle=INK;x.lineWidth=2;x.beginPath();x.arc(bx,by,5,0,7);x.fill();x.stroke()}
+   if(TL>=HIT&&TL<HIT+1){const q=TL-HIT,r=20+q*70;x.save();x.globalAlpha=Math.min(1,(1-q)*1.6);const eg=x.createRadialGradient(AX,AY,2,AX,AY,r);eg.addColorStop(0,'rgba(255,250,210,.95)');eg.addColorStop(.45,'rgba(255,170,60,.85)');eg.addColorStop(1,'rgba(220,80,20,0)');x.fillStyle=eg;x.beginPath();x.arc(AX,AY,r,0,7);x.fill();
+     x.strokeStyle='rgba(255,246,220,.8)';x.lineWidth=4*(1-q)+1;x.beginPath();x.ellipse(AX,AY+10,r*1.2,r*.45,0,0,7);x.stroke();
+     x.fillStyle='rgba(70,70,80,.6)';for(let k=0;k<6;k++){const an=k*1.05+.4;x.beginPath();x.arc(AX+Math.cos(an)*r*.6,AY-q*30+Math.sin(an)*r*.35,8+q*14,0,7);x.fill()}x.restore()}}
   const vg=x.createRadialGradient(w/2,hh/2,hh*.35,w/2,hh/2,w*.62);vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(0,0,0,.45)');x.fillStyle=vg;x.fillRect(0,0,w,hh);
   x.setTransform(1,0,0,1,0,0)}
 
