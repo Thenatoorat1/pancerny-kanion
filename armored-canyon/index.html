@@ -1242,15 +1242,6 @@ function buildSkyTopPainted(){const m=MAP,pimg=BG_IMG[m.id];if(!(pimg&&pimg.comp
   /* stars where the sky is dark */
   if(nt||m.id==='moon'){for(let i=0;i<(m.space?520:300)*U;i++){const y=rand(0,hh*.92);c.fillStyle=`rgba(255,250,235,${rand(.25,.9)})`;const r=rand(.8,2.2);c.fillRect(rand(0,W),y,r,r)}}
   /* mirrored band of the painting so the seam continues the artwork */
-  /* seam band: per-column colours of the top edge + a short mirrored strip of the painting, faded upward with an alpha mask */
-  const Hs=H*.24,sb=document.createElement('canvas');sb.width=Math.round(W*k);sb.height=Math.round(Hs*k);const sc=sb.getContext('2d');sc.setTransform(k,0,0,k,0,0);
-  const t2=document.createElement('canvas');t2.width=Math.max(8,Math.round(W/6));t2.height=1;const t2c=t2.getContext('2d');t2c.imageSmoothingQuality='high';t2c.drawImage(bg,0,0,bg.width,Math.max(1,Math.round(K*3)),0,0,t2.width,1);
-  sc.drawImage(t2,0,0,t2.width,1,0,0,W,Hs);
-  const mk=sc.createLinearGradient(0,0,0,Hs);mk.addColorStop(0,'rgba(0,0,0,0)');mk.addColorStop(.55,'rgba(0,0,0,.55)');mk.addColorStop(1,'rgba(0,0,0,1)');sc.globalCompositeOperation='destination-in';sc.fillStyle=mk;sc.fillRect(0,0,W,Hs);sc.globalCompositeOperation='source-over';
-  {const Hb=H*.05,mb=document.createElement('canvas');mb.width=Math.round(W*k);mb.height=Math.round(Hb*k);const mc=mb.getContext('2d');mc.setTransform(k,0,0,k,0,0);mc.translate(0,Hb);mc.scale(1,-1);mc.drawImage(bg,0,0,bg.width,Math.round(Hb*K),0,0,W,Hb);
-   mc.setTransform(k,0,0,k,0,0);const m2=mc.createLinearGradient(0,0,0,Hb);m2.addColorStop(0,'rgba(0,0,0,0)');m2.addColorStop(1,'rgba(0,0,0,1)');mc.globalCompositeOperation='destination-in';mc.fillStyle=m2;mc.fillRect(0,0,W,Hb);
-   sc.drawImage(mb,0,0,mb.width,mb.height,0,Hs-Hb,W,Hb)}
-  c.drawImage(sb,0,0,sb.width,sb.height,0,hh-Hs,W,Hs);
   /* drifting cloud banks tinted from the painting */
   if(!m.space){const cloud=(x,y,sc,a)=>{const B=[[0,0,30],[34,-14,34],[72,-2,30],[100,8,22],[36,10,28],[-26,10,20],[58,-20,24]];c.beginPath();for(const[px,py,r]of B){c.moveTo(x+(px+r)*sc,y+py*sc);c.arc(x+px*sc,y+py*sc,r*sc,0,7)}
       const gg=c.createLinearGradient(0,y-40*sc,0,y+40*sc);gg.addColorStop(0,mix(nt?.95:1.35,a));gg.addColorStop(1,mix(nt?.6:.8,a*.8));c.fillStyle=gg;c.fill();
@@ -1259,9 +1250,7 @@ function buildSkyTopPainted(){const m=MAP,pimg=BG_IMG[m.id];if(!(pimg&&pimg.comp
   else{for(let i=0;i<5;i++){const col=[[90,60,170],[50,90,180],[150,60,150],[60,120,170],[110,70,190]][i],x=rand(0,W),y=rand(hh*.15,hh*.8),rx=rand(320,560)*U,ry=rand(70,140)*U;c.save();c.translate(x,y);c.rotate(rand(-.4,.4));c.scale(1,ry/rx);const gg=c.createRadialGradient(0,0,0,0,0,rx);gg.addColorStop(0,`rgba(${col},.22)`);gg.addColorStop(1,`rgba(${col},0)`);c.fillStyle=gg;c.beginPath();c.arc(0,0,rx,0,7);c.fill();c.restore()}}
   c.setTransform(1,0,0,1,0,0);
   /* blend the painting's top edge into the sky so no step is visible */
-  {const bh=Math.round(28*K),tb=document.createElement('canvas');tb.width=bg.width;tb.height=bh;const tc=tb.getContext('2d');tc.drawImage(skyTop,0,skyTop.height-2,skyTop.width,1,0,0,tb.width,bh);
-   const fg=tc.createLinearGradient(0,0,0,bh);fg.addColorStop(0,'rgba(0,0,0,.85)');fg.addColorStop(1,'rgba(0,0,0,0)');tc.globalCompositeOperation='destination-in';tc.fillStyle=fg;tc.fillRect(0,0,tb.width,bh);
-   bctx.save();bctx.setTransform(1,0,0,1,0,0);bctx.drawImage(tb,0,0);bctx.restore()}
+  {const bh=Math.round(H*.12*K),fg=bctx.createLinearGradient(0,0,0,bh);fg.addColorStop(0,mix(.92,1));fg.addColorStop(.35,mix(.92,.6));fg.addColorStop(1,mix(.92,0));bctx.save();bctx.setTransform(1,0,0,1,0,0);bctx.fillStyle=fg;bctx.fillRect(0,0,bg.width,bh);bctx.restore()}
   return true}
 function buildSkyTop(){if(buildSkyTopPainted())return;skyTopCol=null;
   {let src=bg,sw=bg.width,sy=Math.min(2,bg.height-1);for(const w of[256,64,16]){const t=document.createElement('canvas');t.width=w;t.height=1;const tc=t.getContext('2d');tc.imageSmoothingQuality='high';tc.drawImage(src,0,sy,sw,1,0,0,w,1);src=t;sw=w;sy=0}
