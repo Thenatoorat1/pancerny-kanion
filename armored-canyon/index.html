@@ -1229,7 +1229,41 @@ function prop(c,kind,x,y,s,col){
   }
   c.restore();
 }
-function buildSkyTop(){
+var skyTopCol=null;
+function buildSkyTopPainted(){const m=MAP,pimg=BG_IMG[m.id];if(!(pimg&&pimg.complete&&pimg.naturalWidth))return false;
+  const k=K*.5,hh=H*SKY_UP,nt=m.night||m.space;
+  /* average colour of the painting's top edge */
+  const t1=document.createElement('canvas');t1.width=t1.height=1;const t1c=t1.getContext('2d');t1c.imageSmoothingQuality='high';t1c.drawImage(bg,0,0,bg.width,Math.max(2,Math.round(bg.height*.04)),0,0,1,1);
+  const d=t1c.getImageData(0,0,1,1).data,avg=[d[0],d[1],d[2]],mix=(f,a=1)=>`rgba(${Math.round(avg[0]*f)},${Math.round(avg[1]*f)},${Math.round(avg[2]*f)},${a})`;
+  skyRow.width=1;skyRow.height=1;skyRow.getContext('2d').drawImage(t1,0,0);
+  skyTopCol=mix(nt?.35:.42);
+  skyTop.width=Math.round(W*k);skyTop.height=Math.round(hh*k);const c=stctx;c.setTransform(k,0,0,k,0,0);
+  const g=c.createLinearGradient(0,0,0,hh);g.addColorStop(0,skyTopCol);g.addColorStop(.55,mix(nt?.6:.68));g.addColorStop(1,mix(.92));c.fillStyle=g;c.fillRect(0,0,W,hh);
+  /* stars where the sky is dark */
+  if(nt||m.id==='moon'){for(let i=0;i<(m.space?520:300)*U;i++){const y=rand(0,hh*.92);c.fillStyle=`rgba(255,250,235,${rand(.25,.9)})`;const r=rand(.8,2.2);c.fillRect(rand(0,W),y,r,r)}}
+  /* mirrored band of the painting so the seam continues the artwork */
+  /* seam band: per-column colours of the top edge + a short mirrored strip of the painting, faded upward with an alpha mask */
+  const Hs=H*.24,sb=document.createElement('canvas');sb.width=Math.round(W*k);sb.height=Math.round(Hs*k);const sc=sb.getContext('2d');sc.setTransform(k,0,0,k,0,0);
+  const t2=document.createElement('canvas');t2.width=Math.max(8,Math.round(W/6));t2.height=1;const t2c=t2.getContext('2d');t2c.imageSmoothingQuality='high';t2c.drawImage(bg,0,0,bg.width,Math.max(1,Math.round(K*3)),0,0,t2.width,1);
+  sc.drawImage(t2,0,0,t2.width,1,0,0,W,Hs);
+  const mk=sc.createLinearGradient(0,0,0,Hs);mk.addColorStop(0,'rgba(0,0,0,0)');mk.addColorStop(.55,'rgba(0,0,0,.55)');mk.addColorStop(1,'rgba(0,0,0,1)');sc.globalCompositeOperation='destination-in';sc.fillStyle=mk;sc.fillRect(0,0,W,Hs);sc.globalCompositeOperation='source-over';
+  {const Hb=H*.05,mb=document.createElement('canvas');mb.width=Math.round(W*k);mb.height=Math.round(Hb*k);const mc=mb.getContext('2d');mc.setTransform(k,0,0,k,0,0);mc.translate(0,Hb);mc.scale(1,-1);mc.drawImage(bg,0,0,bg.width,Math.round(Hb*K),0,0,W,Hb);
+   mc.setTransform(k,0,0,k,0,0);const m2=mc.createLinearGradient(0,0,0,Hb);m2.addColorStop(0,'rgba(0,0,0,0)');m2.addColorStop(1,'rgba(0,0,0,1)');mc.globalCompositeOperation='destination-in';mc.fillStyle=m2;mc.fillRect(0,0,W,Hb);
+   sc.drawImage(mb,0,0,mb.width,mb.height,0,Hs-Hb,W,Hb)}
+  c.drawImage(sb,0,0,sb.width,sb.height,0,hh-Hs,W,Hs);
+  /* drifting cloud banks tinted from the painting */
+  if(!m.space){const cloud=(x,y,sc,a)=>{const B=[[0,0,30],[34,-14,34],[72,-2,30],[100,8,22],[36,10,28],[-26,10,20],[58,-20,24]];c.beginPath();for(const[px,py,r]of B){c.moveTo(x+(px+r)*sc,y+py*sc);c.arc(x+px*sc,y+py*sc,r*sc,0,7)}
+      const gg=c.createLinearGradient(0,y-40*sc,0,y+40*sc);gg.addColorStop(0,mix(nt?.95:1.35,a));gg.addColorStop(1,mix(nt?.6:.8,a*.8));c.fillStyle=gg;c.fill();
+      c.beginPath();for(const[px,py,r]of B){c.moveTo(x+(px+r*.6)*sc,y+(py-r*.35)*sc);c.arc(x+px*sc,y+(py-r*.35)*sc,r*.6*sc,0,7)}c.fillStyle=mix(nt?1.1:1.55,a*.35);c.fill()};
+    const N=Math.round(14*U);for(let i=0;i<N;i++){const y=hh*(.12+.68*i/N)+rand(-20,20);cloud(rand(-160,W),y,rand(.9,2.4)*(.6+.6*y/hh),(.18+.4*(y/hh))*(nt?.6:1))}}
+  else{for(let i=0;i<5;i++){const col=[[90,60,170],[50,90,180],[150,60,150],[60,120,170],[110,70,190]][i],x=rand(0,W),y=rand(hh*.15,hh*.8),rx=rand(320,560)*U,ry=rand(70,140)*U;c.save();c.translate(x,y);c.rotate(rand(-.4,.4));c.scale(1,ry/rx);const gg=c.createRadialGradient(0,0,0,0,0,rx);gg.addColorStop(0,`rgba(${col},.22)`);gg.addColorStop(1,`rgba(${col},0)`);c.fillStyle=gg;c.beginPath();c.arc(0,0,rx,0,7);c.fill();c.restore()}}
+  c.setTransform(1,0,0,1,0,0);
+  /* blend the painting's top edge into the sky so no step is visible */
+  {const bh=Math.round(28*K),tb=document.createElement('canvas');tb.width=bg.width;tb.height=bh;const tc=tb.getContext('2d');tc.drawImage(skyTop,0,skyTop.height-2,skyTop.width,1,0,0,tb.width,bh);
+   const fg=tc.createLinearGradient(0,0,0,bh);fg.addColorStop(0,'rgba(0,0,0,.85)');fg.addColorStop(1,'rgba(0,0,0,0)');tc.globalCompositeOperation='destination-in';tc.fillStyle=fg;tc.fillRect(0,0,tb.width,bh);
+   bctx.save();bctx.setTransform(1,0,0,1,0,0);bctx.drawImage(tb,0,0);bctx.restore()}
+  return true}
+function buildSkyTop(){if(buildSkyTopPainted())return;skyTopCol=null;
   {let src=bg,sw=bg.width,sy=Math.min(2,bg.height-1);for(const w of[256,64,16]){const t=document.createElement('canvas');t.width=w;t.height=1;const tc=t.getContext('2d');tc.imageSmoothingQuality='high';tc.drawImage(src,0,sy,sw,1,0,0,w,1);src=t;sw=w;sy=0}
    skyRow.width=16;skyRow.height=1;skyRow.getContext('2d').drawImage(src,0,0)}
   const m=MAP,k=K*.5,hh=H*SKY_UP,nt=m.night||m.space;skyTop.width=Math.round(W*k);skyTop.height=Math.round(hh*k);const c=stctx;c.setTransform(k,0,0,k,0,0);
@@ -2611,7 +2645,7 @@ function render(){
   const shk=shake*fxMul(),sx=shk?rand(-shk,shk):0,sy=shk?rand(-shk,shk):0,cs=cam.s*cam.dpr;
   ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle='#14110e';ctx.fillRect(0,0,cv.width,cv.height);
   ctx.setTransform(cs,0,0,cs,(-cam.vx+sx)*cs,(-cam.vy+sy)*cs);
-  if(cam.vy<0){if(cam.vy<-H*SKY_UP){ctx.fillStyle=MAP.space?'#010103':MAP.night?'#04050b':'#0e0b0a';ctx.fillRect(cam.vx-20,cam.vy-20,cam.vw+40,-H*SKY_UP-cam.vy+22)}ctx.drawImage(skyRow,0,0,skyRow.width,1,0,-H*SKY_UP,W,H*SKY_UP+1);ctx.drawImage(skyTop,0,-H*SKY_UP,W,H*SKY_UP+1)}
+  if(cam.vy<0){if(cam.vy<-H*SKY_UP){ctx.fillStyle=skyTopCol||(MAP.space?'#010103':MAP.night?'#04050b':'#0e0b0a');ctx.fillRect(cam.vx-20,cam.vy-20,cam.vw+40,-H*SKY_UP-cam.vy+22)}ctx.drawImage(skyRow,0,0,skyRow.width,1,0,-H*SKY_UP,W,H*SKY_UP+1);ctx.drawImage(skyTop,0,-H*SKY_UP,W,H*SKY_UP+1)}
   ctx.drawImage(bg,0,0,W,H);
   if(cam.vy<0){for(let i=0;i<8;i++){ctx.globalAlpha=(1-i/8)*.55;ctx.drawImage(skyRow,0,0,skyRow.width,1,0,i*H*.01,W,H*.01+1)}ctx.globalAlpha=1}
   for(const fx of fireSpots){const y=groundAtX(fx);const g=ctx.createRadialGradient(fx,y-10,4,fx,y-10,90);g.addColorStop(0,'rgba(255,140,40,.45)');g.addColorStop(1,'rgba(255,140,40,0)');ctx.fillStyle=g;ctx.fillRect(fx-90,y-100,180,180)}
