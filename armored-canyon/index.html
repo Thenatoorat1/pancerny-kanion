@@ -920,7 +920,7 @@ const EN={
 'SPRAWDŹ DŹWIĘK':'TEST SOUND','Pomysł, projekt gry, kierunek artystyczny i testy':'Idea, game design, art direction and testing',
 'Kod, grafika i dźwięki (Claude, AI od Anthropic)':'Code, graphics and sound (Claude, an AI by Anthropic)',
 'Inspiracje: Scorched Tanks z Amigi, Hills of Steel, Into the Dead: Our Darkest Days, Fallout i ARC Raiders.':'Inspired by: Scorched Tanks on the Amiga, Hills of Steel, Into the Dead: Our Darkest Days, Fallout and ARC Raiders.',
-'ZAMKNIJ':'CLOSE','NAJLEPSZE WYNIKI':'BEST SCORES','Julka się zastanawia…':'Julka is thinking…','PA PA!':'BYE BYE!','Czy zgadzasz się z tym?':'Do you agree with this?','TAK':'YES','NIE':'NO','NIE!':'NO!','MIAU!':'MEOW!','DRAP DRAP!':'SCRATCH!','LEKKIE':'LIGHT','CIĘŻKIE':'HEAVY','SPECJALNE':'SPECIAL','Wstecz':'Back','WOLNE':'EMPTY','PROMIENIOWANIE':'RADIATION','Dźwięk':'Sound','Tryby: 1 na 1 to pojedynek dwóch czołgów. W trybach 2 na 2 i 1 na 3 drużyny stają po przeciwnych stronach mapy, rundę wygrywa drużyna, która przetrwa, a za trafienie kolegi z drużyny nie ma kapsli ani punktów. Przy ataku atomowym liczy się suma życia drużyny.':'Modes: 1 vs 1 is a duel of two tanks. In 2 vs 2 and 1 vs 3 the teams start on opposite sides of the map, the team that survives wins the round, and hitting a teammate earns no caps or points. In a nuke strike the team’s total health counts.','ŁATWY':'EASY','ŚREDNI':'NORMAL','TRUDNY':'HARD','GRACZE':'PLAYERS','TRYB:':'MODE:','KAŻDY NA KAŻDEGO':'FREE FOR ALL','1 NA 1':'1 VS 1','2 NA 2':'2 VS 2','1 NA 3':'1 VS 3','Sęp':'Vulture','Kriobomba':'Cryo bomb','Zarażony pocisk':'Infected shell','Teleporter':'Teleporter','Lustro':'Mirror','LUSTRO WŁĄCZONE':'MIRROR ON','ODBICIE':'REFLECTED','ZAMROŻONY':'FROZEN','TELEPORT':'TELEPORT','GRAJ ONLINE':'PLAY ONLINE','GRA ONLINE':'ONLINE GAME','TWOJA NAZWA':'YOUR NAME','NOWY POJEDYNEK':'NEW DUEL','ZAŁÓŻ POKÓJ':'CREATE ROOM','DOŁĄCZ DO POKOJU':'JOIN A ROOM','DOŁĄCZ':'JOIN','KOD':'CODE','Kod pokoju':'Room code',
+'ZAMKNIJ':'CLOSE','Czarna dziura':'Black Hole','Porywacz':'Abductor','Fala sejsmiczna':'Seismic Wave','Dron przechwytujący':'Interceptor Drone','Hologram':'Hologram','DRON':'DRONE','HOLO':'HOLO','ZOMBIE: ':'ZOMBIES: ','NAJLEPSZE WYNIKI':'BEST SCORES','Julka się zastanawia…':'Julka is thinking…','PA PA!':'BYE BYE!','Czy zgadzasz się z tym?':'Do you agree with this?','TAK':'YES','NIE':'NO','NIE!':'NO!','MIAU!':'MEOW!','DRAP DRAP!':'SCRATCH!','LEKKIE':'LIGHT','CIĘŻKIE':'HEAVY','SPECJALNE':'SPECIAL','Wstecz':'Back','WOLNE':'EMPTY','PROMIENIOWANIE':'RADIATION','Dźwięk':'Sound','Tryby: 1 na 1 to pojedynek dwóch czołgów. W trybach 2 na 2 i 1 na 3 drużyny stają po przeciwnych stronach mapy, rundę wygrywa drużyna, która przetrwa, a za trafienie kolegi z drużyny nie ma kapsli ani punktów. Przy ataku atomowym liczy się suma życia drużyny.':'Modes: 1 vs 1 is a duel of two tanks. In 2 vs 2 and 1 vs 3 the teams start on opposite sides of the map, the team that survives wins the round, and hitting a teammate earns no caps or points. In a nuke strike the team’s total health counts.','ŁATWY':'EASY','ŚREDNI':'NORMAL','TRUDNY':'HARD','GRACZE':'PLAYERS','TRYB:':'MODE:','KAŻDY NA KAŻDEGO':'FREE FOR ALL','1 NA 1':'1 VS 1','2 NA 2':'2 VS 2','1 NA 3':'1 VS 3','Sęp':'Vulture','Kriobomba':'Cryo bomb','Zarażony pocisk':'Infected shell','Teleporter':'Teleporter','Lustro':'Mirror','LUSTRO WŁĄCZONE':'MIRROR ON','ODBICIE':'REFLECTED','ZAMROŻONY':'FROZEN','TELEPORT':'TELEPORT','GRAJ ONLINE':'PLAY ONLINE','GRA ONLINE':'ONLINE GAME','TWOJA NAZWA':'YOUR NAME','NOWY POJEDYNEK':'NEW DUEL','ZAŁÓŻ POKÓJ':'CREATE ROOM','DOŁĄCZ DO POKOJU':'JOIN A ROOM','DOŁĄCZ':'JOIN','KOD':'CODE','Kod pokoju':'Room code',
 'KOD POKOJU':'ROOM CODE','KOPIUJ':'COPY','MÓJ CZOŁG':'MY TANK','OPUŚĆ GRĘ':'LEAVE GAME','Start':'Start',
 'Załóż pokój i podaj kod drugiemu graczowi. Gra 1 na 1, każdy na swoim telefonie lub komputerze.':'Create a room and give the code to the other player. A 1-on-1 duel, each on their own phone or computer.',
 'Drugi gracz wybiera „GRAJ ONLINE” → „DOŁĄCZ” i wpisuje ten kod. Gospodarz ustala zasady, a każdy wybiera swój czołg.':'The other player picks “PLAY ONLINE” → “JOIN” and types this code. The host sets the rules and everyone picks their own tank.',
@@ -996,7 +996,7 @@ function rr(c,x,y,w,hh,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+hh,r
 
 /* ---------- maps ---------- */
 const MAPS=[
- {id:'waste',name:'Pustkowie',size:'ŚREDNIA',W:1440,H:810,terrain:'dunes',weather:'WICHURA',desc:'Wydmy, wraki i ruiny na horyzoncie. Silny, często zmieniający się wiatr.',
+ {id:'waste',horde:true,name:'Pustkowie',size:'ŚREDNIA',W:1440,H:810,terrain:'dunes',weather:'WICHURA',desc:'Wydmy, wraki i ruiny na horyzoncie. Silny, często zmieniający się wiatr.',
   sky:['#5b3a26','#b8693a','#f0b77a'],sun:{x:.78,y:.24,r:60,col:'#ffe2a8'},cloud:'rgba(90,55,35,.55)',far:'#6e4630',mid:'#55361f',farKind:'skyline',props:['pylon','car','billboard'],
   body:['#c8692a','#5a2a12'],stripe:'#b45e27',stripe2:'#a05224',band:'#eaa055',dirt:'#7a3c1c',outline:'#2a1308',rock:'#8a5a3a',deco:['tire','pipe','bone','tire','scrap'],
   windMax:14,windStep:6,dust:true,haze:'rgba(220,150,90,.22)',pu:['stab'],ponds:[0,1],pond:'water',plat:['rock','girder'],flora:['deadtree','bush','cactus','bush'],bodies:['boulder','wreck','boulder']},
@@ -1004,11 +1004,11 @@ const MAPS=[
   sky:['#3c4651','#7b8994','#c9d2d6'],cloud:'rgba(60,70,80,.45)',far:'#5a6670',mid:'#46515a',farKind:'mountains',cap:'#e8eef2',props:['pine','tower','pine'],
   body:['#e2ecf6','#8ea3bd'],stripe:'#cfdcea',stripe2:'#bdcbdd',band:'#ffffff',dirt:'#5a4d44',outline:'#24303e',rock:'#7d8a9c',deco:['rock','pipe','rock'],
   windMax:8,windStep:3,snow:true,fog:'rgba(225,235,242,.20)',freeze:.24,slow:true,pu:['heater'],ponds:[1,3],pond:'ice',plat:['rock','rock','girder'],flora:['pine','pine','deadbush'],bodies:['boulder','boulder','block']},
- {id:'flood',name:'Zalane Miasto',size:'ŚREDNIA',W:1440,H:810,terrain:'city',weather:'ULEWA I BURZA',desc:'Ruiny miasta w deszczu. Leje po pociskach zalewa woda, a kto w nią wjedzie, utknie na turę.',
+ {id:'flood',horde:true,name:'Zalane Miasto',size:'ŚREDNIA',W:1440,H:810,terrain:'city',weather:'ULEWA I BURZA',desc:'Ruiny miasta w deszczu. Leje po pociskach zalewa woda, a kto w nią wjedzie, utknie na turę.',
   sky:['#1d2528','#3c4a4e','#6c7b7c'],cloud:'rgba(25,32,35,.6)',far:'#2b3437',mid:'#232b2d',farKind:'skyline',lit:.05,props:['crane','lamp','car'],
   body:['#5e5c4c','#24241f'],stripe:'#535142',stripe2:'#49473a',band:'#6f6c56',dirt:'#463c2f',outline:'#121310',rock:'#56584f',deco:['rebar','slab','rebar','tire'],
   windMax:8,windStep:3,rain:true,pool:'water',lightning:true,haze:'rgba(120,140,145,.18)',pu:['floats'],ponds:[2,4],pond:'water',plat:['slab','girder','slab'],flora:['weeds','tree','weeds'],bodies:['block','wreck','pipe']},
- {id:'toxic',name:'Toksyczne Bagna',size:'MAŁA',W:1200,H:675,terrain:'swamp',weather:'KWAŚNY DESZCZ',desc:'Mała mapa z dolinami pełnymi kwasu. Deszcz co turę zabiera 3 HP, a kałuże kwasu 6 HP.',
+ {id:'toxic',horde:true,name:'Toksyczne Bagna',size:'MAŁA',W:1200,H:675,terrain:'swamp',weather:'KWAŚNY DESZCZ',desc:'Mała mapa z dolinami pełnymi kwasu. Deszcz co turę zabiera 3 HP, a kałuże kwasu 6 HP.',
   sky:['#2c3216','#6a7a24','#c9d266'],sun:{x:.22,y:.22,r:44,col:'#eef7a0'},cloud:'rgba(70,80,30,.5)',far:'#3e4520',mid:'#30361a',farKind:'plant',props:['deadtree','barrelpile','deadtree'],
   body:['#7a6826','#30270d'],stripe:'#6c5c22',stripe2:'#5f511e',band:'#86a32a',dirt:'#4a3d18',outline:'#171205',rock:'#5c5230',deco:['barrel','bone','deadgrass','barrel'],
   windMax:8,windStep:3,acid:true,pool:'acid',haze:'rgba(160,200,60,.16)',pu:['dome','antidote'],ponds:[0,0],pond:'acid',plat:['plank','plank','rock'],flora:['deadtree','shroom','shroom'],bodies:['drum','boulder','drum']},
@@ -1559,7 +1559,7 @@ function drawDrilling(c,p){const q=p.path;c.save();c.lineCap='round';c.lineJoin=
   c.restore()}
 function drawProjectile(c,x,y,vx,vy,id,s=1){
   c.save();c.translate(x,y);c.scale(s,s);
-  if(id!=='parasub'&&id!=='jump'&&id!=='move')c.rotate(Math.atan2(vy,vx));
+  if(id!=='parasub'&&id!=='jump'&&id!=='move'&&id!=='abduct')c.rotate(Math.atan2(vy,vx));
   c.lineWidth=2.5;c.strokeStyle=INK;c.lineJoin='round';
   const fins=col=>{c.fillStyle=col;c.beginPath();c.moveTo(-10,-4);c.lineTo(-14,-8);c.lineTo(-7,-4);c.closePath();c.moveTo(-10,4);c.lineTo(-14,8);c.lineTo(-7,4);c.closePath();c.fill();c.stroke()};
   switch(id){
@@ -1591,6 +1591,7 @@ function drawProjectile(c,x,y,vx,vy,id,s=1){
     case'sub':c.fillStyle='#262626';c.beginPath();c.arc(0,0,4.5,0,7);c.fill();c.stroke();c.fillStyle='#ffd23a';c.beginPath();c.arc(-5,0,2,0,7);c.fill();break;
     case'dirt':c.fillStyle='#7a5532';c.beginPath();c.arc(0,0,8,0,7);c.fill();c.stroke();c.fillStyle='#a3784c';c.beginPath();c.arc(-2,-3,2.5,0,7);c.arc(3,2,1.8,0,7);c.fill();break;
     case'nuke':drawNukeShell(c);break;
+    case'hole':iconHole(c);break;case'abduct':iconAbduct(c);break;case'quake':iconQuake(c);break;
   }
   c.restore();
 }
@@ -1632,26 +1633,27 @@ function downUfo(u,by){if(u.st==='crash'||u.st==='gone')return;u.st='crash';u.be
   if(by&&by.sg){by.sg.zombies+=3;by.sg.ufos=(by.sg.ufos||0)+1;if(by.earn){by.cash+=50;by.earn.zomb+=50}}
   texts.push({x:u.x,y:u.y-46,s:'UFO ZESTRZELONE!',t:0,col:'#ff7be0'});shake=Math.max(shake,8);sfxCrack(true);
   for(let q=0;q<18;q++)parts.push({k:'spark',x:u.x+rand(-30,30),y:u.y+rand(-8,8),vx:rand(-200,200),vy:rand(-200,60),life:rand(.3,.8)})}
-function killZombie(z,why,by){if(z.dead)return;z.dead=true;if(by&&by.sg){by.sg.zombies++;by.sg.al=(by.sg.al||0)+1;if(by.earn){by.cash+=5;by.earn.zomb+=5}}
-  for(let i=0;i<10;i++)parts.push({k:'chunk',x:z.x,y:z.y-18,vx:rand(-160,160),vy:rand(-260,-60),r:rand(2,4),col:Math.random()<.6?'#7ddc5a':(z.shirt||'#8a5cc9'),life:rand(.6,1.2)});
+function killZombie(z,why,by){if(z.dead)return;z.dead=true;if(by&&by.sg){by.sg.zombies++;if(!z.zk)by.sg.al=(by.sg.al||0)+1;if(by.earn){by.cash+=5;by.earn.zomb+=5}}
+  for(let i=0;i<10;i++)parts.push({k:'chunk',x:z.x,y:z.y-18,vx:rand(-160,160),vy:rand(-260,-60),r:rand(2,4),col:z.zk?(Math.random()<.5?(z.skin||'#8fae7a'):(z.rags||'#5b6b7a')):Math.random()<.6?'#7ddc5a':(z.shirt||'#8a5cc9'),life:rand(.6,1.2)});
   for(let i=0;i<6;i++)parts.push({k:'spark',x:z.x,y:z.y-20,vx:rand(-120,120),vy:rand(-180,-30),life:rand(.2,.5)});
   if(why)texts.push({x:z.x,y:z.y-50,s:why,t:0,col:'#9ee22f',sm:1});sfxSplat()}
 /* time is up: the alien is beamed back to its ship */
-function dustZombie(z){z.dead=true;for(let i=0;i<12;i++)parts.push({k:'spark',x:z.x+rand(-7,7),y:z.y-rand(2,42),vx:rand(-12,12),vy:rand(-200,-80),life:rand(.4,.8)});
+function dustZombie(z){z.dead=true;if(z.zk){for(let i=0;i<10;i++)parts.push({k:'chunk',x:z.x+rand(-6,6),y:z.y-rand(2,30),vx:rand(-60,60),vy:rand(-120,-20),r:rand(1.5,3),col:Math.random()<.5?(z.skin||'#8fae7a'):MAP.dirt,life:rand(.5,.9)});for(let i=0;i<5;i++)parts.push({k:'smoke',x:z.x+rand(-6,6),y:z.y-rand(4,30),vx:0,vy:rand(-40,-20),r:rand(4,7),gr:6,life:.6,max:.6,col:'rgba(120,110,90,.7)'});return}for(let i=0;i<12;i++)parts.push({k:'spark',x:z.x+rand(-7,7),y:z.y-rand(2,42),vx:rand(-12,12),vy:rand(-200,-80),life:rand(.4,.8)});
   for(let i=0;i<5;i++)parts.push({k:'smoke',x:z.x+rand(-5,5),y:z.y-rand(6,40),vx:0,vy:rand(-90,-50),r:rand(4,7),gr:4,life:.45,max:.45,col:'rgba(170,255,240,.7)'})}
 function updateZombies(dt){
   for(const z of zombies){if(z.dead)continue;
     z.life-=dt;if(z.life<=0){dustZombie(z);continue}
     if(z.drop){const g=groundAtX(z.x);z.ph+=dt*2;z.y=Math.min(g,z.y+110*dt);if(z.y>=g){z.drop=false;z.y=g;for(let q=0;q<5;q++)parts.push({k:'smoke',x:z.x+rand(-8,8),y:g-2,vx:rand(-30,30),vy:rand(-12,-2),r:rand(3,5),gr:6,life:.5,max:.5,col:'#cfcfd3'})}continue}
-    if(z.rise<1){z.rise=Math.min(1,z.rise+dt*1.6);z.y=groundAtX(z.x);continue}
-    z.zap=Math.max(0,(z.zap||0)-dt);
+    if(z.abd!==undefined)continue;
+    if(z.rise<1){z.rise=Math.min(1,z.rise+dt*(z.zk?.55:1.6));z.y=groundAtX(z.x);continue}
+    z.zap=Math.max(0,(z.zap||0)-dt);z.lunge=Math.max(0,(z.lunge||0)-dt*2);
     let tg=null,best=1e9;for(const t of tanks)if(t.alive&&!(z.own&&!foe(t,z.own))){const d=Math.abs(t.x-z.x);if(d<best){best=d;tg=t}}
     z.ph+=dt*4;
     if(!tg){z.y=groundAtX(z.x);continue}
-    const reach=tg.st.hw+(tg.fx.saw>0?8:34);
+    const reach=tg.st.hw+(tg.fx.saw>0?8:z.zk?4:34);
     if(best>reach){const dir=Math.sign(tg.x-z.x),slow=depthAt(z.x)>6?.45:1;z.x+=dir*z.sp*slow*dt;z.dir=dir}
     else{z.dir=Math.sign(tg.x-z.x)||z.dir;z.bite-=dt;if(tg.fx.saw>0){killZombie(z,'CIACH!',tg);continue}
-      if(z.bite<=0){z.bite=2;z.zap=.3;z.tx=tg.x;z.ty=tg.y-14*tg.st.scale;hurt(tg,1,'#ff5ad1');sfxBite();if(++z.bites>=3){dustZombie(z);continue}}}
+      if(z.bite<=0){if(z.zk){z.bite=1.6;z.lunge=.5;hurt(tg,2,'#c8e070');sfxBite();if(++z.bites>=4){dustZombie(z);continue}}else{z.bite=2;z.zap=.3;z.tx=tg.x;z.ty=tg.y-14*tg.st.scale;hurt(tg,1,'#ff5ad1');sfxBite();if(++z.bites>=3){dustZombie(z);continue}}}}
     z.y=groundAtX(z.x);
     for(const f of fires)if(Math.abs(f.x-z.x)<14){z.hp-=40*dt;z.by=f.owner}
     if(z.hp<=0)killZombie(z,null,z.by);
@@ -1659,7 +1661,7 @@ function updateZombies(dt){
   zombies=zombies.filter(z=>!z.dead&&z.x>-400&&z.x<W+400);
 }
 /* little green alien with a ray gun; `wave` = waving both arms (menus), `rise` < 1 = popping out of a capsule, `drop` = floating down a tractor beam */
-function drawZombie(c,z){
+function drawZombie(c,z){if(z.zk)return drawWalker(c,z);
   const x=z.x,y=z.y,dir=z.dir||(z.x<W/2?1:-1),ph=z.ph||0,sw=Math.sin(ph)*.5,tm=typeof time==='number'?time:0,suit=z.shirt||'#8a5cc9',sD=shadeHex(suit,.62),sL=shadeHex(suit,1.3);
   c.save();c.globalAlpha=clamp((z.life??9)/2,0,1);c.translate(x,y);
   if(z.rise<1){const s=.15+.85*z.rise;c.translate(0,(1-z.rise)*6);c.scale(s,s)}
@@ -1737,6 +1739,9 @@ const WEAPONS=[
  {id:'homing',name:'Sęp',ammo:0,r:30,dmg:36,homing:true,rocket:true},
  {id:'cryo',name:'Kriobomba',ammo:0,r:36,dmg:20,cryo:true},
  {id:'zbomb',name:'Kapsuła obcych',ammo:0,r:22,dmg:14,zombies:3},
+ {id:'hole',name:'Czarna dziura',ammo:0,r:0,dmg:0,hole:true,rocket:true},
+ {id:'abduct',name:'Porywacz',ammo:0,r:0,dmg:0,abduct:true},
+ {id:'quake',name:'Fala sejsmiczna',ammo:0,r:20,dmg:0,quake:true},
  {id:'tele',name:'Teleporter',ammo:0,r:0,dmg:0,tele:true},
  {id:'shield',name:'Tarcza',ammo:0,guard:true},
  {id:'mirror',name:'Lustro',ammo:0,mirror:true},
@@ -1749,10 +1754,13 @@ const SUB={id:'sub',r:22,dmg:18},PSUB={id:'parasub',r:20,dmg:14,chute:true},AIRB
 /* shop: [id, price, qty per purchase, max owned] */
 const START_CASH=600,BASIC={mini:2,bounce:2};
 const UNLOCK={tele:3,cryo:3,zbomb:3,mirror:3,homing:3};
-const SHOP_GRP=id=>UNLOCK[id]?2:['napalm','para','shield','laser','air','nuke'].includes(id)?1:0;let shopTab=0;
-const SHOP=[['mini',50,2,8],['bounce',40,1,6],['dirt',40,1,4],['heavy',90,1,5],['drill',110,1,4],['crazy',120,1,4],['napalm',130,1,4],['para',140,1,4],['shield',200,1,2],['laser',220,1,2],['air',260,1,2],['nuke',600,1,1],['tele',150,1,3],['cryo',170,1,3],['zbomb',190,1,2],['mirror',230,1,2],['homing',250,1,2]];
+const SHOP_GRP=id=>UNLOCK[id]?2:['napalm','para','shield','laser','air','nuke','hole','abduct','quake'].includes(id)?1:0;let shopTab=0;
+const SHOP=[['mini',50,2,8],['bounce',40,1,6],['dirt',40,1,4],['heavy',90,1,5],['drill',110,1,4],['crazy',120,1,4],['napalm',130,1,4],['para',140,1,4],['shield',200,1,2],['laser',220,1,2],['air',260,1,2],['nuke',600,1,1],['tele',150,1,3],['cryo',170,1,3],['zbomb',190,1,2],['mirror',230,1,2],['homing',250,1,2],['quake',160,1,3],['abduct',190,1,3],['hole',240,1,2]];
 const WDESC_EXTRA={shell:['Podstawowy pocisk, 27 obrażeń. Zawsze pod ręką, bez limitu.','The basic shell, 27 damage. Always at hand, unlimited.'],jump:['Ruch: czołg skacze na wybraną odległość. Raz na 3 tury.','A move: your tank jumps the chosen distance. Once every 3 turns.'],move:['Ruch: przejazd czołgiem w lewo lub w prawo zamiast strzału.','A move: drive left or right instead of shooting.']};
-const SHOP_DESC_NEW={homing:['Rakieta „Sęp”: po szczycie lotu sama skręca w stronę najbliższego wroga. 29 obrażeń.','The “Vulture” rocket: after the top of its arc it steers itself toward the nearest enemy. 29 damage.'],
+const SHOP_DESC_NEW={hole:['Otwiera na chwilę miniaturową czarną dziurę: ściąga czołgi do środka, wsysa ziemię, odłamki i ufoludki, rani wszystko w pobliżu, a na koniec zapada się z hukiem (do ~50 obrażeń).','Opens a tiny black hole for a moment: it drags tanks toward its centre, swallows dirt, debris and aliens, hurts everything nearby and finally collapses with a bang (up to ~50 damage).'],
+  abduct:['Przechwycona technologia UFO: spodek unosi trafiony czołg promieniem wysoko w górę i puszcza. Obrażenia od upadku (ok. 40).','Captured UFO tech: a saucer lifts the hit tank high up in its beam and lets go. Fall damage (about 40).'],
+  quake:['Pocisk wbija się w grunt i wysyła w obie strony falę sejsmiczną, która podrzuca czołgi (14 obrażeń + upadek) i miażdży zombie i ufoludki na swojej drodze.','The shell punches into the ground and sends a seismic wave both ways that tosses tanks up (14 damage + the fall) and flattens zombies and aliens in its path.'],
+  homing:['Rakieta „Sęp”: po szczycie lotu sama skręca w stronę najbliższego wroga. 29 obrażeń.','The “Vulture” rocket: after the top of its arc it steers itself toward the nearest enemy. 29 damage.'],
   cryo:['Lodowy wybuch, 16 obrażeń. Trafionym czołgom zamarza wieża na ich następną turę.','An icy blast, 16 damage. Hit tanks get a frozen turret for their next turn.'],
   zbomb:['Rozbija się i wypuszcza 3 ufoludki, które idą na najbliższego wroga. Ciebie omijają.','Cracks open and releases 3 aliens that go after the nearest enemy. They leave you alone.'],
   tele:['Teleportuje twój czołg w miejsce, gdzie spadnie pocisk.','Teleports your tank to wherever the shell lands.'],
@@ -1769,9 +1777,9 @@ const POWERUPS={
   ammo:{name:'Skrzynia broni',col:'#c27a32',mark:'B'},fuel:{name:'Paliwo',col:'#7da832',mark:'P'},
   stab:{name:'Stabilizator',col:'#b8905c',mark:'S'},heater:{name:'Grzałka',col:'#ff7a3a',mark:'G'},floats:{name:'Pływaki',col:'#f0b92b',mark:'~'},
   dome:{name:'Kopuła antykwasowa',col:'#9ee22f',mark:'K'},antidote:{name:'Antidotum',col:'#c9f06a',mark:'A'},
-  plague:{name:'Zagłuszacz UFO',col:'#c0392b',mark:'M'},saw:{name:'Piły na pancerzu',col:'#b7bcbf',mark:'X'}};
-const BASE_PU=['heal','shield','dbl','ammo','fuel'];
-const PU_INFO={heal:['Naprawia czołg: +35 HP.','Repairs your tank: +35 HP.'],shield:['Osłona pochłania 50 obrażeń, zanim zaczniesz tracić życie.','A guard that absorbs 50 damage before you start losing health.'],
+  plague:{name:'Zagłuszacz UFO',col:'#c0392b',mark:'M'},drone:{name:'Dron przechwytujący',col:'#8ff7ff',mark:'D'},holo:{name:'Hologram',col:'#4fa8d8',mark:'H'},saw:{name:'Piły na pancerzu',col:'#b7bcbf',mark:'X'}};
+const BASE_PU=['heal','shield','dbl','ammo','fuel','drone','holo'];
+const PU_INFO={drone:['Przez 3 tury dron nad czołgiem zestrzeliwuje pierwszy wrogi pocisk, który do ciebie leci.','For 3 turns a drone above your tank shoots down the first enemy shell flying at you.'],holo:['Obok stawia hologram twojego czołgu. Przez 2 tury komputer i rakiety Sęp celują w hologram. Znika, gdy coś w niego trafi.','Projects a hologram of your tank nearby. For 2 turns the CPU and Vulture rockets aim at the hologram. It vanishes when something hits it.'],heal:['Naprawia czołg: +35 HP.','Repairs your tank: +35 HP.'],shield:['Osłona pochłania 50 obrażeń, zanim zaczniesz tracić życie.','A guard that absorbs 50 damage before you start losing health.'],
   dbl:['Następny strzał zadaje podwójne obrażenia.','Your next shot deals double damage.'],ammo:['Losowa broń trafia do twojego arsenału.','A random weapon goes into your arsenal.'],fuel:['+3 ruchy Jazdy.','+3 Drive moves.'],
   stab:['Przez 2 strzały wiatr nie znosi twoich pocisków.','For 2 shots the wind will not push your shells.'],heater:['Przez 4 tury wieża nie zamarznie, a śnieg cię nie spowalnia.','For 4 turns your turret will not freeze and snow will not slow you down.'],
   floats:['Przez 4 tury nie utkniesz w wodzie i nie tracisz tlenu.','For 4 turns you will not get stuck in water or lose oxygen.'],dome:['Przez 4 tury kwaśny deszcz nie zadaje ci obrażeń.','For 4 turns acid rain will not hurt you.'],
@@ -1782,6 +1790,7 @@ function puIcon(c,k,x,y,r){c.save();c.translate(x,y);const col=k==='o2'?'#4fb3e8
   c.fillStyle=col;c.strokeStyle=INK;c.lineWidth=Math.max(1.5,r*.16);c.beginPath();c.arc(0,0,r,0,7);c.fill();c.stroke();c.scale(r/12,r/12);c.lineWidth=2;c.strokeStyle=INK;
   const P=(pts,f)=>{c.beginPath();pts.forEach(([a,b],i)=>i?c.lineTo(a,b):c.moveTo(a,b));c.closePath();if(f){c.fillStyle=f;c.fill()}c.stroke()};
   switch(k){
+    case'drone':case'holo':puIconNew(c,k);break;
     case'heal':c.fillStyle='#b8322a';P([[-2.5,-7],[2.5,-7],[2.5,-2.5],[7,-2.5],[7,2.5],[2.5,2.5],[2.5,7],[-2.5,7],[-2.5,2.5],[-7,2.5],[-7,-2.5],[-2.5,-2.5]],'#b8322a');break;
     case'shield':P([[0,-8],[7,-5],[6,3],[0,8],[-6,3],[-7,-5]],'#e9f6ff');c.beginPath();c.moveTo(0,-4);c.lineTo(0,4);c.moveTo(-3.5,-1);c.lineTo(3.5,-1);c.strokeStyle='#4f8fb8';c.stroke();break;
     case'dbl':P([[2,-9],[-5,1],[0,1],[-2,9],[6,-2],[1,-2]],'#fff3b0');break;
@@ -1810,7 +1819,7 @@ $('puPop').addEventListener('click',()=>{clearTimeout(puTimer);nextPu()});
 document.addEventListener('click',e=>{const b=e.target.closest('.pc .fxi');if(!b)return;const k=b.dataset.k,n=b.dataset.n,card=b.closest('.pc'),nm=card?card.querySelector('.pn').textContent:'';
   const left=k==='o2'?T('Zostało '+n+'% tlenu.',n+'% oxygen left.'):k==='dbl'?'':n?T('Zostało: '+n+(k==='stab'?(n==1?' strzał':' strzały'):(n==1?' tura':' tury')),'Left: '+n+(k==='stab'?(n==1?' shot':' shots'):(n==1?' turn':' turns'))):'';
   showPu(k,nm.toUpperCase(),left,true)});
-const FX_LBL={stab:'STAB',heater:'CIEPŁO',floats:'PŁYW',dome:'KOPUŁA',saw:'PIŁY'};
+const FX_LBL={stab:'STAB',heater:'CIEPŁO',floats:'PŁYW',dome:'KOPUŁA',saw:'PIŁY',drone:'DRON',holo:'HOLO'};
 const EVENTS={
  blizzard:{name:'ZAMIEĆ ŚNIEŻNA',dur:3,pu:['heater']},
  downpour:{name:'ULEWA',dur:3,pu:['floats']},
@@ -1946,6 +1955,7 @@ function startRound(){
   tanks.forEach(t=>{t.st=tStats(t);Object.assign(t,{turns:0,hp:t.st.maxHp,alive:true,vy:0,vx:0,falling:false,jumping:false,jumpCd:0,fallFrom:0,power:55,wi:0,ai:null,shield:0,dbl:false,moving:null,burnAcc:0,recoil:0,hurt:0,lastHit:null,o2:100,o2warn:0,drownAcc:0,
       fx:{stab:0,heater:0,floats:0,dome:0,saw:0},frozen:false,stuck:false,wasWet:false});
     t.y=groundUnder(t.x,t.st.scale);t.tilt=tiltAt(t.x);t.angle=t.x<W/2?50:130;t.inv=t.inv||{};t.ammo={};WEAPONS.forEach(w=>t.ammo[w.id]=w.ammo===Infinity?Infinity:w.move?w.ammo:(BASIC[w.id]||0)+(t.inv[w.id]||0));t.rb={...BASIC};t.airX=clamp(t.x+(t.x<W/2?1:-1)*260,20,W-20);t.earn={dmg:0,kill:0,zomb:0,win:0,base:0}});
+  SPX=[];hordeNum=0;for(const t of tanks){t.lift=null;t.holoX=null}
   rad=[];mush=[];projectiles=[];pending=[];explosions=[];parts=[];texts=[];trail=[];fires=[];beams=[];crates=[];planes=[];zombies=[];ufos=[];waveNum=0;turnCount=0;skipWaves=0;
   turnsSinceDrop=0;firstTurn=true;wind=Math.round(rand(-.5,.5)*MAP.windMax);cur=starter%n;starter++;flashL=0;lightT=rand(6,12);
   if(CAMP.on)campOnRoundStart();
@@ -1985,6 +1995,8 @@ function startTurnBody(firstMsg){
   if(depthAt(t.x)>t.st.hh*.75&&!(t.fx.floats>0)){t.o2=Math.max(0,t.o2-30);if(t.o2<=0){hurt(t,10,'#7fc4e6');if(!t.o2warn){t.o2warn=1;msg=t.name+T(': BRAK TLENU!',': OUT OF OXYGEN!');sfxAlarm()}}}
   for(const k in t.fx)if(k!=='stab'&&t.fx[k]>0)t.fx[k]--;
   if((MAP.zombies||ufoEvery)&&turnCount===1)waveIn=(ufoEvery||WAVE_EVERY)*aliveCount();
+  if(MAP.horde&&turnCount===1)hordeIn=HORDE_EVERY*aliveCount()-1;
+  if(MAP.horde&&turnCount>1&&--hordeIn<=0){hordeIn=HORDE_EVERY*aliveCount();spawnHorde();msg=null}
   if((MAP.zombies||ufoEvery)&&turnCount>1&&--waveIn<=0){waveIn=(ufoEvery||WAVE_EVERY)*aliveCount();if(skipWaves>0){skipWaves--;texts.push({x:W/2,y:H*.3,s:'INWAZJA ODWOŁANA',t:0,col:'#9ee22f'})}else{spawnWave();msg=null}}
   maybeDrop();
   if(!canUse(t,curW(t)))t.wi=0;
@@ -2059,6 +2071,8 @@ function collect(c,t){
     case'antidote':t.hp=Math.min(t.st.maxHp,t.hp+25);msg='+25 HP';break;
     case'plague':{let n=0;for(const z of zombies){if(!z.dead){dustZombie(z);n++}}for(const u of ufos)if(u.st!=='crash'){u.st='leave';u.left=0;u.spots=[];u.beam=0}skipWaves=1;msg=T('ZAGŁUSZACZ: −','JAMMER: −')+n+T(' UFOLUDKÓW',' ALIENS');break}
     case'saw':t.fx.saw=4;msg='PIŁY 4 TURY';break;
+    case'drone':t.fx.drone=4;msg=T('DRON 3 TURY','DRONE 3 TURNS');sfxZap();break;
+    case'holo':{t.fx.holo=3;const sd=t.x<W/2?1:-1;let hx=clamp(t.x+sd*150,60,W-60);if(Math.abs(hx-t.x)<80)hx=clamp(t.x-sd*150,60,W-60);t.holoX=hx;msg='HOLOGRAM';sfxZap();break}
   }
   texts.push({x:t.x,y:t.y-100,s:msg,t:0,col:'#f0b92b'});showPu(c.type,T(t.name.toUpperCase()+' ZDOBYWA',t.name.toUpperCase()+' GETS'),c.type==='ammo'?'('+L(msg)+')':'');sfxPickup();
   for(let k=0;k<10;k++)parts.push({k:'chunk',x:c.x,y:c.y-10,vx:rand(-150,150),vy:rand(-260,-80),r:rand(2.5,4.5),col:'#6e6f3c',life:1});
@@ -2119,6 +2133,7 @@ var SCORCH=[];
 function explode(x,y,w,mult=1,rMul=1,owner=null){
   const r=Math.round(w.r*rMul);
   if(!w.dirt&&r>8){SCORCH.push({x,y,r,t0:time});if(SCORCH.length>40)SCORCH.shift()}
+  holoPop(x,r);
   if(w.dirt)addDirt(x,y,r);else{carve(x,y,r);if(bodies.length)hitBodies(x,y,r)}
   explosions.push({x,y,r,t:0,dur:.42+r*.0025,dirt:!!w.dirt,rot:rand(0,6)});if(!w.dirt){const nE=Math.min(18,6+r*.2);for(let i=0;i<nE;i++){const a=rand(Math.PI*1.1,Math.PI*1.9),sp=rand(160,320+r*2);parts.push({k:'spark',x,y:y-4,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,life:rand(.35,.8)})}}
   shake=Math.max(shake,Math.min(18,r*.16));if(w.nuke){flash=1;mush.push({x,y:Math.min(H-4,groundAtX(x)),k:r/60,t:0,dur:4.2});const n=3*Math.max(2,tanks.filter(t=>t.alive).length);rad.push({x,r:Math.round(r*1.15),left:n,max:n});toast(T('SKAŻENIE RADIOAKTYWNE!','RADIOACTIVE FALLOUT!'))}
@@ -2155,9 +2170,9 @@ function aiStart(t){
   if(t.ammo.laser>0&&!t.frozen&&Math.random()<.35){const m=muzzle(t);const a=Math.atan2(m.py-(tg.y-18),tg.x-m.px)*180/Math.PI;
     const rel=a+t.tilt*180/Math.PI;if(rel>=0&&rel<=180){t.ai={a:clamp(Math.round(rel+gauss()*nz[2]),0,180),p:t.power,wi:WI('laser'),wait:rand(.4,.8),think:.7};return}}
   const dist=Math.abs(tg.x-t.x);let wid='shell';
-  for(const[id,p]of[['nuke',.45],['heavy',.35],['napalm',.3],['para',.3],['bounce',.25],['drill',.25],['crazy',.3],['homing',.35],['cryo',.3],['zbomb',.3],['mini',.2]]){const w=WEAPONS[WI(id)];if(t.ammo[id]>0&&dist>(w.r||30)+80&&Math.random()<p){wid=id;break}}
+  for(const[id,p]of[['nuke',.45],['heavy',.35],['napalm',.3],['para',.3],['bounce',.25],['drill',.25],['crazy',.3],['homing',.35],['cryo',.3],['zbomb',.3],['quake',.3],['abduct',.3],['hole',.3],['mini',.2]]){const w=WEAPONS[WI(id)];if(t.ammo[id]>0&&dist>(w.r||30)+80&&Math.random()<p){wid=id;break}}
   const w=WEAPONS[WI(wid)];
-  const score=r=>{if(!r)return 1e9;let s=Math.hypot(r.x-tg.x,r.y-(tg.y-15));if(Math.hypot(r.x-t.x,r.y-t.y)<w.r*t.st.rMul+40)s+=900;return s};
+  const HT=holoAt(tg)||tg;const score=r=>{if(!r)return 1e9;let s=Math.hypot(r.x-HT.x,r.y-(HT.y-15));if(Math.hypot(r.x-t.x,r.y-t.y)<w.r*t.st.rMul+40)s+=900;return s};
   let best={s:1e9,a:t.frozen?t.angle:(t.x<tg.x?50:130),p:60};
   const A0=t.frozen?Math.round(t.angle):8,A1=t.frozen?Math.round(t.angle):172;
   for(let a=A0;a<=A1;a+=3)for(let p=15;p<=t.st.maxPow;p+=2.5){const s=score(simulate(t,a,p));if(s<best.s)best={s,a,p}}
@@ -2189,8 +2204,9 @@ function physicsStep(){
       continue}
     if(p.w.chute&&p.age>.35){p.open=true;p.vy+=(48-p.vy)*Math.min(1,DT*3.5);p.vx+=(wind*5-p.vx)*DT*1.6}
     else{p.vx+=wind*WINDK*(p.windMul??1)*DT;p.vy+=G*DT}
-    if(p.w.homing&&p.vy>0){let tg=null,bd=1e9;for(const o of tanks)if(o.alive&&(!p.owner||foe(o,p.owner))){const d=Math.hypot(o.x-p.x,o.y-20-p.y);if(d<bd){bd=d;tg=o}}
+    if(p.w.homing&&p.vy>0){let tg=null,bd=1e9;for(const o of tanks)if(o.alive&&(!p.owner||foe(o,p.owner))){const hp=holoAt(o)||o,d=Math.hypot(hp.x-p.x,hp.y-20-p.y);if(d<bd){bd=d;tg=hp}}
       if(tg){const sp=Math.max(230,Math.hypot(p.vx,p.vy)),a=Math.atan2(p.vy,p.vx),b=Math.atan2(tg.y-18-p.y,tg.x-p.x);let da=b-a;while(da>Math.PI)da-=2*Math.PI;while(da<-Math.PI)da+=2*Math.PI;const na=a+clamp(da,-2.6*DT,2.6*DT);p.vx=Math.cos(na)*sp;p.vy=Math.sin(na)*sp}}
+    if(droneCheck(p)){projectiles.splice(i,1);continue}
     for(const o of tanks)if(o.mirror&&o.alive&&(!p.owner||foe(o,p.owner))){const k=o.st.scale,cy=o.y-20*k;if(Math.hypot(p.x-o.x,p.y-cy)<58*k){o.mirror=0;p.vx=-p.vx;p.vy=-p.vy;p.owner=o;p.age=0;p.x+=p.vx*DT*2;p.y+=p.vy*DT*2;
       texts.push({x:o.x,y:o.y-96,s:'ODBICIE!',t:0,col:'#bfe6ef'});explosions.push({x:p.x,y:p.y,r:22,t:0,dur:.25,rot:0});sfxShield();for(let q=0;q<10;q++)parts.push({k:'spark',x:p.x,y:p.y,vx:rand(-140,140),vy:rand(-140,80),life:rand(.2,.5)});break}}
     p.x+=p.vx*DT;p.y+=p.vy*DT;p.age+=DT;
@@ -2229,6 +2245,9 @@ function physicsStep(){
     if(p.w.zombies){explode(sx,p.y,p.w,p.mult,p.rMul,p.owner);for(let q=0;q<p.w.zombies&&zombies.length<14;q++){const zx=clamp(sx+(q-1)*26+rand(-6,6),20,W-20);
         zombies.push({x:zx,y:groundAtX(zx),hp:30,life:rand(18,24),bites:0,sp:rand(18,26),ph:rand(0,6),rise:0,bite:rand(0,1),shirt:'#c9ced6',lean:0,own:p.owner})}
       for(let q=0;q<14;q++)parts.push({k:'smoke',x:sx+rand(-20,20),y:p.y-rand(0,16),vx:rand(-20,20),vy:rand(-40,-10),r:rand(5,9),gr:12,life:.9,max:.9,col:'rgba(170,255,240,.55)'});sfxSplit();continue}
+    if(p.w.hole){spawnHole(sx,p.y,p);continue}
+    if(p.w.abduct){spawnAbduct(sx,p.y,p);continue}
+    if(p.w.quake){spawnQuake(sx,p.y,p);continue}
     if(p.w.napalm){explode(sx,p.y,p.w,p.mult,p.rMul,p.owner);for(let k=0;k<18;k++)fires.push({x:clamp(sx+rand(-36,36),0,W-1),vx:rand(-110,110),life:rand(3.2,4.8),max:4.8,ph:rand(0,6),mult:p.mult,owner:p.owner});sfxNapalm();continue}
     explode(sx,p.y,p.w,p.mult,p.rMul,p.owner);
   }
@@ -2247,6 +2266,7 @@ function update(dt){
   acc+=dt;while(acc>=DT){if(shotRng){const o=Math.random;Math.random=shotRng;try{physicsStep()}finally{Math.random=o}}else physicsStep();acc-=DT}
   for(let x=0;x<W;x++){const d=h[x]-disp[x];if(d)disp[x]+=d>0?Math.min(d,500*dt):Math.max(d,-260*dt);}
   if(poolKind)waterSim(dt);
+  if(SPX.length)updateSpecials(dt);
   for(const f of fires){const ix=clamp(Math.round(f.x),3,W-4),sl=clamp(h[ix+3]-h[ix-3],-14,14);f.vx+=sl*22*dt;f.vx*=Math.pow(.4,dt);f.x=clamp(f.x+f.vx*dt,0,W-1);f.life-=dt;
     if(depthAt(f.x)>4)f.life-=dt*4;
     for(let k=-11;k<=11;k++){const xx=clamp(ix+k,0,W-1);grass[xx]=0;if(h[xx]<H-8)h[xx]+=(1.2+Math.min(1,Math.abs(f.vx)/50)*6)*dt*(1-(k/12)**2)}
@@ -2256,6 +2276,7 @@ function update(dt){
     if(n){const d=Math.min(3,n)*8*DMG*mult*dt;const got=hurt(t,d,'#ff9a3a',true,src);t.burnAcc+=got;if(t.burnAcc>=6){texts.push({x:t.x,y:t.y-70,s:'-'+Math.round(t.burnAcc),t:0,col:'#ff9a3a'});t.burnAcc=0}}}
   for(const t of tanks){if(!t.alive)continue;
     const k=t.st.scale;
+    if(t.lift){liftStep(t,dt);continue}
     if(t.jumping){t.vy+=G*1.4*dt;const nx=clamp(t.x+t.vx*dt,40,W-40);if(groundUnder(nx,k)<t.y-3)t.vx=0;else t.x=nx;const py=t.y;t.y+=t.vy*dt;
       const gj=groundUnder(t.x,k,py);if(t.vy>0&&t.y>=gj){t.y=gj;t.jumping=false;t.vx=0;t.vy=0;sfxThud();
         for(const z of zombies)if(!z.dead&&Math.abs(z.x-t.x)<t.st.hw+14)killZombie(z,'ZGNIECIONY',t);
@@ -2298,7 +2319,7 @@ function update(dt){
   if(phase==='resolve'){
     for(const t of tanks)if(t.alive&&t.hp<=.5)killTank(t);
     let settling=false;for(let x=0;x<W;x+=3)if(Math.abs(h[x]-disp[x])>.5){settling=true;break}
-    const busy=ufos.some(u=>u.st==='crash')||planes.length||pending.length||projectiles.length||explosions.length||fires.length||beams.length||settling||bodies.some(b=>b.vy>0)||tanks.some(t=>t.alive&&(t.falling||t.moving||t.jumping));
+    const busy=ufos.some(u=>u.st==='crash')||planes.length||pending.length||projectiles.length||explosions.length||fires.length||beams.length||settling||SPX.some(s=>s.k!=='zap')||bodies.some(b=>b.vy>0)||tanks.some(t=>t.alive&&(t.falling||t.moving||t.jumping||t.lift));
     if(busy)resolveT=0;else{resolveT+=dt;if(resolveT>.55)endTurn()}
   }else if(phase==='aim'){
     const t=tanks[cur];if(t&&t.alive&&t.hp<=.5){phase='resolve';resolveT=0;$('picker').hidden=true}
@@ -2660,6 +2681,158 @@ function drawAcidRain(c){
   /* low toxic mist rolling over the ground */
   for(let i=0;i<4;i++){const y=H*(.62+i*.09)+Math.sin(tm*.4+i*1.7)*8,g=c.createLinearGradient(0,y-50,0,y+50);g.addColorStop(0,'rgba(170,230,60,0)');g.addColorStop(.5,'rgba(170,230,60,.10)');g.addColorStop(1,'rgba(170,230,60,0)');c.fillStyle=g;c.fillRect(0,y-50,W,100)}
   c.restore()}
+/* ===================== v1.3: new weapons (Black Hole, Abductor, Seismic Wave), power-ups (Drone, Hologram), zombie hordes ===================== */
+var SPX=[];
+let hordeIn=0,hordeNum=0;const HORDE_EVERY=4;
+const ZSKIN=['#8fae7a','#9bb08a','#7f9f86','#a7b48c'],ZRAGS=['#5b6b7a','#7a5b4a','#6b6b5a','#4f5f4a','#7a6a8a'];
+function easeOut(q){return 1-Math.pow(1-q,3)}
+/* ---------- weapon effects ---------- */
+function spawnHole(x,y,p){SPX.push({k:'hole',x,y:y-10,t:0,dur:2.3,R:140,owner:p.owner,mult:p.mult||1,tick:0,cv:0});sfxHole();shake=Math.max(shake,6)}
+function spawnAbduct(x,y,p){const caught=[];for(const o of tanks)if(o.alive&&!o.lift&&Math.abs(o.x-x)<o.st.hw+26){o.lift={t:0,y0:o.y,x0:o.x};caught.push(o);hurt(o,8*(p.mult||1),'#8ff7ff',false,p.owner);o.lastHit=p.owner||o.lastHit}
+  for(const z of zombies)if(!z.dead&&Math.abs(z.x-x)<70){z.abd=0;z.drop=false}
+  SPX.push({k:'beam',x,gy:groundAtX(x),t:0,dur:2.1,owner:p.owner,caught});sfxBeam();sfxUfo();if(caught.length)texts.push({x,y:caught[0].y-110,s:T('PORWANY!','ABDUCTED!'),t:0,col:'#8ff7ff'})}
+function spawnQuake(x,y,p){const x0=clamp(Math.round(x),0,W-1);SPX.push({k:'quake',x:x0,t:0,dur:1.9,owner:p.owner,mult:p.mult||1,off:new Float32Array(W),hit:new Set()});carve(x0,groundAtX(x0),16,true);shake=Math.max(shake,10);sfxQuake();
+  texts.push({x:x0,y:groundAtX(x0)-60,s:T('WSTRZĄS!','QUAKE!'),t:0,col:'#f0b92b'})}
+function updateSpecials(dt){
+  for(const s of SPX){s.t+=dt;
+    if(s.k==='hole'){const g=Math.min(1,s.t/.35),R=s.R*g;
+      for(const o of tanks){if(!o.alive||o.falling||o.jumping||o.lift)continue;const dx=s.x-o.x,d=Math.abs(dx);if(d<R&&d>22){const st=Math.min(d-22,95*dt*(1-d/R)+20*dt);o.x=clamp(o.x+Math.sign(dx)*st,40,W-40);o.tilt=tiltAt(o.x)}}
+      s.tick-=dt;if(s.tick<=0){s.tick=.4;for(const o of tanks)if(o.alive&&Math.hypot(o.x-s.x,o.y-18-s.y)<R*.65){hurt(o,4*s.mult,'#c99cff',false,s.owner);if(s.owner&&foe(o,s.owner))o.lastHit=s.owner}}
+      s.cv-=dt;if(s.cv<=0&&s.t<s.dur-.3){s.cv=.12;carve(s.x,s.y,Math.round(10+28*Math.min(1,s.t/s.dur)),true)}
+      for(const z of zombies)if(!z.dead&&!z.drop){const dx=s.x-z.x,d=Math.hypot(dx,z.y-20-s.y);if(d<R){z.x+=Math.sign(dx)*Math.min(Math.abs(dx),140*dt);if(d<26)killZombie(z,T('WCIĄGNIĘTY','SUCKED IN'),s.owner)}}
+      for(const q of parts){if(q.k==='smoke'||q.k==='asplash')continue;const dx=s.x-q.x,dy=s.y-q.y,d=Math.hypot(dx,dy);if(d<R*1.3&&d>4&&q.vx!==undefined){q.vx+=(dx/d*900-dy/d*500)*dt;q.vy+=(dy/d*900+dx/d*500)*dt;if(d<14)q.life=0}}
+      if(Math.random()<dt*28&&s.t<s.dur-.3){const a=rand(0,6.28),rr=R*rand(.6,1.1);parts.push({k:'chunk',x:s.x+Math.cos(a)*rr,y:s.y+Math.sin(a)*rr*.7,vx:-Math.sin(a)*160,vy:Math.cos(a)*110,r:rand(1.5,3.2),col:Math.random()<.5?MAP.dirt:'#6d5a8a',life:1.2})}
+      if(s.t>=s.dur){s.done=true;explode(s.x,s.y,{r:46,dmg:34},s.mult,1,s.owner);flash=Math.max(flash,.5);shake=Math.max(shake,12);for(let q=0;q<26;q++){const a=rand(0,6.28),v=rand(140,360);parts.push({k:'spark',x:s.x,y:s.y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life:rand(.3,.8)})}}}
+    else if(s.k==='beam'){
+      for(const z of zombies)if(!z.dead&&z.abd!==undefined){z.abd+=dt;z.y-=90*dt;if(z.abd>1.1)dustZombie(z)}
+      if(Math.random()<dt*20&&s.t<1.6)parts.push({k:'chunk',x:s.x+rand(-30,30),y:s.gy-2,vx:rand(-10,10),vy:-rand(160,260),r:rand(1.5,3),col:MAP.dirt,life:.9});
+      if(s.t>=s.dur)s.done=true}
+    else if(s.k==='quake'){const q=Math.min(1,s.t/1.6),d=18+300*easeOut(q),A=(26*(1-q*.6))*(s.t<s.dur-.25?1:Math.max(0,(s.dur-s.t)/.25)),fL=s.x-d,fR=s.x+d,lo=Math.max(0,Math.floor(s.x-340)),hi=Math.min(W-1,Math.ceil(s.x+340));
+      for(let X=lo;X<=hi;X++){const u1=(X-fL)/24,u2=(X-fR)/24,b=A*(Math.exp(-u1*u1)+Math.exp(-u2*u2))*(1+.25*Math.sin(X*.4+s.t*20));const nb=s.t>=s.dur?0:b;h[X]=Math.max(10,h[X]+s.off[X]-nb);s.off[X]=nb}
+      for(const o of tanks){if(!o.alive||s.hit.has(o))continue;if(Math.min(Math.abs(o.x-fL),Math.abs(o.x-fR))<o.st.hw*.6&&Math.abs(o.x-s.x)>8){s.hit.add(o);hurt(o,14*s.mult,'#f0b92b',false,s.owner);if(s.owner&&foe(o,s.owner))o.lastHit=s.owner;o.y-=30;o.falling=true;o.fallFrom=o.y-6;o.vy=-160;shake=Math.max(shake,6)}}
+      for(const z of zombies)if(!z.dead&&!z.drop&&Math.min(Math.abs(z.x-fL),Math.abs(z.x-fR))<12)killZombie(z,T('ZMIECIONY','FLATTENED'),s.owner);
+      if(Math.random()<dt*40){for(const fx of[fL,fR])if(fx>0&&fx<W){const gy=groundAtX(fx);parts.push({k:'smoke',x:fx+rand(-8,8),y:gy-4,vx:rand(-20,20),vy:rand(-30,-8),r:rand(5,9),gr:16,life:.8,max:.8,col:'#b8a68a'});if(Math.random()<.5)parts.push({k:'chunk',x:fx,y:gy-6,vx:rand(-60,60),vy:rand(-220,-90),r:rand(2,3.5),col:MAP.dirt,life:.9})}}
+      shake=Math.max(shake,3*(1-q));
+      if(s.t>=s.dur){for(let X=lo;X<=hi;X++){h[X]=Math.max(10,h[X]+s.off[X]);s.off[X]=0;if(Math.abs(X-s.x)<d)h[X]=Math.min(H-8,h[X]+Math.max(0,Math.sin(X*.37)*Math.sin(X*.11))*5)}s.done=true}}
+    else if(s.k==='zap'){if(s.t>.3)s.done=true}}
+  SPX=SPX.filter(s=>!s.done);
+}
+/* tank being lifted by the Abductor beam (called from the tank loop) */
+function liftStep(o,dt){const L=o.lift;L.t+=dt;const q=Math.min(1,L.t/1.1);o.y=L.y0-125*easeOut(q)+Math.sin(L.t*5)*2*q;o.x=L.x0+Math.sin(L.t*3)*4*q;o.tilt+=(Math.sin(L.t*2.4)*.3-o.tilt)*Math.min(1,dt*3);
+  if(L.t>=1.55){o.lift=null;o.falling=true;o.fallFrom=o.y;o.vy=0;sfxThud()}}
+/* drone intercepts the next enemy shell */
+function droneCheck(p){for(const o of tanks){if(!o.alive||!(o.fx.drone>0)||(p.owner&&!foe(o,p.owner))||p.age<.15)continue;const dx=p.x-o.x,dy=p.y-(o.y-95*o.st.scale);if(Math.hypot(dx,dy)<140){
+  const sx=o.x+Math.sin(time*2)*10,sy=o.y-95*o.st.scale;SPX.push({k:'zap',x1:sx,y1:sy,x2:p.x,y2:p.y,t:0});o.fx.drone=0;explosions.push({x:p.x,y:p.y,r:18,t:0,dur:.35,rot:rand(0,6)});
+  for(let q=0;q<12;q++)parts.push({k:'spark',x:p.x,y:p.y,vx:rand(-160,160),vy:rand(-160,80),life:rand(.2,.5)});texts.push({x:o.x,y:o.y-130,s:T('PRZECHWYCONY!','INTERCEPTED!'),t:0,col:'#8ff7ff'});sfxZap();return true}}return false}
+function holoAt(o){return o.fx&&o.fx.holo>0&&o.holoX!=null?{x:o.holoX,y:groundAtX(o.holoX)}:null}
+function holoPop(x,r){for(const o of tanks)if(o.fx&&o.fx.holo>0&&o.holoX!=null&&Math.abs(o.holoX-x)<r+26){o.fx.holo=0;texts.push({x:o.holoX,y:groundAtX(o.holoX)-80,s:'HOLOGRAM!',t:0,col:'#8ff7ff'});for(let q=0;q<16;q++)parts.push({k:'spark',x:o.holoX+rand(-24,24),y:groundAtX(o.holoX)-rand(4,40),vx:rand(-60,60),vy:rand(-120,-20),life:rand(.3,.6)})}}
+/* ---------- zombie hordes ---------- */
+function spawnHorde(){hordeNum++;const n=Math.max(0,Math.min(8,3+Math.floor(hordeNum*1.3),14-zombies.length));if(!n)return;
+  for(let i=0;i<n;i++){let x,tries=0;do{x=rand(70,W-70);tries++}while(tries<30&&tanks.some(t=>t.alive&&Math.abs(t.x-x)<120));
+    zombies.push({zk:1,x,y:groundAtX(x),hp:40,life:rand(30,40),bites:0,sp:rand(10,17),ph:rand(0,6),rise:-rand(0,.8),bite:rand(.4,1),dir:Math.random()<.5?-1:1,skin:ZSKIN[(Math.random()*ZSKIN.length)|0],rags:ZRAGS[(Math.random()*ZRAGS.length)|0],hat:Math.random()<.3,lean:rand(.08,.22),limp:rand(.6,1.4),v:(Math.random()*3)|0})}
+  toast(T('HORDA ZOMBIE!','ZOMBIE HORDE!'));sfxGroan();shake=Math.max(shake,4)}
+function drawWalker(c,z){
+  const tm=typeof time==='number'?time:0,dir=z.dir||1,ph=z.ph||0,rise=Math.max(0,Math.min(1,z.rise)),lg=Math.sin(ph),lunge=Math.max(0,z.lunge||0);
+  c.save();c.globalAlpha=clamp((z.life??9)/2,0,1);c.translate(z.x,z.y);
+  if(rise<1){c.beginPath();c.rect(-40,-80,80,80);c.clip();c.translate(0,(1-rise)*50)}
+  c.scale(dir,1);c.lineCap='round';c.lineJoin='round';
+  const skin=z.skin||'#8fae7a',skD=shadeHex(skin,.62),skL=shadeHex(skin,1.25),rags=z.rags||'#5b6b7a',rgD=shadeHex(rags,.6);
+  c.rotate((z.lean||.15)+lunge*.5+Math.sin(ph*.5)*.04);
+  const LW=(w)=>{c.lineWidth=w};
+  /* legs (one drags) */
+  const l1=lg*5*(z.limp||1),l2=-lg*3;
+  c.strokeStyle=INK;LW(5.2);c.beginPath();c.moveTo(-2,-14);c.lineTo(-2+l1,-1);c.moveTo(2.5,-14);c.lineTo(3+l2,0);c.stroke();
+  c.strokeStyle=rgD;LW(3.2);c.beginPath();c.moveTo(-2,-14);c.lineTo(-2+l1,-1);c.moveTo(2.5,-14);c.lineTo(3+l2,0);c.stroke();
+  c.strokeStyle=skin;LW(2.6);c.beginPath();c.moveTo(-2+l1*.6,-6);c.lineTo(-2+l1,-1);c.stroke();
+  c.fillStyle='#3a2f28';c.strokeStyle=INK;LW(1.3);c.beginPath();c.ellipse(-1+l1,-.6,2.8,1.7,0,0,7);c.fill();c.stroke();c.beginPath();c.ellipse(4+l2,0,2.6,1.6,0,0,7);c.fill();c.stroke();
+  /* back arm */
+  const ar=Math.sin(ph*.8)*2;c.strokeStyle=INK;LW(4.4);c.beginPath();c.moveTo(-1,-24);c.lineTo(9+lunge*6,-25+ar);c.stroke();c.strokeStyle=skD;LW(2.6);c.beginPath();c.moveTo(-1,-24);c.lineTo(9+lunge*6,-25+ar);c.stroke();
+  /* torso: torn shirt */
+  c.fillStyle=fxLG(c,-6,0,6,0,[[0,shadeHex(rags,1.25)],[.6,rags],[1,rgD]]);c.strokeStyle=INK;LW(2.2);c.beginPath();c.moveTo(-6,-27);c.lineTo(6,-27);c.lineTo(6.5,-16);c.lineTo(4,-13.5);c.lineTo(2,-15.5);c.lineTo(0,-13);c.lineTo(-2.5,-15.2);c.lineTo(-6.5,-13.5);c.closePath();c.fill();c.stroke();
+  c.fillStyle=skD;c.beginPath();c.moveTo(1,-22);c.lineTo(4.5,-21);c.lineTo(3,-18);c.closePath();c.fill();
+  c.strokeStyle='rgba(0,0,0,.35)';LW(.9);c.beginPath();c.moveTo(-3,-26);c.lineTo(-3,-15);c.moveTo(-5,-20);c.lineTo(-1,-20);c.stroke();
+  c.fillStyle='rgba(120,30,20,.45)';c.beginPath();c.ellipse(-3,-18,1.6,1,0,0,7);c.fill();
+  /* front arm reaching forward */
+  c.strokeStyle=INK;LW(4.6);c.beginPath();c.moveTo(1,-25);c.quadraticCurveTo(7,-24,12+lunge*7,-23-ar);c.stroke();c.strokeStyle=rags;LW(2.8);c.beginPath();c.moveTo(1,-25);c.lineTo(6,-24.5);c.stroke();c.strokeStyle=skin;LW(2.6);c.beginPath();c.moveTo(6,-24.5);c.lineTo(12+lunge*7,-23-ar);c.stroke();
+  c.fillStyle=skin;c.strokeStyle=INK;LW(1.2);c.beginPath();c.arc(12.5+lunge*7,-23-ar,1.9,0,7);c.fill();c.stroke();
+  c.strokeStyle=INK;LW(.9);for(let f=0;f<3;f++){c.beginPath();c.moveTo(13.5+lunge*7,-24-ar+f*1.1);c.lineTo(15.5+lunge*7,-24.5-ar+f*1.4);c.stroke()}
+  /* head */
+  const hy=-33,hx=1.5;c.fillStyle=fxRG(c,hx,hy,1,8,[[0,skL],[.6,skin],[1,skD]],-2,-2);c.strokeStyle=INK;LW(2.2);c.beginPath();c.moveTo(hx-6,hy-2);c.quadraticCurveTo(hx-6,hy-8,hx,hy-8);c.quadraticCurveTo(hx+6.5,hy-8,hx+6.5,hy-1.5);c.quadraticCurveTo(hx+6.5,hy+4,hx+3,hy+5);c.lineTo(hx-3,hy+5);c.quadraticCurveTo(hx-6,hy+4,hx-6,hy-2);c.closePath();c.fill();c.stroke();
+  /* scruffy hair / cap */
+  if(z.hat){c.fillStyle='#3d3a34';c.beginPath();c.moveTo(hx-6.5,hy-3);c.quadraticCurveTo(hx-5,hy-10,hx+1,hy-9.5);c.quadraticCurveTo(hx+7,hy-9,hx+7,hy-3);c.closePath();c.fill();c.stroke();c.fillRect(hx+2,hy-4,7,1.8)}
+  else{c.strokeStyle='#3a332b';LW(1.4);for(let i=0;i<5;i++){c.beginPath();c.moveTo(hx-5+i*2.4,hy-7.2);c.lineTo(hx-6+i*2.4+Math.sin(i*3)*1.5,hy-10.5);c.stroke()}}
+  /* sunken eyes glowing */
+  c.fillStyle='#1a1512';c.beginPath();c.ellipse(hx+1.2,hy-2.5,2.1,1.9,0,0,7);c.ellipse(hx+4.8,hy-2.4,1.6,1.7,0,0,7);c.fill();
+  const gl=.65+.35*Math.sin(tm*5+ph);c.fillStyle=`rgba(255,236,90,${gl})`;c.beginPath();c.arc(hx+1.6,hy-2.5,.9,0,7);c.arc(hx+5,hy-2.4,.75,0,7);c.fill();
+  c.fillStyle=`rgba(255,236,90,${gl*.25})`;c.beginPath();c.arc(hx+3.2,hy-2.5,4,0,7);c.fill();
+  /* nose, jaw, teeth */
+  c.strokeStyle=skD;LW(1);c.beginPath();c.moveTo(hx+6.2,hy-1);c.lineTo(hx+7.4,hy+.6);c.stroke();
+  const jaw=(.6+.6*Math.abs(Math.sin(tm*3+ph)))+lunge*3;c.fillStyle='#2a1512';c.beginPath();c.ellipse(hx+3.6,hy+2.6,2.4,jaw,0,0,7);c.fill();c.fillStyle='#e9e2c6';c.fillRect(hx+2.2,hy+1.9,1,1);c.fillRect(hx+4,hy+1.9,1,1);
+  c.strokeStyle='rgba(60,20,10,.5)';LW(.8);c.beginPath();c.moveTo(hx-4,hy-5);c.lineTo(hx-2,hy-3);c.lineTo(hx-4,hy-1);c.stroke();
+  c.restore();
+  /* dirt bursting while it claws out of the ground */
+  if(rise>0&&rise<1&&Math.random()<.25)parts.push({k:'chunk',x:z.x+rand(-8,8),y:z.y-2,vx:rand(-60,60),vy:rand(-140,-60),r:rand(1.5,3),col:MAP.dirt,life:.6});
+}
+/* ---------- drawing for the specials, drones and holograms ---------- */
+function drawSpecials(c){
+  const tm=time;
+  for(const o of tanks){if(!o.alive)continue;
+    if(o.fx&&o.fx.holo>0&&o.holoX!=null){const hx=o.holoX,hy=groundAtX(hx),fl=Math.sin(tm*23)>.85?.15:.42;c.save();c.globalAlpha=fl;drawTank(c,hx,hy,tiltAt(hx),o.angle,{...o.look,color:'#7ff0ff'},o.st.scale,{soldier:true});c.restore();
+      c.save();c.globalCompositeOperation='lighter';c.fillStyle='rgba(120,240,255,.16)';for(let yy=hy-48*o.st.scale;yy<hy;yy+=4)c.fillRect(hx-40*o.st.scale,yy+((tm*30)%4),80*o.st.scale,1.2);
+      c.fillStyle=fxRG(c,hx,hy,2,50*o.st.scale,[[0,'rgba(120,240,255,.4)'],[1,'rgba(120,240,255,0)']]);c.beginPath();c.ellipse(hx,hy,50*o.st.scale,9,0,0,7);c.fill();c.restore()}
+    if(o.fx&&o.fx.drone>0){const k=o.st.scale,dx=o.x+Math.sin(tm*2)*10,dy=o.y-95*k+Math.sin(tm*3.1)*3;drawDrone(c,dx,dy,k)}}
+  for(const s of SPX){
+    if(s.k==='hole')drawHole(c,s);
+    else if(s.k==='beam')drawAbductBeam(c,s);
+    else if(s.k==='zap'){const a=1-s.t/.3;c.save();c.lineCap='round';c.globalCompositeOperation='lighter';c.strokeStyle=`rgba(120,240,255,${a*.6})`;c.lineWidth=7;c.beginPath();c.moveTo(s.x1,s.y1);c.lineTo(s.x2,s.y2);c.stroke();c.strokeStyle=`rgba(255,255,255,${a})`;c.lineWidth=2;c.stroke();c.restore()}}
+}
+function drawDrone(c,x,y,k){c.save();c.translate(x,y);c.scale(k*1.1,k*1.1);c.lineJoin='round';c.lineCap='round';const tm=time;
+  c.fillStyle='rgba(0,0,0,.18)';c.beginPath();c.ellipse(0,40,16,3,0,0,7);c.fill();
+  c.strokeStyle=INK;c.lineWidth=2.2;c.beginPath();c.moveTo(-14,-3);c.lineTo(14,-3);c.stroke();
+  for(const sx of[-14,14]){c.fillStyle=`rgba(210,220,230,${.35+.15*Math.sin(tm*60+sx)})`;c.beginPath();c.ellipse(sx,-6,9,2,0,0,7);c.fill();c.fillStyle='#2f3338';c.fillRect(sx-1.5,-7,3,4)}
+  c.fillStyle=fxLG(c,0,-7,0,5,[[0,'#d9dee3'],[1,'#6a737c']]);c.lineWidth=2;c.beginPath();c.moveTo(-8,-5);c.lineTo(8,-5);c.lineTo(6,4);c.lineTo(-6,4);c.closePath();c.fill();c.stroke();
+  c.fillStyle='#2a2d31';c.beginPath();c.arc(0,5,2.6,0,Math.PI);c.fill();c.fillStyle='#8ff7ff';c.beginPath();c.arc(0,6,1.1,0,7);c.fill();
+  c.fillStyle=Math.sin(tm*8)>0?'#ff4a3a':'#5a1a14';c.beginPath();c.arc(-6,-2,1.2,0,7);c.fill();c.fillStyle=Math.sin(tm*8)>0?'#3a1':'#7dff6a';c.beginPath();c.arc(6,-2,1.2,0,7);c.fill();
+  c.restore()}
+function drawHole(c,s){const g=Math.min(1,s.t/.35),end=Math.max(0,Math.min(1,(s.dur-s.t)/.3)),k=g*end,R=s.R*k,x=s.x,y=s.y,tm=time;if(k<=0)return;
+  c.save();
+  /* gravitational dimming */
+  c.fillStyle=fxRG(c,x,y,4,R,[[0,'rgba(10,0,25,.55)'],[.5,'rgba(40,10,70,.25)'],[1,'rgba(40,10,70,0)']]);c.beginPath();c.arc(x,y,R,0,7);c.fill();
+  /* spiral streaks falling in */
+  c.globalCompositeOperation='lighter';c.lineCap='round';
+  for(let i=0;i<14;i++){const ph=(tm*.9+i/14)%1,a0=i*.449+tm*3,r0=R*(1-ph)*.95+12;c.strokeStyle=`rgba(${i%2?200:255},${i%2?150:190},255,${.45*ph})`;c.lineWidth=1.6+ph*1.4;c.beginPath();for(let q=0;q<6;q++){const rr=r0+q*6,aa=a0-q*.18;const px=x+Math.cos(aa)*rr,py=y+Math.sin(aa)*rr*.6;q?c.lineTo(px,py):c.moveTo(px,py)}c.stroke()}
+  /* accretion disk, back half */
+  const disk=(a0,a1)=>{c.save();c.translate(x,y);c.rotate(-.22);for(const[w,col]of[[16*k,'rgba(255,120,40,.35)'],[9*k,'rgba(255,200,120,.6)'],[3*k,'rgba(255,255,230,.9)']]){c.strokeStyle=col;c.lineWidth=w;c.beginPath();c.ellipse(0,0,46*k,11*k,0,a0,a1);c.stroke()}c.restore()};
+  disk(Math.PI,Math.PI*2);
+  c.globalCompositeOperation='source-over';
+  /* event horizon with photon ring */
+  c.fillStyle='#000';c.beginPath();c.arc(x,y,17*k,0,7);c.fill();
+  c.globalCompositeOperation='lighter';c.strokeStyle=`rgba(200,230,255,${.75+.25*Math.sin(tm*20)})`;c.lineWidth=2.2;c.beginPath();c.arc(x,y,18.5*k,0,7);c.stroke();c.strokeStyle='rgba(170,120,255,.45)';c.lineWidth=5;c.beginPath();c.arc(x,y,22*k,0,7);c.stroke();
+  disk(0,Math.PI);
+  /* lensing arcs */
+  c.strokeStyle='rgba(255,255,255,.25)';c.lineWidth=1.2;c.beginPath();c.arc(x,y,R*.55,tm*1.5,tm*1.5+1.4);c.stroke();c.beginPath();c.arc(x,y,R*.72,-tm*1.1,-tm*1.1+1);c.stroke();
+  c.restore()}
+function drawAbductBeam(c,s){const t=s.t,on=Math.min(1,t/.25)*Math.max(0,Math.min(1,(1.75-t)/.3)),uy=s.gy-260+(t<.4?(1-t/.4)*-120:0)-(t>1.8?(t-1.8)*600:0),gx=s.gy,x=s.x,tm=time;
+  c.save();
+  if(on>0){c.globalCompositeOperation='lighter';const w0=14,w1=58;const gr=c.createLinearGradient(0,uy,0,gx);gr.addColorStop(0,`rgba(150,255,250,${.55*on})`);gr.addColorStop(1,`rgba(150,255,250,${.08*on})`);c.fillStyle=gr;c.beginPath();c.moveTo(x-w0,uy+10);c.lineTo(x+w0,uy+10);c.lineTo(x+w1,gx);c.lineTo(x-w1,gx);c.closePath();c.fill();
+    c.strokeStyle=`rgba(220,255,255,${.6*on})`;c.lineWidth=2;for(let i=0;i<5;i++){const q=1-((tm*1.2+i/5)%1),yy=uy+10+(gx-uy-10)*q,ww=w0+(w1-w0)*q;c.beginPath();c.ellipse(x,yy,ww,ww*.17,0,0,7);c.stroke()}
+    c.fillStyle=fxRG(c,x,gx,4,w1*1.4,[[0,`rgba(150,255,250,${.45*on})`],[1,'rgba(150,255,250,0)']]);c.fillRect(x-w1*1.5,gx-w1*.6,w1*3,w1*1.2);c.globalCompositeOperation='source-over'}
+  c.translate(x,uy);c.scale(1.05,1.05);drawUfo(c,{x:0,y:0,ph:tm,tilt:Math.sin(tm*2)*.05,st:'fly',raw:1});c.restore()}
+/* ---------- icons ---------- */
+function iconHole(c){const g=c.createRadialGradient(0,0,1,0,0,9);g.addColorStop(0,'#000');g.addColorStop(.6,'#1a0b33');g.addColorStop(1,'#5b2fa0');c.fillStyle=g;c.beginPath();c.arc(0,0,8,0,7);c.fill();c.stroke();
+  c.save();c.rotate(-.3);c.strokeStyle='#ffb35a';c.lineWidth=2.4;c.beginPath();c.ellipse(0,0,13,3.5,0,0,7);c.stroke();c.strokeStyle='#fff1c8';c.lineWidth=1;c.stroke();c.restore();c.fillStyle='#000';c.beginPath();c.arc(0,0,4.2,0,7);c.fill()}
+function iconAbduct(c){c.save();c.scale(.36,.36);drawUfo(c,{x:0,y:0,ph:0,tilt:0,st:'fly',raw:1});c.restore();c.fillStyle='rgba(150,255,250,.7)';c.beginPath();c.moveTo(-4,4);c.lineTo(4,4);c.lineTo(8,13);c.lineTo(-8,13);c.closePath();c.fill()}
+function iconQuake(c){c.fillStyle=fxLG(c,0,-7,0,7,[[0,'#d9b45a'],[1,'#7a5a1c']]);rr(c,-11,-6,18,12,3);c.fill();c.stroke();c.fillStyle='#3a3a3a';c.beginPath();c.moveTo(7,-6);c.lineTo(14,0);c.lineTo(7,6);c.closePath();c.fill();c.stroke();
+  c.strokeStyle='#1a1a1a';c.lineWidth=2;c.beginPath();c.moveTo(-9,1);c.lineTo(-6,-3);c.lineTo(-3,3);c.lineTo(0,-3);c.lineTo(3,3);c.stroke()}
+function puIconNew(c,k){
+  if(k==='drone'){c.strokeStyle=INK;c.lineWidth=2;c.beginPath();c.moveTo(-8,-2);c.lineTo(8,-2);c.stroke();c.fillStyle='rgba(230,240,250,.8)';for(const sx of[-8,8]){c.beginPath();c.ellipse(sx,-4,5,1.6,0,0,7);c.fill();c.stroke()}c.fillStyle='#d9dee3';c.beginPath();c.moveTo(-5,-3);c.lineTo(5,-3);c.lineTo(4,4);c.lineTo(-4,4);c.closePath();c.fill();c.stroke();c.fillStyle='#ff4a3a';c.beginPath();c.arc(0,6.5,1.6,0,7);c.fill()}
+  else if(k==='holo'){c.setLineDash([2.2,1.6]);c.strokeStyle='#e9fdff';c.lineWidth=1.8;c.beginPath();c.moveTo(-8,5);c.lineTo(8,5);c.lineTo(6,0);c.lineTo(-6,0);c.closePath();c.stroke();c.beginPath();c.arc(-1,0,4,Math.PI,0);c.stroke();c.beginPath();c.moveTo(2,-2);c.lineTo(8,-6);c.stroke();c.setLineDash([]);
+    c.fillStyle='rgba(233,253,255,.5)';c.beginPath();c.moveTo(-9,9);c.lineTo(9,9);c.lineTo(5,6);c.lineTo(-5,6);c.closePath();c.fill()}}
+/* ---------- sounds ---------- */
+function sfxHole(){tone(220,40,1.8,'sine',.09);tone(90,30,2,'sawtooth',.035)}
+function sfxQuake(){tone(70,30,1.6,'sawtooth',.08);tone(120,40,1,'square',.03)}
+function sfxZap(){tone(2400,600,.18,'square',.04);tone(1200,300,.2,'sine',.05)}
+function sfxGroan(){tone(130,70,1.3,'sawtooth',.045);setTimeout(()=>tone(110,60,1.4,'sawtooth',.04),350);setTimeout(()=>tone(150,80,1,'triangle',.04),700)}
 function drawRad(c,z){const k=Math.min(1,z.left/z.max)*.75+.25,pul=.85+.15*Math.sin(time*3.2),x0=Math.max(0,Math.floor(z.x-z.r)),x1=Math.min(W-1,Math.ceil(z.x+z.r)),hgt=70*U;
   let top=1e9,bot=0;for(let X=x0;X<=x1;X+=4){top=Math.min(top,disp[X]);bot=Math.max(bot,disp[X])}
   c.save();
@@ -2794,6 +2967,7 @@ function render(){
     ctx.strokeStyle='#ff4a3a';ctx.lineWidth=8*a+2;ctx.stroke();ctx.strokeStyle='#fff3c0';ctx.lineWidth=3*a+1;ctx.stroke();ctx.restore()}
   ctx.lineWidth=2;ctx.strokeStyle=INK;
   drawSparksChunks(ctx);
+  drawSpecials(ctx);
   for(const m of mush)drawMushroom(ctx,m);
   for(const e of explosions)drawExplosion(ctx,e);
   ctx.textAlign='center';ctx.lineJoin='round';
@@ -2823,7 +2997,8 @@ let lastIcon='';
 function weaponIcon(cn,id){const c=cn.getContext('2d');c.clearRect(0,0,cn.width,cn.height);drawProjectile(c,cn.width/2,cn.height/2,1,-.35,id,cn.width/35)}
 function mapStatus(t){
   const m=MAP;
-  if(m.zombies||ufoEvery){if(skipWaves>0)return['INWAZJA ODWOŁANA','tox'];const left=Math.max(1,waveIn);return[(ufos.length?T('SPODEK! · ','SAUCER! · '):'')+(zombies.length?T('UFOLUDKI: ','ALIENS: ')+zombies.length+' · ':'')+T('UFO ZA ','UFO IN ')+left+' '+T(left===1?'TURĘ':left<5?'TURY':'TUR',left===1?'TURN':'TURNS'),'bad']}
+  if(m.zombies||ufoEvery){if(skipWaves>0)return['INWAZJA ODWOŁANA','tox'];const left=Math.max(1,waveIn);return[(ufos.length?T('SPODEK! · ','SAUCER! · '):'')+(zombies.some(z=>!z.zk)?T('UFOLUDKI: ','ALIENS: ')+zombies.filter(z=>!z.zk).length+' · ':'')+T('UFO ZA ','UFO IN ')+left+' '+T(left===1?'TURĘ':left<5?'TURY':'TUR',left===1?'TURN':'TURNS'),'bad']}
+  if(m.horde){const nz=zombies.filter(z=>z.zk&&!z.dead).length,left=Math.max(1,hordeIn);if(nz)return[T('ZOMBIE: ','ZOMBIES: ')+nz,'bad'];if(left<=aliveCount())return[T('HORDA ZOMBIE ZA ','ZOMBIE HORDE IN ')+left+' '+T(left===1?'TURĘ':left<5?'TURY':'TUR',left===1?'TURN':'TURNS'),'bad']}
   if(m.space)return['NISKA GRAWITACJA · BRAK WIATRU',''];
   if(m.acid)return[t&&t.fx.dome>0?'KOPUŁA: OCHRONA':'KWAŚNY DESZCZ −3/TURĘ','tox'];
   if(m.freeze)return[t&&t.frozen?'WIEŻA ZAMARZNIĘTA':t&&t.fx.heater>0?'GRZAŁKA DZIAŁA':'MRÓZ · ŚNIEG SPOWALNIA',''];
@@ -2844,7 +3019,7 @@ function hud(){
   const tv=t.human&&phase==='aim'?Math.ceil(Math.max(0,turnT)):'–';setT('timer',String(tv));$('timer').classList.toggle('warn',t.human&&phase==='aim'&&turnT<=8);
   setT('wind',MAP.space?'PRÓŻNIA':evOn('fog')?'WIATR: ???':wind===0?'WIATR: CISZA':(wind<0?'◀ ':'')+T('WIATR ','WIND ')+Math.abs(wind)+(wind>0?' ▶':''));
   const nc=$('nclock');nc.hidden=!(roundSec>0);if(roundSec>0){const c=Math.max(0,Math.ceil(clock));setT('nclock',T('ATOM ','NUKE ')+fmtT(c));nc.classList.toggle('warn',c<=30)}
-  setT('evstat',evPend?T('ZA ','IN ')+evPend.in+' '+T(evPend.in===1?'TURĘ':'TURY',evPend.in===1?'TURN':'TURNS')+': '+L(evName(evPend.type)):evAct?L(evName(evAct.type))+' · '+evAct.left+' '+T(evAct.left===1?'TURA':'TURY',evAct.left===1?'TURN':'TURNS'):(zombies.length&&!MAP.zombies?T('UFOLUDKI: ','ALIENS: ')+zombies.length:''));
+  setT('evstat',evPend?T('ZA ','IN ')+evPend.in+' '+T(evPend.in===1?'TURĘ':'TURY',evPend.in===1?'TURN':'TURNS')+': '+L(evName(evPend.type)):evAct?L(evName(evAct.type))+' · '+evAct.left+' '+T(evAct.left===1?'TURA':'TURY',evAct.left===1?'TURN':'TURNS'):(zombies.some(z=>!z.zk)&&!MAP.zombies?T('UFOLUDKI: ','ALIENS: ')+zombies.filter(z=>!z.zk).length:''));
   const[ms,mc]=mapStatus(t);setT('mstat',ms);$('mstat').className='mstat ol s '+mc;
   const w=curW(t);setT('wName',w.name);
   setT('wAmmo',w.jump?(t.stuck?'utknąłeś':t.jumpCd>0?T('gotowy za '+t.jumpCd+' '+(t.jumpCd===1?'turę':'tury'),'ready in '+t.jumpCd+' '+(t.jumpCd===1?'turn':'turns')):'gotowy'):w.move&&t.stuck?'utknąłeś':t.ammo[w.id]===Infinity?'∞':'×'+t.ammo[w.id]);
@@ -3253,7 +3428,7 @@ const xpNeed=l=>150+100*l;
 /* level needed for each tank part option (index = option index) */
 const PART_LV={hull:[1,2,4],wheels:[1,3,2,5],turret:[1,3,6,8],barrel:[1,2,7,5],color:[1,1,1,1,2,3,4,5,6,7,9,11]};
 /* level needed for each weapon in the campaign trader */
-const WLV={mini:1,bounce:1,dirt:1,heavy:1,shield:2,drill:2,crazy:3,napalm:3,para:4,cryo:5,homing:5,laser:6,tele:6,air:7,zbomb:8,mirror:8,nuke:10};
+const WLV={quake:4,abduct:7,hole:9,mini:1,bounce:1,dirt:1,heavy:1,shield:2,drill:2,crazy:3,napalm:3,para:4,cryo:5,homing:5,laser:6,tele:6,air:7,zbomb:8,mirror:8,nuke:10};
 const UPG={
   armor:{n:['Płyty pancerne','Armor plates'],max:5,cost:[150,300,500,800,1200],lv:[1,3,5,7,9],d:['+12 HP za każdy poziom.','+12 HP per level.']},
   engine:{n:['Silnik turbo','Turbo engine'],max:3,cost:[200,450,800],lv:[2,5,8],d:['Jazda +12% i skok +6% za każdy poziom.','Drive +12% and jump +6% per level.']},
