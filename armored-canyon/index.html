@@ -996,7 +996,7 @@ function rr(c,x,y,w,hh,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+hh,r
 
 /* ---------- maps ---------- */
 const MAPS=[
- {id:'waste',horde:true,name:'Pustkowie',size:'ŚREDNIA',W:1440,H:810,terrain:'dunes',weather:'WICHURA',desc:'Wydmy, wraki i ruiny na horyzoncie. Silny, często zmieniający się wiatr.',
+ {id:'waste',horde:true,qsand:true,name:'Pustkowie',size:'ŚREDNIA',W:1440,H:810,terrain:'dunes',weather:'WICHURA',desc:'Wydmy, wraki i ruiny na horyzoncie. Silny, często zmieniający się wiatr.',
   sky:['#5b3a26','#b8693a','#f0b77a'],sun:{x:.78,y:.24,r:60,col:'#ffe2a8'},cloud:'rgba(90,55,35,.55)',far:'#6e4630',mid:'#55361f',farKind:'skyline',props:['pylon','car','billboard'],
   body:['#c8692a','#5a2a12'],stripe:'#b45e27',stripe2:'#a05224',band:'#eaa055',dirt:'#7a3c1c',outline:'#2a1308',rock:'#8a5a3a',deco:['tire','pipe','bone','tire','scrap'],
   windMax:14,windStep:6,dust:true,haze:'rgba(220,150,90,.22)',pu:['stab'],ponds:[0,1],pond:'water',plat:['rock','girder'],flora:['deadtree','bush','cactus','bush'],bodies:['boulder','wreck','boulder']},
@@ -1004,11 +1004,11 @@ const MAPS=[
   sky:['#3c4651','#7b8994','#c9d2d6'],cloud:'rgba(60,70,80,.45)',far:'#5a6670',mid:'#46515a',farKind:'mountains',cap:'#e8eef2',props:['pine','tower','pine'],
   body:['#e2ecf6','#8ea3bd'],stripe:'#cfdcea',stripe2:'#bdcbdd',band:'#ffffff',dirt:'#5a4d44',outline:'#24303e',rock:'#7d8a9c',deco:['rock','pipe','rock'],
   windMax:8,windStep:3,snow:true,fog:'rgba(225,235,242,.20)',freeze:.24,slow:true,pu:['heater'],ponds:[1,3],pond:'ice',plat:['rock','rock','girder'],flora:['pine','pine','deadbush'],bodies:['boulder','boulder','block']},
- {id:'flood',horde:true,name:'Zalane Miasto',size:'ŚREDNIA',W:1440,H:810,terrain:'city',weather:'ULEWA I BURZA',desc:'Ruiny miasta w deszczu. Leje po pociskach zalewa woda, a kto w nią wjedzie, utknie na turę.',
+ {id:'flood',horde:true,mud:true,name:'Zalane Miasto',size:'ŚREDNIA',W:1440,H:810,terrain:'city',weather:'ULEWA I BURZA',desc:'Ruiny miasta w deszczu. Leje po pociskach zalewa woda, a kto w nią wjedzie, utknie na turę.',
   sky:['#1d2528','#3c4a4e','#6c7b7c'],cloud:'rgba(25,32,35,.6)',far:'#2b3437',mid:'#232b2d',farKind:'skyline',lit:.05,props:['crane','lamp','car'],
   body:['#5e5c4c','#24241f'],stripe:'#535142',stripe2:'#49473a',band:'#6f6c56',dirt:'#463c2f',outline:'#121310',rock:'#56584f',deco:['rebar','slab','rebar','tire'],
   windMax:8,windStep:3,rain:true,pool:'water',lightning:true,haze:'rgba(120,140,145,.18)',pu:['floats'],ponds:[2,4],pond:'water',plat:['slab','girder','slab'],flora:['weeds','tree','weeds'],bodies:['block','wreck','pipe']},
- {id:'toxic',horde:true,name:'Toksyczne Bagna',size:'MAŁA',W:1200,H:675,terrain:'swamp',weather:'KWAŚNY DESZCZ',desc:'Mała mapa z dolinami pełnymi kwasu. Deszcz co turę zabiera 3 HP, a kałuże kwasu 6 HP.',
+ {id:'toxic',horde:true,mud:true,name:'Toksyczne Bagna',size:'MAŁA',W:1200,H:675,terrain:'swamp',weather:'KWAŚNY DESZCZ',desc:'Mała mapa z dolinami pełnymi kwasu. Deszcz co turę zabiera 3 HP, a kałuże kwasu 6 HP.',
   sky:['#2c3216','#6a7a24','#c9d266'],sun:{x:.22,y:.22,r:44,col:'#eef7a0'},cloud:'rgba(70,80,30,.5)',far:'#3e4520',mid:'#30361a',farKind:'plant',props:['deadtree','barrelpile','deadtree'],
   body:['#7a6826','#30270d'],stripe:'#6c5c22',stripe2:'#5f511e',band:'#86a32a',dirt:'#4a3d18',outline:'#171205',rock:'#5c5230',deco:['barrel','bone','deadgrass','barrel'],
   windMax:8,windStep:3,acid:true,pool:'acid',haze:'rgba(160,200,60,.16)',pu:['dome','antidote'],ponds:[0,0],pond:'acid',plat:['plank','plank','rock'],flora:['deadtree','shroom','shroom'],bodies:['drum','boulder','drum']},
@@ -1024,7 +1024,7 @@ const MAPS=[
   sky:['#1a0a08','#5a1a0e','#c2481c'],cloud:'rgba(40,20,18,.6)',far:'#2a1410',mid:'#1e0e0a',farKind:'mountains',cap:'#3a1a10',props:['deadtree','fire','pylon'],
   body:['#4a2c26','#160c0b'],stripe:'#3e2420',stripe2:'#341e1b',band:'#6e3a2c',dirt:'#2a1614',outline:'#0a0505',rock:'#3a2a28',deco:['rock','bone','rock','scrap'],
   windMax:6,windStep:3,ash:true,cracks:true,pool:'lava',volcano:true,haze:'rgba(255,110,40,.10)',pu:['drone','heal'],ponds:[0,0],pond:'none',plat:['rock','rock','girder'],flora:['deadtree','deadbush','deadtree'],bodies:['boulder','boulder','block']},
- {id:'wreck',name:'Wrak Statku-Matki',size:'DUŻA',W:1600,H:900,terrain:'wreck',weather:'DZIAŁO OBCYCH',desc:'Pustynia wokół rozbitego statku-matki. Jego działo wciąż działa: co kilka kolejek namierza czołg i po pełnej kolejce strzela plazmą tam, gdzie celowało. Zjedź z celownika!',
+ {id:'wreck',qsand:true,name:'Wrak Statku-Matki',size:'DUŻA',W:1600,H:900,terrain:'wreck',weather:'DZIAŁO OBCYCH',desc:'Pustynia wokół rozbitego statku-matki. Jego działo wciąż działa: co kilka kolejek namierza czołg i po pełnej kolejce strzela plazmą tam, gdzie celowało. Zjedź z celownika!',
   sky:['#1c1430','#6a3a5a','#e08a5a'],sun:{x:.2,y:.3,r:50,col:'#ffd0a0'},cloud:'rgba(80,50,70,.5)',far:'#4a3040',mid:'#3a2434',farKind:'skyline',props:['dish','lander','pylon'],
   body:['#d27c4e','#5e2c18'],stripe:'#c06e44',stripe2:'#ae623c',band:'#f2ad7a',dirt:'#7a3a20',outline:'#2a1208',rock:'#8a6a70',deco:['scrap','pipe','crater','scrap'],
   windMax:10,windStep:4,dust:true,cannon:true,haze:'rgba(220,150,120,.14)',pu:['drone','holo','plague'],ponds:[0,0],pond:'none',plat:['girder','girder','rock'],flora:['crystal','cactus','crystal'],bodies:['wreck','block','boulder']},
@@ -1350,8 +1350,11 @@ function drawTerrain(c){
   c.save();c.clip();c.lineJoin='round';
   c.fillStyle=terrTex(c);c.fillRect(0,minY-4,W,H-minY+8);
   surfPath(c,52);c.strokeStyle=MAP.stripe;c.lineWidth=22;c.stroke();
+  surfPath(c,41.0);c.strokeStyle='rgba(255,255,255,.13)';c.lineWidth=2;c.stroke();surfPath(c,63.0);c.strokeStyle='rgba(0,0,0,.2)';c.lineWidth=2.5;c.stroke();
   surfPath(c,108);c.strokeStyle=MAP.stripe2;c.lineWidth=30;c.stroke();
+  surfPath(c,93.0);c.strokeStyle='rgba(255,255,255,.13)';c.lineWidth=2;c.stroke();surfPath(c,123.0);c.strokeStyle='rgba(0,0,0,.2)';c.lineWidth=2.5;c.stroke();
   surfPath(c,190);c.strokeStyle=MAP.stripe;c.lineWidth=26;c.stroke();
+  surfPath(c,177.0);c.strokeStyle='rgba(255,255,255,.13)';c.lineWidth=2;c.stroke();surfPath(c,203.0);c.strokeStyle='rgba(0,0,0,.2)';c.lineWidth=2.5;c.stroke();
   c.fillStyle=terrTex(c);c.globalAlpha=.6;c.fillRect(0,minY-4,W,H-minY+8);c.globalAlpha=1;
   if(MAP.cracks){c.save();c.globalCompositeOperation='lighter';c.setLineDash([22,30,8,40]);c.lineCap='round';for(const[o,w]of[[64,2.6],[128,2],[205,1.6]]){surfPath(c,o);c.strokeStyle=`rgba(255,${100+o*.2|0},30,${.45+.15*Math.sin(time*1.7+o)})`;c.lineWidth=w;c.stroke();c.strokeStyle='rgba(255,90,20,.12)';c.lineWidth=w*4;c.stroke()}c.restore()}
   for(const sc of SCORCH){const R=sc.r*1.35,g=c.createRadialGradient(sc.x,sc.y,sc.r*.2,sc.x,sc.y,R);g.addColorStop(0,'rgba(18,10,6,.62)');g.addColorStop(.6,'rgba(30,16,8,.38)');g.addColorStop(1,'rgba(30,16,8,0)');c.fillStyle=g;c.fillRect(sc.x-R,sc.y-R,R*2,R*2);const age=time-sc.t0;if(age<4&&age>=0){const a=(1-age/4)*.7;c.save();c.globalCompositeOperation='lighter';const e=c.createRadialGradient(sc.x,sc.y,sc.r*.75,sc.x,sc.y,sc.r*1.05);e.addColorStop(0,'rgba(255,120,30,0)');e.addColorStop(.6,`rgba(255,110,30,${a})`);e.addColorStop(1,'rgba(255,80,20,0)');c.fillStyle=e;c.fillRect(sc.x-R,sc.y-R,R*2,R*2);for(let q=0;q<6;q++){const an=q*1.047+sc.r,fl=.5+.5*Math.sin(time*9+q*2);c.fillStyle=`rgba(255,${150+q*12},60,${a*fl})`;c.beginPath();c.arc(sc.x+Math.cos(an)*sc.r*.92,sc.y+Math.sin(an)*sc.r*.92,1.6,0,7);c.fill()}c.restore()}}
@@ -1359,7 +1362,7 @@ function drawTerrain(c){
   for(const b of buildings){for(let wy=b.top+26;wy<H-20;wy+=34)for(let wx=b.x0+14;wx<b.x1-22;wx+=30){const top=Math.min(disp[clamp(wx|0,0,W-1)],disp[clamp((wx+12)|0,0,W-1)]);
     if(wy>top+14){c.fillStyle='rgba(0,0,0,.42)';c.fillRect(wx,wy,12,16);if(MAP.night&&((wx*7+wy)%13)<2){c.fillStyle='rgba(255,180,80,.55)';c.fillRect(wx+2,wy+2,8,12)}}}}
   c.lineWidth=2.5;c.strokeStyle=shadeHex(MAP.rock,.55);
-  for(const r of rocks){const top=disp[clamp(r.x|0,0,W-1)];if(r.y>top+r.r+26){c.fillStyle=MAP.rock;c.beginPath();c.ellipse(r.x,r.y,r.r*1.3,r.r,0,0,7);c.fill();c.stroke()}}
+  for(const r of rocks){const top=disp[clamp(r.x|0,0,W-1)];if(r.y>top+r.r+26)drawStone(c,r.x,r.y,r.r,r.x*.37,MAP.rock)}
   let x0=0;c.lineWidth=16;c.lineCap='butt';
   while(x0<W){const gv=grass[x0];let x1=x0;while(x1<W&&grass[x1]===gv)x1++;
     const xs=Math.max(0,x0-2),xe=Math.min(W-1,x1+1);
@@ -1371,6 +1374,7 @@ function drawTerrain(c){
   surfPath(c,2.5);c.strokeStyle='rgba(255,255,255,.30)';c.lineWidth=2.5;c.stroke();
   c.restore();
   surfPath(c,0);c.strokeStyle=MAP.outline;c.lineWidth=5;c.lineCap='round';c.stroke();
+  drawSurfaceDetail(c);
   for(const d of decos)if(grass[d.x])drawDeco(c,d,disp[d.x]+1);
   {let x0=0;while(x0<W){if(!ice[x0]){x0++;continue}let x1=x0;while(x1<W&&ice[x1])x1++;
     c.fillStyle='rgba(190,225,245,.9)';c.beginPath();c.moveTo(x0,disp[x0]);for(let x=x0;x<x1;x+=2)c.lineTo(x,disp[x]);c.lineTo(x1-1,disp[x1-1]+10);c.lineTo(x0,disp[x0]+10);c.closePath();c.fill();
@@ -1666,18 +1670,19 @@ function updateZombies(dt){
     z.ph+=dt*4;
     if(!tg){z.y=groundAtX(z.x);continue}
     const reach=tg.st.hw+(tg.fx.saw>0?8:z.zk?4:34);
-    if(best>reach){const dir=Math.sign(tg.x-z.x),slow=depthAt(z.x)>6?.45:1;z.x+=dir*z.sp*slow*dt;z.dir=dir}
+    if(best>reach){const dir=Math.sign(tg.x-z.x),slow=depthAt(z.x)>6?.45:1;z.x+=dir*z.sp*slow*zoneMove(z.x)*dt;z.dir=dir}
     else{z.dir=Math.sign(tg.x-z.x)||z.dir;z.bite-=dt;if(tg.fx.saw>0){killZombie(z,'CIACH!',tg);continue}
       if(z.bite<=0){if(z.zk){z.bite=1.6;z.lunge=.5;hurt(tg,2,'#c8e070');sfxBite();if(++z.bites>=4){dustZombie(z);continue}}else{z.bite=2;z.zap=.3;z.tx=tg.x;z.ty=tg.y-14*tg.st.scale;hurt(tg,1,'#ff5ad1');sfxBite();if(++z.bites>=3){dustZombie(z);continue}}}}
     z.y=groundAtX(z.x);
     for(const f of fires)if(Math.abs(f.x-z.x)<14){z.hp-=40*dt;z.by=f.owner}
     if(poolKind==='lava'&&depthAt(z.x)>6)z.hp-=80*dt;
+    if(zoneAt(z.x)==='sand'){z.sinkT=(z.sinkT||0)+dt;if(z.sinkT>2.6){killZombie(z,T('WCIĄGNIĘTY','SWALLOWED'),null);continue}}else z.sinkT=0;
     if(z.hp<=0)killZombie(z,null,z.by);
   }
   zombies=zombies.filter(z=>!z.dead&&z.x>-400&&z.x<W+400);
 }
 /* little green alien with a ray gun; `wave` = waving both arms (menus), `rise` < 1 = popping out of a capsule, `drop` = floating down a tractor beam */
-function drawZombie(c,z){if(z.zk)return drawWalker(c,z);
+function drawZombie(c,z){if(z.sinkT>0&&!z._s){z._s=1;c.save();c.beginPath();c.rect(z.x-60,z.y-100,120,100);c.clip();const y0=z.y;z.y+=z.sinkT*13;drawZombie(c,z);z.y=y0;c.restore();z._s=0;return}if(z.zk)return drawWalker(c,z);
   const x=z.x,y=z.y,dir=z.dir||(z.x<W/2?1:-1),ph=z.ph||0,sw=Math.sin(ph)*.5,tm=typeof time==='number'?time:0,suit=z.shirt||'#8a5cc9',sD=shadeHex(suit,.62),sL=shadeHex(suit,1.3);
   c.save();c.globalAlpha=clamp((z.life??9)/2,0,1);c.translate(x,y);
   if(z.rise<1){const s=.15+.85*z.rise;c.translate(0,(1-z.rise)*6);c.scale(s,s)}
@@ -1965,7 +1970,7 @@ function startRound(){
   const n=tanks.length;let order=tanks.map((_,i)=>i).sort(()=>Math.random()-.5);
   if(isTeamGame()){order.sort((a,b)=>tanks[a].team-tanks[b].team);if(Math.random()<.5)order.reverse()}
   order.forEach((ti,slot)=>{const t=tanks[ti];t.x=Math.round(clamp(W*(slot+.5)/n+rand(-60,60),70,W-70));flatten(t.x)});
-  makePonds();makeOverhangs();makePlats();makeBodies();
+  makePonds();makeZones();makeOverhangs();makePlats();makeBodies();
   disp.set(h);poolKind=MAP.pool||(MAP.pond==='water'&&wv.some(v=>v>1)?'water':null);
   if(MAP.pool==='acid'||MAP.pool==='lava'){for(let i=0;i<(MAP.pool==='lava'?4:6);i++){const x=rand(60,W-60);if(!tanks.some(t=>Math.abs(t.x-x)<90))fillBasin(x,rand(30,60),70,true)}}
   tanks.forEach(t=>{t.st=tStats(t);Object.assign(t,{turns:0,hp:t.st.maxHp,alive:true,vy:0,vx:0,falling:false,jumping:false,jumpCd:0,fallFrom:0,power:55,wi:0,ai:null,shield:0,dbl:false,moving:null,burnAcc:0,recoil:0,hurt:0,lastHit:null,o2:100,o2warn:0,drownAcc:0,
@@ -2006,6 +2011,7 @@ function startTurnBody(firstMsg){
   const wet=depthAt(t.x)>8;
   t.stuck=poolKind==='water'&&wet&&!t.wasWet&&!(t.fx.floats>0);t.wasWet=wet;
   if(t.stuck)msg=t.name+T(' UTKNĄŁ W WODZIE!',' IS STUCK IN WATER!');
+  {const zm=zoneTurn(t);if(zm)msg=zm;else if(zoneAt(t.x)!=='sand')t.sink=0}
   if(!(t.fx.dome>0)&&rad.some(z=>Math.abs(t.x-z.x)<z.r)){hurt(t,7,'#d8ff3a');texts.push({x:t.x,y:t.y-118,s:'PROMIENIOWANIE',t:0,col:'#d8ff3a',sm:1});msg=t.name+T(': PROMIENIOWANIE!',': RADIATION!')}
   if(!(t.fx.dome>0)){if(acidTick())hurt(t,3,'#9ee22f');if(poolKind==='acid'&&depthAt(t.x)>6)hurt(t,6,'#9ee22f')}
   if(poolKind==='lava'&&depthAt(t.x)>6){hurt(t,10,'#ff7a3a');msg=t.name+T(': LAWA!',': LAVA!')}
@@ -2101,7 +2107,7 @@ function muzzle(t,ang=t.angle){const c=Math.cos(t.tilt),s=Math.sin(t.tilt),k=t.s
 const curW=t=>WEAPONS[t.wi];
 const cold=t=>isSlow()&&!(t.fx.heater>0);
 function moveTarget(t){const dir=t.angle<=90?1:-1;return{dir,x:clamp(t.x+dir*t.power*1.8*t.st.moveMul*(cold(t)?.65:1),40,W-40)}}
-function jumpVel(t){const dir=t.angle<=90?1:-1,f=cold(t)?.85:1;return{vx:dir*(60+t.power*1.6)*t.st.jumpX*f,vy:-260*t.st.jumpH*f}}
+function jumpVel(t){const dir=t.angle<=90?1:-1,f=(cold(t)?.85:1)*(zoneAt(t.x)==='mud'?.6:1);return{vx:dir*(60+t.power*1.6)*t.st.jumpX*f,vy:-260*t.st.jumpH*f}}
 const canUse=(t,w)=>t.ammo[w.id]>0&&!((w.laser||w.air)&&evOn('emp'))&&!(w.jump&&t.jumpCd>0)&&!((w.jump||w.move)&&t.stuck);
 function fire(){coachDone();doFire()}
 function doFire(){
@@ -2151,7 +2157,7 @@ var SCORCH=[];
 function explode(x,y,w,mult=1,rMul=1,owner=null){
   const r=Math.round(w.r*rMul);
   if(!w.dirt&&r>8){SCORCH.push({x,y,r,t0:time});if(SCORCH.length>40)SCORCH.shift()}
-  holoPop(x,r);
+  holoPop(x,r);zoneSplash(x,y,r);
   if(w.dirt)addDirt(x,y,r);else{carve(x,y,r);if(bodies.length)hitBodies(x,y,r)}
   explosions.push({x,y,r,t:0,dur:.42+r*.0025,dirt:!!w.dirt,rot:rand(0,6)});if(!w.dirt){const nE=Math.min(18,6+r*.2);for(let i=0;i<nE;i++){const a=rand(Math.PI*1.1,Math.PI*1.9),sp=rand(160,320+r*2);parts.push({k:'spark',x,y:y-4,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,life:rand(.35,.8)})}}
   shake=Math.max(shake,Math.min(18,r*.16));if(w.nuke){flash=1;mush.push({x,y:Math.min(H-4,groundAtX(x)),k:r/60,t:0,dur:4.2});const n=3*Math.max(2,tanks.filter(t=>t.alive).length);rad.push({x,r:Math.round(r*1.15),left:n,max:n});toast(T('SKAŻENIE RADIOAKTYWNE!','RADIOACTIVE FALLOUT!'))}
@@ -2302,7 +2308,7 @@ function update(dt){
         for(const z of zombies)if(!z.dead&&Math.abs(z.x-t.x)<t.st.hw+14)killZombie(z,'ZGNIECIONY',t);
         for(let i=0;i<8;i++)parts.push({k:'smoke',x:t.x+rand(-25,25),y:t.y-4,vx:rand(-50,50),vy:rand(-25,-5),r:rand(4,8),gr:14,life:.7,max:.7,col:MAP.snow?'#ffffff':'#b8a68a'})}
       t.tilt+=(tiltAt(t.x)-t.tilt)*Math.min(1,dt*4);continue}
-    if(t.moving){const climb=t.st.climb*(cold(t)?.7:1),step=80*dt*(depthAt(t.x)>8&&!(t.fx.floats>0)?.5:1),nx=clamp(t.x+t.moving.dir*step,40,W-40),g=groundUnder(nx,k,t.y);
+    if(t.moving){const climb=t.st.climb*(cold(t)?.7:1),step=80*dt*(depthAt(t.x)>8&&!(t.fx.floats>0)?.5:1)*zoneMove(t.x),nx=clamp(t.x+t.moving.dir*step,40,W-40),g=groundUnder(nx,k,t.y);
       if(t.y-g>step*climb+1.5||nx===t.x){t.moving=null;if(t.y-g>step*climb+1.5)texts.push({x:t.x,y:t.y-90,s:'ZA STROMO',t:0,col:'#e9dfc6'})}
       else{const dir=t.moving.dir;t.x=nx;t.moving.left-=step;if(t.moving.left<=0)t.moving=null;if(Math.random()<dt*14)parts.push({k:'smoke',x:t.x-dir*30,y:t.y-6,vx:rand(-10,10),vy:rand(-20,-5),r:rand(3,6),gr:10,life:.6,max:.6,col:MAP.snow?'#ffffff':'#a8957a'});
         for(const z of zombies)if(!z.dead&&z.rise>=1&&Math.abs(z.x-t.x)<t.st.hw)killZombie(z,'ROZJECHANY',t)}}
@@ -2902,6 +2908,56 @@ function drawLavaInside(c,x,x1,top,bot,sy,tm){
 function sfxRumble(){tone(55,30,2.2,'sawtooth',.09);tone(80,40,1.5,'square',.03)}
 function sfxCharge(){tone(200,1400,1.1,'sawtooth',.04);tone(400,2400,1.1,'sine',.03)}
 function sfxPlasma(){tone(1800,120,.6,'sawtooth',.08);tone(600,60,.8,'square',.05)}
+/* ===================== v1.3: mud puddles & quicksand zones, richer terrain detail ===================== */
+var ZONES=[];
+function makeZones(){ZONES=[];const want=[];if(MAP.mud)want.push(['mud',2+(Math.random()<.5?1:0)]);if(MAP.qsand)want.push(['sand',2]);
+  for(const[k,n]of want)for(let i=0;i<n;i++){let best=null;for(let tries=0;tries<40;tries++){const cx=rand(90,W-90),w=rand(90,160)*U,x0=Math.max(4,cx-w/2|0),x1=Math.min(W-5,cx+w/2|0);
+      if(nearTank(cx,w/2+40)||ZONES.some(z=>x1>z.x0-40&&x0<z.x1+40)||wv[cx|0]>1)continue;
+      let lo=-1e9,hi=1e9;for(let x=x0;x<=x1;x+=4){lo=Math.max(lo,h[x]);hi=Math.min(hi,h[x])}const flat=lo-hi;
+      const dip=k==='mud'?(h[x0]+h[x1])/2-h[cx|0]:0,sc=flat-dip*.8;if(flat>70)continue;if(!best||sc<best.sc)best={sc,x0,x1}}
+    if(best)ZONES.push({k,x0:best.x0,x1:best.x1,ph:rand(0,6)})}}
+function zoneAt(x){for(const z of ZONES)if(x>=z.x0&&x<=z.x1)return z.k;return null}
+const zoneMove=x=>{const k=zoneAt(x);return k==='mud'?.45:k==='sand'?.5:1};
+function zoneTurn(t){const k=zoneAt(t.x);if(!k)return null;
+  if(k==='sand'&&!(t.fx.floats>0)){t.stuck=true;t.sink=Math.min(9,(t.sink||0)+4.5);hurt(t,3,'#e0b080');for(let q=0;q<10;q++)parts.push({k:'chunk',x:t.x+rand(-30,30),y:t.y-2,vx:rand(-40,40),vy:rand(-90,-30),r:rand(1.5,3),col:shadeHex(MAP.band,.8),life:.7});return t.name+T(' UGRZĄZŁ W RUCHOMYCH PIASKACH!',' IS SINKING IN QUICKSAND!')}
+  if(k==='mud')return t.name+T(': BŁOTO – WOLNA JAZDA I NISKI SKOK',': MUD – SLOW DRIVING, LOW JUMP');return null}
+function zoneSplash(x,y,r){const k=zoneAt(x);if(!k||Math.abs(groundAtX(x)-y)>r+20)return;const col=k==='mud'?'#4a3022':shadeHex(MAP.band,.75);
+  for(let q=0;q<Math.min(26,8+r*.5);q++)parts.push({k:'chunk',x:x+rand(-r*.4,r*.4),y:groundAtX(x)-3,vx:rand(-200,200),vy:rand(-360,-120),r:rand(2,4.5),col:q%3?col:shadeHex(col,1.4),life:rand(.8,1.4)});
+  if(k==='mud')for(let q=0;q<6;q++)parts.push({k:'smoke',x:x+rand(-20,20),y:groundAtX(x)-6,vx:rand(-20,20),vy:rand(-30,-10),r:rand(5,9),gr:10,life:.6,max:.6,col:'rgba(90,64,44,.55)'})}
+function drawZones(c){if(!ZONES.length)return;const tm=time;
+  for(const z of ZONES){const L=z.x1-z.x0,mud=z.k==='mud',pts=[];for(let x=z.x0;x<=z.x1;x+=2){const q=(x-z.x0)/L,th=Math.pow(Math.sin(Math.PI*q),.45);pts.push([x,disp[x],th])}
+    const top=i=>pts[i][1]-(mud?2.5*pts[i][2]:0)+(mud?Math.sin(tm*2+pts[i][0]*.15)*.5*pts[i][2]:0),bot=i=>pts[i][1]+(mud?13:17)*pts[i][2];
+    c.save();c.beginPath();c.moveTo(pts[0][0],top(0));for(let i=1;i<pts.length;i++)c.lineTo(pts[i][0],top(i));for(let i=pts.length-1;i>=0;i--)c.lineTo(pts[i][0],bot(i));c.closePath();
+    let ytop=1e9;for(const p of pts)ytop=Math.min(ytop,p[1]);
+    if(mud){c.fillStyle=fxLG(c,0,ytop-3,0,ytop+14,[[0,'#6a4a34'],[.4,'#4a3022'],[1,'#2a1a12']]);c.fill();c.clip();
+      /* sheen + reflections */
+      c.globalCompositeOperation='lighter';c.strokeStyle='rgba(255,240,220,.22)';c.lineWidth=1.4;for(let k=0;k<Math.max(2,L/26);k++){const sx=z.x0+((k*37.3+tm*6+z.ph*20)%L),ib=clamp(sx|0,0,W-1);c.beginPath();c.moveTo(sx-6,disp[ib]+1);c.lineTo(sx+6,disp[ib]+.5);c.stroke()}
+      c.globalCompositeOperation='source-over';c.fillStyle='rgba(20,12,8,.35)';for(let k=0;k<Math.max(2,L/22);k++){const sx=z.x0+((k*53.1+z.ph*40)%L),ib=clamp(sx|0,0,W-1);c.beginPath();c.ellipse(sx,disp[ib]+6,4+(k%3)*2,1.4,0,0,7);c.fill()}
+      c.restore();
+      c.save();c.lineJoin='round';c.beginPath();c.moveTo(pts[0][0],top(0));for(let i=1;i<pts.length;i++)c.lineTo(pts[i][0],top(i));c.strokeStyle='#2a1a10';c.lineWidth=2.4;c.stroke();c.strokeStyle='rgba(255,236,210,.35)';c.lineWidth=1;c.translate(0,-.8);c.stroke();c.restore();
+      /* bubbles */
+      for(let k=0;k<Math.max(1,L/30);k++){const bx=z.x0+L*.15+((k*61.7+11)%(L*.7)),ib=clamp(bx|0,0,W-1),q=(tm*(.5+(k%3)*.17)+k*.43+z.ph)%1,y=disp[ib]-1;
+        if(q<.8){const r=1.4+q*3.2;c.fillStyle='#5e4230';c.strokeStyle='#22150e';c.lineWidth=1;c.beginPath();c.arc(bx,y,r,Math.PI,0);c.closePath();c.fill();c.stroke();c.fillStyle='rgba(255,240,220,.6)';c.beginPath();c.arc(bx-r*.35,y-r*.55,r*.28,0,7);c.fill()}
+        else{c.fillStyle=`rgba(80,56,40,${(1-q)*5})`;for(let j=0;j<3;j++){c.beginPath();c.arc(bx+(j-1)*4,y-3-(q-.8)*30,1.1,0,7);c.fill()}}}}
+    else{const sb=shadeHex(MAP.band,.7),sd=shadeHex(MAP.band,.42);c.fillStyle=fxLG(c,0,ytop-2,0,ytop+15,[[0,sb],[1,sd]]);c.fill();c.clip();
+      /* swirling ripples drawing inward */
+      const cx=(z.x0+z.x1)/2;c.strokeStyle='rgba(50,26,12,.6)';c.lineWidth=1.8;for(let k=0;k<5;k++){const q=1-((tm*.25+k/5+z.ph)%1),rx=L*.5*q;c.beginPath();c.ellipse(cx,disp[cx|0]+3,rx,2.6+q*3,0,0,7);c.stroke()}
+      c.strokeStyle='rgba(255,240,210,.45)';c.lineWidth=1.4;for(let k=0;k<5;k++){const q=1-((tm*.25+k/5+z.ph+.05)%1),rx=L*.5*q;c.beginPath();c.ellipse(cx,disp[cx|0]+1,rx,2+q*2,0,Math.PI*1.1,Math.PI*1.9);c.stroke()}
+      c.fillStyle='rgba(40,22,10,.25)';c.beginPath();c.ellipse(cx,disp[cx|0]+5,L*.12,2.5,0,0,7);c.fill();
+      c.restore();
+      c.save();c.beginPath();c.moveTo(pts[0][0],top(0));for(let i=1;i<pts.length;i++)c.lineTo(pts[i][0],top(i));c.strokeStyle='rgba(40,20,8,.75)';c.lineWidth=2;c.setLineDash([6,4]);c.stroke();c.setLineDash([]);c.strokeStyle='rgba(255,235,200,.4)';c.lineWidth=1;c.translate(0,-1.2);c.stroke();c.restore();
+      if(Math.random()<.08){const gx=rand(z.x0,z.x1);parts.push({k:'chunk',x:gx,y:disp[gx|0]-1,vx:(cx-gx)*.3,vy:rand(-30,-10),r:rand(1,1.8),col:sb,life:.4})}}}
+}
+/* extra terrain detail: bevelled strata, real stones, surface pebbles & tufts */
+function stonePath(c,x,y,r,seed){c.beginPath();const n=7;for(let i=0;i<n;i++){const a=i/n*6.283+seed,rr=r*(.78+.3*Math.abs(Math.sin(seed*7+i*2.3)));const px=x+Math.cos(a)*rr*1.25,py=y+Math.sin(a)*rr;i?c.lineTo(px,py):c.moveTo(px,py)}c.closePath()}
+function drawStone(c,x,y,r,seed,col){stonePath(c,x,y,r,seed);c.fillStyle=fxLG(c,0,y-r,0,y+r,[[0,shadeHex(col,1.35)],[.5,col],[1,shadeHex(col,.6)]]);c.fill();c.lineWidth=2;c.strokeStyle=shadeHex(col,.45);c.stroke();
+  c.fillStyle='rgba(255,255,255,.22)';c.beginPath();c.ellipse(x-r*.3,y-r*.45,r*.45,r*.18,-.3,0,7);c.fill()}
+function drawSurfaceDetail(c){const veg=!MAP.space&&!MAP.snow&&!MAP.volcano,pebC=shadeHex(MAP.dirt,1.25),tuft=MAP.acid?'#7a8a2a':MAP.night?'#4a5040':'#8a7a3a';
+  for(let x=6;x<W-6;x+=9){const hsh=Math.sin(x*12.9898)*43758.5453,f=hsh-Math.floor(hsh),y=disp[x];
+    if(f<.32){const r=1.2+f*5;c.fillStyle=f<.15?pebC:shadeHex(MAP.rock,1.1);c.beginPath();c.ellipse(x,y+11+f*12,r*1.3,r,0,0,7);c.fill()}
+    else if(veg&&grass[x]&&f>.86){c.strokeStyle=tuft;c.lineWidth=1.3;c.lineCap='round';c.beginPath();for(let b=-2;b<=2;b++){c.moveTo(x+b*1.5,y+1);c.lineTo(x+b*2.6+Math.sin(time*1.5+x)*1,y-4-(2-Math.abs(b))*2.2)}c.stroke()}
+    else if(MAP.space&&f>.93){c.fillStyle=`rgba(220,230,255,${.4+.4*Math.sin(time*3+x)})`;c.fillRect(x,y+4,1.5,1.5)}
+    else if(MAP.snow&&f>.9){c.fillStyle=`rgba(255,255,255,${.5+.5*Math.sin(time*4+x)})`;c.fillRect(x,y+3,1.6,1.6)}}}
 function drawRad(c,z){const k=Math.min(1,z.left/z.max)*.75+.25,pul=.85+.15*Math.sin(time*3.2),x0=Math.max(0,Math.floor(z.x-z.r)),x1=Math.min(W-1,Math.ceil(z.x+z.r)),hgt=70*U;
   let top=1e9,bot=0;for(let X=x0;X<=x1;X+=4){top=Math.min(top,disp[X]);bot=Math.max(bot,disp[X])}
   c.save();
@@ -2965,6 +3021,7 @@ function render(){
   drawPlats(ctx,false);
   drawBodies(ctx);
   drawTerrain(ctx);
+  drawZones(ctx);
   drawPlats(ctx,true);
   for(const fx of fireSpots)drawFire(ctx,{x:fx,life:2,ph:fx});
   for(const cr of crates)drawCrate(ctx,cr);
@@ -2985,7 +3042,7 @@ function render(){
   for(let i=0;i<tanks.length;i++){const t=tanks[i];if(!t.alive)continue;
     const k=t.st.scale,rk=t.recoil*3,ra=t.angle*Math.PI/180,laser=i===cur&&curW(t).laser&&phase==='aim';
     const look=t.hurt>0&&(fxLevel?t.hurt>.75:((time*20)|0)%2)?{...t.look,color:'#ffffff'}:t.look;
-    drawTank(ctx,t.x-Math.cos(ra)*rk,t.y,t.tilt,t.angle,look,k,{laser,frozen:t.frozen&&i===cur&&phase==='aim',saw:t.fx.saw>0,floats:t.fx.floats>0});
+    drawTank(ctx,t.x-Math.cos(ra)*rk,t.y+(t.sink||0),t.tilt,t.angle,look,k,{laser,frozen:t.frozen&&i===cur&&phase==='aim',saw:t.fx.saw>0,floats:t.fx.floats>0});
     if(t.mirror){ctx.save();ctx.translate(t.x,t.y-20*k);ctx.rotate(time*.8);ctx.globalAlpha=.55+.2*Math.sin(time*5);ctx.lineWidth=3;ctx.strokeStyle='#e9f6ff';ctx.fillStyle='rgba(191,230,239,.16)';ctx.beginPath();for(let q=0;q<6;q++){const a=q*Math.PI/3;ctx.lineTo(Math.cos(a)*54*k,Math.sin(a)*46*k)}ctx.closePath();ctx.fill();ctx.stroke();ctx.globalAlpha=.9;ctx.strokeStyle='#ffffff';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-30*k,-34*k);ctx.lineTo(-16*k,-38*k);ctx.stroke();ctx.restore()}
     if(t.fx.heater>0){ctx.save();ctx.globalAlpha=.25+.1*Math.sin(time*6);ctx.fillStyle='#ff7a3a';ctx.beginPath();ctx.ellipse(t.x,t.y-14*k,40*k,20*k,0,0,7);ctx.fill();ctx.restore()}
     if(t.fx.dome>0){ctx.save();ctx.globalAlpha=.22;ctx.fillStyle='#9ee22f';ctx.beginPath();ctx.ellipse(t.x,t.y,58*k,62*k,0,Math.PI,0);ctx.fill();ctx.globalAlpha=.85;ctx.lineWidth=3;ctx.strokeStyle='#9ee22f';ctx.stroke();ctx.restore()}
