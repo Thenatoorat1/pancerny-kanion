@@ -1340,6 +1340,7 @@ function drawTerrain(c){
   surfPath(c,108);c.strokeStyle=MAP.stripe2;c.lineWidth=30;c.stroke();
   surfPath(c,190);c.strokeStyle=MAP.stripe;c.lineWidth=26;c.stroke();
   c.fillStyle=terrTex(c);c.globalAlpha=.6;c.fillRect(0,minY-4,W,H-minY+8);c.globalAlpha=1;
+  for(const sc of SCORCH){const R=sc.r*1.35,g=c.createRadialGradient(sc.x,sc.y,sc.r*.2,sc.x,sc.y,R);g.addColorStop(0,'rgba(18,10,6,.62)');g.addColorStop(.6,'rgba(30,16,8,.38)');g.addColorStop(1,'rgba(30,16,8,0)');c.fillStyle=g;c.fillRect(sc.x-R,sc.y-R,R*2,R*2);const age=time-sc.t0;if(age<4&&age>=0){const a=(1-age/4)*.7;c.save();c.globalCompositeOperation='lighter';const e=c.createRadialGradient(sc.x,sc.y,sc.r*.75,sc.x,sc.y,sc.r*1.05);e.addColorStop(0,'rgba(255,120,30,0)');e.addColorStop(.6,`rgba(255,110,30,${a})`);e.addColorStop(1,'rgba(255,80,20,0)');c.fillStyle=e;c.fillRect(sc.x-R,sc.y-R,R*2,R*2);for(let q=0;q<6;q++){const an=q*1.047+sc.r,fl=.5+.5*Math.sin(time*9+q*2);c.fillStyle=`rgba(255,${150+q*12},60,${a*fl})`;c.beginPath();c.arc(sc.x+Math.cos(an)*sc.r*.92,sc.y+Math.sin(an)*sc.r*.92,1.6,0,7);c.fill()}c.restore()}}
   for(const[o,a]of[[150,.10],[240,.14],[340,.18]]){surfPath(c,o);c.lineTo(W+10,H+10);c.lineTo(-10,H+10);c.closePath();c.fillStyle=`rgba(0,0,0,${a})`;c.fill()}
   for(const b of buildings){for(let wy=b.top+26;wy<H-20;wy+=34)for(let wx=b.x0+14;wx<b.x1-22;wx+=30){const top=Math.min(disp[clamp(wx|0,0,W-1)],disp[clamp((wx+12)|0,0,W-1)]);
     if(wy>top+14){c.fillStyle='rgba(0,0,0,.42)';c.fillRect(wx,wy,12,16);if(MAP.night&&((wx*7+wy)%13)<2){c.fillStyle='rgba(255,180,80,.55)';c.fillRect(wx+2,wy+2,8,12)}}}}
@@ -1589,8 +1590,7 @@ function drawProjectile(c,x,y,vx,vy,id,s=1){
     case'mirror':c.rotate(.33);c.fillStyle='rgba(191,230,239,.7)';c.beginPath();for(let q=0;q<6;q++){const a=q*Math.PI/3;c.lineTo(Math.cos(a)*11,Math.sin(a)*9)}c.closePath();c.fill();c.stroke();c.strokeStyle='#fff';c.lineWidth=2;c.beginPath();c.moveTo(-6,3);c.lineTo(5,-4);c.stroke();break;
     case'sub':c.fillStyle='#262626';c.beginPath();c.arc(0,0,4.5,0,7);c.fill();c.stroke();c.fillStyle='#ffd23a';c.beginPath();c.arc(-5,0,2,0,7);c.fill();break;
     case'dirt':c.fillStyle='#7a5532';c.beginPath();c.arc(0,0,8,0,7);c.fill();c.stroke();c.fillStyle='#a3784c';c.beginPath();c.arc(-2,-3,2.5,0,7);c.arc(3,2,1.8,0,7);c.fill();break;
-    case'nuke':c.fillStyle='#f0b92b';rr(c,-13,-7,22,14,7);c.fill();c.stroke();c.fillStyle=INK;c.beginPath();c.arc(-2,0,4,0,7);c.fill();c.fillStyle='#f0b92b';c.beginPath();c.arc(-2,0,1.5,0,7);c.fill();
-      c.fillStyle='#262626';c.beginPath();c.moveTo(-12,-6);c.lineTo(-18,-11);c.lineTo(-9,-6);c.closePath();c.moveTo(-12,6);c.lineTo(-18,11);c.lineTo(-9,6);c.closePath();c.fill();c.stroke();break;
+    case'nuke':drawNukeShell(c);break;
   }
   c.restore();
 }
@@ -1934,7 +1934,7 @@ const lookOf=c=>({hull:c.look.hull,color:SKINS[c.look.color][1],wheels:c.look.wh
 
 const scaleMap=(m,n)=>{if(n<=2)return m;const f=n===3?1.15:1.3;return{...m,W:Math.round(m.W*f),H:Math.round(m.H*f)}};
 function startRound(){
-  evPend=null;evAct=null;evNext=Math.round(rand(3,6));clock=roundSec;nukeT=-1;nukeWinner=null;nukeMissile=null;roundElapsed=0;warned={};barrageQ=[];quakeT=0;
+  SCORCH=[];evPend=null;evAct=null;evNext=Math.round(rand(3,6));clock=roundSec;nukeT=-1;nukeWinner=null;nukeMissile=null;roundElapsed=0;warned={};barrageQ=[];quakeT=0;
   const map=mapChoice==='random'?MAPS[(Math.random()*MAPS.length)|0]:MAPS[mapChoice];
   genWorld(scaleMap(map,tanks.length));
   const n=tanks.length;let order=tanks.map((_,i)=>i).sort(()=>Math.random()-.5);
@@ -2115,8 +2115,10 @@ function fireLaser(t,w,mult){
 }
 const hitTank=(o,x,y)=>o.alive&&Math.abs(x-o.x)<=o.st.hw&&y>=o.y-o.st.hh&&y<=o.y+3;
 const groundHit=(x,y)=>{const ix=Math.round(x);return ix>=0&&ix<W&&(y>=h[ix]||(plats.length>0&&!!platHit(x,y))||(bodies.length>0&&!!bodyHit(x,y)))};
+var SCORCH=[];
 function explode(x,y,w,mult=1,rMul=1,owner=null){
   const r=Math.round(w.r*rMul);
+  if(!w.dirt&&r>8){SCORCH.push({x,y,r,t0:time});if(SCORCH.length>40)SCORCH.shift()}
   if(w.dirt)addDirt(x,y,r);else{carve(x,y,r);if(bodies.length)hitBodies(x,y,r)}
   explosions.push({x,y,r,t:0,dur:.42+r*.0025,dirt:!!w.dirt,rot:rand(0,6)});if(!w.dirt){const nE=Math.min(18,6+r*.2);for(let i=0;i<nE;i++){const a=rand(Math.PI*1.1,Math.PI*1.9),sp=rand(160,320+r*2);parts.push({k:'spark',x,y:y-4,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,life:rand(.35,.8)})}}
   shake=Math.max(shake,Math.min(18,r*.16));if(w.nuke){flash=1;mush.push({x,y:Math.min(H-4,groundAtX(x)),k:r/60,t:0,dur:4.2});const n=3*Math.max(2,tanks.filter(t=>t.alive).length);rad.push({x,r:Math.round(r*1.15),left:n,max:n});toast(T('SKAŻENIE RADIOAKTYWNE!','RADIOACTIVE FALLOUT!'))}
@@ -2318,20 +2320,73 @@ function updateWeather(dt){
 /* ---------- render ---------- */
 function powCol(f){const A=[158,42,31],B=[240,185,43],C=[158,226,47];const[a,b,t]=f<.5?[A,B,f/.5]:[B,C,(f-.5)/.5];return`rgb(${a.map((v,i)=>Math.round(v+(b[i]-v)*t)).join(',')})`}
 function starburst(c,x,y,R,n,rot,inner){c.beginPath();for(let i=0;i<n*2;i++){const r=i%2?R*inner:R,a=rot+i*Math.PI/n;c.lineTo(x+Math.cos(a)*r,y+Math.sin(a)*r)}c.closePath()}
-function drawMushroom(c,m){const k=m.k,t=m.t,g=Math.min(1,t/2.2),e=1-Math.pow(1-g,3),fade=t<m.dur-1.4?1:Math.max(0,(m.dur-t)/1.4),x=m.x,y=m.y;
-  const st=(30+120*e)*k,capW=(34+36*e)*k,capH=(20+12*e)*k,cy=y-st,wob=Math.sin(t*3)*1.5*k;
-  c.save();c.globalAlpha=fade;c.lineJoin='round';
-  const gl=c.createRadialGradient(x,cy,capH*.3,x,cy,capW*2.2);gl.addColorStop(0,`rgba(255,190,90,${.55*(1-g*.6)})`);gl.addColorStop(1,'rgba(255,120,40,0)');c.fillStyle=gl;c.beginPath();c.arc(x,cy,capW*2.2,0,7);c.fill();
-  c.fillStyle='rgba(120,100,86,.6)';c.strokeStyle='rgba(15,17,18,.35)';c.lineWidth=3;c.beginPath();c.ellipse(x,y-3*k,(60+70*e)*k,(9+5*e)*k,0,0,7);c.fill();c.stroke();
-  const sw0=(10+4*e)*k,sw1=(16+8*e)*k,sg=c.createLinearGradient(0,cy,0,y);sg.addColorStop(0,'#c9572a');sg.addColorStop(.5,'#9a5a3a');sg.addColorStop(1,'#6e4a36');c.fillStyle=sg;c.strokeStyle=INK;c.lineWidth=3;
-  c.beginPath();c.moveTo(x-sw0+wob,cy+capH*.4);c.quadraticCurveTo(x-sw0*.8,y-st*.45,x-sw1,y-2*k);c.lineTo(x+sw1,y-2*k);c.quadraticCurveTo(x+sw0*.8,y-st*.45,x+sw0+wob,cy+capH*.4);c.closePath();c.fill();c.stroke();
-  const ry=y-st*.45;c.fillStyle='#b4643a';c.beginPath();c.ellipse(x,ry,sw0*2.3,sw0*.75,0,0,7);c.fill();c.stroke();c.fillStyle='rgba(255,207,90,.55)';c.beginPath();c.ellipse(x,ry-sw0*.15,sw0*1.4,sw0*.35,0,0,7);c.fill();
-  c.fillStyle='#e2622b';c.beginPath();c.ellipse(x+wob,cy,capW,capH,0,0,7);c.fill();c.stroke();
-  c.fillStyle='#b8482a';c.beginPath();c.ellipse(x+wob,cy+capH*.45,capW*.92,capH*.45,0,0,Math.PI);c.fill();
-  if(!m.plain)for(let i=0;i<5;i++){const a=-Math.PI*.95+i*Math.PI*.95/4+Math.sin(t*2+i)*.05,bx=x+wob+Math.cos(a)*capW*.78,by=cy+Math.sin(a)*capH*.72;c.fillStyle=i%2?'#ec7a3a':'#d9592a';c.beginPath();c.arc(bx,by,capH*.42,0,7);c.fill();c.stroke()}
-  c.fillStyle='#ffcf5a';c.beginPath();c.ellipse(x+wob,cy+capH*.12,capW*.62,capH*.5,0,0,7);c.fill();
-  c.fillStyle=`rgba(255,250,225,${.85*(1-g)})`;c.beginPath();c.ellipse(x+wob,cy+capH*.1,capW*.32,capH*.26,0,0,7);c.fill();
-  c.restore()}
+/* ===== realistic mushroom cloud: flash, fireball, rising torus cap, billowing stem, condensation collar, base surge, shockwave ===== */
+function drawMushroom(c,m){
+  const k=m.k,t=m.t,x=m.x,y=m.y,dur=m.dur,fade=t<dur-1.3?1:Math.max(0,(dur-t)/1.3);
+  if(fade<=0)return;
+  const rise=1-Math.pow(1-Math.min(1,t/2.6),3),heat=Math.max(0,1-t/1.7),cool=Math.min(1,t/3);
+  const capY=y-(34+160*rise)*k,capW=(26+58*rise)*k,capH=(20+20*rise)*k,sw0=(9+5*rise)*k,sw1=(16+12*rise)*k,spread=(24+150*Math.min(1,t/2.2))*k;
+  const lerp=(a,b,q)=>a+(b-a)*q,mixc=(a,b,q)=>`rgb(${Math.round(lerp(a[0],b[0],q))},${Math.round(lerp(a[1],b[1],q))},${Math.round(lerp(a[2],b[2],q))})`;
+  const HOT=[255,236,170],FIRE=[255,128,40],EMB=[170,62,30],SMOKE=[84,70,64],DUST=[132,110,90];
+  const fireCol=heat>.5?mixc(FIRE,HOT,(heat-.5)*2):mixc(EMB,FIRE,heat*2),capTop=mixc(mixc(EMB,FIRE,.4).match(/\d+/g).map(Number),SMOKE,cool);
+  /* ground flash + shockwave (drawn straight onto the scene) */
+  c.save();c.globalCompositeOperation='lighter';
+  if(t<1.4){const q=t/1.4,R=(60+420*q)*k*.6;c.fillStyle=fxRG(c,x,y-20*k,0,R,[[0,`rgba(255,240,200,${.75*(1-q)})`],[.4,`rgba(255,170,70,${.4*(1-q)})`],[1,'rgba(255,120,40,0)']]);c.beginPath();c.arc(x,y-20*k,R,0,7);c.fill()}
+  {const gl=Math.max(.12,heat)*.55*fade;c.fillStyle=fxRG(c,x,capY,capH*.2,capW*2.3,[[0,`rgba(255,180,80,${gl})`],[1,'rgba(255,110,30,0)']]);c.beginPath();c.arc(x,capY,capW*2.3,0,7);c.fill()}
+  c.restore();
+  if(t<1.3){const q=t/1.3;c.save();c.globalAlpha=(1-q)*.85*fade;c.strokeStyle='#fff8e6';c.lineWidth=(7-5*q)*k*.5+1.5;c.beginPath();c.ellipse(x,y-4*k,(30+360*q)*k,(8+40*q)*k,0,Math.PI,0);c.stroke();
+    c.globalAlpha=(1-q)*.35*fade;c.lineWidth=3;c.beginPath();c.arc(x,y-30*k,(20+220*q)*k,Math.PI*1.05,Math.PI*1.95);c.stroke();c.restore()}
+  /* everything solid is composed on an offscreen canvas, so overlapping puffs read as one cloud */
+  const bx0=x-Math.max(capW*1.6,spread*1.15)-20*k,bx1=x+Math.max(capW*1.6,spread*1.15)+20*k,by0=capY-capH*2.2,by1=y+14*k;
+  const S=Math.min(1.6,1500/Math.max(1,bx1-bx0),1300/Math.max(1,by1-by0)),cw=Math.ceil((bx1-bx0)*S),ch=Math.ceil((by1-by0)*S);
+  const oc=drawMushroom.oc||(drawMushroom.oc=document.createElement('canvas'));if(oc.width<cw||oc.height<ch){oc.width=Math.max(cw,oc.width);oc.height=Math.max(ch,oc.height)}
+  const o=oc.getContext('2d');o.setTransform(1,0,0,1,0,0);o.clearRect(0,0,oc.width,oc.height);o.setTransform(S,0,0,S,-bx0*S,-by0*S);o.lineJoin='round';
+  const blob=(P,outline,fill)=>{o.beginPath();for(const[px,py,r]of P){o.moveTo(px+r,py);o.arc(px,py,r,0,7)}if(outline){o.lineWidth=outline;o.strokeStyle='#1c1512';o.stroke()}o.fillStyle=fill;o.fill()};
+  const colQ=t>.5&&t<3.2?Math.min(1,(t-.5)/.6)*Math.min(1,(3.2-t)/.8):0,colY=lerp(y,capY,.45);
+  const collar=(a0,a1)=>{if(!colQ)return;o.save();o.globalAlpha=.78*colQ;o.beginPath();const n=26;for(let i=0;i<n;i++){const a=a0+(a1-a0)*(i+.5)/n,r=sw1*(.3+.12*Math.sin(i*2.7+t*3));const px=x+Math.cos(a)*sw1*2.1,py=colY+Math.sin(a)*sw1*.42;o.moveTo(px+r,py);o.arc(px,py,r,0,7)}
+    o.fillStyle=fxLG(o,0,colY-sw1*.8,0,colY+sw1*.8,[[0,'#ffffff'],[.6,'#dfe5ea'],[1,'#a9b3bd']]);o.fill();o.restore()};
+  /* base surge: dust rolling out along the ground */
+  {const P=[];const n=16;for(let i=0;i<n;i++){const q=i/(n-1),px=x+(q*2-1)*spread,r=(10+14*Math.sin(q*Math.PI))*k*(.7+.5*Math.min(1,t/1.5))*(1+.15*Math.sin(t*2+i));P.push([px+Math.sin(t*1.3+i)*3*k,y-r*.55,r])}
+    blob(P,4,fxLG(o,0,y-30*k,0,y,[[0,mixc(DUST,[200,180,150],.25)],[1,mixc(DUST,[60,48,40],.5)]]));
+    const P2=P.map(([a,b,r])=>[a-r*.2,b-r*.35,r*.55]);o.globalAlpha=.35;blob(P2,0,'#e6d6bd');o.globalAlpha=1}
+  collar(Math.PI,Math.PI*2);
+  /* stem: a rising column of puffs, narrow under the cap, wider at the foot */
+  {const P=[],top=capY+capH*.3,len=Math.max(1,y-top),n=Math.max(6,Math.round(len/(9*k)));for(let i=0;i<=n;i++){const q=i/n,yy=top+len*q-((t*26*k)%(len/n)),r=lerp(sw0,sw1,q*q)*(1+.12*Math.sin(t*3+i*1.7));P.push([x+Math.sin(i*1.3+t*1.6)*2.2*k,yy,r])}
+    blob(P,4,fxLG(o,0,top,0,y,[[0,heat>.05?mixc(EMB,FIRE,heat):mixc(SMOKE,EMB,.35)],[.55,mixc(DUST,SMOKE,.4)],[1,mixc(DUST,[90,72,60],.3)]]));
+    o.globalAlpha=.3;blob(P.map(([a,b,r])=>[a-r*.3,b,r*.45]),0,'#f2dcc0');o.globalAlpha=1}
+  collar(0,Math.PI);
+  /* cap: torus of billowing puffs that rolls and cools */
+  {const P=[];const n=16;for(let i=0;i<n;i++){const a=i/n*Math.PI*2+t*.9,r=capH*(.5+.18*Math.sin(i*2.1+t*2.2));P.push([x+Math.cos(a)*capW*.78,capY+Math.sin(a)*capH*.45,r])}
+    for(let i=0;i<7;i++){const a=Math.PI+i/6*Math.PI;P.push([x+Math.cos(a)*capW*.42,capY-capH*.35+Math.sin(a)*capH*.55,capH*(.55+.12*Math.sin(i+t*2))])}
+    P.push([x,capY-capH*.1,capH*.8]);
+    blob(P,4.5,fxLG(o,0,capY-capH*1.5,0,capY+capH,[[0,capTop],[.55,heat>0?fireCol:mixc(SMOKE,EMB,.5)],[1,heat>0?mixc(HOT,FIRE,1-heat):mixc(EMB,FIRE,.55)]]));
+    /* glowing roll on the underside (fire still burning inside the cap) */
+    o.save();o.beginPath();for(const[px,py,r]of P){o.moveTo(px+r,py);o.arc(px,py,r,0,7)}o.clip();
+    const ig=Math.max(.25,heat);o.globalCompositeOperation='lighter';o.fillStyle=fxRG(o,x,capY+capH*.35,capH*.1,capW*1.1,[[0,`rgba(255,210,120,${.9*ig})`],[.5,`rgba(255,110,30,${.55*ig})`],[1,'rgba(255,80,20,0)']]);o.fillRect(x-capW*2,capY-capH*2,capW*4,capH*4);
+    o.globalCompositeOperation='source-over';
+    /* darker smoke crown and lit tops of the billows */
+    o.globalAlpha=.35+.35*cool;o.fillStyle=mixc(SMOKE,[40,34,32],.4);o.beginPath();o.ellipse(x,capY-capH*.95,capW*.95,capH*.65,0,0,7);o.fill();o.globalAlpha=1;
+    o.globalAlpha=.22;o.fillStyle=heat>.3?'#fff4c8':'#e4cfb4';o.beginPath();for(const[px,py,r]of P){if(py>capY+capH*.1)continue;o.moveTo(px-r*.25+r*.5,py-r*.32);o.arc(px-r*.25,py-r*.32,r*.5,0,7)}o.fill();o.globalAlpha=1;
+    o.restore()}
+  /* white-hot core while the fireball is young */
+  if(heat>0){o.save();o.globalCompositeOperation='lighter';o.fillStyle=fxRG(o,x,capY+capH*.15,0,capW*.75,[[0,`rgba(255,255,240,${heat})`],[.5,`rgba(255,230,150,${heat*.7})`],[1,'rgba(255,200,100,0)']]);o.beginPath();o.ellipse(x,capY+capH*.15,capW*.75,capH*.8,0,0,7);o.fill();o.restore()}
+  c.save();c.globalAlpha=fade;c.drawImage(oc,0,0,cw,ch,bx0,by0,cw/S,ch/S);c.restore();
+  /* initial blinding fireball */
+  if(t<.45){const q=t/.45;c.save();c.globalCompositeOperation='lighter';c.fillStyle=fxRG(c,x,y-14*k,0,(20+50*q)*k,[[0,'rgba(255,255,255,1)'],[.5,`rgba(255,240,180,${1-q*.5})`],[1,'rgba(255,170,60,0)']]);c.beginPath();c.arc(x,y-14*k,(20+50*q)*k,0,7);c.fill();c.restore()}
+}
+function drawNukeShell(c){
+  /* detailed tactical nuke: body with gradient, nose cone, fins, trefoil, exhaust */
+  const fl=.7+.3*Math.sin((typeof time==='number'?time:0)*40);
+  c.save();c.globalCompositeOperation='lighter';c.fillStyle=fxRG(c,-20,0,0,10*fl+4,[[0,'rgba(255,240,180,.95)'],[.5,'rgba(255,140,40,.6)'],[1,'rgba(255,90,20,0)']]);c.beginPath();c.ellipse(-22,0,12*fl+4,5,0,0,7);c.fill();c.restore();
+  c.fillStyle='#ffd36a';c.beginPath();c.moveTo(-14,-2.5);c.lineTo(-24-6*fl,0);c.lineTo(-14,2.5);c.closePath();c.fill();
+  c.lineWidth=2;c.strokeStyle=INK;
+  c.fillStyle=fxLG(c,0,-9,0,9,[[0,'#4b4f52'],[1,'#1e2022']]);c.beginPath();c.moveTo(-11,-6);c.lineTo(-19,-12);c.lineTo(-15,-6);c.closePath();c.moveTo(-11,6);c.lineTo(-19,12);c.lineTo(-15,6);c.closePath();c.fill();c.stroke();
+  c.fillStyle=fxLG(c,0,-7,0,7,[[0,'#fff1a8'],[.35,'#f0b92b'],[1,'#9a6a10']]);rr(c,-15,-7,24,14,4);c.fill();c.stroke();
+  c.fillStyle=fxLG(c,0,-7,0,7,[[0,'#cfd3d6'],[1,'#5b6064']]);c.beginPath();c.moveTo(8,-7);c.quadraticCurveTo(19,-6,21,0);c.quadraticCurveTo(19,6,8,7);c.closePath();c.fill();c.stroke();
+  c.fillStyle='#1c1d1e';c.fillRect(-13,-7,2.5,14);c.fillRect(4,-7,2.5,14);
+  c.fillStyle=INK;c.beginPath();c.arc(-3,0,1.3,0,7);c.fill();for(let i=0;i<3;i++){const a=i*Math.PI*2/3-Math.PI/2;c.beginPath();c.moveTo(-3,0);c.arc(-3,0,5,a-.5,a+.5);c.closePath();c.fill()}
+  c.fillStyle='rgba(255,255,255,.55)';c.fillRect(-12,-5.2,18,1.4);
+}
 /* ===== v1.2 detailed in-game art: crates, parachutes, bomber, saucer, fire, liquids, explosions ===== */
 function fxLG(c,x0,y0,x1,y1,st){const g=c.createLinearGradient(x0,y0,x1,y1);for(const[p,col]of st)g.addColorStop(p,col);return g}
 function fxRG(c,x,y,r0,r1,st,ox=0,oy=0){const g=c.createRadialGradient(x+ox,y+oy,r0,x,y,r1);for(const[p,col]of st)g.addColorStop(p,col);return g}
