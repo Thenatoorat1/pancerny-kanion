@@ -1,5 +1,5 @@
 // Armored Canyon (test build) – offline mode; separate cache from Pancerny Kanion in the repo root.
-const VERSION='armored-canyon-v1.3-4';
+const VERSION='armored-canyon-v1.4-1';
 const CORE=['./','./index.html','./manifest.webmanifest','./icons/icon-192.png','./icons/icon-512.png','./icons/apple-touch-icon.png','./fonts/barlow-condensed-latin-600-normal.woff2','./fonts/barlow-condensed-latin-700-normal.woff2','./fonts/barlow-condensed-latin-800-normal.woff2','./fonts/barlow-condensed-latin-ext-600-normal.woff2','./fonts/barlow-condensed-latin-ext-700-normal.woff2','./fonts/barlow-condensed-latin-ext-800-normal.woff2','./fonts/black-ops-one-latin-400-normal.woff2','./fonts/black-ops-one-latin-ext-400-normal.woff2','./fonts/fonts.css','./fonts/permanent-marker-latin-400-normal.woff2'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(VERSION).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k.startsWith('armored-canyon')&&k!==VERSION).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
